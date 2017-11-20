@@ -1,0 +1,56 @@
+{
+    "totalRow": 3,
+    "field": [
+        {
+            "key": "decription",
+            "colSpan": 3,
+            "fontSize": 16,
+            "color": "#000",
+            "position": "1-1",
+            "totalCol": 3
+        },
+        {
+            "key": "place",
+            "colSpan": 2,
+            "fontSize": 12,
+            "color": "#F96",
+            "position": "2-1",
+            "totalCol": 3
+        },
+        {
+            "key": "handle",
+            "colSpan": 1,
+            "fontSize": 12,
+            "position": "2-3",
+            "totalCol": 3,
+            "sign": [
+                {
+                    "text": "待处理",
+                    "color": "#F96",
+                    "value": 0
+                },
+                {
+                    "text": "已处理",
+                    "color": "#F0F0F0",
+                    "value": 1
+                }
+            ]
+        },
+        {
+            "key": "contact",
+            "colSpan": 1,
+            "fontSize": 12,
+            "color": "#F96",
+            "position": "3-1",
+            "totalCol": 3
+        },
+        {
+            "key": "datetime",
+            "colSpan": 2,
+            "fontSize": 12,
+            "color": "#F96",
+            "position": "3-2",
+            "totalCol": 3
+        }
+    ]
+}
