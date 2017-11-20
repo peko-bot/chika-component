@@ -46,14 +46,14 @@ $ npm start                                                           # 启动�
   app:webpack:config Creating configuration. +1s
   app:webpack:config Enable plugins for live development (HMR, NoErrors). +2ms
   app:server Enable webpack dev and HMR middleware +198ms
-  app:bin:server Server is now running at http://localhost:3000. +72ms
+  app:bin:server Server is now running at http://localhost:9099. +72ms
 ```
 
 另外项目可使用的指令：
 
 |`npm run <script>`|解释|
 |------------------|-----------|
-|`start`|服务启动  开启3000端口。|
+|`start`|服务启动  开启9099端口。|
 |`build`|将所有的模块压缩打包 （默认目录~/release）。|
 |`build-dev`|将所有的模块不压缩打包 （默认目录~/release）。|
 |`compile`|编译程序到dist目录下（默认目录~/dist）。|
