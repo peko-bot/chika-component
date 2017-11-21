@@ -8,75 +8,79 @@ export default class Calendar extends React.Component {
         super(props)
         this.state = {
             calendar_body: [],
-            state: 0, // 当前本体所在位置
+            calendar_list: [0,], // 翻页用
         }
     }
+
+    select = [];
 
     componentDidMount = () => {
         this.refresh();
     }
 
-    refresh = (position) => {
-        let {start, end} = this.props;
-        let {state} = this.state;
-        this._start = new Date(start).getDay();
-        this._end = new Date(end).getDay();
+    refresh = (position, select = []) => {
+        let {calendar_body,calendar_list} = this.state;
+        const {start,end} = this.props;
+
+        // 处理日历本体数据
+        calendar_body = this.trans_calendar_datas(start, end);
+        // 设置选中项
+        if(select.length != 0){
+            this.select = select;
+        }
+        calendar_body = this.handle_select_date(this.select, calendar_body);
 
         // 本体左右滑动事件
+        // 这里需要清除数组的，不然点多了会影响性能，暂时没做 mark
         switch(position){
             case 'left':
-                state--;
+                // 移除尾部元素
+                // calendar_list = calendar_list.splice(-1, 1);
+                for(let i = 0; i < calendar_list.length; i++){
+                    calendar_list[i]--;
+                }
+                calendar_list.push(0);
             break;
 
             case 'right':
-                state++;
-            break;
-
-            default:
-
+                // 移除头部元素
+                // if(calendar_list.length > 2){
+                    // calendar_list = calendar_list.slice(1, -1);
+                // }
+                for(let i = 0; i < calendar_list.length; i++){
+                    calendar_list[i]++;
+                }
+                calendar_list.push(0);
             break;
         }
-
-        // 日历本体数据
-        this.setState({
-            calendar_body: this.trans_calendar_datas(),
-            state
-        }, () => {
-            // 设置选中项
-            this.handle_select_date();
-            this.setState();
-        });
+        
+        this.setState({calendar_body, calendar_list});
     }
 
     /* 设置选中项
-        这里就是简单遍历，性能会有问题，mark
+        这里就是简单遍历，性能会有问题
         优化的话应该是直接确定日期在二维数组中的位置
     */
-    handle_select_date = () => {
-        const {select} = this.props;
-        let {calendar_body} = this.state;
-
-        // 选中项一般是异步加载，容错
-        if(select.length == 0) return;
-
+    handle_select_date = (select, calendar_body) => {
+        // mark
         for(let row of calendar_body){
             for(let col of row){
                 let date_col = new Date(col.dateStr).getTime();
                 for(let item of select){
                     let date_item = new Date(item.date).getTime();
-                    if(date_col === date_item){
+                    if(date_col === date_item && col.color !== '#949494'){
                         col.background_color = item.color;
                         col.color = '#FFF';
                     }
                 }
             }
         }
+        return calendar_body;
     }
 
     /* 将起止日期转化成二维数组 */
-    trans_calendar_datas = () => {
+    trans_calendar_datas = (start, end) => {
         let calendar_datas = [];
-        const {start, end} = this.props;
         const start_timeStamp = new Date(start);
         const end_timeStamp = new Date(end);
         const diffDays = this.getDaysByDateString(start, end);
@@ -132,6 +136,7 @@ export default class Calendar extends React.Component {
 
     // 获得两个日期间隔天数
     getDaysByDateString = (dateString1, dateString2) => {
+        if(dateString1 === undefined || dateString2 === undefined) return 1;
         let startDate = Date.parse(dateString1.replace('/-/g','/'));
         let endDate = Date.parse(dateString2.replace('/-/g','/'));
         let diffDate = (endDate - startDate) + 1 * 24 * 60 * 60 * 1000;
@@ -144,7 +149,7 @@ export default class Calendar extends React.Component {
     }
 
     render() {
-        let {calendar_body,state} = this.state;
+        let {calendar_body,calendar_list} = this.state;
         let head = [];
         head.push(
             <tr>
@@ -190,10 +195,15 @@ export default class Calendar extends React.Component {
 
         return (
             <div className='Calendar'>
-                {/* <div className='container' style={{left: state*100+'%'}}> */}
-                <div className='container'>
-                    {table}
-                </div>
+                {
+                    calendar_list.map(item=>{
+                        return (
+                            <div className='container' style={{left: item*-100+'%'}}>
+                                {table}
+                            </div>
+                        )
+                    })
+                }
             </div>
         )
     }

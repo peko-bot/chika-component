@@ -1,4 +1,7 @@
-.Calendar {}
+.Calendar {
+    /* overflow-x: hidden;
+    overflow-y: auto; */
+}
 
 .Calendar .week-name {
     width: 100%;
@@ -19,6 +22,7 @@
 }
 
 .Calendar .container {
-    position: relative;
+    position: fixed;
+    width: 100%;
     transition: left 0.5s;
 }
