@@ -3,18 +3,17 @@ import React from 'react'
 import Calendar from '../../component/Calendar/Calendar'
 import './css/Calendar_demo.css'
 
-class Calendar_demo extends React.Component {
+export default class Calendar_demo extends React.Component {
     constructor(props) {
         super(props);
 
         let date = new Date();
         let end = T.clock(date).fmt('YYYY-MM-DD');
         let start = T.clock(new Date(date.setMonth(date.getMonth() - 1))).fmt('YYYY-MM-DD');
-
         this.state = {
+            select: [],
             start,
             end,
-            select: [],
         }
     }
 
@@ -23,33 +22,35 @@ class Calendar_demo extends React.Component {
             key: 'calendar_demo',
             f: 'json',
             success: (select) => {
-                this.setState({select}, () => {
-                    this.calendar_ins.refresh();
+                /* 调用refresh方法一定要在模块页刷新state之后 */
+                this.setState({}, () => {
+                    this.calendar_ins.refresh(null, select);
                 });
             }
         });
     }
 
     date_onChange = (type) => {
-        const {start,end} = this.state;
+        let {start,end} = this.state;
         let start_time = new Date(start);
         let end_time = new Date(end);
         let position = '';
 
         switch(type){
             case 'last':
-                this.state.start = T.clock(new Date(start_time.setMonth(start_time.getMonth() - 1))).fmt('YYYY-MM-DD');
-                this.state.end = T.clock(new Date(end_time.setMonth(end_time.getMonth() - 1))).fmt('YYYY-MM-DD');
+                start = T.clock(new Date(start_time.setMonth(start_time.getMonth() - 1))).fmt('YYYY-MM-DD');
+                end = T.clock(new Date(end_time.setMonth(end_time.getMonth() - 1))).fmt('YYYY-MM-DD');
                 position = 'left';
             break;
 
             case 'next':
-                this.state.start = T.clock(new Date(start_time.setMonth(start_time.getMonth() + 1))).fmt('YYYY-MM-DD');
-                this.state.end = T.clock(new Date(end_time.setMonth(end_time.getMonth() + 1))).fmt('YYYY-MM-DD');
+                start = T.clock(new Date(start_time.setMonth(start_time.getMonth() + 1))).fmt('YYYY-MM-DD');
+                end = T.clock(new Date(end_time.setMonth(end_time.getMonth() + 1))).fmt('YYYY-MM-DD');
                 position = 'right';
             break;
         }
-        this.setState({}, () => {
+        /* 调用refresh方法一定要在模块页刷新state之后 */
+        this.setState({start, end}, () => {
             this.calendar_ins.refresh(position);
         });
     }
@@ -59,17 +60,16 @@ class Calendar_demo extends React.Component {
     }
 
     render() {
-        const {start,end,select} = this.state;
+        const {select,start,end} = this.state;
 
         return (
             <div className='Calendar_demo'>
-                <div onClick={()=>this.date_onChange('last')}>上个月</div>
-                <div onClick={()=>this.date_onChange('next')}>下个月</div>
+                <div onClick={()=>this.date_onChange('last')} style={{float:'left'}}>上个月</div>
+                <div onClick={()=>this.date_onChange('next')} style={{float:'right'}}>下个月</div>
+                <div style={{clear:'both'}}></div>
                 <div>{`${start} ${end}`}</div>
-                <Calendar start={start} end={end} onChange={this.onChange} ref={instance=>this.calendar_ins=instance} select={select} />
+                <Calendar onChange={this.onChange} start={start} end={end} ref={instance=>this.calendar_ins=instance} />
             </div>
         )
     }
 }
-
-export default Calendar_demo
