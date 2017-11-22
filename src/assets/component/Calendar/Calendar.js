@@ -121,8 +121,10 @@ export default class Calendar extends React.Component {
             */
             if(start_timeStamp.getTime() <= start_time && end_timeStamp.getTime() >= start_time){
                 param.color = '#000';
+                param.disabled = false;
             }else{
                 param.color = '#949494';
+                param.disabled = true;
             }
             calendar_datas[row][count % 7] = param;
             
@@ -173,7 +175,7 @@ export default class Calendar extends React.Component {
                     {
                         item.map(jtem=>{
                             return (
-                                <td onClick={jtem.color?()=>this.handle_td_click(jtem):null}>
+                                <td onClick={!jtem.disabled?()=>this.handle_td_click(jtem):null}>
                                     <div className='cal-text' style={{color: jtem.color,background:jtem.background_color}}>
                                         <span>{jtem.date}</span>
                                     </div>
