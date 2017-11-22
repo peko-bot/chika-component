@@ -32,4 +32,4 @@
 
 演示效果
 -
-![img](https://github.com/zy410419243/react-scroll/blob/master/demo.gif)
+![img](https://github.com/zy410419243/react-mobile-component/blob/master/src/assets/component/Swiper/demo_swiper.gif)
