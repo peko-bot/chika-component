@@ -11,7 +11,7 @@ export default class Button extends React.Component {
     static defaultProps = {
         type: 'primary',
         text: 'test',
-        width: 50,
+        width: 60,
         height: 28,
     }
 
@@ -24,8 +24,8 @@ export default class Button extends React.Component {
         const {text, type, children, style, width, height} = this.props;
 
         return (
-            <div className='Button' style={style?style:{width, height}}>
-                <button className={`common ${type}`} onClick={this.handle_click}>
+            <div className='Button'>
+                <button className={`common ${type}`} onClick={this.handle_click} style={style?style:{width, height}}>
                     <span>{children === undefined ? text : children}</span>
                 </button>
             </div>

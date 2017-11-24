@@ -1,6 +1,5 @@
 .Button {
-    width: 50px;
-    height: 28px;
+    display: inline;
 }
 
 .Button .common {
