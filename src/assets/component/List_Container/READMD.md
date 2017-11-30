@@ -74,14 +74,14 @@
 | bind | 长按事件绑定的地方。上面的例子是绑在整块模版上，于是长按模板就能触发事件 | Boolean | true |
 | format | 字段为日期时，格式化字符串 | string | YYYY-MM-DD |
 | data-key | 物理字段名 | string，需要和接口中的字段对应 | 无 |
-| bindKey | 如果data-key被占用了，可以把这个属性放到Container上，<Container bindKey='data-test' /> ,于是现在绑定物理字段名的key变成data-test了 | string | 'data-key' |
+| bindKey | 如果data-key被占用了，可以把这个属性放到Container上，    ``` <Container bindKey='data-test' />``` ,于是现在绑定物理字段名的key变成data-test了 | string | 'data-key' |
 | tcid | 请求配置表的id，由于接口还没写好，这个参数暂时没用 | Number | 无 |
 
 ## 已实现的控件类型
 | ControlType | 说明 |
 | :---: | :---: |
-| '1' | 文本框 |
-| '2' | 单日期选择 |
-| '3' | 下拉框 |
+| 1 | 文本框 |
+| 2 | 单日期选择 |
+| 3 | 下拉框 |
 
 其中1、2是引用antd-mobile里的
