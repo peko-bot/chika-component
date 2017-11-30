@@ -1,0 +1,18 @@
+.List_Container {
+    position: relative;
+    overflow-x: hidden;
+}
+
+.List_Container .content {
+    will-change: transform;
+    position: relative;
+    top: 0;
+    transition: left .5s cubic-bezier(.645, .045, .355, 1);
+}
+
+.List_Container .edit-content {
+    position: absolute;
+    top: 0;
+    transition: left .5s cubic-bezier(.645, .045, .355, 1);
+    width: 100%;
+}
