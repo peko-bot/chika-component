@@ -1,0 +1,12 @@
+.List_Container_demo {
+    background: #F0F0F0;
+    overflow: auto;
+}
+
+.List_Container_demo .item {
+    background: #FFF;
+    padding: 10px;
+    margin: 10px 0;
+    width: 100%;
+    min-height: 80px;
+}
