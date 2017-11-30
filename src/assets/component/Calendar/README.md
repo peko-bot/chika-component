@@ -18,5 +18,4 @@
 调用refresh方法一定要在模块页刷新state之后  
 
 ## 演示效果
--
 ![img](https://github.com/zy410419243/react-mobile-component/blob/master/src/assets/component/Calendar/demo.gif)
