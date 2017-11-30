@@ -55,7 +55,6 @@
                   </div>
                   <div>
                       <span>测试字段4：</span>
-                      {/* format需要写在最下层 */}
                       <span data-key='CREATETIME' format='YYYY-MM-DD'>CREATETIME</span>
                   </div>
               </div>
@@ -70,4 +69,20 @@
   ![img](https://github.com/zy410419243/react-mobile-component/blob/master/src/assets/component/List_Container/demo_img/demo_list_container.gif)
 
 ## API
-   施工中
+| 参数 | 说明 | 类型 | 默认值 |
+| :---: | --- | :---: | :---: |
+| bind | 长按事件绑定的地方。上面的例子是绑在整块模版上，于是长按模板就能触发事件 | Boolean | true |
+| format | 字段为日期时，格式化字符串 | string | YYYY-MM-DD |
+| data-key | 物理字段名 | string，需要和接口中的字段对应 | 无 |
+| bindKey | 如果data-key被占用了，可以把这个属性放到Container上，<Container bindKey='data-test' /> ,于是现在绑定物理字段名的key变成data-test了 | string | 'data-key' |
+| tcid | 请求配置表的id，由于接口还没写好，这个参数暂时没用 | Number | 无 |
+
+## 控件类型
+| ControlType | 说明 |
+| :---: | :---: |
+| '1' | 文本框 |
+| '2' | 单日期选择 |
+| '3' | 下拉框 |
+
+这里得注意这个type，写在switch里的就是单引号  
+其中1、2是引用antd-mobile里的
