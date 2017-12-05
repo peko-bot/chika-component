@@ -16,3 +16,24 @@
     transition: left .5s cubic-bezier(.645, .045, .355, 1);
     width: 100%;
 }
+
+.List_Container .search-drawer {
+    position: absolute;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.List_Container .search-drawer .am-drawer-sidebar {
+    background-color: #fff;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.List_Container .search-drawer .am-drawer-sidebar .am-list {
+    /* width: 300px; */
+    padding: 0;
+}
+
+/* .List_Container .search-drawer .am-drawer-draghandle{
+    width: 30px;
+} */
