@@ -1,7 +1,7 @@
 import React from 'react'
 
 import Button from '../Button/Button'
-import {Modal,DatePicker,List,InputItem,Drawer,NavBar,Icon,Picker} from 'antd-mobile'
+import {Modal,DatePicker,List,InputItem,Drawer,NavBar,Icon,Picker,Toast} from 'antd-mobile'
 const operation = Modal.operation;
 import {createForm} from 'rc-form'
 
@@ -22,7 +22,7 @@ class List_Container extends React.Component {
             search_field_open: false, // 搜索面板是否打开
             search_param: {}, // 搜索参数
             detail_config: [], // 详情页配置
-            detail_item: {}, // 单个详情页数据
+            // detail_item: {}, // 单个详情页数据
         }
 
         this.children = [] // 遍历模板根据数据渲染 reactNode
@@ -34,30 +34,45 @@ class List_Container extends React.Component {
     }
 
     componentDidMount = () => {
-        this.bind_touch_direction();
+        this.bind_touch_direction(this.content, direction => {
+            switch(direction){
+                case 'toLeft':
+                    this.handle_search_change();
+                break;
+            }
+        });
+
+        this.bind_touch_direction(this.edit_content, direction => {
+            if(this.pageType == 'detail')
+                switch(direction){
+                    case 'toLeft':
+                        this.handle_detail_pagination('next');
+                    break;
+
+                    case 'toRight':
+                        this.handle_detail_pagination('last');
+                    break;
+                }
+        });
+
         this.get_config();
     }
 
     // 绑定 判断滑动方向 事件
-    bind_touch_direction = () => {
+    bind_touch_direction = (ref, method) => {
         let startX, startY, endX, endY;
-        document.addEventListener('touchstart', (e) => {
+        ref.addEventListener('touchstart', e => {
             startX = e.touches[0].pageX;
             startY = e.touches[0].pageY;
         });
 
-        document.addEventListener('touchend', (e) => {
+        ref.addEventListener('touchend', e => {
             endX = e.changedTouches[0].pageX;
             endY = e.changedTouches[0].pageY;
 
             let direction = this.getDirection(startX, startY, endX, endY);
 
-            if(this.pageType == 'list')
-                switch(direction){
-                    case 'toLeft':
-                        this.handle_search_change();
-                    break;
-                }
+            method(direction);
         });
     }
 
@@ -131,6 +146,11 @@ class List_Container extends React.Component {
                 const {data} = result;
 
                 this.listDatas = data;
+                // 详情页排序
+                // for(let i = 0; i < this.listDatas.length; i++){
+                //     let item = this.listDatas[i];
+                //     item.detail_order = i;
+                // }
 
                 this.children = [];
                 for(let item of data){
@@ -140,9 +160,33 @@ class List_Container extends React.Component {
                 }
 
                 // 搜索后关闭面板 mark
-                Object.keys(search_param).length === 0 ? this.setState() : this.handle_search_change();
+                this.state.search_field_open ? this.handle_search_change() : this.setState();
+                // Object.keys(search_param).length === 0 ? this.setState() : this.handle_search_change();
             }
         })
+    }
+
+
+    /* 处理详情页数据排序，用于过渡动画
+        先找到对应value所在的index，然后根据index加入order属性
+        left: order * -100%
+    */
+    handle_detail_datas = (datas, value) => {
+        let index = -1;
+        for(let i = 0; i < datas.length; i++){
+            let item = datas[i];
+            if(item[this.mainKey] == value){
+                index = i;
+                break;
+            }
+        }
+
+        for(let i = 0, order = -index; i < datas.length; i++, order++){
+            let item = datas[i];
+            item.detail_order = order;
+        }
+
+        return datas;
     }
 
     /* 
@@ -152,9 +196,11 @@ class List_Container extends React.Component {
         处理逻辑有冗余 mark
     */
     handle_item_edit = (mainValue, type) => {
-        let {input_datas, select_datas, date_datas, edit_config, detail_config, detail_item} = this.state;
+        let {input_datas, select_datas, date_datas, edit_config, detail_config, currentState} = this.state;
 
         this.pageType = type;
+
+        this.listDatas = this.handle_detail_datas(this.listDatas, mainValue);
 
         for(let item of this.listDatas){
             if(item[this.mainKey] == mainValue){
@@ -163,27 +209,33 @@ class List_Container extends React.Component {
                     
                     for(let key in item){
                         if(key == FName && jtem.IsAdd === 'True'){ // IsVisiable是在列表中的显隐，现在由模板绑定字段控制。这里的是编辑页面
-                            if(type == 'edit'){
-                                // 初始化控件值
-                                switch(jtem.ControlType){
-                                    case '1': 
-                                        input_datas[key] = item[key];
-                                    break;
-                                    
-                                    case '2':
-                                        date_datas[key] = new Date(item[key]);
-                                    break;
-                                    
-                                    case '3':
-                                        select_datas[key] = item[key];
-                                    break;
-                                }
-                            }else if(type == 'add'){
-                                input_datas = {};
-                                select_datas = {};
-                                date_datas = {};
-                            }else if(type == 'detail'){
-                                detail_item[key] = item[key];
+                            switch(type){
+                                case 'edit': 
+                                    // 初始化控件值
+                                    switch(jtem.ControlType){
+                                        case '1': 
+                                            input_datas[key] = item[key];
+                                        break;
+                                        
+                                        case '2':
+                                            date_datas[key] = new Date(item[key]);
+                                        break;
+                                        
+                                        case '3':
+                                            select_datas[key] = item[key];
+                                        break;
+                                    }
+                                break;
+
+                                case 'add':
+                                    input_datas = {};
+                                    select_datas = {};
+                                    date_datas = {};
+                                break;
+
+                                // case 'detail':
+                                //     detail_item = item;
+                                // break;
                             }
 
                             // 初始化配置属性
@@ -220,11 +272,11 @@ class List_Container extends React.Component {
 
                 /* 查看详情
                     这里没必要用fastclick */
-                child.props.onClick = (e) => {
+                child.props.onClick = e => {
                     this.handle_item_edit(mainKey, 'detail');
                 }
 
-                child.props.onTouchStart = (e) => {
+                child.props.onTouchStart = e => {
                     // 引入swiper用
                     // e.preventDefault();
                     timer = setTimeout(() => {
@@ -281,13 +333,12 @@ class List_Container extends React.Component {
             if (!error) {
                 // 提交数据
                 console.log(this.props.form.getFieldsValue());
-                // console.log(this.state)
                 // 刷新列表
                 this.search();
                 // 过渡动画，重置数据
                 this.reset();
             } else {
-                alert('Validation failed');
+                // Toast.info(this.props.form.getFieldError(FName).join('、'), 1.5, null, true);
             }
         });
     }
@@ -298,19 +349,29 @@ class List_Container extends React.Component {
     }
 
     reset = (type) => {
-        this.pageType = 'list';
+        let {currentState} = this.state;
         // 切换页面时回到顶部
         window.scrollTo(0, 1);
-        // if(type != 'detail') this.children = [];
 
         this.setState({currentState: 0}, () => {
-            this.state.edit_config = [];
-            this.state.detail_config = [];
+            this.pageType = 'list';
+            // 500ms为过渡动画效果
+            setTimeout(() => {
+                this.state.edit_config = [];
+                this.state.detail_config = [];
+                // this.state.detail_item = {};
+
+                this.setState();
+            }, 500);
         });
     }
 
     delete = () => {
         console.log('删除被点击了')
+    }
+
+    handle_form_error = (FName) => {
+        Toast.info(this.props.form.getFieldError(FName).join('、'), 1.5, null, true);
     }
 
     handle_input = (e, item, key) => {
@@ -355,8 +416,8 @@ class List_Container extends React.Component {
     //6. 数值控件 7. TextArea 8.隐藏域hidden 9.时间控件（时间：2012-01-01 00:00:00）
     //10.行政区划Ztree(支持多个) 11.部门Ztree(支持多个) 12.单、多附件上传 13.可输可选 14.地图坐标选取
     /* 搜索、详情、新增/编辑，控件类型都在这里处理 */
-    handle_ControlType = (item, type) => {
-        const {input_datas, select_datas, date_datas, search_param, detail_item} = this.state;
+    handle_ControlType = (item, type, detail_item) => {
+        const {input_datas, select_datas, date_datas, search_param} = this.state;
         const {FName, FValue, DateFormat = 'YYYY-MM-DD', ForeignData, DefaultValue, IsNull, Regular, MaxLen, MinLen} = item;
         const {getFieldProps, getFieldError} = this.props.form;
 
@@ -383,7 +444,7 @@ class List_Container extends React.Component {
                 element = type == 'search' ? (
                     <InputItem onChange={e => this.handle_input(e, 'search_param', FName)} value={search_param[FName]} clear placeholder='请输入'>{FValue}</InputItem>
                 ) : (
-                    <InputItem {...getFieldProps(FName, option)} error={!!getFieldError(FName)} onErrorClick={() => {alert(getFieldError(FName).join('、'))}} clear placeholder='请输入'>{FValue}</InputItem>
+                    <InputItem {...getFieldProps(FName, option)} error={!!getFieldError(FName)} onErrorClick={() => this.handle_form_error(FName)} clear placeholder='请输入'>{FValue}</InputItem>
                 );
             break;
 
@@ -401,7 +462,7 @@ class List_Container extends React.Component {
                         <List.Item arrow='horizontal'>{FValue}</List.Item>
                     </DatePicker>
                 ) : (
-                    <DatePicker {...getFieldProps(FName, option)} error={!!getFieldError(FName)} onErrorClick={() => {alert(getFieldError(FName).join('、'))}}>
+                    <DatePicker {...getFieldProps(FName, option)} error={!!getFieldError(FName)} onErrorClick={() => this.handle_form_error(FName)}>
                         <List.Item arrow='horizontal'>{FValue}</List.Item>
                     </DatePicker>
                 );
@@ -420,7 +481,7 @@ class List_Container extends React.Component {
                         <List.Item arrow='horizontal'>{FValue}</List.Item>
                     </Picker>
                 ) : (
-                    <Picker extra='请选择' data={ForeignData} cols={1} {...getFieldProps(FName, option)} error={!!getFieldError(FName)} onErrorClick={() => {alert(getFieldError(FName).join('、'))}}>
+                    <Picker extra='请选择' data={ForeignData} cols={1} {...getFieldProps(FName, option)} error={!!getFieldError(FName)} onErrorClick={() => this.handle_form_error(FName)}>
                         <List.Item arrow='horizontal'>{FValue}</List.Item>
                     </Picker>
                 );
@@ -442,7 +503,22 @@ class List_Container extends React.Component {
 
     // 详情页 上一条/下一条
     handle_detail_pagination = (type) => {
-        console.log(this.state)
+        switch(type){
+            case 'next': // 上一条
+                for(let i = 0; i < this.listDatas.length; i++){
+                    let item = this.listDatas[i];
+                    item.detail_order--;
+                }
+            break;
+
+            case 'last': // 下一条
+                for(let i = 0; i < this.listDatas.length; i++){
+                    let item = this.listDatas[i];
+                    item.detail_order++;
+                }
+            break;
+        }
+        this.setState();
     }
 
     render() {
@@ -459,9 +535,9 @@ class List_Container extends React.Component {
                     })
                 }
                 <List.Item>
-                    <div style={{textAlign:'center'}}>
-                        <Button type='primary' onChange={this.search} style={{width:110,height:30,marginRight:30}}>确定</Button>
-                        <Button type='simple' onChange={this.handle_search_change} style={{width:110,height:30}}>返回</Button>
+                    <div style={{textAlign: 'center'}}>
+                        <Button type='primary' onChange={this.search} style={{width: 110,height: 30,marginRight: 30}}>确定</Button>
+                        <Button type='simple' onChange={this.handle_search_change} style={{width: 110,height: 30}}>返回</Button>
                     </div>
                 </List.Item>
             </List>
@@ -491,28 +567,37 @@ class List_Container extends React.Component {
                 }
 
                 <List.Item>
-                    <div style={{textAlign:'center'}}>
-                        <Button type='primary' onChange={this.save} style={{width:110,height:30,marginRight:30}}>保存</Button>
-                        <Button type='simple' onChange={this.back} style={{width:110,height:30}}>返回</Button>
+                    <div style={{textAlign: 'center'}}>
+                        <Button type='primary' onChange={this.save} style={{width: 110,height: 30,marginRight: 30}}>保存</Button>
+                        <Button type='simple' onChange={this.back} style={{width: 110,height: 30}}>返回</Button>
                     </div>
                 </List.Item>
             </List>
         );
 
+        /* 详情页 */
         let detail_content = (
-            <List>
+            <div>
                 {
-                    detail_config.map(item => {
-                        return this.handle_ControlType(item, 'detail');
+                    this.listDatas.map(jtem => {
+                        return (
+                            <List className='detail-content' style={{left: (jtem.detail_order * 100 + '%')}}>
+                                {
+                                    detail_config.map(item => {
+                                        return this.handle_ControlType(item, 'detail', jtem);
+                                    })
+                                }
+
+                                <List.Item>
+                                    <div style={{textAlign: 'center'}}>
+                                        <Button type='simple' onChange={this.back} style={{width: 110,height: 30}}>返回上一级</Button>
+                                    </div>
+                                </List.Item>
+                            </List>
+                        );
                     })
                 }
-
-                <List.Item>
-                    <div style={{textAlign:'center'}}>
-                        <Button type='simple' onChange={this.back} style={{width:110,height:30}}>返回上一级</Button>
-                    </div>
-                </List.Item>
-            </List>
+            </div>
         );
 
         return (
@@ -525,15 +610,15 @@ class List_Container extends React.Component {
                 <Drawer open={search_field_open} onOpenChange={this.handle_search_change} className='search-drawer' sidebar={sidebar} position='right' />
 
                 {/* 模板渲染 */}
-                <div className='content' style={{left: currentState * 100 + '%'}}>
+                <div className='content' style={{left: currentState * 100 + '%'}} ref={ref => this.content = ref}>
                     {children}
                 </div>
 
-                {/* 新增/修改/详情页 */}
-                <div className='edit-content' style={{left: ((currentState + 1) * 1) * 100 + '%'}}>
-                    {/* {last} */}
-                    {this.pageType == 'detail' ? detail_content: edit_content}
-                    {/* {next} */}
+                {/* 新增/修改/详情 */}
+                <div className='edit-content' style={{left: (currentState + 1) * 100 + '%'}} ref={ref => this.edit_content = ref}>
+                    {last}
+                    {this.pageType == 'detail' ? detail_content : edit_content}
+                    {next}
                 </div>
             </div>
         )

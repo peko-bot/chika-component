@@ -8,9 +8,17 @@
     position: relative;
     top: 0;
     transition: left .5s cubic-bezier(.645, .045, .355, 1);
+    overflow-x: hidden;
 }
 
 .List_Container .edit-content {
+    position: absolute;
+    top: 0;
+    transition: left .5s cubic-bezier(.645, .045, .355, 1);
+    width: 100%;
+}
+
+.List_Container .detail-content {
     position: absolute;
     top: 0;
     transition: left .5s cubic-bezier(.645, .045, .355, 1);
