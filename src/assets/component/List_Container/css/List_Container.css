@@ -1,6 +1,7 @@
 .List_Container {
     position: relative;
     overflow-x: hidden;
+    min-height: 100%;
 }
 
 .List_Container .content {
@@ -66,6 +67,5 @@
 }
 
 .List_Container .search-drawer .am-drawer-sidebar .am-list {
-    /* width: 300px; */
     padding: 0;
 }

@@ -22,7 +22,6 @@ class List_Container extends React.Component {
             search_field_open: false, // 搜索面板是否打开
             search_param: {}, // 搜索参数
             detail_config: [], // 详情页配置
-            // detail_item: {}, // 单个详情页数据
         }
 
         this.children = [] // 遍历模板根据数据渲染 reactNode
@@ -31,6 +30,8 @@ class List_Container extends React.Component {
         this.mainKey = '' // 搜索主键 string
         this.config = [] // 配置
         this.pageType = 'list' // 当前页面状态，列表页为list，编辑页为edit,详情页为detail,新增页为add
+        this.detail_next = false // 详情页是否还有下一页，true表示还有下一页
+        this.detail_last = false // 详情页是否还有上一页，true表示还有上一页
     }
 
     componentDidMount = () => {
@@ -43,16 +44,20 @@ class List_Container extends React.Component {
         });
 
         this.bind_touch_direction(this.edit_content, direction => {
-            if(this.pageType == 'detail')
+            if(this.pageType == 'detail'){
+                let {detail_next, detail_last} = this.handle_detail_next();
                 switch(direction){
                     case 'toLeft':
-                        this.handle_detail_pagination('next');
+                        if(detail_next)
+                            this.handle_detail_pagination('next', detail_next);
                     break;
 
                     case 'toRight':
-                        this.handle_detail_pagination('last');
+                        if(detail_last)
+                            this.handle_detail_pagination('last', detail_last);
                     break;
                 }
+            }
         });
 
         this.get_config();
@@ -147,10 +152,10 @@ class List_Container extends React.Component {
 
                 this.listDatas = data;
                 // 详情页排序
-                // for(let i = 0; i < this.listDatas.length; i++){
-                //     let item = this.listDatas[i];
-                //     item.detail_order = i;
-                // }
+                for(let i = 0; i < this.listDatas.length; i++){
+                    let item = this.listDatas[i];
+                    item.detail_order = i;
+                }
 
                 this.children = [];
                 for(let item of data){
@@ -502,7 +507,11 @@ class List_Container extends React.Component {
     }
 
     // 详情页 上一条/下一条
-    handle_detail_pagination = (type) => {
+    handle_detail_pagination = (type, detail) => {
+        if(!detail) return;
+
+        let {detail_next, detail_last} = this.state;
+
         switch(type){
             case 'next': // 上一条
                 for(let i = 0; i < this.listDatas.length; i++){
@@ -518,11 +527,24 @@ class List_Container extends React.Component {
                 }
             break;
         }
+
         this.setState();
     }
 
+    // 判断是否有上一条/下一条
+    handle_detail_next = () => {
+        let [detail_last, detail_next] = [false, false];
+        let len = this.listDatas.length;
+        if(len != 0){
+            detail_last = !!this.listDatas[0].detail_order;
+            detail_next = !!this.listDatas[len - 1].detail_order;
+        }
+
+        return {detail_last, detail_next};
+    }
+
     render() {
-        const {children, config} = this;
+        let {children, config} = this;
         const {currentState, edit_config, search_field_open, detail_config} = this.state;
         const {height = document.documentElement.clientHeight || document.body.clientHeight} = this.props;
 
@@ -543,16 +565,19 @@ class List_Container extends React.Component {
             </List>
         );
 
+        let param = this.handle_detail_next();
+        let [detail_last, detail_next] = [param.detail_last, param.detail_next];
+
         /* 详情页上一条数据 */
         let last = (
-            <div className='extend-drawer left' onClick={() => this.handle_detail_pagination('last')} style={{display: this.pageType == 'detail' ? '' : 'none'}}>
+            <div className='extend-drawer left' onClick={() => this.handle_detail_pagination('last', detail_last)} style={{display: this.pageType == 'detail' && detail_last ? '' : 'none'}}>
                 <img src='./assets/List_Container/arrow-left.png' />
             </div>
         );
 
         /* 详情页下一条数据 */
         let next = (
-            <div className='extend-drawer right' onClick={() => this.handle_detail_pagination('next')} style={{display: this.pageType == 'detail' ? '' : 'none'}}>
+            <div className='extend-drawer right' onClick={() => this.handle_detail_pagination('next', detail_next)} style={{display: this.pageType == 'detail' && detail_next ? '' : 'none'}}>
                 <img src='./assets/List_Container/arrow-right.png' />
             </div>
         );
@@ -601,13 +626,13 @@ class List_Container extends React.Component {
         );
 
         return (
-            <div className='List_Container' style={{minHeight: height}}>
+            <div className='List_Container'>
                 {/* 触发搜索的方块 */}
                 <div className='extend-drawer right' onClick={this.handle_search_change} style={{display: search_field_open || this.pageType != 'list' ? 'none' : ''}}>
                     <img src='./assets/List_Container/arrow-left.png' />
                 </div>
                 {/* 搜索面板 */}
-                <Drawer open={search_field_open} onOpenChange={this.handle_search_change} className='search-drawer' sidebar={sidebar} position='right' />
+                <Drawer open={search_field_open} onOpenChange={this.handle_search_change} className='search-drawer' sidebar={sidebar} position='right' sidebarStyle={{width: '77%'}} />
 
                 {/* 模板渲染 */}
                 <div className='content' style={{left: currentState * 100 + '%'}} ref={ref => this.content = ref}>
