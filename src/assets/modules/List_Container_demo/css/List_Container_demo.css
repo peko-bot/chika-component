@@ -1,6 +1,9 @@
 .List_Container_demo {
     background: #F0F0F0;
-    overflow: auto;
+    position: relative;
+    overflow-x: hidden;
+    /* overflow: auto;
+    height: 100%; */
 }
 
 .List_Container_demo .item {
