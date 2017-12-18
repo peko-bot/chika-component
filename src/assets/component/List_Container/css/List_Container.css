@@ -1,28 +1,26 @@
 .List_Container {
-    position: relative;
-    overflow-x: hidden;
-    min-height: 100%;
+    /* position: relative; */
+    overflow-x: auto;
 }
 
 .List_Container .content {
-    will-change: transform;
     position: relative;
     top: 0;
-    transition: left .5s cubic-bezier(.645, .045, .355, 1);
+    transition: all .5s cubic-bezier(.645, .045, .355, 1);
     overflow-x: hidden;
 }
 
 .List_Container .edit-content {
     position: absolute;
     top: 0;
-    transition: left .5s cubic-bezier(.645, .045, .355, 1);
+    transition: all .5s cubic-bezier(.645, .045, .355, 1);
     width: 100%;
 }
 
 .List_Container .detail-content {
-    position: absolute;
+    position: relative;
     top: 0;
-    transition: left .5s cubic-bezier(.645, .045, .355, 1);
+    transition: all .5s cubic-bezier(.645, .045, .355, 1);
     width: 100%;
 }
 
@@ -31,9 +29,8 @@
     z-index: 1;
     width: 40px;
     height: 100px;
-    top: calc((100% - 100px) / 2);
+    /* top: calc((100% - 100px) / 2); */
     background: rgba(50, 50, 50, .3);
-    /* right: 0; */
     border-radius: 5px 0 0 5px;
     color: #FFF;
     display: flex;
@@ -55,9 +52,9 @@
 }
 
 .List_Container .search-drawer {
-    position: absolute;
+    /* position: absolute;
     overflow: auto;
-    -webkit-overflow-scrolling: touch;
+    -webkit-overflow-scrolling: touch; */
 }
 
 .List_Container .search-drawer .am-drawer-sidebar {
