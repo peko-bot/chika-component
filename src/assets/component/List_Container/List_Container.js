@@ -1,6 +1,6 @@
 import React from 'react'
 
-import {Modal,DatePicker,List,InputItem,Drawer,NavBar,Icon,Picker,Toast,Button} from 'antd-mobile'
+import {Modal, DatePicker, List, InputItem, Drawer, Picker, Toast, Button, Calendar, ActivityIndicator, PullToRefresh} from 'antd-mobile'
 const operation = Modal.operation;
 import {createForm} from 'rc-form'
 
@@ -10,18 +10,24 @@ import {extend} from '../../../data/DeepClone'
 /* 块状通用列表（移动端） */
 class List_Container extends React.Component {
     constructor(props) {
-        super(props)
+        super(props);
+
+        let {tcid} = props;
         this.state = {
             currentState: 0, // 页面所处位置
             edit_config: [], // 新增/编辑页面配置
-            loading: false, // 新增/编辑页面加载状态
-            input_datas: {}, // 新增/编辑页面文本框集合
-            select_datas: {}, // 新增/编辑页面下拉框集合
-            date_datas: {}, // 日期集合
+            loading: true, // 新增/编辑页面加载状态
             search_field_open: false, // 搜索面板是否打开
-            search_param: {}, // 搜索参数
             detail_config: [], // 详情页配置
-            // height: ClientHeight, // 容器高度
+            calendar_visible: false, // 选择时段是否显示
+            edit_param: {}, // 新增/编辑页用的数据
+            search_param: { // 搜索参数
+                TCID: tcid,
+                PageSize: 10,
+                PageIndex: 1,
+            },
+            search_loading: false, // 搜索时加载
+            container_height: ClientHeight, // 容器高度，用于滑动加载
         }
 
         this.children = [] // 遍历模板根据数据渲染 reactNode
@@ -32,6 +38,7 @@ class List_Container extends React.Component {
         this.pageType = 'list' // 当前页面状态，列表页为list，编辑页为edit,详情页为detail,新增页为add
         this.detail_next = false // 详情页是否还有下一页，true表示还有下一页
         this.detail_last = false // 详情页是否还有上一页，true表示还有上一页
+        this.calendar_key = '' // 时段搜索参数名
     }
 
     componentDidMount = () => {
@@ -111,31 +118,27 @@ class List_Container extends React.Component {
 
     // 请求配置
     get_config = () => {
-        const {tbid = -1} = this.props;
+        const {tcid = -1, menuid = -1} = this.props;
+
+        this.setState({loading: true});
         T.ajax({
             key: 'getConfig',
             f: 'json',
-            data: {tbid},
+            data: {tcid, menuid},
             success: (result) => {
-                const {power, config} = result;
-
-                // 根据权限判断是否显示列表
-                let flag = false;
-                for(let item of power){
-                    if(item == 'Select') flag = true;
-                }
-                // 需要权限不足的提示 mark
-                if(!flag) return;
+                // 无论如何都会有查看的权限
+                let {power = 'Select', tablefieldconfig} = result.data;
+                power = power.split(',');
 
                 this.power = power;
-                this.config = config;
+                this.config = tablefieldconfig;
 
                 /* 
                     搜索主键是列表点到详情页请求数据的那个唯一标识
                 */
-                for(let item of config){
+                for(let item of tablefieldconfig){
                     // 判断是不是搜索主键，暂时按只有一个算
-                    if(item.IsKey === 'True') this.mainKey = item.FName;
+                    if(item.iskey) this.mainKey = item.fname;
                 }
 
                 this.search();
@@ -144,32 +147,44 @@ class List_Container extends React.Component {
     }
 
     // 展示列表请求数据
-    search = () => {
-        let {search_param} = this.state;
+    search = (AddSearchField) => {
+        let {search_param, search_loading} = this.state;
+
+        !search_loading ? this.setState({search_loading: true}) : null;
+
+        let param = Object.assign({}, search_param, AddSearchField);
+
         T.ajax({
             key: 'search',
             f: 'json',
-            data: search_param,
+            // method: 'POST',
+            data: param,
             success: (result) => {
-                const {data} = result;
+                let {list} = result.data;
 
-                this.listDatas = data;
-                // 详情页排序
+                // 分页
+                // 新增/编辑页返回后也会调这方法，于是数据翻倍
+                this.listDatas = [...this.listDatas, ...list];
+                this.children = [];
+                
                 for(let i = 0; i < this.listDatas.length; i++){
                     let item = this.listDatas[i];
+
+                    // 详情页排序
                     item.detail_order = i;
                     item.index = i;
-                }
 
-                this.children = [];
-                for(let item of data){
+                    // 渲染模版
                     let children = extend({}, this.props.children);
                     this.travel_children(children, item, item[this.mainKey]);
                     this.children.push(children);
                 }
 
+                // 更新数据后重置高度
+                // this.state.container_height -= this.swiper.offsetTop;
+
                 // 搜索后关闭面板 mark
-                this.state.search_field_open ? this.handle_search_change() : this.setState();
+                this.state.search_field_open ? this.handle_search_change() : this.setState({loading: false, search_loading: false});
                 // Object.keys(search_param).length === 0 ? this.setState() : this.handle_search_change();
             }
         })
@@ -205,7 +220,7 @@ class List_Container extends React.Component {
         处理逻辑有冗余 mark
     */
     handle_item_edit = (mainValue, type) => {
-        let {input_datas, select_datas, date_datas, edit_config, detail_config, currentState} = this.state;
+        let {edit_config, detail_config, currentState, edit_field, edit_param} = this.state;
 
         this.pageType = type;
 
@@ -214,43 +229,24 @@ class List_Container extends React.Component {
         for(let item of this.listDatas){
             if(item[this.mainKey] == mainValue){
                 for(let jtem of this.config){
-                    let {FName, FValue} = jtem;
+                    let {fname, fvalue} = jtem;
                     
                     for(let key in item){
-                        if(key == FName && jtem.IsAdd === 'True'){ // IsVisiable是在列表中的显隐，现在由模板绑定字段控制。这里的是编辑页面
+                        if(key == fname && jtem.isadd){ // IsVisiable是在列表中的显隐，现在由模板绑定字段控制。这里的是编辑页面
                             switch(type){
                                 case 'edit': 
-                                    // 初始化控件值
-                                    switch(jtem.ControlType){
-                                        case '1': 
-                                            input_datas[key] = item[key];
-                                        break;
-                                        
-                                        case '2':
-                                            date_datas[key] = new Date(item[key]);
-                                        break;
-                                        
-                                        case '3':
-                                            select_datas[key] = item[key];
-                                        break;
-                                    }
+                                    edit_param[key] = item[key];
                                 break;
 
                                 case 'add':
-                                    input_datas = {};
-                                    select_datas = {};
-                                    date_datas = {};
+                                    edit_param = {};
                                 break;
-
-                                // case 'detail':
-                                //     detail_item = item;
-                                // break;
                             }
 
                             // 初始化配置属性
                             let element = Object.assign({}, jtem, {
-                                ControlType: type == 'detail' ? '99' : jtem.ControlType,
-                                FName: key,
+                                controltype: type == 'detail' ? 99 : jtem.controltype,
+                                fname: key,
                             });
                             type == 'detail' ? detail_config.push(element) : edit_config.push(element);
                         }
@@ -261,7 +257,7 @@ class List_Container extends React.Component {
 
         // 切换页面时回到顶部
         // window.scrollTo(0, 1);
-        this.setState({currentState: -1, input_datas, select_datas, date_datas, edit_config});
+        this.setState({currentState: -1, edit_param, edit_config, detail_config});
     }
 
     /* 递归模版，填入数据
@@ -271,7 +267,7 @@ class List_Container extends React.Component {
         const {bindKey = 'data-key'} = this.props;
 
         React.Children.map(children, child => {
-            let {bind,format} = child.props;
+            let {bind, format} = child.props;
             /* 绑定点击事件
                 模版中所谓的head就是每块元素的最顶层标签
             */
@@ -287,7 +283,7 @@ class List_Container extends React.Component {
                 child.props.onTouchStart = e => {
                     // 引入swiper用
                     // e.preventDefault();
-                    timer = setTimeout(() => {
+                    timer = this.power.length == 1 && this.power[0] == 'Select' ? null : setTimeout(() => {
                         let opera = [];
                         for(let item of this.power){
                             switch(item){
@@ -321,8 +317,7 @@ class List_Container extends React.Component {
             /* 处理时间格式 */
             if(format){
                 let key = child.props[bindKey];
-                let date = T.clock(item[key]).fmt(format);
-                child.props.children = date;
+                child.props.children = item[key] ? T.clock(item[key]).fmt(format) : null;
             }
 
             if(child.props[bindKey] && !format){
@@ -337,18 +332,20 @@ class List_Container extends React.Component {
     }
 
     save = () => {
-        this.props.form.validateFields({force: true}, (error) => {
-            console.log(error)
+        this.props.form.validateFields({force: true}, (error, value) => {
             if (!error) {
-                // 提交数据
-                console.log(this.props.form.getFieldsValue());
+                let {search_param} = this.state;
+                let result = this.props.form.getFieldsValue();
+                console.log(result);
+                // console.log(this.state.search_param)
+
                 // 刷新列表
-                this.search();
+                this.search({AddSearchField: true, PageIndex: 1});
                 // 过渡动画，重置数据
                 this.reset();
             } else {
-                // Toast.info(this.props.form.getFieldError(FName).join('、'), 3, null, true);
-                Toast.fail('ヽ(ｏ`皿′ｏ)ﾉ 上面肯定有地方输错了，点行末标志能知道你错哪了', 3, null, true);
+                // Toast.info(this.props.form.getFieldError(fname).join('、'), 3, null, true);
+                Toast.fail('ヽ(ｏ`皿′ｏ)ﾉ 上面肯定有地方输错了，点行末标志能知道你错哪了', 3, null, false);
             }
         });
     }
@@ -379,8 +376,8 @@ class List_Container extends React.Component {
         console.log('删除被点击了')
     }
 
-    handle_form_error = (FName) => {
-        Toast.info(this.props.form.getFieldError(FName).join('、'), 3, null, true);
+    handle_form_error = (fname) => {
+        Toast.info(this.props.form.getFieldError(fname).join('、'), 3, null, false);
     }
 
     handle_input = (e, item, key) => {
@@ -394,8 +391,9 @@ class List_Container extends React.Component {
         this.setState();
     }
 
-    handle_date = (e, item, key, format) => {
-        this.state[item][key] = T.clock(e).fmt(format);
+    handle_date = (date, item, key, format) => {
+        this.state[item][key] = T.clock(date).fmt(format);
+        // this.state[item][key] = date;
         this.setState();
     }
 
@@ -414,8 +412,8 @@ class List_Container extends React.Component {
         // 判断是否是数字
         let reg = /^\d+$|^\d+\.\d+$/g;
         // 保留小数位数
-        if(reg.test(value) && item.DecimalCount){
-            value = parseFloat(value).toFixed(item.DecimalCount);
+        if(reg.test(value) && item.decimalcount){
+            value = parseFloat(value).toFixed(item.decimalcount);
         }
 
         return value;
@@ -426,79 +424,98 @@ class List_Container extends React.Component {
     //10.行政区划Ztree(支持多个) 11.部门Ztree(支持多个) 12.单、多附件上传 13.可输可选 14.地图坐标选取
     /* 搜索、详情、新增/编辑，控件类型都在这里处理 */
     handle_ControlType = (item, type, detail_item) => {
-        const {input_datas, select_datas, date_datas, search_param} = this.state;
-        const {FName, FValue, DateFormat = 'YYYY-MM-DD', ForeignData, DefaultValue, IsNull, Regular, MaxLen, MinLen} = item;
+        const {search_param, edit_field, edit_param} = this.state;
+        const {fname, fvalue, dateformat = 'YYYY-MM-DD', foreigndata, defaultvalue, isnull, regular, maxlen, minlen} = item;
         const {getFieldProps, getFieldError} = this.props.form;
 
-        if(type == 'search' && item.IsSearchField !== 'True') return null;
+        if(type == 'search' && !item.issearchfield) return null;
         
         /* 因为搜索条件也是要用到这里的，
             如果不判断type，form的key会重复绑定，导致第二次编辑无法输入 */
         let element = [];
         let option = {};
-        switch (item.ControlType){
-            case '1': // 文本框
+
+        switch (item.controltype){
+            case 1: // 文本框
                 option = {
-                    onChange: e => this.handle_input(e, 'input_datas', FName),
+                    onChange: e => this.handle_input(e, 'edit_param', fname),
                     /* 设置默认值 */
-                    initialValue: this.handle_input_value(input_datas[FName], item) || this.handle_input_value(DefaultValue, item),
+                    initialValue: this.handle_input_value(edit_param[fname], item) || this.handle_input_value(defaultvalue, item),
                     rules: [
-                        {required: IsNull === 'True' ? false : true, message: '该值不能为空'},
-                        {pattern: Regular, message: '该值不符合规则'},
-                        {max: MaxLen, message: `长度太长，最多为${MaxLen}个字符`},
-                        {min: MinLen, message: `长度太短，最少为${MinLen}个字符`},
+                        {required: !!isnull, message: '该值不能为空'},
+                        {pattern: regular, message: '该值不符合规则'},
+                        {max: maxlen, message: `长度太长，最多为${maxlen}个字符`},
+                        {min: minlen, message: `长度太短，最少为${minlen}个字符`},
                         // {validator: (rule, value, callback) => this.validate_value(rule, value, callback, item)},
                     ],
                 }
                 element = type == 'search' ? (
-                    <InputItem onChange={e => this.handle_input(e, 'search_param', FName)} value={search_param[FName]} clear placeholder='请输入'>{FValue}</InputItem>
+                    <InputItem onChange={e => this.handle_input(e, 'search_param', fname)} value={search_param[fname]} clear placeholder='请输入'>{fvalue}</InputItem>
                 ) : (
-                    <InputItem {...getFieldProps(FName, option)} error={!!getFieldError(FName)} onErrorClick={() => this.handle_form_error(FName)} clear placeholder='请输入'>{FValue}</InputItem>
+                    <InputItem {...getFieldProps(fname, option)} error={!!getFieldError(fname)} onErrorClick={() => this.handle_form_error(fname)} clear placeholder='请输入'>{fvalue}</InputItem>
                 );
             break;
 
             // 时间没赋默认值 mark
-            case '2': // 时间控件
+            case 2: // 时间控件
                 option = {
-                    onChange: date => this.handle_date(date, 'date_datas', FName, DateFormat),
-                    initialValue: date_datas[FName] || DefaultValue || new Date(),
+                    onChange: date => this.handle_date(date, 'edit_param', fname, dateformat),
+                    initialValue: edit_param[fname] || defaultvalue,
                     rules: [
-                        {required: IsNull === 'True' ? false : true, message: '该值不能为空'},
+                        {required: !!isnull, message: '该值不能为空'},
                     ],
                 };
                 element = type == 'search' ? (
-                    <DatePicker value={search_param[FName]} onChange={date => this.handle_date(date, 'search_param', FName, DateFormat)} format={date => (T.clock(date).fmt(DateFormat))}>
-                        <List.Item arrow='horizontal'>{FValue}</List.Item>
+                    <DatePicker value={search_param[fname] ? new Date(search_param[fname]) : null} onChange={date => this.handle_date(date, 'search_param', fname, dateformat)} format={date => (T.clock(date).fmt(dateformat))}>
+                        <List.Item arrow='horizontal'>{fvalue}</List.Item>
                     </DatePicker>
                 ) : (
-                    <DatePicker {...getFieldProps(FName, option)} error={!!getFieldError(FName)} onErrorClick={() => this.handle_form_error(FName)}>
-                        <List.Item arrow='horizontal'>{FValue}</List.Item>
+                    <DatePicker {...getFieldProps(fname, option)} error={!!getFieldError(fname)} onErrorClick={() => this.handle_form_error(fname)}>
+                        <List.Item arrow='horizontal'>{fvalue}</List.Item>
                     </DatePicker>
                 );
             break;
 
-            case '3': // 下拉框
+            case 3: // 下拉框
                 option = {
-                    onChange: value => this.handle_select(value, 'select_datas', FName),
-                    initialValue: [select_datas[FName]],
+                    onChange: value => this.handle_select(value, 'edit_param', fname),
+                    initialValue: [edit_param[fname]],
                     rules: [
-                        {required: IsNull === 'True' ? false : true, message: '该值不能为空'},
+                        {required: !!isnull, message: '该值不能为空'},
                     ],
                 };
                 element = type == 'search' ? (
-                    <Picker extra='请选择' data={ForeignData} cols={1} onChange={value => this.handle_select(value, 'search_param', FName)} value={[search_param[FName]]}>
-                        <List.Item arrow='horizontal'>{FValue}</List.Item>
+                    <Picker extra='请选择' data={foreigndata} cols={1} onChange={value => this.handle_select(value, 'search_param', fname)} value={[search_param[fname]]}>
+                        <List.Item arrow='horizontal'>{fvalue}</List.Item>
                     </Picker>
                 ) : (
-                    <Picker extra='请选择' data={ForeignData} cols={1} {...getFieldProps(FName, option)} error={!!getFieldError(FName)} onErrorClick={() => this.handle_form_error(FName)}>
-                        <List.Item arrow='horizontal'>{FValue}</List.Item>
+                    <Picker extra='请选择' data={foreigndata} cols={1} {...getFieldProps(fname, option)} error={!!getFieldError(fname)} onErrorClick={() => this.handle_form_error(fname)}>
+                        <List.Item arrow='horizontal'>{fvalue}</List.Item>
                     </Picker>
                 );
             break;
 
-            case '99': // label，基本就是给详情页用的
+            case 9: // 时段
+                option = {
+                    rules: [
+                        {required: !!isnull, message: '该值不能为空'},
+                    ]
+                }
+                this.calendar_key = fname;
+                let flag = !!search_param[fname + 'Begin'];
+
+                element = type == 'search' ? (
+                    <div>
+                        <List.Item extra={flag ? null : '请选择'} arrow='horizontal' onClick={() => this.setState({calendar_visible: true})}>{fvalue}</List.Item>
+                        <List.Item extra={flag ? T.clock(search_param[fname + 'Begin']).fmt('YY-MM-DD hh:mm').toLocaleString() : null} style={{display: flag ? '' : 'none'}}>{fvalue}开始时间</List.Item>
+                        <List.Item extra={flag ? T.clock(search_param[fname + 'End']).fmt('YY-MM-DD hh:mm').toLocaleString() : null} style={{display: flag ? '' : 'none'}}>{fvalue}结束时间</List.Item>
+                    </div>
+                ) : null;
+            break;
+
+            case 99: // label，基本就是给详情页用的
                 element = (
-                    <List.Item extra={this.handle_input_value(detail_item[FName], item)}>{FValue}</List.Item>
+                    <List.Item extra={this.handle_input_value(detail_item[fname], item)}>{fvalue}</List.Item>
                 );
             break;
         }
@@ -511,7 +528,7 @@ class List_Container extends React.Component {
 
         search_field_open = !search_field_open;
 
-        this.setState({search_field_open});
+        this.setState({search_field_open, loading: false, search_loading: false});
     }
 
     // 详情页 上一条/下一条
@@ -551,23 +568,30 @@ class List_Container extends React.Component {
         return {detail_last, detail_next};
     }
 
+    /* 时段确定事件 */
+    handle_calendar_submit = (start, end) => {
+        let format = 'YYYY-MM-DD hh:mm:ss';
+        this.state.search_param[this.calendar_key + 'Begin'] = T.clock(start).fmt(format);
+        this.state.search_param[this.calendar_key + 'End'] = T.clock(end).fmt(format);
+        
+        this.setState({calendar_visible: false});
+    }
+
     render() {
         let {children, config} = this;
-        const {currentState, edit_config, search_field_open, detail_config} = this.state;
+        const {currentState, edit_config, search_field_open, detail_config, calendar_visible, loading, search_loading, container_height} = this.state;
         const {height = ClientHeight} = this.props;
 
         let sidebar = (
             <List>
-                <NavBar icon={<Icon type='search' />}>查询条件</NavBar>
+                <List.Item>
+                    <Button onClick={this.save} loading={search_loading}>确定</Button>
+                </List.Item>
                 {
                     config.map(item => {
                         return this.handle_ControlType(item, 'search');
                     })
                 }
-                <List.Item>
-                    <Button type='primary' onClick={this.save}>确定</Button>
-                    {/* <Button inline onClick={this.back} style={{width: '50%'}}>返回</Button> */}
-                </List.Item>
             </List>
         );
 
@@ -634,12 +658,14 @@ class List_Container extends React.Component {
                     <img src='./assets/List_Container/arrow-left.png' />
                 </div>
                 {/* 搜索面板 */}
-                <Drawer open={search_field_open} onOpenChange={this.handle_search_change} className='search-drawer' sidebar={sidebar} position='right' sidebarStyle={{width: '77%'}} style={{display: this.pageType == 'list' ? '' : 'none'}} />
+                <Drawer open={search_field_open} onOpenChange={this.handle_search_change} className='search-drawer' sidebar={sidebar} position='right' sidebarStyle={{width: '77%', background: 'rgba(50, 50, 50, .35)'}} overlayStyle={{backgroundColor: 'rgba(50, 50, 50, 0)'}} style={{display: this.pageType == 'list' ? '' : 'none'}} />
 
                 {/* 模板渲染 */}
-                <div className='content' style={{transform: `translate3d(${currentState * 100}%, 0, 0)`, display: this.pageType == 'list' ? '' : 'none'}} ref={ref => this.content = ref}>
-                    {children}
-                </div>
+                <PullToRefresh ref={ref => this.swiper = ref} direction='up' style={{height: container_height, overflow: 'auto'}} onRefresh={() => {this.search({PageIndex: ++this.state.search_param.PageIndex})}}>
+                    <div className='content' style={{transform: `translate3d(${currentState * 100}%, 0, 0)`, display: this.pageType == 'list' ? '' : 'none'}} ref={ref => this.content = ref}>
+                        {loading ? null : children.length == 0 ? <img src='./assets/List_Container/nodata.png' /> : children}
+                    </div>
+                </PullToRefresh>
 
                 {/* 新增/修改/详情 */}
                 <div className='edit-content' style={{transform: `translate3d(${(currentState + 1) * 100}%, 0, 0)`}} ref={ref => this.edit_content = ref}>
@@ -647,6 +673,10 @@ class List_Container extends React.Component {
                     {this.pageType == 'detail' ? detail_content : edit_content}
                     {next}
                 </div>
+
+                <Calendar visible={calendar_visible} onCancel={() => {this.setState({calendar_visible: false})}} pickTime onConfirm={this.handle_calendar_submit} />
+
+                <ActivityIndicator animating={loading} text='正在加载...' toast size='large' />
             </div>
         )
     }

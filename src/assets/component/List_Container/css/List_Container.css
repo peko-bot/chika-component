@@ -4,10 +4,15 @@
 }
 
 .List_Container .content {
-    position: relative;
-    top: 0;
+    /* position: relative;
+    top: 0; */
     transition: all .5s cubic-bezier(.645, .045, .355, 1);
     overflow-x: hidden;
+    width: 100%;
+}
+
+.List_Container .content img {
+    width: 100%;
 }
 
 .List_Container .edit-content {
@@ -65,4 +70,80 @@
 
 .List_Container .search-drawer .am-drawer-sidebar .am-list {
     padding: 0;
+}
+
+.List_Container .am-list .am-list-extra {
+    flex-basis: 50%;
+}
+
+
+/* 针对搜索面板的样式调整 */
+
+.List_Container .search-drawer .am-list-item-middle {
+    background-color: rgba(0, 0, 0, .3);
+}
+
+.List_Container .search-drawer .am-list-extra {
+    color: #FFF;
+}
+
+.List_Container .search-drawer .am-list-arrow-horizontal {
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='16' height='26' viewBox='0 0 16 26' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2 0L0 2l11.5 11L0 24l2 2 14-13z' fill='%23FFF' fill-rule='evenodd'/%3E%3C/svg%3E");
+}
+
+.List_Container .search-drawer .am-list-content {
+    color: #FFF;
+}
+
+.List_Container .search-drawer .am-button {
+    background-color: rgba(255, 255, 255, 0);
+    color: #FFF;
+}
+
+.List_Container .search-drawer .am-input-control input {
+    color: #FFF;
+    text-align: right;
+}
+
+.List_Container .search-drawer .am-input-label {
+    color: #FFF;
+}
+
+
+/* 修改文本框灰字颜色 */
+
+.List_Container .search-drawer input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {
+    /* WebKit*/
+    color: #FFF;
+    text-align: right;
+    font-size: 16px;
+}
+
+.List_Container .search-drawer input:-moz-placeholder,
+textarea:-moz-placeholder {
+    /* Mozilla Firefox 4 to 18 */
+    color: #FFF;
+    font-size: 16px;
+    text-align: right;
+}
+
+.List_Container .search-drawer input::-moz-placeholder,
+textarea::-moz-placeholder {
+    /* Mozilla Firefox 19+ */
+    color: #FFF;
+    text-align: right;
+    font-size: 16px;
+}
+
+.List_Container .search-drawer input:-ms-input-placeholder,
+textarea:-ms-input-placeholder {
+    /* IE 10+ */
+    color: #FFF;
+    font-size: 16px;
+    text-align: right;
+}
+
+.List_Container .edit-content .am-input-control input {
+    text-align: right;
 }
