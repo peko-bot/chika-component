@@ -9,27 +9,31 @@ export default class List_Container_demo extends React.Component {
         this.state = {}
     }
 
+    componentDidMount = () => {
+        // console.log('componentDidMount')
+    }
+
     render() {
         return (
             <div className='List_Container_demo'>
-                <Container tbid={1483}>
+                <Container tcid={1620} menuid={315}>
                     <div className='item' bind>
                         <div>
                             <label>测试字段1：</label>
-                            <label data-key='UNAME'>UNAME</label>
+                            <label data-key='id'>UNAME</label>
                         </div>
                         <div>
                             <label>测试字段2：</label>
-                            <label data-key='REALNAME'>REALNAME</label>
+                            <label data-key='bottle'>REALNAME</label>
                         </div>
                         <div>
                             <label>测试字段3：</label>
-                            <label data-key='U_ADDRESS'>U_ADDRESS</label>
+                            <label data-key='sectionid'>U_ADDRESS</label>
                         </div>
                         <div>
                             <label>测试字段4：</label>
                             {/* format需要写在最下层 */}
-                            <label data-key='CREATETIME' format='YYYY-MM-DD'>CREATETIME</label>
+                            <label data-key='months' format='YYYY-MM-DD'>CREATETIME</label>
                         </div>
                     </div>
                 </Container>
