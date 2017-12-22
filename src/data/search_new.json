@@ -3,68 +3,77 @@
         "list": [
             {
                 "rownum": 1,
-                "id": 1,
-                "bottle": "1,2",
-                "sectionid": 4,
+                "id": 7,
+                "bottle": "6,7,8",
+                "sectionid": 11,
                 "months": "2017-11-01T00:00:00",
-                "sectionidname": "石柱",
-                "test1": "测试test1"
+                "sectionidname": "桥墩水库"
             },
             {
                 "rownum": 2,
-                "id": 2,
-                "bottle": "3,4,5,6",
-                "sectionid": 12,
-                "months": "2017-11-01T00:00:00",
-                "sectionidname": "对雾",
-                "test1": "测试test2"
-            },
-            {
-                "rownum": 3,
-                "id": 7,
-                "bottle": "6,7,8",
-                "sectionid": 4,
-                "months": "2017-11-01T00:00:00",
-                "sectionidname": "石柱",
-                "test1": "测试test3"
-            },
-            {
-                "rownum": 4,
                 "id": 8,
                 "bottle": "2,3",
                 "sectionid": 18,
                 "months": "2017-11-01T00:00:00",
-                "sectionidname": "怀溪镇",
-                "test1": "测试test4"
+                "sectionidname": "怀溪镇"
             },
             {
-                "rownum": 5,
+                "rownum": 3,
+                "id": 2,
+                "bottle": "3,4,5,6",
+                "sectionid": 12,
+                "months": "2017-11-01T00:00:00",
+                "sectionidname": "对雾"
+            },
+            {
+                "rownum": 4,
                 "id": 3,
                 "bottle": "6,7,8",
                 "sectionid": 12,
                 "months": "2017-10-01T00:00:00",
-                "sectionidname": "对雾",
-                "test1": "测试test5"
+                "sectionidname": "对雾"
             },
             {
-                "rownum": 6,
+                "rownum": 5,
                 "id": 5,
                 "bottle": "1,2,3,4",
                 "sectionid": 7,
                 "months": "2017-08-01T00:00:00",
-                "sectionidname": "东皋",
-                "test1": "测试test6"
+                "sectionidname": "东皋"
             },
             {
-                "rownum": 7,
+                "rownum": 6,
                 "id": 6,
                 "bottle": "10,11,12,13",
                 "sectionid": 10,
                 "months": "2017-08-01T00:00:00",
-                "sectionidname": "仙岩镇",
-                "test1": "测试test7"
+                "sectionidname": "仙岩镇"
+            },
+            {
+                "rownum": 7,
+                "id": 12,
+                "sectionid": 6,
+                "sectionidname": "上塘"
+            },
+            {
+                "rownum": 8,
+                "id": 13,
+                "sectionid": 6,
+                "sectionidname": "上塘"
+            },
+            {
+                "rownum": 9,
+                "id": 14,
+                "sectionid": 33,
+                "sectionidname": "升天基村"
+            },
+            {
+                "rownum": 10,
+                "id": 15,
+                "sectionid": 4,
+                "sectionidname": "石柱"
             }
         ],
-        "recordcount": 7
+        "recordcount": 14
     }
 }
