@@ -1,8 +1,9 @@
 import React from 'react'
 
-import {Modal, DatePicker, List, InputItem, Drawer, Picker, Toast, Button, Calendar, ActivityIndicator, PullToRefresh} from 'antd-mobile'
+import {Modal, DatePicker, List, InputItem, Drawer, Picker, Toast, Button, ActivityIndicator, PullToRefresh, Checkbox, Accordion} from 'antd-mobile'
 const operation = Modal.operation;
 const alert = Modal.alert;
+const CheckboxItem = Checkbox.CheckboxItem
 import {createForm} from 'rc-form'
 
 import './css/List_Container.css'
@@ -14,7 +15,7 @@ class List_Container extends React.Component {
         super(props);
 
         let {url, config} = props;
-        let {tcid, pageSize = 2} = config;
+        let {tcid, pageSize = 10} = config;
         this.state = {
             currentState: 0, // 页面所处位置
             edit_config: [], // 新增/编辑页面配置
@@ -116,7 +117,7 @@ class List_Container extends React.Component {
             result = 'toLeft';
         } else if (angle >= -45 && angle <= 45) {
             result = 'toRight';
-        }//8005溧阳市水利信息化系统项目
+        }
  
         return result;
     }
@@ -132,8 +133,8 @@ class List_Container extends React.Component {
             data: {tcid, menuid},
             success: result => {
                 // 无论如何都会有查看的权限
-                let {power = 'Select', tablefieldconfig} = result.data;
-                power = power.split(',');
+                let {power, tablefieldconfig} = result.data;
+                this.power = power.split(',');
 
                 // 给外键加入label字段
                 for(let item of tablefieldconfig){
@@ -145,7 +146,6 @@ class List_Container extends React.Component {
                     }
                 }
 
-                this.power = power;
                 this.config = tablefieldconfig;
 
                 /* 
@@ -165,7 +165,7 @@ class List_Container extends React.Component {
     search = (search_type) => {
         let {search_param} = this.state;
         let {url, config} = this.props;
-        let {requestUrl, requestParams, requestMethod = 'GET', UserId = null, CellPhone = null} = config;
+        let {RequestUrl, RequestParams = {}, RequestMethod = 'GET', UserId = null, CellPhone = null} = config;
 
         let data = {};
         UserId ? data.UserId = UserId : null;
@@ -175,12 +175,13 @@ class List_Container extends React.Component {
         let ajax_param = url ? {
             key: 'getUrlData',
             f: 'json',
-            data: Object.assign({}, {requestUrl, requestParams, requestMethod}, data),
+            method: 'POST',
+            data: Object.assign({}, {RequestUrl, RequestParams: Object.assign({}, data, RequestParams), RequestMethod}),
         } : {
             key: 'search',
             f: 'json',
             method: 'POST',
-            data: Object.assign({}, search_param, data),
+            data: Object.assign({}, search_param, data, RequestParams),
         };
 
         T.ajax({
@@ -224,11 +225,11 @@ class List_Container extends React.Component {
 
                     switch(message){
                         case 'Cannot read property "list" of undefined':
-                            console.error(`url: ${requestUrl}\n这接口返回的数据结构咱可不认识\n如果你认识，请用正确的方式带她回家`);
+                            console.error(`url: ${requestUrl}\n这接口返回的数据结构咱可不认识\n如果你认识，请用正确的方式带她回家\n内什么..三年起步啊..`);
                         break;
 
                         default:
-                            console.error(`"${result.error.message}"\n咱并不怎么识字儿，服务器就告儿我这个，说您肯定认识，您得自个儿慢慢调了`);
+                            console.error(`"${message}"\n咱并不怎么识字儿，服务器就告儿我这个，说您肯定认识，您得自个儿慢慢调了`);
                         break;
                     }
                 }
@@ -314,13 +315,14 @@ class List_Container extends React.Component {
 
         React.Children.map(children, child => {
             let {bind, format} = child.props;
+            
             /* 绑定点击事件
-                模版中所谓的head就是每块元素的最顶层标签
+            模版中所谓的head就是每块元素的最顶层标签
             */
             if(bind){
                 // 长按菜单
                 let timer = null;
-
+                
                 /* 查看详情 */
                 child.props.onClick = e => {
                     this.handle_item_edit(mainKey, 'detail');
@@ -329,7 +331,7 @@ class List_Container extends React.Component {
                 child.props.onTouchStart = e => {
                     // 引入swiper用
                     // e.preventDefault();
-                    timer = this.power.length == 1 && this.power[0] == 'Select' ? null : setTimeout(() => {
+                    timer = setTimeout(() => {
                         let opera = [];
                         for(let item of this.power){
                             switch(item){
@@ -346,7 +348,7 @@ class List_Container extends React.Component {
                                 break;
                             }
                         }
-                        operation(opera);
+                        opera.length != 0 ? operation(opera) : null;
                     }, 800);
                 }
 
@@ -370,7 +372,7 @@ class List_Container extends React.Component {
                 let key = child.props[bindKey];
                 child.props.children = item[key];
             }else{
-                if(child.props && child.props.children instanceof Array){
+                if(child.props && typeof child.props.children === 'object'){
                     this.travel_children(child.props.children, item, mainKey);
                 }
             }
@@ -436,9 +438,9 @@ class List_Container extends React.Component {
     handle_edit_datas = (params) => {
         T.ajax({
             ...params,
-            success: result => {
-                const {data} = result;
-                if(!data){
+            success: resp => {
+                const {data} = resp;
+                if(!data.result){
                     Toast.fail('出现未知错误，反正你这趟是白点了，找人问问是为啥？');
                 }
 
@@ -507,9 +509,24 @@ class List_Container extends React.Component {
         this.setState();
     }
 
+    handle_checkbox = (value, item, key) => {
+        let param = this.state[item][key];
+        if(!param) param = this.state[item][key] = [];
+        param = new Set(Array.from(param));
+        param.delete(',');
+
+        if(param.size == 0){
+            param.add(value);
+        }else{
+            param.has(value) ? param.delete(value) : param.add(value);
+        }
+        this.state[item][key] = [...param].toString();
+
+        this.setState();
+    }
+
     handle_date = (date, item, key, format) => {
         this.state[item][key] = T.clock(date).fmt(format);
-        // this.state[item][key] = date;
         this.setState();
     }
 
@@ -522,19 +539,19 @@ class List_Container extends React.Component {
     //     }
     // }
 
-    // 预处理
+    // 详情页数据预处理
     handle_input_value = (value, item) => {
         if(value === '') return value;
 
-        let {controltype_detail, dateformat, foreigndata} = item;
+        let {controltype_detail, dateformat, foreigndata, unit, decimalcount} = item;
 
-        switch(item.controltype_detail){
+        switch(controltype_detail){
             case 1: // 文本框
                 // 判断是否是数字
                 let reg = /^\d+$|^\d+\.\d+$/g;
                 // 保留小数位数
-                if(reg.test(value) && item.decimalcount){
-                    value = parseFloat(value).toFixed(item.decimalcount);
+                if(reg.test(value) && decimalcount){
+                    value = `${parseFloat(value).toFixed(decimalcount)} ${unit}`;
                 }
             break;
 
@@ -549,6 +566,18 @@ class List_Container extends React.Component {
                         break;
                     }
                 }
+            break;
+
+            case 5: // 多选框
+                let result = '';
+                for(let foreign of foreigndata){
+                    for(let item of value.split(',')){
+                        if(foreign.value == item){
+                            result += foreign.label + ',';
+                        }
+                    }
+                }
+                value = result.substring(0, result.length - 1);
             break;
 
             case 9: // 时段，但显示的时候跟时间没区别
@@ -635,6 +664,33 @@ class List_Container extends React.Component {
                     <Picker extra='请选择' data={foreigndata} cols={1} {...getFieldProps(fname, option)} error={!!getFieldError(fname)} onErrorClick={() => this.handle_form_error(fname)}>
                         <List.Item arrow='horizontal'>{fvalue}</List.Item>
                     </Picker>
+                );
+            break;
+
+            case 5: // 多选框
+                option = {
+                    onChange: value => this.handle_checkbox(value, 'search_param', fname),
+                    rules: [
+                        {required: !!isnull, message: '该值不能为空'},
+                    ],
+                }
+                // element = type == 'search' ? (
+                    
+                // ) : (
+
+                // )
+                element = (
+                    <Accordion>
+                        <Accordion.Panel header={fvalue}>
+                            <List>
+                                {
+                                    foreigndata.map(item => (
+                                        <CheckboxItem onChange={value => this.handle_checkbox(item.value, 'search_param', fname)} key={item.value}>{item.label}</CheckboxItem>
+                                    ))
+                                }
+                            </List>
+                        </Accordion.Panel>
+                    </Accordion>
                 );
             break;
 
@@ -770,14 +826,14 @@ class List_Container extends React.Component {
 
         /* 详情页上一条数据 */
         let last = (
-            <div className='extend-drawer left' onClick={() => this.handle_detail_pagination('last', detail_last)} style={{display: this.pageType == 'detail' && detail_last ? '' : 'none', top: (ClientHeight - 100) / 2}}>
+            <div className='sc-extend-drawer sc-left' onClick={() => this.handle_detail_pagination('last', detail_last)} style={{display: this.pageType == 'detail' && detail_last ? '' : 'none', top: (ClientHeight - 100) / 2}}>
                 <img src='./assets/List_Container/arrow-left.png' />
             </div>
         );
 
         /* 详情页下一条数据 */
         let next = (
-            <div className='extend-drawer right' onClick={() => this.handle_detail_pagination('next', detail_next)} style={{display: this.pageType == 'detail' && detail_next ? '' : 'none', top: (ClientHeight - 100) / 2}}>
+            <div className='sc-extend-drawer sc-right' onClick={() => this.handle_detail_pagination('next', detail_next)} style={{display: this.pageType == 'detail' && detail_next ? '' : 'none', top: (ClientHeight - 100) / 2}}>
                 <img src='./assets/List_Container/arrow-right.png' />
             </div>
         );
@@ -804,7 +860,7 @@ class List_Container extends React.Component {
                 {
                     this.listDatas.map(jtem => {
                         return (
-                            <List className='detail-content' style={{transform: `translate3d(${jtem.detail_order * 100}%, ${jtem.index * -100}%, 0)`}}>
+                            <List className='sc-detail-content' style={{transform: `translate3d(${jtem.detail_order * 100}%, ${jtem.index * -100}%, 0)`}}>
                                 {
                                     detail_config.map(item => {
                                         return this.handle_ControlType(item, 'detail', jtem);
@@ -824,21 +880,21 @@ class List_Container extends React.Component {
         return (
             <div className='List_Container' style={{height: ClientHeight}}>
                 {/* 触发搜索的方块 */}
-                <div className='extend-drawer right' onClick={this.handle_search_change} style={{display: search_field_open || this.pageType != 'list' ? 'none' : '', top: (ClientHeight - 100) / 2}}>
+                <div className='sc-extend-drawer sc-right' onClick={this.handle_search_change} style={{display: search_field_open || this.pageType != 'list' ? 'none' : '', top: (ClientHeight - 100) / 2}}>
                     <img src='./assets/List_Container/arrow-left.png' />
                 </div>
                 {/* 搜索面板 */}
-                <Drawer open={search_field_open} onOpenChange={this.handle_search_change} className='search-drawer' sidebar={sidebar} position='right' sidebarStyle={{width: '77%', background: 'rgba(50, 50, 50, .35)'}} overlayStyle={{backgroundColor: 'rgba(50, 50, 50, 0)'}} style={{display: this.pageType == 'list' ? '' : 'none'}} />
+                <Drawer open={search_field_open} onOpenChange={this.handle_search_change} className='sc-search-drawer' sidebar={sidebar} position='right' sidebarStyle={{width: '77%', background: 'rgba(50, 50, 50, .35)'}} overlayStyle={{backgroundColor: 'rgba(50, 50, 50, 0)'}} style={{display: this.pageType == 'list' ? '' : 'none'}} />
 
                 {/* 模板渲染 */}
                 <PullToRefresh direction='up' style={{height: container_height, overflow: 'auto'}} onRefresh={this.handle_pull_load} refreshing={pull_load}>
-                    <div className='content' style={{transform: `translate3d(${currentState * 100}%, 0, 0)`, display: this.pageType == 'list' ? '' : 'none'}} ref={ref => this.content = ref}>
+                    <div className='sc-content' style={{transform: `translate3d(${currentState * 100}%, 0, 0)`, display: this.pageType == 'list' ? '' : 'none'}} ref={ref => this.content = ref}>
                         {loading ? null : children.length == 0 ? <img src='./assets/List_Container/nodata.png' /> : children}
                     </div>
                 </PullToRefresh>
 
                 {/* 新增/修改/详情 */}
-                <div className='edit-content' style={{transform: `translate3d(${(currentState + 1) * 100}%, 0, 0)`}} ref={ref => this.edit_content = ref}>
+                <div className='sc-edit-content' style={{transform: `translate3d(${(currentState + 1) * 100}%, 0, 0)`}} ref={ref => this.edit_content = ref}>
                     {last}
                     {this.pageType == 'detail' ? detail_content : edit_content}
                     {next}
