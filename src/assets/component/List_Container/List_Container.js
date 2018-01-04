@@ -137,14 +137,14 @@ class List_Container extends React.Component {
                 this.power = power.split(',');
 
                 // 给外键加入label字段
-                for(let item of tablefieldconfig){
-                    let {foreigndata} = item;
-                    if(foreigndata.length > 0){
-                        for(let jtem of foreigndata){
-                            jtem.label = jtem.text;
-                        }
-                    }
-                }
+                // for(let item of tablefieldconfig){
+                //     let {foreigndata} = item;
+                //     if(foreigndata.length > 0){
+                //         for(let jtem of foreigndata){
+                //             jtem.label = jtem.text;
+                //         }
+                //     }
+                // }
 
                 this.config = tablefieldconfig;
 
@@ -275,10 +275,10 @@ class List_Container extends React.Component {
         for(let item of this.listDatas){
             if(item[this.mainKey] == mainValue){
                 for(let jtem of this.config){
-                    let {fname, fvalue} = jtem;
+                    let {fname, fvalue, isvisiable} = jtem;
                     
                     for(let key in item){
-                        if(key == fname && jtem.isadd){ // IsVisiable是在列表中的显隐，现在由模板绑定字段控制。这里的是编辑页面
+                        if(key == fname && jtem.isadd){ // isvisiable是在列表中的显隐，现在由模板绑定字段控制。这里的是编辑页面
                             switch(type){
                                 case 'edit': 
                                     edit_param[key] = item[key];
@@ -295,7 +295,8 @@ class List_Container extends React.Component {
                                 fname: key,
                                 controltype_detail: type == 'detail' ? jtem.controltype : null
                             });
-                            type == 'detail' ? detail_config.push(element) : edit_config.push(element);
+                            // isvisiable，详情是否显示
+                            type == 'detail' ? (isvisiable ? detail_config.push(element) : null) : edit_config.push(element);
                         }
                     }
                 }
@@ -511,17 +512,17 @@ class List_Container extends React.Component {
 
     handle_checkbox = (value, item, key) => {
         let param = this.state[item][key];
-        if(!param) param = this.state[item][key] = [];
-        param = new Set(Array.from(param));
-        param.delete(',');
-
+        if(!param) param = this.state[item][key] = '';
+        param = new Set(param.split(','));
+        
         if(param.size == 0){
             param.add(value);
         }else{
             param.has(value) ? param.delete(value) : param.add(value);
         }
+        param.delete(',');
+        
         this.state[item][key] = [...param].toString();
-
         this.setState();
     }
 
@@ -550,9 +551,8 @@ class List_Container extends React.Component {
                 // 判断是否是数字
                 let reg = /^\d+$|^\d+\.\d+$/g;
                 // 保留小数位数
-                if(reg.test(value) && decimalcount){
-                    value = `${parseFloat(value).toFixed(decimalcount)} ${unit}`;
-                }
+                if(reg.test(value) && decimalcount) value = `${parseFloat(value).toFixed(decimalcount)} ${unit}`;
+                
             break;
 
             case 2: // 时间
