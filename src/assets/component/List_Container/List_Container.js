@@ -2,7 +2,7 @@ import React from 'react'
 
 import {Modal, DatePicker, List, InputItem, Drawer, Picker, Toast, Button, ActivityIndicator, PullToRefresh, Checkbox, Accordion} from 'antd-mobile'
 const operation = Modal.operation;
-const alert = Modal.alert;
+const {alert} = Modal;
 const CheckboxItem = Checkbox.CheckboxItem
 import {createForm} from 'rc-form'
 
@@ -39,7 +39,7 @@ class List_Container extends React.Component {
         this.power = [] // 权限字符串 string
         this.mainKey = '' // 搜索主键 string
         this.mainValue = '' // 搜索主键对应的value，用于编辑和修改
-        this.config = [] // 配置
+        this.config = [] // 配置 object
         this.pageType = 'list' // 当前页面状态，列表页为list，编辑页为edit,详情页为detail,新增页为add
         this.detail_next = false // 详情页是否还有下一页，true表示还有下一页
         this.detail_last = false // 详情页是否还有上一页，true表示还有上一页
@@ -136,16 +136,6 @@ class List_Container extends React.Component {
                 let {power, tablefieldconfig} = result.data;
                 this.power = power.split(',');
 
-                // 给外键加入label字段
-                // for(let item of tablefieldconfig){
-                //     let {foreigndata} = item;
-                //     if(foreigndata.length > 0){
-                //         for(let jtem of foreigndata){
-                //             jtem.label = jtem.text;
-                //         }
-                //     }
-                // }
-
                 this.config = tablefieldconfig;
 
                 /* 
@@ -212,8 +202,9 @@ class List_Container extends React.Component {
                         item.detail_order = i;
                         item.index = i;
 
-                        // 渲染模版
+                        // 复制模版对象
                         let children = extend({}, this.props.children);
+                        // 渲染模版
                         this.travel_children(children, item, item[this.mainKey]);
                         this.children.push(children);
                     }
@@ -315,8 +306,11 @@ class List_Container extends React.Component {
         const {bindKey = 'data-key'} = this.props;
 
         React.Children.map(children, child => {
-            let {bind, format} = child.props;
-            
+            let {bind, format, decimalcount, unit} = child.props;
+
+            let instance = child.props;
+            let key = instance[bindKey];
+
             /* 绑定点击事件
             模版中所谓的head就是每块元素的最顶层标签
             */
@@ -325,11 +319,11 @@ class List_Container extends React.Component {
                 let timer = null;
                 
                 /* 查看详情 */
-                child.props.onClick = e => {
+                instance.onClick = e => {
                     this.handle_item_edit(mainKey, 'detail');
                 }
 
-                child.props.onTouchStart = e => {
+                instance.onTouchStart = e => {
                     // 引入swiper用
                     // e.preventDefault();
                     timer = setTimeout(() => {
@@ -354,27 +348,36 @@ class List_Container extends React.Component {
                 }
 
                 // 滑动时停止计时，不然滑着滑着弹菜单，很尴尬
-                child.props.onTouchMove = () => {
+                instance.onTouchMove = () => {
                     clearTimeout(timer);
                 }
 
-                child.props.onTouchEnd = () => {
+                instance.onTouchEnd = () => {
                     clearTimeout(timer);
                 }
             }
 
-            /* 处理时间格式 */
-            if(format){
-                let key = child.props[bindKey];
-                child.props.children = item[key] ? T.clock(item[key]).fmt(format) : null;
-            }
+            /* 列表页预处理 */
+            if(instance[bindKey]){
+                /* 处理时间格式 */
+                if(format){
+                    instance.children = item[key] ? T.clock(item[key]).fmt(format) : item[key];
+                }
+    
+                /* 处理小数保留位数 */
+                if(decimalcount){
+                    instance.children = item[key] ? parseFloat(item[key]).toFixed(decimalcount) : instance.children;
+                }
+                
+                /* 处理单位 */
+                if(unit){
+                    instance.children = item[key] ? `${instance.children} ${unit}` : instance.children;
+                }
 
-            if(child.props[bindKey] && !format){
-                let key = child.props[bindKey];
-                child.props.children = item[key];
+                instance.children = instance.children ? instance.children : item[key];
             }else{
-                if(child.props && typeof child.props.children === 'object'){
-                    this.travel_children(child.props.children, item, mainKey);
+                if(instance && typeof instance.children === 'object'){
+                    this.travel_children(instance.children, item, mainKey);
                 }
             }
         })
@@ -455,28 +458,34 @@ class List_Container extends React.Component {
     }
 
     // 详情返回列表，顺带重置各种
-    reset = type => {
+    reset = () => {
         let {currentState} = this.state;
 
-        this.setState({currentState: 0}, () => {
-            this.pageType = 'list';
-            // 500ms为过渡动画效果
-            // 清空新增/编辑数据
-            setTimeout(() => {
+        this.pageType = 'list';
+        this.setState({}, () => {
+            this.setState({currentState: 0}, () => {
+                /* 清空新增/编辑数据 */
                 this.state.edit_config = [];
                 this.state.detail_config = [];
-                this.setState();
-            }, 500);
+            });
         });
+        
+        // this.setState({currentState: 0});
+        // setTimeout(() => {
+        //     this.pageType = 'list';
+        //     this.state.edit_config = [];
+        //     this.state.detail_config = [];
+        //     this.setState();
+        // }, 500);
     }
 
     delete = mainValue => {
         alert(`长痛不如短痛，删tm的`, '真删了啊？', [
             {text: '容朕三思'},
             {text: '真的', onPress: () => {
-                // 拼参数
                 let {UserId = null, CellPhone = null, tcid = -1} = this.props.config;
                 
+                // 拼参数
                 let data = {};
                 UserId ? data.UserId = UserId : null;
                 CellPhone ? data.CellPhone = CellPhone : null;
@@ -560,6 +569,8 @@ class List_Container extends React.Component {
             break;
 
             case 3: // 下拉框，关联外键数据
+                // 去掉左右空格
+                value = value.replace(/\s/g,'');
                 for(let foreign of foreigndata){
                     if(foreign.value == value){
                         value = foreign.label;
@@ -569,6 +580,8 @@ class List_Container extends React.Component {
             break;
 
             case 5: // 多选框
+                // 去掉左右空格
+                value = value.replace(/\s/g,'');
                 let result = '';
                 for(let foreign of foreigndata){
                     for(let item of value.split(',')){
@@ -895,9 +908,9 @@ class List_Container extends React.Component {
 
                 {/* 新增/修改/详情 */}
                 <div className='sc-edit-content' style={{transform: `translate3d(${(currentState + 1) * 100}%, 0, 0)`}} ref={ref => this.edit_content = ref}>
-                    {last}
+                    {/* {last} */}
                     {this.pageType == 'detail' ? detail_content : edit_content}
-                    {next}
+                    {/* {next} */}
                 </div>
 
                 {/* <Calendar visible={calendar_visible} onCancel={() => {this.setState({calendar_visible: false})}} pickTime onConfirm={this.handle_calendar_submit} /> */}
