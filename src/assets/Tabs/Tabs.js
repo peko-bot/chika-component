@@ -1,5 +1,6 @@
 import React from 'react'
 
+// import Ripple from '../Ripple/Ripple'
 import './css/Tabs.css'
 
 /* 受控页签 */
@@ -8,15 +9,16 @@ export default class Tabs extends React.Component {
         super(props);
         this.state = {
             currentSelect: 0,
-            underline_item: {
+            underline_item: { // 下划线参数
                 width: 0,
-            }, // 下划线参数
+            },
             dataSource: [], // 页签项数据，比如除了字符串还传了其他东西
             ripple_config: { // 
                 scale: 0, // 点击波纹缩放
                 offsetLeft: 0, // 偏移量
                 offsetTop: 0,
                 opacity: 1, // 透明度
+                displayFlag: false, // 用于判断二次点击时是否产生波纹
             },
         }
     }
@@ -43,6 +45,10 @@ export default class Tabs extends React.Component {
 
     componentDidMount = () => {
         this.reset_underline(0);
+
+        // for(let i = 0; i < this.state.dataSource.length; i++){
+        //     this.ripple.init(this[`panel_item_${i}`]);
+        // }
     }
 
     /* 
@@ -58,6 +64,12 @@ export default class Tabs extends React.Component {
                 let span_width = this[`panel_span_${i}`].offsetWidth;
                 let item_width = this[`panel_item_${i}`].offsetWidth;
                 let item_height = this[`panel_item_${i}`].offsetHeight;
+
+                this[`panel_item_${i}`].addEventListener('transitionend', e => {
+                    this.state.ripple_config.displayFlag = false;
+                    this.setState();
+                });
+                // 这里的-12，我也忘了是为什么了
                 coefficient.push({underline_width: span_width + 20, left: ((item_width - span_width) / 2 - 12) + index * item_width, width: item_width, height: item_height});
             }
             this.setState({underline_item: coefficient[index]});
@@ -65,21 +77,21 @@ export default class Tabs extends React.Component {
     }
 
     handle_click = (item, currentSelect, event) => {
-        let {ripple_config} = this.state;
+        let {ripple_config, underline_item} = this.state;
         const {pageX, pageY} = event;
 
         this.reset_underline(currentSelect);
 
-        ripple_config = {
-            scale: 150,
-            offsetLeft: `${pageX}`,
-            offsetTop: `${pageY}`,
+        let config = {
+            scale: +underline_item.width,
+            offsetLeft: pageX,
+            offsetTop: pageY,
+            opacity: 1,
+            displayFlag: true,
         };
-        this.setState({ripple_config}, () => {
-            setTimeout(() => {
-                ripple_config.opacity = 0;
-                this.setState({ripple_config});
-            }, 700);
+        this.setState(Object.assign(ripple_config, config), () => {
+            ripple_config.opacity = 0;
+            this.setState({ripple_config});
         });
         
         if(this.props.onClick) this.props.onClick(item, currentSelect);
@@ -90,13 +102,14 @@ export default class Tabs extends React.Component {
         /* 当传width时，页签项定宽，
             超出宽度时可滑动，惯性弹回，
             未超出屏幕时就当没传 plan
-            不传时按页签项数量平分一个屏幕的宽度 暂 */
+            不传时按页签项数量平分父容器的宽度 暂 */
         let {width, containerStyle, undelineStyle, fontStyle} = config;
         const {dataSource, underline_item, ripple_config} = this.state;
-        const {scale, offsetLeft, offsetTop, opacity} = ripple_config;
-        // console.log(offsetLeft, offsetTop)
+        const {scale, offsetLeft, offsetTop, opacity, displayFlag} = ripple_config;
 
-        let ripple_style = {width: 2, height: 2, background: 'rgba(255, 255, 255, 0.3)', position: 'absolute', transform: `scale(${scale})`, transition: 'all .7s cubic-bezier(0.250, 0.460, 0.450, 0.940)', borderRadius: '50%', opacity};
+        // 波纹
+        let ripple_style = {width: 2, height: 2, background: 'rgba(255, 255, 255, 0.3)', position: 'absolute', transform: `scale(${scale})`, transition: 'transform .7s cubic-bezier(0.250, 0.460, 0.450, 0.940), opacity .7s cubic-bezier(0.250, 0.460, 0.450, 0.940)', borderRadius: '50%', opacity};
+
         let tabs = [];
             tabs.push(
                 <ul className='container' style={containerStyle}>
@@ -106,9 +119,10 @@ export default class Tabs extends React.Component {
                             ripple_style.left = offsetLeft - (currentSelect * underline_item.width);
 
                             return (
-                                <li className='item' style={Object.assign({width: 100 / dataSource.length + '%'}, fontStyle)} onClick={e =>this.handle_click(item, i, e)} ref={ref => this[`panel_item_${i}`] = ref}>
+                                <li className='item' style={Object.assign({width: 100 / dataSource.length + '%'}, fontStyle)} onClick={e => this.handle_click(item, i, e)} ref={ref => this[`panel_item_${i}`] = ref}>
                                     <span className={currentSelect == i ? 'active' : null} ref={ref => this[`panel_span_${i}`] = ref}>{item.label}</span>
-                                    <div style={currentSelect == i ? ripple_style : null} />
+                                    <div style={currentSelect == i && displayFlag ? ripple_style : null} />
+                                    {/* <Ripple ref={ref => this.ripple = ref} wrapWidth={underline_item.width} /> */}
                                 </li>
                             )
                         })
