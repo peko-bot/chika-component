@@ -1,96 +1,34 @@
 ## 页签
-- 过渡效果
+- 过渡及点击效果
 - 样式可配
-### 以下说明待编辑，留着占坑
 
+## 效果
+  ![img](https://github.com/zy410419243/react-mobile-component/blob/master/src/assets/component/Tabs/demo_tabs.gif)  
+  
 ## 示例
+   ``` html
+   onClick = (item, currentSelect) => {
+        this.setState({currentSelect});
+    }
 
-* 第一步
-   ``` bash
-   npm install sc-component-mobile --save
-   ```
+    config = {
+        // containerStyle: {background: '#F96'}
+    }
 
-* 第二步
-    * 在模板文件里写html
-    ``` html
-      render(){
-          <div className='item'>
-              <div>
-                  <span>测试字段1：</span>
-                  <span data-key='RNAME'>RNAME</span>
-              </div>
-              <div>
-                  <span>测试字段2：</span>
-                  <span data-key='REALNAME'>REALNAME</span>
-              </div>
-              <div>
-                  <span>测试字段3：</span>
-                  <span data-key='U_ADDRESS'>U_ADDRESS</span>
-              </div>
-              <div>
-                  <span>测试字段4：</span>
-                  <span data-key='CREATETIME' format='YYYY-MM-DD'>CREATETIME</span>
-              </div>
-          </div>
-      }
+    render() {
+        const {result,currentSelect} = this.state;
+
+        return (
+            <div className='Tabs_demo'>
+                <Tabs currentSelect={currentSelect} onClick={this.onClick} config={this.config}>
+                    <div label='test111111'>test1</div>
+                    <div label='test2'>test2</div>
+                </Tabs>
+            </div>
+        )
+    }
     ``` 
-    
-    * 效果图  
-    ![img](https://github.com/zy410419243/react-mobile-component/blob/master/src/assets/component/List_Container/demo_img/first.jpg)
-    
-* 第三步
-
-    觉着没问题以后再加点细节
-    ``` html
-       import {Container} from 'sc-component-mobile'
-
-       config = {
-           tcid: 1620,
-           menuid: 315,
-           pageSize: 10,
-           // UserId: 1,
-           CellPhone: '13900000000',
-           requestUrl: 'http://www.baidu.com',
-           requestParams: {
-               test1: 'test1',
-               test2: 'test2',
-               test3: 'test3',
-           },
-           requestMethod: 'GET',
-       }
-       
-       render(){
-          <Container config={this.config}>
-              <div className='item' bind>
-                  <div>
-                      <span>测试字段1：</span>
-                      <span data-key='RNAME'>RNAME</span>
-                  </div>
-                  <div>
-                      <span>测试字段2：</span>
-                      <span data-key='REALNAME'>REALNAME</span>
-                  </div>
-                  <div>
-                      <span>测试字段3：</span>
-                      <span data-key='U_ADDRESS'>U_ADDRESS</span>
-                  </div>
-                  <div>
-                      <span>测试字段4：</span>
-                      <span data-key='CREATETIME' format='YYYY-MM-DD'>CREATETIME</span>
-                  </div>
-              </div>
-          </Container>
-       }
-    ```
-    
-    * 效果图  
-    ![img](https://github.com/zy410419243/react-mobile-component/blob/master/src/assets/component/List_Container/demo_img/second.jpg)
-    
-## 最终效果图
-  ![img](https://github.com/zy410419243/react-mobile-component/blob/master/src/assets/component/List_Container/demo_img/demo_list_container.gif)  
-  这里图跟gif版本没对上，不过大概就是这么个意思了。  
-  至于gif里的报错...其实就是演示下功能而已，别太在意后端在干嘛...
-
+  
 ## API
 | 参数 | 说明 | 类型 | 默认值 |
 | :------: | ----- | :------: | :------: |
