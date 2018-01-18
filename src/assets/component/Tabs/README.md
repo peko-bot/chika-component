@@ -6,7 +6,7 @@
   ![img](https://github.com/zy410419243/react-mobile-component/blob/master/src/assets/component/Tabs/demo_tabs.gif)  
   
 ## 示例
-   ``` html
+``` html
    onClick = (item, currentSelect) => {
         this.setState({currentSelect});
     }
@@ -27,16 +27,19 @@
             </div>
         )
     }
-    ``` 
+``` 
   
 ## API
 | 参数 | 说明 | 类型 | 默认值 |
 | :------: | ----- | :------: | :------: |
-| decimalcount | 浮点数保留位数 | Number | 0 |
-| url | true时会用第三方接口，默认以tcid和menuid的形式请求数据 | Boolean |  false |
-| bind | 长按事件绑定的地方。上面的例子是绑在整块模版上，于是长按模板就能触发事件 | Boolean | true |
-| format | 字段为日期时，格式化字符串。绑定的节点得是底层，就是没子标签的那种 | string | YYYY-MM-DD |
-| data-key | 物理字段名 | string，需要和接口中的字段对应 | 无 |
-| unit | 单位，用在列表页 | string | 无 |
-| bindKey | 如果data-key被占用了，可以把这个属性放到Container上，    ``` <Container bindKey='data-test' />``` ,于是现在绑定物理字段名的key变成data-test了 | string | 'data-key' |
+| onClick | 点击事件 | Function | (item, currentSelect) => {} |
+| currentSelect | 页签当前选中项。因为是受控的组件，所以记得把onClick中传出的currentSelect传回来 | Number |  0 |
+| label | 页签项的名字，需要被Tabs包裹。label可以是一个对象，如果需要在点击时传出其他奇怪的属性的话，但其中一定要有label这个属性，用于页签项名称 | string或object | 无 |
 | config | 配置，详见下方说明 | {} | 无 |
+
+# config
+| 参数 | 说明 | 类型 | 默认值 |
+| :------: | ----- | :------: | :------: |
+| containerStyle | 页签容器样式 | {} | 无 |
+| fontStyle | 页签项样式，主要用于改字体颜色 | {} | 无 |
+| undelineStyle | 下划线样式。下划线跟页签项属于不同的div，所谓的下划线就是div的border | {} | 无 |
