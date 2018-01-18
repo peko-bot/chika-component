@@ -1,5 +1,6 @@
 import React from 'react'
 
+// import Ripple from '../Ripple/Ripple'
 import './css/Tabs.css'
 
 /* 受控页签 */
@@ -8,8 +9,17 @@ export default class Tabs extends React.Component {
         super(props);
         this.state = {
             currentSelect: 0,
-            underline_item: {}, // 下划线参数
+            underline_item: { // 下划线参数
+                width: 0,
+            },
             dataSource: [], // 页签项数据，比如除了字符串还传了其他东西
+            ripple_config: { // 
+                scale: 0, // 点击波纹缩放
+                offsetLeft: 0, // 偏移量
+                offsetTop: 0,
+                opacity: 1, // 透明度
+                displayFlag: false, // 用于判断二次点击时是否产生波纹
+            },
         }
     }
 
@@ -21,7 +31,8 @@ export default class Tabs extends React.Component {
                 这种在里面加上label字段，其他参数在点击页签项的时候抛出
             除了这两种情况，其他传入都是报错
         */
-        React.Children.map(this.props.children, child => {
+        let {children} = this.props;
+        React.Children.map(children, child => {
             let obj = {};
             if(typeof child.props.label === 'string'){
                 obj.label = child.props.label;
@@ -34,11 +45,15 @@ export default class Tabs extends React.Component {
 
     componentDidMount = () => {
         this.reset_underline(0);
+
+        // for(let i = 0; i < this.state.dataSource.length; i++){
+        //     this.ripple.init(this[`panel_item_${i}`]);
+        // }
     }
 
     /* 
         重置下划线宽度
-        根据span被字撑开的宽度计算下划线位置
+        根据span被字撑开的宽度计算下划线起始位置及宽度
         有挺多无用渲染的 mark
     */ 
     reset_underline = index => {
@@ -48,35 +63,66 @@ export default class Tabs extends React.Component {
             for(let i = 0; i < this.state.dataSource.length; i++){
                 let span_width = this[`panel_span_${i}`].offsetWidth;
                 let item_width = this[`panel_item_${i}`].offsetWidth;
-                coefficient.push({underline_width: span_width + 20, left: ((item_width - span_width) / 2 - 12) + index * item_width});
+                let item_height = this[`panel_item_${i}`].offsetHeight;
+
+                this[`panel_item_${i}`].addEventListener('transitionend', e => {
+                    this.state.ripple_config.displayFlag = false;
+                    this.setState();
+                });
+                // 这里的-12，我也忘了是为什么了
+                coefficient.push({underline_width: span_width + 20, left: ((item_width - span_width) / 2 - 12) + index * item_width, width: item_width, height: item_height});
             }
             this.setState({underline_item: coefficient[index]});
         }, 0);
     }
 
-    handle_click = (item, currentSelect) => {
+    handle_click = (item, currentSelect, event) => {
+        let {ripple_config, underline_item} = this.state;
+        const {pageX, pageY} = event;
+
         this.reset_underline(currentSelect);
+
+        let config = {
+            scale: +underline_item.width,
+            offsetLeft: pageX,
+            offsetTop: pageY,
+            opacity: 1,
+            displayFlag: true,
+        };
+        this.setState(Object.assign(ripple_config, config), () => {
+            ripple_config.opacity = 0;
+            this.setState({ripple_config});
+        });
+        
         if(this.props.onClick) this.props.onClick(item, currentSelect);
     }
 
     render() {
         const {config = {}, currentSelect, children} = this.props;
-        const {dataSource} = this.state;
         /* 当传width时，页签项定宽，
             超出宽度时可滑动，惯性弹回，
             未超出屏幕时就当没传 plan
-            不传时按页签项数量平分一个屏幕的宽度 暂 */
+            不传时按页签项数量平分父容器的宽度 暂 */
         let {width, containerStyle, undelineStyle, fontStyle} = config;
-        const {underline_item} = this.state;
+        const {dataSource, underline_item, ripple_config} = this.state;
+        const {scale, offsetLeft, offsetTop, opacity, displayFlag} = ripple_config;
+
+        // 波纹
+        let ripple_style = {width: 2, height: 2, background: 'rgba(255, 255, 255, 0.3)', position: 'absolute', transform: `scale(${scale})`, transition: 'transform .7s cubic-bezier(0.250, 0.460, 0.450, 0.940), opacity .7s cubic-bezier(0.250, 0.460, 0.450, 0.940)', borderRadius: '50%', opacity};
 
         let tabs = [];
             tabs.push(
                 <ul className='container' style={containerStyle}>
                     {
                         dataSource.map((item, i) => {
+                            ripple_style.top = offsetTop;
+                            ripple_style.left = offsetLeft - (currentSelect * underline_item.width);
+
                             return (
-                                <li className='item' style={Object.assign({width: 100 / dataSource.length + '%'}, fontStyle)} onClick={()=>this.handle_click(item, i)} ref={ref => this[`panel_item_${i}`] = ref}>
+                                <li className='item' style={Object.assign({width: 100 / dataSource.length + '%'}, fontStyle)} onClick={e => this.handle_click(item, i, e)} ref={ref => this[`panel_item_${i}`] = ref}>
                                     <span className={currentSelect == i ? 'active' : null} ref={ref => this[`panel_span_${i}`] = ref}>{item.label}</span>
+                                    <div style={currentSelect == i && displayFlag ? ripple_style : null} />
+                                    {/* <Ripple ref={ref => this.ripple = ref} wrapWidth={underline_item.width} /> */}
                                 </li>
                             )
                         })
@@ -98,7 +144,7 @@ export default class Tabs extends React.Component {
                 {underline}
                 {
                     React.Children.map(children, (child, i) => {
-                        return <div className='child-content' style={{transform: `translate3d(${(i - currentSelect) * 100}%, ${-i * 100}%, 0)`}}>{child}</div>;
+                        return <div className='child-content' style={{transform: `translate3d(${(i - currentSelect) * 100}%, 0, 0)`}}>{child}</div>;
                     })
                 }
             </div>
