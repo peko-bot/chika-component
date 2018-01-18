@@ -1,6 +1,7 @@
 ## 页签
 - 过渡及点击效果
 - 样式可配
+- 受控
 
 ## 效果
   ![img](https://github.com/zy410419243/react-mobile-component/blob/master/src/assets/component/Tabs/demo_tabs.gif)  
