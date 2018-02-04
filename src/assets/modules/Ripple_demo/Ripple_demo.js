@@ -1,15 +1,12 @@
 import React from 'react'
 
 import Ripple from '../../component/Ripple/Ripple'
+import './css/Ripple_demo.css'
 
 export default class Ripple_demo extends React.Component {
     constructor(props) {
         super(props)
         this.state = {}
-    }
-
-    componentDidMount = () => {
-
     }
 
     dataSource = [
@@ -23,10 +20,9 @@ export default class Ripple_demo extends React.Component {
                 {
                     this.dataSource.map((item, i) => {
                         return (
-                            <div style={{overflow: 'hidden', position: 'relative', float: 'left', width: '50%'}}>
-                                <Ripple wrapWidth={document.body.clientWidth / 2} duration='1s'>
-                                    <div style={{background: '#F96', height: 200}}>{item.label}</div>
-                                </Ripple>
+                            <div className='item'>
+                                <div ref={ref => this[`item_${i}`] = ref} className='item-label'>{item.label}</div>
+                                <Ripple ref={ref => ref.init(this[`item_${i}`])} wrapWidth={document.body.clientWidth} />
                             </div>
                         )
                     })

@@ -165,12 +165,12 @@ class List_Container extends React.Component {
         let ajax_param = url ? {
             key: 'getUrlData',
             f: 'json',
-            method: 'POST',
+            // method: 'POST',
             data: Object.assign({}, {RequestUrl, RequestParams: Object.assign({}, data, RequestParams), RequestMethod}),
         } : {
             key: 'search',
             f: 'json',
-            method: 'POST',
+            // method: 'POST',
             data: Object.assign({}, search_param, data, RequestParams),
         };
 
@@ -570,7 +570,7 @@ class List_Container extends React.Component {
 
             case 3: // 下拉框，关联外键数据
                 // 去掉左右空格
-                value = value.replace(/\s/g,'');
+                // value = value.replace(/\s/g,'');
                 for(let foreign of foreigndata){
                     if(foreign.value == value){
                         value = foreign.label;
