@@ -56,6 +56,7 @@ export default class Calendar_demo extends React.Component {
     }
 
     onChange = item => {
+        console.log(item)
         let {select} = this.state;
         let {dateStr, color} = item;
         
@@ -65,6 +66,7 @@ export default class Calendar_demo extends React.Component {
     }
 
     handle_touch = position => {
+        console.log(position)
         const {start, end} = this.handle_date_change(position);
         this.setState({position, start, end});
     }
