@@ -1,0 +1,7 @@
+.Ripple {
+    position: absolute;
+    border-radius: 50%;
+    transition-property: transform, opacity;
+    transition-timing-function: cubic-bezier(0.250, 0.460, 0.450, 0.940);
+    -webkit-mask-image: -webkit-radial-gradient(circle, white 100%, black 100%);
+}

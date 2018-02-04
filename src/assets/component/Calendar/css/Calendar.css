@@ -9,12 +9,12 @@
 }
 
 .Calendar .week-name .cal-text {
-    border-radius: 25px;
+    border-radius: 50%;
     width: 32px;
     height: 32px;
     line-height: 32px;
     margin: auto;
-    transition: all .7s;
+    transition: all .7s cubic-bezier(0.35, 0, 0.25, 1);
 }
 
 .Calendar table {
@@ -24,5 +24,5 @@
 .Calendar .container {
     position: fixed;
     width: 100%;
-    transition: left 0.5s;
+    transition: left .7s cubic-bezier(0.35, 0, 0.25, 1);
 }

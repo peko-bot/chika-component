@@ -12,10 +12,57 @@ export default class Calendar extends React.Component {
         }
     }
 
-    select = [];
 
     componentDidMount = () => {
+        // 绑定搜索面板滑动事件
+        this.bind_touch_direction(this.content, direction => {
+            this.props.touch && this.props.touch(direction);
+        });
+
         this.refresh();
+    }
+
+    // 绑定 判断滑动方向 事件
+    bind_touch_direction = (ref, method) => {
+        let startX, startY, endX, endY;
+        ref.addEventListener('touchstart', e => {
+            startX = e.touches[0].pageX;
+            startY = e.touches[0].pageY;
+        });
+
+        ref.addEventListener('touchend', e => {
+            endX = e.changedTouches[0].pageX;
+            endY = e.changedTouches[0].pageY;
+
+            let direction = this.getDirection(startX, startY, endX, endY);
+
+            method(direction);
+        });
+    }
+
+    //根据起点终点返回方向
+    getDirection(startX, startY, endX, endY) {
+        let angx = endX - startX;
+        let angy = endY - startY;
+        let result = '我一直站在此处没有动，等你买橘回来给我付车费';
+ 
+        // 如果滑动距离太短
+        if (Math.abs(angx) < 25 && Math.abs(angy) < 25) {
+            return result;
+        }
+ 
+        let angle = Math.atan2(angy, angx) * 180 / Math.PI;
+        if (angle >= -135 && angle <= -45) {
+            result = 'down'; // toTop
+        } else if (angle > 45 && angle < 135) {
+            result = 'top'; // toDown
+        } else if ((angle >= 135 && angle <= 180) || (angle >= -180 && angle < -135)) {
+            result = 'right'; // toLeft
+        } else if (angle >= -45 && angle <= 45) {
+            result = 'left'; // toRight
+        }
+ 
+        return result;
     }
 
     refresh = (position, select = []) => {
@@ -24,11 +71,7 @@ export default class Calendar extends React.Component {
 
         // 处理日历本体数据
         calendar_body = this.trans_calendar_datas(start, end);
-        // 设置选中项
-        if(select.length != 0){
-            this.select = select;
-        }
-        calendar_body = this.handle_select_date(this.select, calendar_body);
+        calendar_body = this.handle_select_date(select, calendar_body);
 
         // 本体左右滑动事件
         // 这里需要清除数组的，不然点多了会影响性能，暂时没做 mark
@@ -54,7 +97,8 @@ export default class Calendar extends React.Component {
             break;
         }
         
-        this.setState({calendar_body, calendar_list});
+        // this.setState({calendar_body, calendar_list});
+        return {calendar_body, calendar_list};
     }
 
     /* 设置选中项
@@ -93,7 +137,7 @@ export default class Calendar extends React.Component {
 
         // 初始化二维数组
         for(let i = 0; i < rowNum; i++){
-            calendar_datas.push(new Array());
+            calendar_datas.push([]);
         }
 
         /* 
@@ -137,26 +181,30 @@ export default class Calendar extends React.Component {
     }
 
     // 获得两个日期间隔天数
-    getDaysByDateString = (dateString1, dateString2) => {
-        if(dateString1 === undefined || dateString2 === undefined) return 1;
-        let startDate = Date.parse(dateString1.replace('/-/g','/'));
-        let endDate = Date.parse(dateString2.replace('/-/g','/'));
+    getDaysByDateString = (start, end) => {
+        if(start === undefined || end === undefined) return 1;
+        let startDate = Date.parse(start.replace('/-/g', '/'));
+        let endDate = Date.parse(end.replace('/-/g', '/'));
         let diffDate = (endDate - startDate) + 1 * 24 * 60 * 60 * 1000;
-        let days = diffDate / (1 * 24 * 60 * 60 * 1000);
+        let days = diffDate / (24 * 60 * 60 * 1000);
+
         return days;
     }
 
-    handle_td_click = (item) => {
+    handle_td_click = item => {
         this.props.onChange(item);
     }
 
     render() {
-        let {calendar_body,calendar_list} = this.state;
+        let {select = [], position} = this.props;
+
+        let {calendar_body, calendar_list} = this.refresh(position, select);
+
         let head = [];
         head.push(
             <tr>
                 {
-                    WEEK.map((item) => {
+                    WEEK.map(item => {
                         return (
                             <td>
                                 <span>{item}</span>
@@ -173,10 +221,11 @@ export default class Calendar extends React.Component {
             body.push(
                 <tr>
                     {
-                        item.map(jtem=>{
+                        item.map(jtem => {
                             return (
-                                <td onClick={!jtem.disabled?()=>this.handle_td_click(jtem):null}>
-                                    <div className='cal-text' style={{color: jtem.color,background:jtem.background_color}}>
+                                <td onClick={() => this.handle_td_click(jtem)}>
+                                    {/* 合并样式 mark */}
+                                    <div className='cal-text' style={{color: jtem.color,background: jtem.background_color}}>
                                         <span>{jtem.date}</span>
                                     </div>
                                 </td>
@@ -187,21 +236,16 @@ export default class Calendar extends React.Component {
             );
         }
 
-        let table = [];
-        table.push(
-            <table className='week-name'>
-                {head}
-                {body}
-            </table>
-        );
-
         return (
-            <div className='Calendar'>
+            <div className='Calendar' ref={ref => this.content = ref}>
                 {
-                    calendar_list.map(item=>{
+                    calendar_list.map((item, i) => {
                         return (
-                            <div className='container' style={{left: item*-100+'%'}}>
-                                {table}
+                            <div className='container' style={{left: item * -100 + '%'}}>
+                                <table className='week-name'>
+                                    {head}
+                                    {body}
+                                </table>
                             </div>
                         )
                     })
