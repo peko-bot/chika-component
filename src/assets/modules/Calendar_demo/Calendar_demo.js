@@ -7,13 +7,15 @@ export default class Calendar_demo extends React.Component {
     constructor(props) {
         super(props);
 
+        this.format = 'YYYY-MM-DD';
         let date = new Date();
-        let end = T.clock(date).fmt('YYYY-MM-DD');
-        let start = T.clock(new Date(date.setMonth(date.getMonth() - 1))).fmt('YYYY-MM-DD');
+        let end = T.clock(date).fmt(this.format);
+        let start = T.clock(new Date(date.setMonth(date.getMonth() - 1))).fmt(this.format);
         this.state = {
             select: [],
             start,
             end,
+            position: '',
         }
     }
 
@@ -22,53 +24,61 @@ export default class Calendar_demo extends React.Component {
             key: 'calendar_demo',
             f: 'json',
             success: (select) => {
-                /* 调用refresh方法一定要在模块页刷新state之后 */
-                this.setState({}, () => {
-                    this.calendar_ins.refresh(null, select);
-                });
+                this.setState({select, position: ''});
             }
         });
     }
 
-    date_onChange = (type) => {
-        let {start,end} = this.state;
+    handle_date_change = type => {
+        let {start,end, position} = this.state;
         let start_time = new Date(start);
         let end_time = new Date(end);
-        let position = '';
 
         switch(type){
-            case 'last':
-                start = T.clock(new Date(start_time.setMonth(start_time.getMonth() - 1))).fmt('YYYY-MM-DD');
-                end = T.clock(new Date(end_time.setMonth(end_time.getMonth() - 1))).fmt('YYYY-MM-DD');
+            case 'left':
+                start = T.clock(new Date(start_time.setMonth(start_time.getMonth() - 1))).fmt(this.format);
+                end = T.clock(new Date(end_time.setMonth(end_time.getMonth() - 1))).fmt(this.format);
                 position = 'left';
             break;
 
-            case 'next':
-                start = T.clock(new Date(start_time.setMonth(start_time.getMonth() + 1))).fmt('YYYY-MM-DD');
-                end = T.clock(new Date(end_time.setMonth(end_time.getMonth() + 1))).fmt('YYYY-MM-DD');
+            case 'right':
+                start = T.clock(new Date(start_time.setMonth(start_time.getMonth() + 1))).fmt(this.format);
+                end = T.clock(new Date(end_time.setMonth(end_time.getMonth() + 1))).fmt(this.format);
                 position = 'right';
             break;
         }
-        /* 调用refresh方法一定要在模块页刷新state之后 */
-        this.setState({start, end}, () => {
-            this.calendar_ins.refresh(position);
-        });
+
+        return {start, end, position};
     }
 
-    onChange = (item) => {
-        console.log(item)
+    date_onChange = (type) => {
+        this.setState(this.handle_date_change(type));
+    }
+
+    onChange = item => {
+        let {select} = this.state;
+        let {dateStr, color} = item;
+        
+        select.push({date: dateStr, color: '#F96'});
+
+        this.setState({select});
+    }
+
+    handle_touch = position => {
+        const {start, end} = this.handle_date_change(position);
+        this.setState({position, start, end});
     }
 
     render() {
-        const {select,start,end} = this.state;
+        const {select,start,end, position} = this.state;
 
         return (
             <div className='Calendar_demo'>
-                <div onClick={()=>this.date_onChange('last')} style={{float:'left'}}>上个月</div>
-                <div onClick={()=>this.date_onChange('next')} style={{float:'right'}}>下个月</div>
+                <div onClick={()=>this.date_onChange('left')} style={{float:'left'}}>上个月</div>
+                <div onClick={()=>this.date_onChange('right')} style={{float:'right'}}>下个月</div>
                 <div style={{clear:'both'}}></div>
                 <div>{`${start} ${end}`}</div>
-                <Calendar onChange={this.onChange} start={start} end={end} ref={instance=>this.calendar_ins=instance} />
+                <Calendar onChange={this.onChange} start={start} end={end} select={select} position={position} touch={this.handle_touch} />
             </div>
         )
     }
