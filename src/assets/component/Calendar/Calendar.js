@@ -23,7 +23,7 @@ export default class Calendar extends React.Component {
     }
 
     // 绑定 判断滑动方向 事件
-    bind_touch_direction = (ref, method) => {
+    bind_touch_direction = (ref, callback) => {
         let startX, startY, endX, endY;
         ref.addEventListener('touchstart', e => {
             startX = e.touches[0].pageX;
@@ -36,7 +36,7 @@ export default class Calendar extends React.Component {
 
             let direction = this.getDirection(startX, startY, endX, endY);
 
-            method(direction);
+            callback(direction);
         });
     }
 
@@ -66,8 +66,8 @@ export default class Calendar extends React.Component {
     }
 
     refresh = (position, select = []) => {
-        let {calendar_body,calendar_list} = this.state;
-        const {start,end} = this.props;
+        let {calendar_body, calendar_list} = this.state;
+        const {start, end} = this.props;
 
         // 处理日历本体数据
         calendar_body = this.trans_calendar_datas(start, end);
@@ -79,6 +79,7 @@ export default class Calendar extends React.Component {
             case 'left':
                 // 移除尾部元素
                 // calendar_list = calendar_list.splice(-1, 1);
+
                 for(let i = 0; i < calendar_list.length; i++){
                     calendar_list[i]--;
                 }
@@ -97,12 +98,11 @@ export default class Calendar extends React.Component {
             break;
         }
         
-        // this.setState({calendar_body, calendar_list});
         return {calendar_body, calendar_list};
     }
 
     /* 设置选中项
-        这里就是简单遍历，性能会有问题
+        这里就是简单遍历，性能会有问题p
         优化的话应该是直接确定日期在二维数组中的位置
     */
     handle_select_date = (select, calendar_body) => {
@@ -173,7 +173,7 @@ export default class Calendar extends React.Component {
             calendar_datas[row][count % 7] = param;
             
             count++;
-            if(count != 0 && count % 7 == 0) row++;
+            count != 0 && count % 7 == 0 && row++;
             start_time += 1 * 24 * 3600 * 1000;
         }
 
@@ -241,7 +241,7 @@ export default class Calendar extends React.Component {
                 {
                     calendar_list.map((item, i) => {
                         return (
-                            <div className='container' style={{left: item * -100 + '%'}}>
+                            <div className='container' style={{left: item * -100 + '%', opacity: item == 0 ? 1 : 0}}>
                                 <table className='week-name'>
                                     {head}
                                     {body}
