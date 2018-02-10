@@ -7,7 +7,7 @@ export default class Tabs_demo extends React.Component {
         super(props)
         this.state = {
             result: [],
-            currentSelect: 0,
+            currentSelect: 1,
         }
     }
 

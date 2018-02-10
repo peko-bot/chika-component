@@ -44,7 +44,7 @@ export default class Tabs extends React.Component {
     }
 
     componentDidMount = () => {
-        this.reset_underline(0);
+        this.reset_underline();
 
         // for(let i = 0; i < this.state.dataSource.length; i++){
         //     this.ripple.init(this[`panel_item_${i}`]);
@@ -56,8 +56,9 @@ export default class Tabs extends React.Component {
         根据span被字撑开的宽度计算下划线起始位置及宽度
         有挺多无用渲染的 mark
     */ 
-    reset_underline = index => {
+    reset_underline = () => {
         setTimeout(() => {
+            let {currentSelect} = this.props;
             // 页签项下划线宽度
             let coefficient = [];
             for(let i = 0; i < this.state.dataSource.length; i++){
@@ -70,9 +71,9 @@ export default class Tabs extends React.Component {
                     this.setState();
                 });
                 // 这里的-12，我也忘了是为什么了
-                coefficient.push({underline_width: span_width + 20, left: ((item_width - span_width) / 2 - 12) + index * item_width, width: item_width, height: item_height});
+                coefficient.push({underline_width: span_width + 20, left: ((item_width - span_width) / 2 - 12) + currentSelect * item_width, width: item_width, height: item_height});
             }
-            this.setState({underline_item: coefficient[index]});
+            this.setState({underline_item: coefficient[currentSelect]});
         }, 0);
     }
 
@@ -80,7 +81,7 @@ export default class Tabs extends React.Component {
         let {ripple_config, underline_item} = this.state;
         const {pageX, pageY} = event;
 
-        this.reset_underline(currentSelect);
+        this.reset_underline();
 
         let config = {
             scale: +underline_item.width,
