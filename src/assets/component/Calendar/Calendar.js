@@ -2,22 +2,38 @@ import React from 'react'
 
 import './css/Calendar.css'
 
-/* 简单日历 */
+/**
+* @description 简单日历
+* @module Calendar
+* @author: zy9
+* @since: 2018-02-04 ‏‎20:55:34
+*/
+
 export default class Calendar extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             calendar_body: [],
-            calendar_list: [0,], // 翻页用
+            calendar_list: [-5, -4, -3, -2, -1, 0, 1], // 翻页用
         }
     }
-
 
     componentDidMount = () => {
         // 绑定搜索面板滑动事件
         this.bind_touch_direction(this.content, direction => {
             this.props.touch && this.props.touch(direction);
         });
+
+        // this.content.addEventListener('transitionend', () => {
+        //     const {position} = this.props;
+
+        //     if(position == 'right'){
+        //         if(this.state.calendar_list.length && this.state.calendar_list[0] == 0){
+        //             this.state.calendar_list.splice(0, 0, -1);
+        //         }
+        //     }
+        //     console.log(this.state.calendar_list)
+        // }, false);
 
         this.refresh();
     }
@@ -65,25 +81,28 @@ export default class Calendar extends React.Component {
         return result;
     }
 
-    refresh = (position, select = []) => {
+    refresh = (select = []) => {
         let {calendar_body, calendar_list} = this.state;
-        const {start, end} = this.props;
+        const {start, end, position} = this.props;
 
         // 处理日历本体数据
         calendar_body = this.trans_calendar_datas(start, end);
         calendar_body = this.handle_select_date(select, calendar_body);
 
+        let list_len = calendar_list.length;
+
         // 本体左右滑动事件
-        // 这里需要清除数组的，不然点多了会影响性能，暂时没做 mark
+        // 这里需要清理数组的，不然点多了会影响性能，暂时没做 mark
         switch(position){
             case 'left':
-                // 移除尾部元素
-                // calendar_list = calendar_list.splice(-1, 1);
-
                 for(let i = 0; i < calendar_list.length; i++){
                     calendar_list[i]--;
                 }
-                calendar_list.push(0);
+                if(list_len && calendar_list[list_len - 1] == 0){
+                    calendar_list.push(1);
+                    // 移除尾部元素
+                    // calendar_list.splice(0, 1);
+                }
             break;
 
             case 'right':
@@ -94,7 +113,9 @@ export default class Calendar extends React.Component {
                 for(let i = 0; i < calendar_list.length; i++){
                     calendar_list[i]++;
                 }
-                calendar_list.push(0);
+                // if(list_len && calendar_list[0] == 0){
+                //     calendar_list.splice(0, 0, calendar_list[0] - 1);
+                // }
             break;
         }
         
@@ -102,7 +123,7 @@ export default class Calendar extends React.Component {
     }
 
     /* 设置选中项
-        这里就是简单遍历，性能会有问题p
+        这里就是简单遍历，性能会有问题
         优化的话应该是直接确定日期在二维数组中的位置
     */
     handle_select_date = (select, calendar_body) => {
@@ -192,13 +213,14 @@ export default class Calendar extends React.Component {
     }
 
     handle_td_click = item => {
-        this.props.onChange(item);
+        this.props.onChange && this.props.onChange(item);
     }
 
     render() {
         let {select = [], position} = this.props;
+        let {currentSelect} = this.state;
 
-        let {calendar_body, calendar_list} = this.refresh(position, select);
+        let {calendar_body, calendar_list} = this.refresh(select);
 
         let head = [];
         head.push(
@@ -216,8 +238,7 @@ export default class Calendar extends React.Component {
         );
 
         let body = [];
-        for(let i = 0; i < calendar_body.length; i++){
-            let item = calendar_body[i];
+        for(let item of calendar_body){
             body.push(
                 <tr>
                     {
@@ -241,7 +262,7 @@ export default class Calendar extends React.Component {
                 {
                     calendar_list.map((item, i) => {
                         return (
-                            <div className='container' style={{left: item * -100 + '%', opacity: item == 0 ? 1 : 0}}>
+                            <div className='container' style={{left: item * -100 + '%'}}>
                                 <table className='week-name'>
                                     {head}
                                     {body}
