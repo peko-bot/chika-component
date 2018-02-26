@@ -1,6 +1,5 @@
 import React from 'react'
 
-// import Ripple from '../Ripple/Ripple'
 import './css/Tabs.css'
 
 /* 受控页签 */
@@ -24,14 +23,29 @@ export default class Tabs extends React.Component {
     }
 
     componentWillMount = () => {
-        /* 
-            预处理页签项数据
-            一种情况是传入字符串，这直接显示出来就好
-            另一种是除了字符串还传了其他东西，也就是一个对象。
-                这种在里面加上label字段，其他参数在点击页签项的时候抛出
-            除了这两种情况，其他传入都是报错
-        */
-        let {children} = this.props;
+        this.handle_children_datas();
+    }
+
+    // 用于label动态更新
+    componentWillReceiveProps = nextProps => {
+        let {children} = nextProps;
+
+        this.handle_children_datas(children);
+    }
+
+    componentDidMount = () => {
+        this.reset_underline();
+    }
+
+    /* 
+        预处理页签项数据
+        一种情况是传入字符串，这直接显示出来就好
+        另一种是除了字符串还传了其他东西，也就是一个对象。
+            这种在里面加上label字段，其他参数在点击页签项的时候抛出
+        除了这两种情况，其他传入都是报错
+    */
+    handle_children_datas = (children = this.props.children) => {
+        this.state.dataSource = [];
         React.Children.map(children, child => {
             let obj = {};
             if(typeof child.props.label === 'string'){
@@ -41,14 +55,6 @@ export default class Tabs extends React.Component {
             }
             this.state.dataSource.push(obj);
         })
-    }
-
-    componentDidMount = () => {
-        this.reset_underline();
-
-        // for(let i = 0; i < this.state.dataSource.length; i++){
-        //     this.ripple.init(this[`panel_item_${i}`]);
-        // }
     }
 
     /* 
@@ -109,27 +115,23 @@ export default class Tabs extends React.Component {
         const {scale, offsetLeft, offsetTop, opacity, displayFlag} = ripple_config;
 
         // 波纹
-        let ripple_style = {width: 2, height: 2, background: 'rgba(255, 255, 255, 0.3)', position: 'absolute', transform: `scale(${scale})`, transition: 'transform .7s cubic-bezier(0.250, 0.460, 0.450, 0.940), opacity .7s cubic-bezier(0.250, 0.460, 0.450, 0.940)', borderRadius: '50%', opacity};
+        let ripple_style = Object.assign({}, {top: offsetTop, left: offsetLeft - (currentSelect * underline_item.width)}, {width: 2, height: 2, background: 'rgba(255, 255, 255, 0.3)', position: 'absolute', transform: `scale(${scale})`, transition: 'transform .7s cubic-bezier(0.250, 0.460, 0.450, 0.940), opacity .7s cubic-bezier(0.250, 0.460, 0.450, 0.940)', borderRadius: '50%', opacity});
 
         let tabs = [];
-            tabs.push(
-                <ul className='container' style={containerStyle}>
-                    {
-                        dataSource.map((item, i) => {
-                            ripple_style.top = offsetTop;
-                            ripple_style.left = offsetLeft - (currentSelect * underline_item.width);
-
-                            return (
-                                <li className='item' style={Object.assign({width: 100 / dataSource.length + '%'}, fontStyle)} onClick={e => this.handle_click(item, i, e)} ref={ref => this[`panel_item_${i}`] = ref}>
-                                    <span className={currentSelect == i ? 'active' : null} ref={ref => this[`panel_span_${i}`] = ref}>{item.label}</span>
-                                    <div style={currentSelect == i && displayFlag ? ripple_style : null} />
-                                    {/* <Ripple ref={ref => this.ripple = ref} wrapWidth={underline_item.width} /> */}
-                                </li>
-                            )
-                        })
-                    }
-                </ul>
-            )
+        tabs.push(
+            <ul className='container' style={containerStyle}>
+                {
+                    dataSource.map((item, i) => {
+                        return (
+                            <li className='item' style={Object.assign({width: 100 / dataSource.length + '%'}, fontStyle)} onClick={e => this.handle_click(item, i, e)} ref={ref => this[`panel_item_${i}`] = ref}>
+                                <span className={currentSelect == i ? 'active' : null} ref={ref => this[`panel_span_${i}`] = ref}>{item.label}</span>
+                                <div style={currentSelect == i && displayFlag ? ripple_style : null} />
+                            </li>
+                        )
+                    })
+                }
+            </ul>
+        )
 
         let underline = [];
         const {underline_width, left} = underline_item;
@@ -145,7 +147,9 @@ export default class Tabs extends React.Component {
                 {underline}
                 {
                     React.Children.map(children, (child, i) => {
-                        return <div className='child-content' style={{transform: `translate3d(${(i - currentSelect) * 100}%, 0, 0)`}}>{child}</div>;
+                        return (
+                            <div className='child-content' style={{transform: `translate3d(${(i - currentSelect) * 100}%, 0, 0)`}}>{child}</div>
+                        )
                     })
                 }
             </div>

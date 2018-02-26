@@ -1,6 +1,6 @@
 import React from 'react'
 
-import {Modal, DatePicker, List, InputItem, Drawer, Picker, Toast, Button, ActivityIndicator, PullToRefresh, Checkbox, Accordion} from 'antd-mobile'
+import {Modal, DatePicker, List, InputItem, Drawer, Picker, Toast, Button, ActivityIndicator, PullToRefresh, Checkbox, Accordion, Calendar} from 'antd-mobile'
 const operation = Modal.operation;
 const {alert} = Modal;
 const CheckboxItem = Checkbox.CheckboxItem
@@ -165,12 +165,12 @@ class List_Container extends React.Component {
         let ajax_param = url ? {
             key: 'getUrlData',
             f: 'json',
-            // method: 'POST',
+            method: 'POST',
             data: Object.assign({}, {RequestUrl, RequestParams: Object.assign({}, data, RequestParams), RequestMethod}),
         } : {
             key: 'search',
             f: 'json',
-            // method: 'POST',
+            method: 'POST',
             data: Object.assign({}, search_param, data, RequestParams),
         };
 
@@ -461,22 +461,22 @@ class List_Container extends React.Component {
     reset = () => {
         let {currentState} = this.state;
 
-        this.pageType = 'list';
-        this.setState({}, () => {
-            this.setState({currentState: 0}, () => {
-                /* 清空新增/编辑数据 */
-                this.state.edit_config = [];
-                this.state.detail_config = [];
-            });
-        });
+        // this.pageType = 'list';
+        // this.setState({}, () => {
+        //     this.setState({currentState: 0}, () => {
+        //         /* 清空新增/编辑数据 */
+        //         this.state.edit_config = [];
+        //         this.state.detail_config = [];
+        //     });
+        // });
         
-        // this.setState({currentState: 0});
-        // setTimeout(() => {
-        //     this.pageType = 'list';
-        //     this.state.edit_config = [];
-        //     this.state.detail_config = [];
-        //     this.setState();
-        // }, 500);
+        this.setState({currentState: 0});
+        setTimeout(() => {
+            this.pageType = 'list';
+            this.state.edit_config = [];
+            this.state.detail_config = [];
+            this.setState();
+        }, 500);
     }
 
     delete = mainValue => {
@@ -555,6 +555,9 @@ class List_Container extends React.Component {
 
         let {controltype_detail, dateformat, foreigndata, unit, decimalcount} = item;
 
+        // pc中是没有日期格式字符串的配置的，这里hack一下 mark
+        dateformat = dateformat.length == 0 ? 'YYYY-MM-DD hh:mm:ss' : dateformat;
+
         switch(controltype_detail){
             case 1: // 文本框
                 // 判断是否是数字
@@ -611,7 +614,7 @@ class List_Container extends React.Component {
     /* 搜索、详情、新增/编辑，控件类型都在这里处理 */
     handle_ControlType = (item, type, detail_item) => {
         const {search_param, edit_field, edit_param} = this.state;
-        const {fname, fvalue, dateformat = 'YYYY-MM-DD', foreigndata, defaultvalue, isnull, regular, maxlen, minlen} = item;
+        const {fname, fvalue, dateformat = 'YYYY-MM-DD', foreigndata, defaultvalue, isnull, regular, maxlen = '-', minlen = '-'} = item;
         const {getFieldProps, getFieldError} = this.props.form;
 
         if(type == 'search' && !item.issearchfield) return null;
@@ -643,9 +646,11 @@ class List_Container extends React.Component {
             break;
 
             case 2: // 时间控件
+                edit_param[fname] ? edit_param[fname] : '';
+                let initDate = edit_param[fname] ? new Date(edit_param[fname]) : new Date();
                 option = {
                     onChange: date => this.handle_date(date, 'edit_param', fname, dateformat),
-                    initialValue: edit_param[fname] || defaultvalue,
+                    initialValue: initDate || defaultvalue,
                     rules: [
                         {required: !!isnull, message: '该值不能为空'},
                     ],
@@ -687,11 +692,6 @@ class List_Container extends React.Component {
                         {required: !!isnull, message: '该值不能为空'},
                     ],
                 }
-                // element = type == 'search' ? (
-                    
-                // ) : (
-
-                // )
                 element = (
                     <Accordion>
                         <Accordion.Panel header={fvalue}>
@@ -707,23 +707,23 @@ class List_Container extends React.Component {
                 );
             break;
 
-            // case 9: // 时段
-            //     option = {
-            //         rules: [
-            //             {required: !!isnull, message: '该值不能为空'},
-            //         ]
-            //     }
-            //     this.calendar_key = fname;
-            //     let flag = !!search_param[fname + 'Begin'];
+            case 9: // 时段
+                option = {
+                    rules: [
+                        {required: !!isnull, message: '该值不能为空'},
+                    ]
+                }
+                this.calendar_key = fname;
+                let flag = !!search_param[fname + 'Begin'];
 
-            //     element = type == 'search' ? (
-            //         <div>
-            //             <List.Item extra={flag ? null : '请选择'} arrow='horizontal' onClick={() => this.setState({calendar_visible: true})}>{fvalue}</List.Item>
-            //             <List.Item extra={flag ? T.clock(search_param[fname + 'Begin']).fmt('YY-MM-DD hh:mm').toLocaleString() : null} style={{display: flag ? '' : 'none'}}>{fvalue}开始时间</List.Item>
-            //             <List.Item extra={flag ? T.clock(search_param[fname + 'End']).fmt('YY-MM-DD hh:mm').toLocaleString() : null} style={{display: flag ? '' : 'none'}}>{fvalue}结束时间</List.Item>
-            //         </div>
-            //     ) : null;
-            // break;
+                element = type == 'search' ? (
+                    <div>
+                        <List.Item extra={flag ? null : '请选择'} arrow='horizontal' onClick={() => this.setState({calendar_visible: true})}>{fvalue}</List.Item>
+                        <List.Item extra={flag ? T.clock(search_param[fname + 'Begin']).fmt('YY-MM-DD hh:mm').toLocaleString() : null} style={{display: flag ? '' : 'none'}}>{fvalue}开始时间</List.Item>
+                        <List.Item extra={flag ? T.clock(search_param[fname + 'End']).fmt('YY-MM-DD hh:mm').toLocaleString() : null} style={{display: flag ? '' : 'none'}}>{fvalue}结束时间</List.Item>
+                    </div>
+                ) : null;
+            break;
 
             case 99: // label，基本就是给详情页用的
                 element = (
@@ -792,13 +792,13 @@ class List_Container extends React.Component {
     }
 
     /* 时段确定事件 */
-    // handle_calendar_submit = (start, end) => {
-    //     let format = 'YYYY-MM-DD hh:mm:ss';
-    //     this.state.search_param[this.calendar_key + 'Begin'] = T.clock(start).fmt(format);
-    //     this.state.search_param[this.calendar_key + 'End'] = T.clock(end).fmt(format);
+    handle_calendar_submit = (start, end) => {
+        let format = 'YYYY-MM-DD hh:mm:ss';
+        this.state.search_param[this.calendar_key + 'Begin'] = T.clock(start).fmt(format);
+        this.state.search_param[this.calendar_key + 'End'] = T.clock(end).fmt(format);
         
-    //     this.setState({calendar_visible: false});
-    // }
+        this.setState({calendar_visible: false});
+    }
 
     // 滑动加载
     handle_pull_load = () => {
@@ -913,7 +913,7 @@ class List_Container extends React.Component {
                     {/* {next} */}
                 </div>
 
-                {/* <Calendar visible={calendar_visible} onCancel={() => {this.setState({calendar_visible: false})}} pickTime onConfirm={this.handle_calendar_submit} /> */}
+                <Calendar visible={calendar_visible} onCancel={() => {this.setState({calendar_visible: false})}} pickTime onConfirm={this.handle_calendar_submit} />
 
                 <ActivityIndicator animating={loading} text='正在加载...' toast size='large' />
             </div>

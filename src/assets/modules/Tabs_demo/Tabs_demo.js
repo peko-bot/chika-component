@@ -8,18 +8,18 @@ export default class Tabs_demo extends React.Component {
         this.state = {
             result: [],
             currentSelect: 1,
+            label_text1: 9,
+            label_text2: 8,
         }
     }
 
     componentDidMount = () => {
-        // 请求页签数据
-        // T.ajax({
-        //     key: 'tableDatas',
-        //     f: 'json',
-        //     success: (result) => {
-        //         this.setState({result});
-        //     }
-        // })
+        setTimeout(() => {
+            this.setState({
+                label_text1: '测试1',
+                label_text2: '测试2',
+            });
+        }, 1000);
     }
 
     onClick = (item, currentSelect) => {
@@ -31,13 +31,13 @@ export default class Tabs_demo extends React.Component {
     }
 
     render() {
-        const {result,currentSelect} = this.state;
+        const {result, currentSelect, label_text1, label_text2} = this.state;
 
         return (
             <div className='Tabs_demo'>
                 <Tabs currentSelect={currentSelect} onClick={this.onClick} config={this.config}>
-                    <div label='test111111'>test1</div>
-                    <div label='test2'>test2</div>
+                    <div label={`test1${label_text1}`}>test1</div>
+                    <div label={`test2${label_text2}`}>test2</div>
                 </Tabs>
             </div>
         )

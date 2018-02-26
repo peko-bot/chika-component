@@ -2,14 +2,21 @@
     background: #F0F0F0;
     position: relative;
     overflow-x: hidden;
-    /* overflow: auto;
-    height: 100%; */
 }
 
 .List_Container_demo .item {
     background: #FFF;
-    padding: 10px;
-    margin: 10px 0;
-    width: 100%;
+    padding: 10px 8px;
+    margin: 10px 8px;
     min-height: 80px;
+    list-style: none;
+}
+
+.List_Container_demo .item .content {
+    overflow: hidden;
+    background-color: #fff;
+    margin-bottom: 7px;
+    border: 1px solid #e4e4e4;
+    border-radius: 6px;
+    padding: 0;
 }

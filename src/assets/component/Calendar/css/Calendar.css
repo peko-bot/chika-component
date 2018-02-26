@@ -6,15 +6,35 @@
 .Calendar .week-name {
     width: 100%;
     text-align: center;
+    border-collapse: collapse;
+}
+
+.Calendar .week-name tr {
+    border-bottom: 1px solid #ECECEC;
+    height: 50px;
+}
+
+.Calendar .week-name td {
+    position: relative;
 }
 
 .Calendar .week-name .cal-text {
+    /* box-sizing: border-box; */
     border-radius: 50%;
     width: 32px;
     height: 32px;
     line-height: 32px;
     margin: auto;
-    transition: all .7s cubic-bezier(0.35, 0, 0.25, 1);
+    transition: background .7s cubic-bezier(0.35, 0, 0.25, 1), color .7s cubic-bezier(0.35, 0, 0.25, 1);
+}
+
+.cal-text .cal-badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    /* color: #FE0002;
+    font-weight: bold;
+    font-size: 20px; */
 }
 
 .Calendar table {
@@ -25,5 +45,5 @@
     position: fixed;
     width: 100%;
     height: 0px;
-    transition: left .7s cubic-bezier(0.35, 0, 0.25, 1);
+    transition: transform .7s cubic-bezier(0.35, 0, 0.25, 1), opacity .7s cubic-bezier(0.35, 0, 0.25, 1);
 }

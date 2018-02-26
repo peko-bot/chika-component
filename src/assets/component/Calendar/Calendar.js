@@ -14,7 +14,7 @@ export default class Calendar extends React.Component {
         super(props)
         this.state = {
             calendar_body: [],
-            calendar_list: [-5, -4, -3, -2, -1, 0, 1], // 翻页用
+            calendar_list: [-4, -3, -2, -1, 0, 1], // 翻页用 mark
         }
     }
 
@@ -23,17 +23,6 @@ export default class Calendar extends React.Component {
         this.bind_touch_direction(this.content, direction => {
             this.props.touch && this.props.touch(direction);
         });
-
-        // this.content.addEventListener('transitionend', () => {
-        //     const {position} = this.props;
-
-        //     if(position == 'right'){
-        //         if(this.state.calendar_list.length && this.state.calendar_list[0] == 0){
-        //             this.state.calendar_list.splice(0, 0, -1);
-        //         }
-        //     }
-        //     console.log(this.state.calendar_list)
-        // }, false);
 
         this.refresh();
     }
@@ -122,20 +111,18 @@ export default class Calendar extends React.Component {
         return {calendar_body, calendar_list};
     }
 
-    /* 设置选中项
+    /* 设置选中项样式
         这里就是简单遍历，性能会有问题
-        优化的话应该是直接确定日期在二维数组中的位置
+        优化的话应该是直接确定日期在二维数组中的位置 mark
     */
     handle_select_date = (select, calendar_body) => {
-        // mark
         for(let row of calendar_body){
             for(let col of row){
                 let date_col = new Date(col.dateStr).getTime();
                 for(let item of select){
                     let date_item = new Date(item.date).getTime();
-                    if(date_col === date_item && col.color !== '#949494'){
-                        col.background_color = item.color;
-                        col.color = '#FFF';
+                    if(date_col === date_item){
+                        col = Object.assign(col, {style: item.style, badge: item.badge});
                     }
                 }
             }
@@ -184,13 +171,14 @@ export default class Calendar extends React.Component {
                 根据传进来的时段设置可点击日期的颜色，
                 颜色是在这里设置，点击事件在render的body里
             */
-            if(start_timeStamp.getTime() <= start_time && end_timeStamp.getTime() >= start_time){
-                param.color = '#000';
-                param.disabled = false;
-            }else{
-                param.color = '#949494';
-                param.disabled = true;
-            }
+            param.disabled = start_timeStamp.getTime() <= start_time && end_timeStamp.getTime() >= start_time ? false : true;
+            // if(start_timeStamp.getTime() <= start_time && end_timeStamp.getTime() >= start_time){
+            //     param.color = '#000';
+            //     param.disabled = false;
+            // }else{
+            //     param.color = '#949494';
+            //     param.disabled = true;
+            // }
             calendar_datas[row][count % 7] = param;
             
             count++;
@@ -217,7 +205,7 @@ export default class Calendar extends React.Component {
     }
 
     render() {
-        let {select = [], position} = this.props;
+        let {select = []} = this.props;
         let {currentSelect} = this.state;
 
         let {calendar_body, calendar_list} = this.refresh(select);
@@ -243,11 +231,14 @@ export default class Calendar extends React.Component {
                 <tr>
                     {
                         item.map(jtem => {
+                            const {style = {}, date, disabled, badge = {text: '', style: {}}} = jtem;
+                            const {text, style: badge_style} = badge;
+
                             return (
                                 <td onClick={() => this.handle_td_click(jtem)}>
-                                    {/* 合并样式 mark */}
-                                    <div className='cal-text' style={{color: jtem.color,background: jtem.background_color}}>
-                                        <span>{jtem.date}</span>
+                                    <div className='cal-text' style={disabled ? {color: '#949494'} : style}>
+                                        {badge ? <div className='cal-badge' style={badge_style}>{text}</div> : null}
+                                        <span>{date}</span>
                                     </div>
                                 </td>
                             )
@@ -262,7 +253,7 @@ export default class Calendar extends React.Component {
                 {
                     calendar_list.map((item, i) => {
                         return (
-                            <div className='container' style={{left: item * -100 + '%'}}>
+                            <div className='container' style={{transform: `translate3d(${item * -100}%, 0 , 0)`, opacity: !item ? 1 : 0}}>
                                 <table className='week-name'>
                                     {head}
                                     {body}

@@ -3,6 +3,7 @@ import React from 'react'
 import Container from '../../component/List_Container/List_Container'
 // import {Container} from 'sc-component-mobile'
 import './css/List_Container_demo.css'
+import { List, Accordion, WingBlank } from 'antd-mobile'
 
 export default class List_Container_demo extends React.Component {
     constructor(props) {
@@ -11,13 +12,13 @@ export default class List_Container_demo extends React.Component {
     }
 
     componentDidMount = () => {
-        // console.log('componentDidMount')
+
     }
 
     config = {
-        tcid: 1620,
-        menuid: 315,
-        pageSize: null,
+        tcid: 10093,
+        menuid: 1428,
+        pageSize: 5,
         // UserId: 1,
         // CellPhone: 13900000000,
         // RequestUrl: 'http://47.95.1.229:8500/webapi/api/v2/generalbackstage/getdata',
@@ -36,29 +37,35 @@ export default class List_Container_demo extends React.Component {
         return (
             <div className='List_Container_demo'>
                 <Container config={this.config}>
-                    <div className='item' bind>
-                        <div>
-                            <label>测试字段1：</label>
-                            <label data-key='id'>UNAME</label>
-                        </div>
-                        <div>
-                            <label>测试字段2：</label>
-                            <label data-key='bottle'>REALNAME</label>
-                        </div>
-                        <div>
-                            <label>测试字段3：</label>
-                            <label data-key='sectionidname'>U_ADDRESS</label>
-                        </div>
-                        <div>
-                            <label>测试字段4：</label>
-                            {/* format需要写在最下层 */}
-                            <label data-key='months' format='YYYY-MM-DD'>CREATETIME</label>
-                        </div>
-                        <div>
-                            <label>测试字段5：</label>
-                            <label data-key='test1'>U_ADDRESS</label>
-                        </div>
-                    </div>
+                    <Accordion defaultActiveKey='0' style={{margin: '10px 8px'}}>
+                            <Accordion.Panel header={<label>{`最近更新时间： ${T.clock().fmt('YYYY-MM-DD hh:mm:ss')}`}</label>}>
+                                <WingBlank>
+                                    <List bind>
+                                        <List.Item>
+                                            <label>id</label>
+                                            <label data-key='rs_id' style={{float: 'right'}} />
+                                        </List.Item>
+                                        <List.Item>
+                                            <label>水库名称</label>
+                                            <label data-key='rs_name' style={{float: 'right'}} />
+                                        </List.Item>
+                                        {/* <List.Item>
+                                            <label>类型</label>
+                                            <label data-key='rs_type_text' style={{float: 'right'}} />
+                                        </List.Item>
+                                        <List.Item>
+                                            <label>所在市</label>
+                                            <label data-key='city' style={{float: 'right'}} />
+                                        </List.Item> */}
+                                        <List.Item>
+                                            <label>建成时间</label>
+                                            {/* format需要写在最下层，不能有子标签 */}
+                                            <label data-key='create_tm' format='YYYY-MM-DD' style={{float: 'right'}} />
+                                        </List.Item>
+                                    </List>
+                                </WingBlank>
+                            </Accordion.Panel>
+                    </Accordion>
                 </Container>
             </div>
         )

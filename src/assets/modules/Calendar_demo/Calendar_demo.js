@@ -23,7 +23,7 @@ export default class Calendar_demo extends React.Component {
         T.ajax({
             key: 'calendar_demo',
             f: 'json',
-            success: (select) => {
+            success: select => {
                 this.setState({select, position: ''});
             }
         });
@@ -57,10 +57,23 @@ export default class Calendar_demo extends React.Component {
 
     onChange = item => {
         let {select} = this.state;
-        let {dateStr, color} = item;
-        
-        select.push({date: dateStr, color: '#F96'});
+        let {dateStr} = item;
 
+        /* 
+        当dateStr出现重复项时，移除后一个
+            用来实现选中项恢复原样 */
+        let count = 0;
+        for(let jtem of select){
+            if(jtem.date == dateStr){
+                count++;
+            }
+        }
+        if(count >= 1){ // mark
+            select.splice(select.length - 1, 1);
+        }else{
+            select.push(Object.assign(item, {date: dateStr, style: {background: '#F96', color: '#FFF'}}));
+        }
+        
         this.setState({select});
     }
 
@@ -70,7 +83,7 @@ export default class Calendar_demo extends React.Component {
     }
 
     render() {
-        const {select,start,end, position} = this.state;
+        const {select, start, end, position} = this.state;
 
         return (
             <div className='Calendar_demo'>

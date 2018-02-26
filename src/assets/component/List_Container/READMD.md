@@ -1,6 +1,8 @@
 ## 通用列表
 - 自定义模版
-- 内容可编辑
+- 增删改查
+- 有什么问题找我行不更名坐不改姓ryj
+- 需要苦力一起维护，此时请找正奋力为股东们创造价值的zy9
 
 ## 示例
 
@@ -12,7 +14,7 @@
 * 第二步
     * 在模板文件里写html
     ``` html
-      render(){
+      render = () => {
           <div className='item'>
               <div>
                   <span>测试字段1：</span>
@@ -41,7 +43,7 @@
 
     觉着没问题以后再加点细节
     ``` html
-       import {Container} from 'sc-component-mobile'
+       import { Container } from 'sc-component-mobile'
 
        config = {
            tcid: 1620,
@@ -49,16 +51,16 @@
            pageSize: 10,
            // UserId: 1,
            CellPhone: '13900000000',
-           requestUrl: 'http://www.baidu.com',
-           requestParams: {
-               test1: 'test1',
-               test2: 'test2',
-               test3: 'test3',
-           },
-           requestMethod: 'GET',
+           // requestUrl: 'http://www.baidu.com',
+           // requestParams: {
+           //    test1: 'test1',
+           //    test2: 'test2',
+           //    test3: 'test3',
+           // },
+           // requestMethod: 'GET',
        }
        
-       render(){
+       render = () => {
           <Container config={this.config}>
               <div className='item' bind>
                   <div>
@@ -88,22 +90,28 @@
 ## 最终效果图
   ![img](https://github.com/zy410419243/react-mobile-component/blob/master/src/assets/component/List_Container/demo_img/demo_list_container.gif)  
   这里图跟gif版本没对上，不过大概就是这么个意思了。  
-  至于gif里的报错...其实就是演示下功能而已，别太在意后端在干嘛...
+  至于gif里的报错...其实就是演示下大概，再往下看可就要收钱了...
 
 ## API
 | 参数 | 说明 | 类型 | 默认值 |
 | :------: | ----- | :------: | :------: |
-| decimalcount | 浮点数保留位数 | Number | 0 |
-| url | true时会用第三方接口，默认以tcid和menuid的形式请求数据 | Boolean |  false |
+| url | true时会用第三方接口 | Boolean |  false |
 | bind | 长按事件绑定的地方。上面的例子是绑在整块模版上，于是长按模板就能触发事件 | Boolean | true |
-| format | 字段为日期时，格式化字符串。绑定的节点得是底层，就是没子标签的那种 | string | YYYY-MM-DD |
-| data-key | 物理字段名 | string，需要和接口中的字段对应 | 无 |
-| unit | 单位，用在列表页 | string | 无 |
+| data-key | 物理字段名，需要和接口中的字段对应 | string | 无 |
 | bindKey | 如果data-key被占用了，可以把这个属性放到Container上，    ``` <Container bindKey='data-test' />``` ,于是现在绑定物理字段名的key变成data-test了 | string | 'data-key' |
 | config | 配置，详见下方说明 | {} | 无 |
+* 有两种请求方式，默认以tcid和menuid的形式请求数据，但有时会调第三方的接口，url : true的用处就在这了。
 
 
-# config
+## 以下参数都需要写到Container的子标签中
+| 参数 | 说明 | 类型 | 默认值 |
+| :------: | ----- | :------: | :------: |
+| unit | 单位，用在列表页 | string | 无 |
+| format | 字段为日期时，格式化字符串 | string | YYYY-MM-DD |
+| decimalcount | 浮点数保留位数 | Number | 0 |
+* 注：绑定的节点得是底层，就是没子标签的那种，比如上面的CREATETIME。
+
+## config
 | 参数 | 说明 | 类型 | 默认值 |
 | :------: | ----- | :------: | :------: |
 | tcid | 主表id，获取配置和数据 | Number | -1 |
@@ -116,6 +124,11 @@
 | RequestMethod | 非标准接口请求方式 | string | GET |
 
 
+## pc配置注意项
+* 配置项中还没有日期格式化字符串的配置，所以详情页中的日期默认YYYY-MM-DD hh:mm:ss的格式
+* 目前导出和导入还未实现，选了也没用
+* ControlType=9 时段，实现是有实现，但不符合后端代码对时间处理的要求，可以当成没有
+* 我当你精通pc的各配置的，雏的话问问边上的人，或者等我明天或者明天的明天写个具体文档
 
 ## 已实现的控件类型
 | ControlType | 说明 |
@@ -124,4 +137,9 @@
 | 2 | 单日期选择 |
 | 3 | 下拉框 |
 | 5 | 复选框 |
+| 9 | 时段 |
 | 99 | label，基本就用在详情页 |
+
+## 番外
+    先贤创业未半而中道25，今框架三分，易周疲敝，此诚三组存亡之秋也。然蹙眉之巾帼不懈于内，忠志之士往身于外者，盖追先贤之精致思路，欲报之于移动端也。
+    诚宜开张众听，以光先贤遗泽，恢弘志士之气，不宜妄自菲薄，引喻失义，以塞忠谏之路也。
