@@ -614,10 +614,13 @@ class List_Container extends React.Component {
     /* 搜索、详情、新增/编辑，控件类型都在这里处理 */
     handle_ControlType = (item, type, detail_item) => {
         const {search_param, edit_field, edit_param} = this.state;
-        const {fname, fvalue, dateformat = 'YYYY-MM-DD', foreigndata, defaultvalue, isnull, regular, maxlen = '-', minlen = '-'} = item;
+        let {fname, fvalue, dateformat = 'YYYY-MM-DD', foreigndata, defaultvalue, isnull, regular, maxlen = '-', minlen = '-'} = item;
         const {getFieldProps, getFieldError} = this.props.form;
 
         if(type == 'search' && !item.issearchfield) return null;
+
+        // pc中是没有日期格式字符串的配置的，这里hack一下 mark
+        dateformat = dateformat.length == 0 ? 'YYYY-MM-DD' : dateformat;
         
         /* 因为搜索条件也是要用到这里的，
             如果不判断type，form的key会重复绑定，导致第二次编辑无法输入 */
@@ -714,13 +717,13 @@ class List_Container extends React.Component {
                     ]
                 }
                 this.calendar_key = fname;
-                let flag = !!search_param[fname + 'Begin'];
+                let flag = !!search_param[fname + '_Begin'] && !!search_param[fname + '_End'];
 
                 element = type == 'search' ? (
                     <div>
                         <List.Item extra={flag ? null : '请选择'} arrow='horizontal' onClick={() => this.setState({calendar_visible: true})}>{fvalue}</List.Item>
-                        <List.Item extra={flag ? T.clock(search_param[fname + 'Begin']).fmt('YY-MM-DD hh:mm').toLocaleString() : null} style={{display: flag ? '' : 'none'}}>{fvalue}开始时间</List.Item>
-                        <List.Item extra={flag ? T.clock(search_param[fname + 'End']).fmt('YY-MM-DD hh:mm').toLocaleString() : null} style={{display: flag ? '' : 'none'}}>{fvalue}结束时间</List.Item>
+                        <List.Item extra={flag ? T.clock(search_param[fname + '_Begin']).fmt('YY-MM-DD hh:mm').toLocaleString() : null} style={{display: flag ? '' : 'none'}}>{fvalue}开始时间</List.Item>
+                        <List.Item extra={flag ? T.clock(search_param[fname + '_End']).fmt('YY-MM-DD hh:mm').toLocaleString() : null} style={{display: flag ? '' : 'none'}}>{fvalue}结束时间</List.Item>
                     </div>
                 ) : null;
             break;
@@ -794,8 +797,8 @@ class List_Container extends React.Component {
     /* 时段确定事件 */
     handle_calendar_submit = (start, end) => {
         let format = 'YYYY-MM-DD hh:mm:ss';
-        this.state.search_param[this.calendar_key + 'Begin'] = T.clock(start).fmt(format);
-        this.state.search_param[this.calendar_key + 'End'] = T.clock(end).fmt(format);
+        this.state.search_param[this.calendar_key + '_Begin'] = T.clock(start).fmt(format);
+        this.state.search_param[this.calendar_key + '_End'] = T.clock(end).fmt(format);
         
         this.setState({calendar_visible: false});
     }
