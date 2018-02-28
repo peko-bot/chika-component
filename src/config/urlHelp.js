@@ -1,6 +1,6 @@
 define([], function () {
   var urlHelp = {
-    isReal: true,
+    isReal: false,
     real: {
       search: 'http://192.168.118.226:7014/webapi/api/v2/generalbackstage/getdata',
       getConfig: 'http://192.168.118.226:7014/webapi/api/v2/generalbackstage/getconfig',

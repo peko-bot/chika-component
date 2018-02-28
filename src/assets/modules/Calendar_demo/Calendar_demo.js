@@ -8,9 +8,15 @@ export default class Calendar_demo extends React.Component {
         super(props);
 
         this.format = 'YYYY-MM-DD';
+
         let date = new Date();
-        let end = T.clock(date).fmt(this.format);
-        let start = T.clock(new Date(date.setMonth(date.getMonth() - 1))).fmt(this.format);
+
+        let end_time = new Date(new Date(date.getFullYear(), date.getMonth() + 1, 1).getTime() - 86400);
+        let end = `${end_time.getFullYear()}-${end_time.getMonth() + 1}-${end_time.getDate()}`;
+
+        let start_time = new Date(new Date(date.setDate(1)).getTime());
+        let start = `${start_time.getFullYear()}-${start_time.getMonth() + 1}-${start_time.getDate()}`;
+
         this.state = {
             select: [],
             start,
@@ -30,7 +36,7 @@ export default class Calendar_demo extends React.Component {
     }
 
     handle_date_change = type => {
-        let {start,end, position} = this.state;
+        let {start, end, position} = this.state;
         let start_time = new Date(start);
         let end_time = new Date(end);
 

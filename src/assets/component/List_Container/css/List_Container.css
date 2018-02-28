@@ -45,6 +45,35 @@
     cursor: pointer;
 }
 
+.List_Container .sc-extend-add {
+    position: fixed;
+    bottom: 20px;
+    z-index: 1;
+    right: 10px;
+    display: block;
+    height: 30px;
+    line-height: 30px;
+    width: 30px;
+    text-align: center;
+    background: RGBa(45, 175, 90, 0.4);
+    border-radius: 50%;
+}
+
+.List_Container .sc-extend-add .sc-extend-add-icon {
+    font-weight: 400!important;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    position: relative;
+    text-decoration: none!important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    -webkit-text-stroke-width: .22px;
+    font-size: 20px;
+    color: #fff;
+    font-style: normal;
+}
+
 .List_Container .sc-left {
     left: 0;
 }

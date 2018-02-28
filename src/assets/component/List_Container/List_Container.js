@@ -9,7 +9,7 @@ import {createForm} from 'rc-form'
 import './css/List_Container.css'
 import {extend} from '../../../data/DeepClone'
 
-/* 块状通用列表（移动端） */
+/* 自定义模版通用列表（移动端） */
 class List_Container extends React.Component {
     constructor(props) {
         super(props);
@@ -204,6 +204,7 @@ class List_Container extends React.Component {
 
                         // 复制模版对象
                         let children = extend({}, this.props.children);
+                        this.mainValue = item[this.mainKey];
                         // 渲染模版
                         this.travel_children(children, item, item[this.mainKey]);
                         this.children.push(children);
@@ -259,7 +260,7 @@ class List_Container extends React.Component {
         let {edit_config, detail_config, currentState, edit_field, edit_param} = this.state;
 
         this.pageType = type;
-        this.mainValue = mainValue;
+        // this.mainValue = mainValue;
 
         this.listDatas = this.handle_detail_datas(this.listDatas, mainValue);
 
@@ -330,9 +331,9 @@ class List_Container extends React.Component {
                         let opera = [];
                         for(let item of this.power){
                             switch(item){
-                                case 'Add': 
-                                    opera.push({text: '新增', onPress: () => this.handle_item_edit(mainKey, 'add')});
-                                break;
+                                // case 'Add': 
+                                //     opera.push({text: '新增', onPress: () => this.handle_item_edit(mainKey, 'add')});
+                                // break;
 
                                 case 'Del':
                                     opera.push({text: '删除', onPress: () => this.delete(mainKey)});
@@ -439,7 +440,7 @@ class List_Container extends React.Component {
     }
 
     // 处理增改
-    handle_edit_datas = (params) => {
+    handle_edit_datas = params => {
         T.ajax({
             ...params,
             success: resp => {
@@ -899,6 +900,12 @@ class List_Container extends React.Component {
                 <div className='sc-extend-drawer sc-right' onClick={this.handle_search_change} style={{display: search_field_open || this.pageType != 'list' ? 'none' : '', top: (ClientHeight - 100) / 2}}>
                     <img src='./assets/List_Container/arrow-left.png' />
                 </div>
+
+                {/* 触发添加的图标 */}
+                <div className='sc-extend-add' onClick={() => this.handle_item_edit(this.mainValue, 'add')} style={{display: search_field_open || this.pageType != 'list' ? 'none' : ''}}>
+                    <i className='sc-extend-add-icon'>+</i>
+                </div>
+
                 {/* 搜索面板 */}
                 <Drawer open={search_field_open} onOpenChange={this.handle_search_change} className='sc-search-drawer' sidebar={sidebar} position='right' sidebarStyle={{width: '77%', background: 'rgba(50, 50, 50, .35)'}} overlayStyle={{backgroundColor: 'rgba(50, 50, 50, 0)'}} style={{display: this.pageType == 'list' ? '' : 'none'}} />
 
