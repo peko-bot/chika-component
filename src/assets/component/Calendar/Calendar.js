@@ -75,8 +75,7 @@ export default class Calendar extends React.Component {
         const {start, end, position} = this.props;
 
         // 处理日历本体数据
-        calendar_body = this.trans_calendar_datas(start, end);
-        calendar_body = this.handle_select_date(select, calendar_body);
+        calendar_body = this.handle_select_date(select, this.trans_calendar_datas(start, end));
 
         let list_len = calendar_list.length;
 
@@ -90,14 +89,14 @@ export default class Calendar extends React.Component {
                 if(list_len && calendar_list[list_len - 1] == 0){
                     calendar_list.push(1);
                     // 移除尾部元素
-                    // calendar_list.splice(0, 1);
+                    // calendar_list.pop();
                 }
             break;
 
             case 'right':
                 // 移除头部元素
-                // if(calendar_list.length > 2){
-                    // calendar_list = calendar_list.slice(1, -1);
+                // if(calendar_list.length > 6){
+                //     calendar_list.shift();
                 // }
                 for(let i = 0; i < calendar_list.length; i++){
                     calendar_list[i]++;
@@ -120,9 +119,10 @@ export default class Calendar extends React.Component {
             for(let col of row){
                 let date_col = new Date(col.dateStr).getTime();
                 for(let item of select){
-                    let date_item = new Date(item.date).getTime();
+                    const {style, badge, changeable = true, date} = item;
+                    let date_item = new Date(date).getTime();
                     if(date_col === date_item){
-                        col = Object.assign(col, {style: item.style, badge: item.badge});
+                        col = Object.assign(col, {style, badge, changeable});
                     }
                 }
             }
@@ -163,7 +163,7 @@ export default class Calendar extends React.Component {
         while(end_time - start_time >= 0){
             // 这里转日期格式偷懒用现成的工具了，如果需要无依赖得另写转日期的方法
             const date_obj = T.clock(new Date(start_time));
-            const dateStr = date_obj.fmt('YYYY-MM-DD');
+            const dateStr = date_obj.fmt('YYYY/MM/DD'); // /是为了ios new Date时不出错
             const date = date_obj.fmt('D');
             
             let param = {date, dateStr};
@@ -172,13 +172,6 @@ export default class Calendar extends React.Component {
                 颜色是在这里设置，点击事件在render的body里
             */
             param.disabled = start_timeStamp.getTime() <= start_time && end_timeStamp.getTime() >= start_time ? false : true;
-            // if(start_timeStamp.getTime() <= start_time && end_timeStamp.getTime() >= start_time){
-            //     param.color = '#000';
-            //     param.disabled = false;
-            // }else{
-            //     param.color = '#949494';
-            //     param.disabled = true;
-            // }
             calendar_datas[row][count % 7] = param;
             
             count++;

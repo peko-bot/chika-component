@@ -1,6 +1,6 @@
 [
     {
-        "date": "2018-02-05",
+        "date": "2018/02/05",
         "badge": {
             "text": "异",
             "style": {
@@ -13,10 +13,11 @@
                 "height": 15,
                 "lineHeight": "15px"
             }
-        }
+        },
+        "changeable": false
     },
     {
-        "date": "2018-02-06",
+        "date": "2018/02/06",
         "badge": {
             "style": {
                 "color": "#FFF",
@@ -28,10 +29,11 @@
                 "height": 15,
                 "lineHeight": "15px"
             }
-        }
+        },
+        "changeable": false
     },
     {
-        "date": "2018-02-12",
+        "date": "2018/02/12",
         "badge": {
             "text": "异",
             "style": {
@@ -47,10 +49,11 @@
         },
         "style": {
             "border": "2px solid #CBCFD2"
-        }
+        },
+        "changeable": false
     },
     {
-        "date": "2018-02-13",
+        "date": "2018/02/13",
         "badge": {
             "style": {
                 "color": "#FFF",
@@ -65,10 +68,11 @@
         },
         "style": {
             "background": "#D1EAFF"
-        }
+        },
+        "changeable": false
     },
     {
-        "date": "2018-02-01",
+        "date": "2018/02/01",
         "style": {
             "border": "2px solid #F96"
         },
@@ -79,31 +83,35 @@
                 "fontWeight": "bold",
                 "fontSize": 12
             }
-        }
+        },
+        "changeable": false
     },
     {
-        "date": "2018-01-02",
+        "date": "2018/01/02",
         "style": {
             "background": "#FFC545",
             "color": "#FFF"
-        }
+        },
+        "changeable": false
     },
     {
-        "date": "2018-02-03",
+        "date": "2018/02/03",
         "style": {
             "background": "#05CC99",
             "color": "#FFF"
-        }
+        },
+        "changeable": false
     },
     {
-        "date": "2018-01-12",
+        "date": "2018/01/12",
         "style": {
             "background": "#F96",
             "color": "#FFF"
-        }
+        },
+        "changeable": false
     },
     {
-        "date": "2018-02-02",
+        "date": "2018/02/02",
         "style": {
             "background": "#4D97E0",
             "color": "#FFF"
@@ -115,13 +123,15 @@
                 "fontWeight": "bold",
                 "fontSize": 20
             }
-        }
+        },
+        "changeable": false
     },
     {
-        "date": "2017-11-23",
+        "date": "2017/11/23",
         "style": {
             "background": "#05CC99",
             "color": "#FFF"
-        }
+        },
+        "changeable": false
     }
 ]

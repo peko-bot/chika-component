@@ -30,7 +30,7 @@ export default class Calendar_demo extends React.Component {
             key: 'calendar_demo',
             f: 'json',
             success: select => {
-                this.setState({select, position: ''});
+                this.setState({select});
             }
         });
     }
@@ -63,7 +63,7 @@ export default class Calendar_demo extends React.Component {
 
     onChange = item => {
         let {select} = this.state;
-        let {dateStr} = item;
+        let {dateStr, changeable} = item;
 
         /* 
         当dateStr出现重复项时，移除后一个
@@ -74,14 +74,19 @@ export default class Calendar_demo extends React.Component {
                 count++;
             }
         }
-        if(count >= 1){ // mark
-            select.splice(select.length - 1, 1);
+        if(changeable){
+            select.pop();
         }else{
-            select.push(Object.assign(item, {date: dateStr, style: {background: '#F96', color: '#FFF'}}));
+            select.pop();
+            select.push(Object.assign(item, {date: dateStr, style: {background: '#F96', color: '#FFF', changeable: true}}));
         }
         
+        console.log(select)
         this.setState({select});
     }
+    /* 1、修改组件内部处理Date的格式，把-改成了/，放置ios上处理出错
+2、demo中增加单个选中项处理方式
+3、美化demo */
 
     handle_touch = position => {
         const {start, end} = this.handle_date_change(position);
