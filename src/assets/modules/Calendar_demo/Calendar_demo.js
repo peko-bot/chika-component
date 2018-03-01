@@ -7,15 +7,15 @@ export default class Calendar_demo extends React.Component {
     constructor(props) {
         super(props);
 
-        this.format = 'YYYY-MM-DD';
+        this.format = 'YYYY/MM/DD';
 
         let date = new Date();
 
         let end_time = new Date(new Date(date.getFullYear(), date.getMonth() + 1, 1).getTime() - 86400);
-        let end = `${end_time.getFullYear()}-${end_time.getMonth() + 1}-${end_time.getDate()}`;
+        let end = `${end_time.getFullYear()}/${end_time.getMonth() + 1}/${end_time.getDate()}`;
 
         let start_time = new Date(new Date(date.setDate(1)).getTime());
-        let start = `${start_time.getFullYear()}-${start_time.getMonth() + 1}-${start_time.getDate()}`;
+        let start = `${start_time.getFullYear()}/${start_time.getMonth() + 1}/${start_time.getDate()}`;
 
         this.state = {
             select: [],

@@ -162,9 +162,9 @@ export default class Calendar extends React.Component {
         let row = 0, count = 0;
         while(end_time - start_time >= 0){
             // 这里转日期格式偷懒用现成的工具了，如果需要无依赖得另写转日期的方法
-            const date_obj = T.clock(new Date(start_time));
-            const dateStr = date_obj.fmt('YYYY/MM/DD'); // /是为了ios new Date时不出错
-            const date = date_obj.fmt('D');
+            const date_obj = new Date(start_time);
+            const dateStr = `${date_obj.getFullYear()}/${date_obj.getMonth() + 1}/${date_obj.getDate()}`; // /是为了ios new Date时不出错
+            const date = date_obj.getDate();
             
             let param = {date, dateStr};
             /* 
