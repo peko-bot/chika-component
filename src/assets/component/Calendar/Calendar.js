@@ -197,7 +197,7 @@ export default class Calendar extends React.Component {
         this.props.onChange && this.props.onChange(item);
     }
 
-    render() {
+    render = () => {
         let {select = []} = this.props;
         let {currentSelect} = this.state;
 

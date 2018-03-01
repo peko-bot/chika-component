@@ -82,7 +82,7 @@ export default class Calendar_demo extends React.Component {
             select.push(Object.assign(item, {date: dateStr, style: {background: '#F96', color: '#FFF', changeable: true}}));
         }
         
-        this.setState({select});
+        this.setState({select, position: ''});
     }
 
     handle_touch = position => {
