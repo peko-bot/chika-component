@@ -64,6 +64,7 @@ export default class Calendar_demo extends React.Component {
     onChange = item => {
         let {select} = this.state;
         let {dateStr, changeable} = item;
+        console.log(item)
 
         /* 
         当dateStr出现重复项时，移除后一个
@@ -81,7 +82,6 @@ export default class Calendar_demo extends React.Component {
             select.push(Object.assign(item, {date: dateStr, style: {background: '#F96', color: '#FFF', changeable: true}}));
         }
         
-        console.log(select)
         this.setState({select});
     }
 
