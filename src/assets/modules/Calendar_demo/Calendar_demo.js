@@ -84,9 +84,6 @@ export default class Calendar_demo extends React.Component {
         console.log(select)
         this.setState({select});
     }
-    /* 1、修改组件内部处理Date的格式，把-改成了/，放置ios上处理出错
-2、demo中增加单个选中项处理方式
-3、美化demo */
 
     handle_touch = position => {
         const {start, end} = this.handle_date_change(position);
