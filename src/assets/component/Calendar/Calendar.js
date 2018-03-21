@@ -88,25 +88,23 @@ export default class Calendar extends React.Component {
                 }
                 if(list_len && calendar_list[list_len - 1] == 0){
                     calendar_list.push(1);
-                    // 移除尾部元素
-                    // calendar_list.pop();
                 }
+                // 移除头部元素
+                // calendar_list.length >= 6 ? calendar_list.shift() : null;
             break;
 
             case 'right':
-                // 移除头部元素
-                // if(calendar_list.length > 6){
-                //     calendar_list.shift();
-                // }
-                for(let i = 0; i < calendar_list.length; i++){
+                for(let i = 0; i < calendar_list.length; i++){  
                     calendar_list[i]++;
                 }
-                // if(list_len && calendar_list[0] == 0){
-                //     calendar_list.splice(0, 0, calendar_list[0] - 1);
-                // }
+                list_len && calendar_list[0] == 0 && calendar_list.splice(0, 0, -1);
+
+                // 移除尾部元素
+                // calendar_list.length >= 6 ? calendar_list.pop() : null;
             break;
         }
         
+        console.log(calendar_list)
         return {calendar_body, calendar_list};
     }
 
@@ -119,10 +117,11 @@ export default class Calendar extends React.Component {
             for(let col of row){
                 let date_col = new Date(col.dateStr).getTime();
                 for(let item of select){
-                    const {style, badge, changeable = true, date} = item;
+                    const {style, badge, changeable = true, date, disabled} = item;
+                    
                     let date_item = new Date(date).getTime();
                     if(date_col === date_item){
-                        col = Object.assign(col, {style, badge, changeable});
+                        col = Object.assign(col, {style, badge, changeable, disabled});
                     }
                 }
             }
@@ -161,7 +160,6 @@ export default class Calendar extends React.Component {
         // 把日期填到二维数组里
         let row = 0, count = 0;
         while(end_time - start_time >= 0){
-            // 这里转日期格式偷懒用现成的工具了，如果需要无依赖得另写转日期的方法
             const date_obj = new Date(start_time);
             const dateStr = `${date_obj.getFullYear()}/${date_obj.getMonth() + 1}/${date_obj.getDate()}`; // /是为了ios new Date时不出错
             const date = date_obj.getDate();
@@ -229,8 +227,9 @@ export default class Calendar extends React.Component {
 
                             return (
                                 <td onClick={() => this.handle_td_click(jtem)}>
+                                    {/* 当disabled为true时，去掉所有样式只显示灰色 */}
                                     <div className='cal-text' style={disabled ? {color: '#949494'} : style}>
-                                        {badge ? <div className='cal-badge' style={badge_style}>{text}</div> : null}
+                                        {badge ? <div className='cal-badge' style={disabled ? {} : badge_style}>{text}</div> : null}
                                         <span>{date}</span>
                                     </div>
                                 </td>

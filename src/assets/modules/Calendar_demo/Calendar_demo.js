@@ -64,23 +64,13 @@ export default class Calendar_demo extends React.Component {
     onChange = item => {
         let {select} = this.state;
         let {dateStr, changeable} = item;
-        console.log(item)
+        // console.log(item)
 
         /* 
         当dateStr出现重复项时，移除后一个
             用来实现选中项恢复原样 */
-        let count = 0;
-        for(let jtem of select){
-            if(jtem.date == dateStr){
-                count++;
-            }
-        }
-        if(changeable){
-            select.pop();
-        }else{
-            select.pop();
-            select.push(Object.assign(item, {date: dateStr, style: {background: '#F96', color: '#FFF', changeable: true}}));
-        }
+        select.pop();
+        !changeable ? select.push(Object.assign(item, {date: dateStr, style: {background: '#F96', color: '#FFF', changeable: true}})) : null;
         
         this.setState({select, position: ''});
     }
@@ -95,8 +85,8 @@ export default class Calendar_demo extends React.Component {
 
         return (
             <div className='Calendar_demo'>
-                <div onClick={()=>this.date_onChange('left')} style={{float:'left'}}>上个月</div>
-                <div onClick={()=>this.date_onChange('right')} style={{float:'right'}}>下个月</div>
+                <div onClick={() => this.date_onChange('left')} style={{float: 'left'}}>上个月</div>
+                <div onClick={() => this.date_onChange('right')} style={{float: 'right'}}>下个月</div>
                 <div style={{clear:'both'}}></div>
                 <div>{`${start} ${end}`}</div>
                 <Calendar onChange={this.onChange} start={start} end={end} select={select} position={position} touch={this.handle_touch} />
