@@ -14,7 +14,4 @@
 
 ### 注意事项
   组件都在src/assets/component里，每个组件根目录底下都有说明文件的  
-  src/assets/module里看对应demo  
-  
-  [脚手架](https://github.com/zy410419243/react-kit)
-  代发的、代发的、代发的
+          src/assets/module里看对应demo
