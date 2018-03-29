@@ -104,7 +104,6 @@ export default class Calendar extends React.Component {
             break;
         }
         
-        console.log(calendar_list)
         return {calendar_body, calendar_list};
     }
 

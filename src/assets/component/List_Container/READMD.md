@@ -37,7 +37,7 @@
     ``` 
     
     * 效果图  
-    ![img](https://github.com/zy410419243/react-mobile-component/blob/master/src/assets/component/List_Container/demo_img/first.jpg)
+    ![img](./demo_img/first.jpg)
     
 * 第三步
 
@@ -85,10 +85,10 @@
     ```
     
     * 效果图  
-    ![img](https://github.com/zy410419243/react-mobile-component/blob/master/src/assets/component/List_Container/demo_img/second.jpg)
+    ![img](./demo_img/second.jpg)
     
 ## 最终效果图
-  ![img](https://github.com/zy410419243/react-mobile-component/blob/master/src/assets/component/List_Container/demo_img/demo_list_container.gif)  
+  ![img](./demo_img/demo_list_container.gif)  
   这里图跟gif版本没对上，不过大概就是这么个意思了。  
   至于gif里的报错...其实就是演示下大概，再往下看可就要收钱了...
 
@@ -96,11 +96,13 @@
 | 参数 | 说明 | 类型 | 默认值 |
 | :------: | ----- | :------: | :------: |
 | url | true时会用第三方接口 | Boolean |  false |
-| bind | 长按事件绑定的地方。上面的例子是绑在整块模版上，于是长按模板就能触发事件 | Boolean | true |
+| bind | 长按和点击事件绑定的地方。上面的例子是绑在整块模版上，于是长按模板就能触发事件，点击也能跳转到详情 | Boolean | true |
 | data-key | 物理字段名，需要和接口中的字段对应 | string | 无 |
 | bindKey | 如果data-key被占用了，可以把这个属性放到Container上，    ``` <Container bindKey='data-test' />``` ,于是现在绑定物理字段名的key变成data-test了 | string | 'data-key' |
+| height | 容器高度 | string或integer | document.body.clientHeight |
 | config | 配置，详见下方说明 | {} | 无 |
 * 有两种请求方式，默认以tcid和menuid的形式请求数据，但有时会调第三方的接口，url : true的用处就在这了。
+* bind会覆盖原有的click和touch事件
 
 
 ## 以下参数都需要写到Container的子标签中
