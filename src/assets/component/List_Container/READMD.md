@@ -1,8 +1,6 @@
 ## 通用列表
 - 自定义模版
 - 增删改查
-- 有什么问题找我行不更名坐不改姓ryj
-- 需要苦力一起维护，此时请找正奋力为股东们创造价值的zy9
 
 ## 示例
 
@@ -10,6 +8,8 @@
    ``` bash
    npm install sc-component-mobile --save
    ```
+
+   npm上的代码已经n年没更了，真要用还是clone下吧
 
 * 第二步
     * 在模板文件里写html
@@ -100,9 +100,11 @@
 | data-key | 物理字段名，需要和接口中的字段对应 | string | 无 |
 | bindKey | 如果data-key被占用了，可以把这个属性放到Container上，    ``` <Container bindKey='data-test' />``` ,于是现在绑定物理字段名的key变成data-test了 | string | 'data-key' |
 | height | 容器高度 | string或integer | document.body.clientHeight |
+| onChange | 传出点击事件的值。当只查看且child有点击事件时，这个参数可以获得点击的child中的值，并可以在这个方法里写事件，大概就是覆盖原生的onClick事件 | item => console.log(item) | 无 |
 | config | 配置，详见下方说明 | {} | 无 |
-* 有两种请求方式，默认以tcid和menuid的形式请求数据，但有时会调第三方的接口，url : true的用处就在这了。
+* 有两种请求方式，默认以tcid和menuid的形式请求数据，但有时会调第三方的接口，url = true的用处就在这了。
 * bind会覆盖原有的click和touch事件
+* 在使用onChange时，如果原来的标签上有onClick可能会冲突。这个没辙
 
 
 ## 以下参数都需要写到Container的子标签中
@@ -141,7 +143,3 @@
 | 5 | 复选框 |
 | 9 | 时段 |
 | 99 | label，基本就用在详情页 |
-
-## 番外
-    先贤创业未半而中道25，今框架三分，易周疲敝，此诚三组存亡之秋也。然蹙眉之巾帼不懈于内，忠志之士往身于外者，盖追先贤之精致思路，欲报之于移动端也。
-    诚宜开张众听，以光先贤遗泽，恢弘志士之气，不宜妄自菲薄，引喻失义，以塞忠谏之路也。

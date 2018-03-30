@@ -2,10 +2,10 @@ define([], function () {
   var urlHelp = {
     isReal: false,
     real: {
-      search: 'http://192.168.118.226:7014/webapi/api/v2/generalbackstage/getdata',
-      getConfig: 'http://192.168.118.226:7014/webapi/api/v2/generalbackstage/getconfig',
-      getUrlData: 'http://192.168.118.226:7014/webapi/api/v2/generalbackstage/getinterfacedata', // 第三方接口地址，为了放置跨域问题，后端先处理下
-      generalbackstage: 'http://192.168.118.226:7014/webapi/api/v2/generalbackstage/operatedata', // 增删改
+      search: 'http://222.185.24.19:9002/webapi/api/v2/generalbackstage/getdata',
+      getConfig: 'http://222.185.24.19:9002/webapi/api/v2/generalbackstage/getconfig',
+      getUrlData: 'http://222.185.24.19:9002/webapi/api/v2/generalbackstage/getinterfacedata', // 第三方接口地址，为了放置跨域问题，后端先处理下
+      generalbackstage: 'http://222.185.24.19:9002/webapi/api/v2/generalbackstage/operatedata', // 增删改
     },
     simulation: {
       tableconfig: './data/tableconfig.json',

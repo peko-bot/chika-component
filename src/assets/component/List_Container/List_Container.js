@@ -161,7 +161,7 @@ class List_Container extends React.Component {
     // 展示列表请求数据
     search = search_type => {
         let { search_param } = this.state;
-        let { url, config } = this.props;
+        let { url, config, debug } = this.props;
         let { RequestUrl, RequestParams = {}, RequestMethod = 'GET', UserId = null, CellPhone = null } = config;
 
         let data = {};
@@ -172,12 +172,12 @@ class List_Container extends React.Component {
         let ajax_param = url ? {
             key: 'getUrlData',
             f: 'json',
-            method: 'POST',
+            method: debug ? 'GET' : 'POST',
             data: Object.assign({}, { RequestUrl, RequestParams: Object.assign({}, data, RequestParams), RequestMethod }),
         } : {
             key: 'search',
             f: 'json',
-            method: 'POST',
+            method: debug ? 'GET' : 'POST',
             data: Object.assign({}, search_param, data, RequestParams),
         };
 
@@ -317,6 +317,11 @@ class List_Container extends React.Component {
             let instance = child.props;
             let key = instance[bindKey];
 
+            // children中有绑定事件时，把这个格子的数据传出去
+            instance.onClick = e => {
+                instance.onChange && instance.onChange(item);
+            }
+
             /* 绑定点击事件
             模版中所谓的head就是每块元素的最顶层标签
             */
@@ -330,8 +335,6 @@ class List_Container extends React.Component {
                 }
 
                 instance.onTouchStart = e => {
-                    // 引入swiper用
-                    // e.preventDefault();
                     timer = setTimeout(() => {
                         let opera = [];
                         for(let item of this.power){
@@ -432,7 +435,7 @@ class List_Container extends React.Component {
             let ajax_param = {
                 key: 'generalbackstage',
                 f: 'json',
-                method: 'POST',
+                method: debug ? 'GET' : 'POST',
                 data: Object.assign({}, search_param, data, this.handle_formdata(), this.pageType == 'edit' ? mainKey : {}),
             };
 
@@ -502,7 +505,7 @@ class List_Container extends React.Component {
                 let ajax_param = {
                     key: 'generalbackstage',
                     f: 'json',
-                    method: 'POST',
+                    method: debug ? 'GET' : 'POST',
                     data: Object.assign({}, {TCID: tcid}, data, mainKey),
                 };
                 this.handle_edit_datas(ajax_param);

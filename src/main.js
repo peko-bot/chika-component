@@ -6,8 +6,8 @@ import RedBox from 'redbox-react'
 const urlHelp = require('./config/urlHelp');
 
 // import TEST from './assets/modules/Swiper_demo/Swiper_demo'
-import TEST from './assets/modules/Calendar_demo/Calendar_demo'
-// import TEST from './assets/modules/List_Container_demo/List_Container_demo'
+// import TEST from './assets/modules/Calendar_demo/Calendar_demo'
+import TEST from './assets/modules/List_Container_demo/List_Container_demo'
 // import TEST from './assets/modules/Button_demo/Button_demo'
 // import TEST from './assets/modules/Tabs_demo/Tabs_demo'
 // import TEST from './assets/modules/Ripple_demo/Ripple_demo'
