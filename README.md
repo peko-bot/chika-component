@@ -13,5 +13,6 @@
  - 没做过轮子不大好意思跟人打招呼，我还是想跟人说“Hello World”的
 
 ### 注意事项
-  组件都在src/assets/component里，每个组件根目录底下都有说明文件的  
-          src/assets/module里看对应demo
+  ./src/assets/component，每个组件根目录底下都有说明文件
+  
+  ./src/assets/module里看对应demo
