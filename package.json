@@ -53,11 +53,6 @@
   "author": "",
   "license": "",
   "dependencies": {
-    "antd-mobile": "^2.0.3",
-    "lodash": "^4.17.4",
-    "rc-form": "^2.1.7",
-    "react-fastclick": "^3.0.2",
-    "three": "^0.90.0"
   },
   "devDependencies": {
     "babel-core": "^6.17.0",
