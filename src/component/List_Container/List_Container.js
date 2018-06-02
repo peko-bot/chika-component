@@ -1,3 +1,9 @@
+/*
+ * @Author: zy9@github.com/zy410419243 
+ * @Date: 2017-09-29 15:00:45
+ * @Last Modified by: zy9
+ * @Last Modified time: 2018-06-02 21:53:57
+ */
 import React from 'react'
 
 import { Modal, DatePicker, List, InputItem, Drawer, Picker, Toast, Button, ActivityIndicator, PullToRefresh, Checkbox, Accordion, Calendar } from 'antd-mobile'
@@ -5,16 +11,16 @@ const operation = Modal.operation;
 const { alert } = Modal;
 const CheckboxItem = Checkbox.CheckboxItem
 import { createForm } from 'rc-form'
+import moment from 'moment'
 
 import './css/List_Container.css'
-import { extend } from '../../../data/DeepClone'
+import { extend } from '../../util/DeepClone'
 
-/**
-* @description 自定义模版通用列表（移动端）
-* @module List_Container
-* @author: zy9
-* @since: 2017-09-29 15:00:45
-*/
+const getConfigUrl = '../../data/getConfig.json' // http://222.185.24.19:9002/webapi/api/v2/generalbackstage/getconfig
+const tableConfigUrl = '../../data/tableconfig.json' // http://222.185.24.19:9002/webapi/api/v2/generalbackstage/getinterfacedata
+const searchUrl = '../../data/search.json' // http://222.185.24.19:9002/webapi/api/v2/generalbackstage/getdata
+const generalbackstageUrl = '../../data/tableconfig.json' // http://222.185.24.19:9002/webapi/api/v2/generalbackstage/operatedata
+
 class List_Container extends React.Component {
     constructor(props) {
         super(props);
@@ -134,28 +140,26 @@ class List_Container extends React.Component {
         const { tcid = -1, menuid = -1 } = this.props.config;
 
         this.setState({loading: true});
-        T.ajax({
-            key: 'getConfig',
-            f: 'json',
-            data: { tcid, menuid },
-            success: result => {
-                // 无论如何都会有查看的权限
-                let {power, tablefieldconfig} = result.data;
-                this.power = power.split(',');
 
-                this.config = tablefieldconfig;
+        fetch(`${getConfigUrl}?tcid=${tcid}&menuid=${menuid}`)
+        .then(result => result.json())
+        .then(result => {
+            // 无论如何都会有查看的权限
+            let {power, tablefieldconfig} = result.data;
+            this.power = power.split(',');
 
-                /* 
-                    搜索主键是列表点到详情页请求数据的那个唯一标识
-                */
-                for(let item of tablefieldconfig){
-                    // 判断是不是搜索主键，暂时按只有一个算
-                    if(item.iskey) this.mainKey = item.fname;
-                }
+            this.config = tablefieldconfig;
 
-                this.search();
+            /* 
+                搜索主键是列表点到详情页请求数据的那个唯一标识
+            */
+            for(let item of tablefieldconfig){
+                // 判断是不是搜索主键，暂时按只有一个算
+                if(item.iskey) this.mainKey = item.fname;
             }
-        });
+
+            this.search();
+        })
     }
 
     // 展示列表请求数据
@@ -181,59 +185,115 @@ class List_Container extends React.Component {
             data: Object.assign({}, search_param, data, RequestParams),
         };
 
-        T.ajax({
-            ...ajax_param,
-            success: result => {
-                try {
-                    let { list, recordcount } = result.data;
+        let tableConfig = `${tableConfigUrl}?`;
+        let search = `${searchUrl}?`;
 
-                    // 设置分页参数
-                    this.recordCount = recordcount;
+        fetch(url ? tableConfig : search)
+        .then(result => result.json())
+        .then(result => {
+            try {
+                let { list, recordcount } = result.data;
 
-                    switch(search_type){
-                        case 'pull_load': // 下拉加载
-                            this.listDatas = [...this.listDatas, ...list];
-                        break;
-            
-                        default:
-                            this.listDatas = list;
-                        break;
-                    }
+                // 设置分页参数
+                this.recordCount = recordcount;
 
-                    // 重置详情页left顺序，顺带重新渲染模版
-                    this.children = [];
-                    for(let i = 0; i < this.listDatas.length; i++){
-                        let item = this.listDatas[i];
+                switch(search_type){
+                    case 'pull_load': // 下拉加载
+                        this.listDatas = [...this.listDatas, ...list];
+                    break;
+        
+                    default:
+                        this.listDatas = list;
+                    break;
+                }
 
-                        // 详情页排序
-                        item.detail_order = i;
-                        item.index = i;
+                // 重置详情页left顺序，顺带重新渲染模版
+                this.children = [];
+                for(let i = 0; i < this.listDatas.length; i++){
+                    let item = this.listDatas[i];
 
-                        // 复制模版对象
-                        let children = extend({}, this.props.children);
-                        this.mainValue = item[this.mainKey];
-                        // 渲染模版
-                        this.travel_children(children, item, item[this.mainKey]);
-                        this.children.push(children);
-                    }
+                    // 详情页排序
+                    item.detail_order = i;
+                    item.index = i;
 
-                    // 搜索后关闭面板
-                    this.state.search_field_open ? this.handle_search_change() : this.setState({loading: false, search_loading: false, pull_load: false});
-                } catch (error) {
-                    let { message } = error;
+                    // 复制模版对象
+                    let children = extend({}, this.props.children);
+                    this.mainValue = item[this.mainKey];
+                    // 渲染模版
+                    this.travel_children(children, item, item[this.mainKey]);
+                    this.children.push(children);
+                }
 
-                    switch(message){
-                        case 'Cannot read property "list" of undefined':
-                            console.error(`url: ${ requestUrl }\n这接口返回的数据结构咱可不认识\n如果你认识，请用正确的方式带她回家\n内什么..三年起步啊..`);
-                        break;
+                // 搜索后关闭面板
+                this.state.search_field_open ? this.handle_search_change() : this.setState({loading: false, search_loading: false, pull_load: false});
+            } catch (error) {
+                let { message } = error;
 
-                        default:
-                            console.error(`"${ message }"\n咱并不怎么识字儿，服务器就告儿我这个，说您肯定认识，您得自个儿慢慢调了`);
-                        break;
-                    }
+                switch(message){
+                    case 'Cannot read property "list" of undefined':
+                        console.error(`url: ${ requestUrl }\n这接口返回的数据结构咱可不认识\n如果你认识，请用正确的方式带她回家\n内什么..三年起步啊..`);
+                    break;
+
+                    default:
+                        console.error(`"${ message }"\n咱并不怎么识字儿，服务器就告儿我这个，说您肯定认识，您得自个儿慢慢调了`);
+                    break;
                 }
             }
         })
+
+        // T.ajax({
+        //     ...ajax_param,
+        //     success: result => {
+        //         try {
+        //             let { list, recordcount } = result.data;
+
+        //             // 设置分页参数
+        //             this.recordCount = recordcount;
+
+        //             switch(search_type){
+        //                 case 'pull_load': // 下拉加载
+        //                     this.listDatas = [...this.listDatas, ...list];
+        //                 break;
+            
+        //                 default:
+        //                     this.listDatas = list;
+        //                 break;
+        //             }
+
+        //             // 重置详情页left顺序，顺带重新渲染模版
+        //             this.children = [];
+        //             for(let i = 0; i < this.listDatas.length; i++){
+        //                 let item = this.listDatas[i];
+
+        //                 // 详情页排序
+        //                 item.detail_order = i;
+        //                 item.index = i;
+
+        //                 // 复制模版对象
+        //                 let children = extend({}, this.props.children);
+        //                 this.mainValue = item[this.mainKey];
+        //                 // 渲染模版
+        //                 this.travel_children(children, item, item[this.mainKey]);
+        //                 this.children.push(children);
+        //             }
+
+        //             // 搜索后关闭面板
+        //             this.state.search_field_open ? this.handle_search_change() : this.setState({loading: false, search_loading: false, pull_load: false});
+        //         } catch (error) {
+        //             let { message } = error;
+
+        //             switch(message){
+        //                 case 'Cannot read property "list" of undefined':
+        //                     console.error(`url: ${ requestUrl }\n这接口返回的数据结构咱可不认识\n如果你认识，请用正确的方式带她回家\n内什么..三年起步啊..`);
+        //                 break;
+
+        //                 default:
+        //                     console.error(`"${ message }"\n咱并不怎么识字儿，服务器就告儿我这个，说您肯定认识，您得自个儿慢慢调了`);
+        //                 break;
+        //             }
+        //         }
+        //     }
+        // })
     }
 
     /* 处理详情页数据排序，用于过渡动画
@@ -370,7 +430,7 @@ class List_Container extends React.Component {
             if(instance[bindKey]){
                 /* 处理时间格式 */
                 if(format){
-                    instance.children = item[key] ? T.clock(item[key]).fmt(format) : item[key];
+                    instance.children = item[key] ? moment(item[key]).format(format) : item[key];
                 }
     
                 /* 处理小数保留位数 */
@@ -404,7 +464,7 @@ class List_Container extends React.Component {
                 if(key == fname){
                     switch(controltype){
                         case 2:
-                            formData[key] = T.clock(formData[key]).fmt('YYYY-MM-DD hh:mm:ss');
+                            formData[key] = moment(formData[key]).format('YYYY-MM-DD hh:mm:ss');
                         break;
 
                         case 3:
@@ -545,7 +605,7 @@ class List_Container extends React.Component {
     }
 
     handle_date = (date, item, key, format) => {
-        this.state[item][key] = T.clock(date).fmt(format);
+        this.state[item][key] = moment(date).format(format);
         this.setState();
     }
 
@@ -577,7 +637,7 @@ class List_Container extends React.Component {
             break;
 
             case 2: // 时间
-                value = T.clock(new Date(value)).fmt(dateformat);
+                value = moment(new Date(value)).format(dateformat);
             break;
 
             case 3: // 下拉框，关联外键数据
@@ -606,7 +666,7 @@ class List_Container extends React.Component {
             break;
 
             case 9: // 时段，但显示的时候跟时间没区别
-                value = T.clock(new Date(value)).fmt(dateformat);
+                value = moment(new Date(value)).format(dateformat);
             break;
 
             default:
@@ -668,7 +728,7 @@ class List_Container extends React.Component {
                     ],
                 };
                 element = type == 'search' ? (
-                    <DatePicker value={search_param[fname] ? new Date(search_param[fname]) : null} onChange={date => this.handle_date(date, 'search_param', fname, dateformat)} format={date => (T.clock(date).fmt(dateformat))}>
+                    <DatePicker value={search_param[fname] ? new Date(search_param[fname]) : null} onChange={date => this.handle_date(date, 'search_param', fname, dateformat)} format={date => (moment(date).format(dateformat))}>
                         <List.Item arrow='horizontal'>{fvalue}</List.Item>
                     </DatePicker>
                 ) : (
@@ -731,8 +791,8 @@ class List_Container extends React.Component {
                 element = type == 'search' ? (
                     <div>
                         <List.Item extra={flag ? null : '请选择'} arrow='horizontal' onClick={() => this.setState({calendar_visible: true})}>{fvalue}</List.Item>
-                        <List.Item extra={flag ? T.clock(search_param[fname + '_Begin']).fmt('YY-MM-DD hh:mm').toLocaleString() : null} style={{display: flag ? '' : 'none'}}>{fvalue}开始时间</List.Item>
-                        <List.Item extra={flag ? T.clock(search_param[fname + '_End']).fmt('YY-MM-DD hh:mm').toLocaleString() : null} style={{display: flag ? '' : 'none'}}>{fvalue}结束时间</List.Item>
+                        <List.Item extra={flag ? moment(search_param[fname + '_Begin']).format('YY-MM-DD hh:mm').toLocaleString() : null} style={{display: flag ? '' : 'none'}}>{fvalue}开始时间</List.Item>
+                        <List.Item extra={flag ? moment(search_param[fname + '_End']).format('YY-MM-DD hh:mm').toLocaleString() : null} style={{display: flag ? '' : 'none'}}>{fvalue}结束时间</List.Item>
                     </div>
                 ) : null;
             break;
@@ -806,8 +866,8 @@ class List_Container extends React.Component {
     /* 时段确定事件 */
     handle_calendar_submit = (start, end) => {
         let format = 'YYYY-MM-DD hh:mm:ss';
-        this.state.search_param[this.calendar_key + '_Begin'] = T.clock(start).fmt(format);
-        this.state.search_param[this.calendar_key + '_End'] = T.clock(end).fmt(format);
+        this.state.search_param[this.calendar_key + '_Begin'] = moment(start).format(format);
+        this.state.search_param[this.calendar_key + '_End'] = moment(end).format(format);
         
         this.setState({ calendar_visible: false });
     }

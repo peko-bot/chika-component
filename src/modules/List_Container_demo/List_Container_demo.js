@@ -1,9 +1,17 @@
+/*
+ * @Author: zy9@github.com/zy410419243 
+ * @Date: 2018-06-02 21:02:58 
+ * @Last Modified by:   zy9 
+ * @Last Modified time: 2018-06-02 21:02:58 
+ */
 import React from 'react'
 
 import Container from '../../component/List_Container/List_Container'
 // import {Container} from 'sc-component-mobile'
 import './css/List_Container_demo.css'
+
 import { List, Accordion, WingBlank } from 'antd-mobile'
+import moment from 'moment'
 
 export default class List_Container_demo extends React.Component {
     constructor(props) {
@@ -44,7 +52,7 @@ export default class List_Container_demo extends React.Component {
             <div className='List_Container_demo'>
                 <Container config={this.config} debug height={500}>
                     <Accordion defaultActiveKey='0' style={{margin: '10px 8px'}}>
-                            <Accordion.Panel header={<label>{`最近更新时间： ${T.clock().fmt('YYYY-MM-DD hh:mm:ss')}`}</label>}>
+                            <Accordion.Panel header={<label>{`最近更新时间： ${moment().format('YYYY-MM-DD hh:mm:ss')}`}</label>}>
                                 <WingBlank>
                                     {/* <List bind> */}
                                     <List onChange={this.handle_onChange}>

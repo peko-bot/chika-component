@@ -16,7 +16,7 @@ define([], function () {
       search: './data/search.json',
       calendar_demo: './data/calendar_demo.json',
       secRecordPath: './data/s_problem_record_hy.json',
-      getUrlData: './data/tableconfig.json', // 第三方接口地址，为了放置跨域问题，后端先处理下
+      getUrlData: './data/tableconfig.json', // 第三方接口地址，为了防止跨域问题，后端先处理下
       generalbackstage: './data/tableconfig.json', // 增删改
     }
   }

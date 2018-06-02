@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243 
  * @Date: 2018-05-28 15:20:13 
  * @Last Modified by: zy9
- * @Last Modified time: 2018-06-02 20:39:53
+ * @Last Modified time: 2018-06-02 21:00:48
  */
 import React from 'react'
 import ReactDOM from 'react-dom'
@@ -25,6 +25,12 @@ const Button = props => (
     </Bundle>
 )
 
+const List_Container = props => (
+    <Bundle load={ () => import('./modules/List_Container_demo/List_Container_demo') }>
+        { List_Container => <List_Container {...props}/> }
+    </Bundle>
+)
+
 const MOUNT_NODE = document.getElementById('root');
 
 try {
@@ -33,6 +39,7 @@ try {
             <div>
                 <Route path='/button' component={ Button } />
                 <Route path='/calendar' component={ Calendar } />
+                <Route path='/list_container' component={ List_Container } />
             </div>
         </HashRouter>
     , MOUNT_NODE);
