@@ -3,6 +3,10 @@ import React from 'react'
 import Calendar from '../../component/Calendar/Calendar'
 import './css/Calendar_demo.css'
 
+import moment from 'moment'
+
+const dataSourceUrl = '../../data/calendar_demo.json'
+
 export default class Calendar_demo extends React.Component {
     constructor(props) {
         super(props);
@@ -26,13 +30,14 @@ export default class Calendar_demo extends React.Component {
     }
 
     componentDidMount = () => {
-        T.ajax({
-            key: 'calendar_demo',
-            f: 'json',
-            success: select => {
-                this.setState({select});
-            }
-        });
+        fetch(dataSourceUrl)
+        .then(result => result.json())
+        .then(select => this.setState({ select }))
+        .catch(this.handle_fetch_error);
+    }
+
+    handle_fetch_error = error => {
+        console.log(error)
     }
 
     handle_date_change = type => {
@@ -42,14 +47,14 @@ export default class Calendar_demo extends React.Component {
 
         switch(type){
             case 'left':
-                start = T.clock(new Date(start_time.setMonth(start_time.getMonth() - 1))).fmt(this.format);
-                end = T.clock(new Date(end_time.setMonth(end_time.getMonth() - 1))).fmt(this.format);
+                start = moment(new Date(start_time.setMonth(start_time.getMonth() - 1))).format(this.format);
+                end = moment(new Date(end_time.setMonth(end_time.getMonth() - 1))).format(this.format);
                 position = 'left';
             break;
 
             case 'right':
-                start = T.clock(new Date(start_time.setMonth(start_time.getMonth() + 1))).fmt(this.format);
-                end = T.clock(new Date(end_time.setMonth(end_time.getMonth() + 1))).fmt(this.format);
+                start = moment(new Date(start_time.setMonth(start_time.getMonth() + 1))).format(this.format);
+                end = moment(new Date(end_time.setMonth(end_time.getMonth() + 1))).format(this.format);
                 position = 'right';
             break;
         }

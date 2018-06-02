@@ -1,13 +1,12 @@
+/*
+ * @Author: zy9@github.com/zy410419243 
+ * @Date: 2018-02-04 ‏‎20:55:34
+ * @Last Modified by: zy9
+ * @Last Modified time: 2018-06-02 20:58:30
+ */
 import React from 'react'
 
 import './css/Calendar.css'
-
-/**
-* @description 简单日历
-* @module Calendar
-* @author: zy9
-* @since: 2018-02-04 ‏‎20:55:34
-*/
 
 export default class Calendar extends React.Component {
     constructor(props) {
@@ -202,49 +201,53 @@ export default class Calendar extends React.Component {
 
         let head = [];
         head.push(
-            <tr>
-                {
-                    WEEK.map(item => {
-                        return (
-                            <td>
-                                <span>{item}</span>
-                            </td>
-                        )
-                    })
-                }
-            </tr>
-        );
-
-        let body = [];
-        for(let item of calendar_body){
-            body.push(
+            <tbody key='body_tbody_-1'>
                 <tr>
                     {
-                        item.map(jtem => {
-                            const {style = {}, date, disabled, badge = {text: '', style: {}}} = jtem;
-                            const {text, style: badge_style} = badge;
-
+                        WEEK.map((item, i) => {
                             return (
-                                <td onClick={() => this.handle_td_click(jtem)}>
-                                    {/* 当disabled为true时，去掉所有样式只显示灰色 */}
-                                    <div className='cal-text' style={disabled ? {color: '#949494'} : style}>
-                                        {badge ? <div className='cal-badge' style={disabled ? {} : badge_style}>{text}</div> : null}
-                                        <span>{date}</span>
-                                    </div>
+                                <td key={ `week_td_${i}` }>
+                                    <span>{item}</span>
                                 </td>
                             )
                         })
                     }
                 </tr>
+            </tbody>
+        );
+
+        let body = [];
+        calendar_body.map((item, i) => {
+            body.push(
+                <tbody key={ `body_tbody_${i}` }>
+                    <tr>
+                        {
+                            item.map((jtem, j) => {
+                                const {style = {}, date, disabled, badge = {text: '', style: {}}} = jtem;
+                                const {text, style: badge_style} = badge;
+
+                                return (
+                                    <td onClick={() => this.handle_td_click(jtem)} key={ `body_td_${j}` }>
+                                        {/* 当disabled为true时，去掉所有样式只显示灰色 */}
+                                        <div className='cal-text' style={disabled ? {color: '#949494'} : style}>
+                                            {badge ? <div className='cal-badge' style={disabled ? {} : badge_style}>{text}</div> : null}
+                                            <span>{date}</span>
+                                        </div>
+                                    </td>
+                                )
+                            })
+                        }
+                    </tr>
+                </tbody>
             );
-        }
+        })
 
         return (
-            <div className='Calendar' ref={ref => this.content = ref}>
+            <div className='Calendar' ref={ ref => this.content = ref }>
                 {
                     calendar_list.map((item, i) => {
                         return (
-                            <div className='container' style={{transform: `translate3d(${item * -100}%, 0 , 0)`, opacity: !item ? 1 : 0}}>
+                            <div className='container' style={{transform: `translate3d(${item * -100}%, 0 , 0)`, opacity: !item ? 1 : 0}} key={ `list_div_${i}` }>
                                 <table className='week-name'>
                                     {head}
                                     {body}

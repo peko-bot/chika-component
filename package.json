@@ -8,7 +8,7 @@
     "build": "webpack -p --mode production"
   },
   "dependencies": {
-
+    "moment": "^2.22.2"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
