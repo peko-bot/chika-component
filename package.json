@@ -1,88 +1,37 @@
 {
-  "name": "react",
-  "version": "0.0.1",
-  "description": "React component build",
-  "main": "index.js",
-  "engines": {
-    "node": ">=4.5.0",
-    "npm": "^3.0.0"
-  },
+  "name": "react-mobile-component",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
   "scripts": {
-    "compile": "better-npm-run compile",
-    "start": "better-npm-run start",
-    "dev": "better-npm-run dev",
-    "build": "better-npm-run build",
-    "build-dev": "better-npm-run build-dev"
+    "start": "webpack-dev-server --mode development",
+    "build": "webpack -p --mode production"
   },
-  "betterScripts": {
-    "build": {
-      "command": "node bin/moduleCompile",
-      "env": {
-        "NODE_ENV": "development",
-        "DEBUG": "app:*"
-      }
-    },
-    "build-dev": {
-      "command": "node bin/moduleCompile",
-      "env": {
-        "NODE_ENV": "production",
-        "DEBUG": "app:*"
-      }
-    },
-    "compile": {
-      "command": "node bin/compile",
-      "env": {
-        "NODE_ENV": "development",
-        "DEBUG": "app:*"
-      }
-    },
-    "dev": {
-      "command": "nodemon bin/server --ignore dist --ignore release --ignore src",
-      "env": {
-        "NODE_ENV": "development",
-        "DEBUG": "app:*"
-      }
-    },
-    "start": {
-      "command": "node bin/server",
-      "env": {
-        "DEBUG": "app:*"
-      }
-    }
-  },
-  "author": "",
-  "license": "",
   "dependencies": {
+
   },
   "devDependencies": {
-    "babel-core": "^6.17.0",
-    "babel-loader": "^6.2.5",
-    "babel-plugin-import": "^1.1.1",
-    "babel-preset-es2015": "^6.14.0",
-    "babel-preset-react": "^6.11.1",
-    "babel-preset-stage-0": "^6.3.13",
-    "better-npm-run": "0.0.11",
-    "css-loader": "^0.25.0",
-    "cssnano": "^3.10.0",
-    "debug": "^2.2.0",
-    "express": "^4.14.0",
-    "extract-text-webpack-plugin": "^1.0.1",
-    "file-loader": "^0.9.0",
-    "fs-extra": "^0.30.0",
-    "html-webpack-plugin": "^2.22.0",
-    "ip": "^1.1.2",
-    "json-loader": "^0.5.4",
-    "less": "^2.7.1",
-    "less-loader": "^2.2.3",
-    "nodemon": "^1.10.2",
-    "postcss-loader": "^0.13.0",
-    "react": "^15.0.0",
-    "react-dom": "^15.0.0",
-    "redbox-react": "^1.2.10",
-    "style-loader": "^0.13.1",
-    "url-loader": "^0.5.6",
-    "webpack": "^1.14.0",
-    "webpack-dev-middleware": "^1.6.1",
-    "webpack-hot-middleware": "^2.12.2"
-  }
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.4",
+    "babel-plugin-import": "^1.7.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "copy-webpack-plugin": "^4.5.1",
+    "css-loader": "^0.28.11",
+    "html-webpack-plugin": "^3.2.0",
+    "mini-css-extract-plugin": "^0.4.0",
+    "on-build-webpack": "^0.1.0",
+    "postcss-loader": "^2.1.4",
+    "react": "^16.3.2",
+    "react-dom": "^16.3.2",
+    "react-router-dom": "^4.2.2",
+    "redbox-react": "^1.6.0",
+    "style-loader": "^0.21.0",
+    "url-loader": "^1.0.1",
+    "webpack": "^4.8.3",
+    "webpack-cli": "^2.0.15",
+    "webpack-dev-server": "^3.1.3"
+  },
+  "license": "MIT"
 }
