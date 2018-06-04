@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243 
  * @Date: 2017-09-29 15:00:45
  * @Last Modified by: zy9
- * @Last Modified time: 2018-06-02 21:53:57
+ * @Last Modified time: 2018-06-04 16:08:16
  */
 import React from 'react'
 
@@ -14,7 +14,8 @@ import { createForm } from 'rc-form'
 import moment from 'moment'
 
 import './css/List_Container.css'
-import { extend } from '../../util/DeepClone'
+import extend from '../../util/DeepClone'
+import Serialize from '../../util/Serialize'
 
 const getConfigUrl = '../../data/getConfig.json' // http://222.185.24.19:9002/webapi/api/v2/generalbackstage/getconfig
 const tableConfigUrl = '../../data/tableconfig.json' // http://222.185.24.19:9002/webapi/api/v2/generalbackstage/getinterfacedata
@@ -63,7 +64,7 @@ class List_Container extends React.Component {
         const { hasSearch = true } = this.props.config;
         // 绑定搜索面板滑动事件
         hasSearch ? this.bind_touch_direction(this.content, direction => {
-            switch(direction){
+            switch(direction) {
                 case 'toLeft':
                     this.handle_search_change();
                 break;
@@ -72,9 +73,9 @@ class List_Container extends React.Component {
 
         // 绑定详情页点击及滑动事件
         this.bind_touch_direction(this.edit_content, direction => {
-            if(this.pageType == 'detail'){
+            if(this.pageType == 'detail') {
                 let {detail_next, detail_last} = this.handle_detail_next();
-                switch(direction){
+                switch(direction) {
                     case 'toLeft':
                         if(detail_next)
                             this.handle_detail_pagination('next', detail_next);
@@ -139,9 +140,9 @@ class List_Container extends React.Component {
     get_config = () => {
         const { tcid = -1, menuid = -1 } = this.props.config;
 
-        this.setState({loading: true});
+        this.setState({ loading: true });
 
-        fetch(`${getConfigUrl}?tcid=${tcid}&menuid=${menuid}`)
+        fetch(`${getConfigUrl}?${Serialize({tcid, menuid})}`)
         .then(result => result.json())
         .then(result => {
             // 无论如何都会有查看的权限
@@ -153,7 +154,7 @@ class List_Container extends React.Component {
             /* 
                 搜索主键是列表点到详情页请求数据的那个唯一标识
             */
-            for(let item of tablefieldconfig){
+            for(let item of tablefieldconfig) {
                 // 判断是不是搜索主键，暂时按只有一个算
                 if(item.iskey) this.mainKey = item.fname;
             }
@@ -185,8 +186,8 @@ class List_Container extends React.Component {
             data: Object.assign({}, search_param, data, RequestParams),
         };
 
-        let tableConfig = `${tableConfigUrl}?`;
-        let search = `${searchUrl}?`;
+        let tableConfig = `${tableConfigUrl}?${Serialize(ajax_param.data)}`;
+        let search = `${searchUrl}?${Serialize(ajax_param.data)}`;
 
         fetch(url ? tableConfig : search)
         .then(result => result.json())
@@ -197,7 +198,7 @@ class List_Container extends React.Component {
                 // 设置分页参数
                 this.recordCount = recordcount;
 
-                switch(search_type){
+                switch(search_type) {
                     case 'pull_load': // 下拉加载
                         this.listDatas = [...this.listDatas, ...list];
                     break;
@@ -209,7 +210,7 @@ class List_Container extends React.Component {
 
                 // 重置详情页left顺序，顺带重新渲染模版
                 this.children = [];
-                for(let i = 0; i < this.listDatas.length; i++){
+                for(let i = 0; i < this.listDatas.length; i++) {
                     let item = this.listDatas[i];
 
                     // 详情页排序
@@ -229,7 +230,7 @@ class List_Container extends React.Component {
             } catch (error) {
                 let { message } = error;
 
-                switch(message){
+                switch(message) {
                     case 'Cannot read property "list" of undefined':
                         console.error(`url: ${ requestUrl }\n这接口返回的数据结构咱可不认识\n如果你认识，请用正确的方式带她回家\n内什么..三年起步啊..`);
                     break;
@@ -240,60 +241,6 @@ class List_Container extends React.Component {
                 }
             }
         })
-
-        // T.ajax({
-        //     ...ajax_param,
-        //     success: result => {
-        //         try {
-        //             let { list, recordcount } = result.data;
-
-        //             // 设置分页参数
-        //             this.recordCount = recordcount;
-
-        //             switch(search_type){
-        //                 case 'pull_load': // 下拉加载
-        //                     this.listDatas = [...this.listDatas, ...list];
-        //                 break;
-            
-        //                 default:
-        //                     this.listDatas = list;
-        //                 break;
-        //             }
-
-        //             // 重置详情页left顺序，顺带重新渲染模版
-        //             this.children = [];
-        //             for(let i = 0; i < this.listDatas.length; i++){
-        //                 let item = this.listDatas[i];
-
-        //                 // 详情页排序
-        //                 item.detail_order = i;
-        //                 item.index = i;
-
-        //                 // 复制模版对象
-        //                 let children = extend({}, this.props.children);
-        //                 this.mainValue = item[this.mainKey];
-        //                 // 渲染模版
-        //                 this.travel_children(children, item, item[this.mainKey]);
-        //                 this.children.push(children);
-        //             }
-
-        //             // 搜索后关闭面板
-        //             this.state.search_field_open ? this.handle_search_change() : this.setState({loading: false, search_loading: false, pull_load: false});
-        //         } catch (error) {
-        //             let { message } = error;
-
-        //             switch(message){
-        //                 case 'Cannot read property "list" of undefined':
-        //                     console.error(`url: ${ requestUrl }\n这接口返回的数据结构咱可不认识\n如果你认识，请用正确的方式带她回家\n内什么..三年起步啊..`);
-        //                 break;
-
-        //                 default:
-        //                     console.error(`"${ message }"\n咱并不怎么识字儿，服务器就告儿我这个，说您肯定认识，您得自个儿慢慢调了`);
-        //                 break;
-        //             }
-        //         }
-        //     }
-        // })
     }
 
     /* 处理详情页数据排序，用于过渡动画
@@ -302,15 +249,15 @@ class List_Container extends React.Component {
     */
     handle_detail_datas = (datas, value) => {
         let index = -1;
-        for(let i = 0; i < datas.length; i++){
+        for(let i = 0; i < datas.length; i++) {
             let item = datas[i];
-            if(item[this.mainKey] == value){
+            if(item[this.mainKey] == value) {
                 index = i;
                 break;
             }
         }
 
-        for(let i = 0, order = -index; i < datas.length; i++, order++){
+        for(let i = 0, order = -index; i < datas.length; i++, order++) {
             let item = datas[i];
             item.detail_order = order;
         }
@@ -331,14 +278,14 @@ class List_Container extends React.Component {
 
         this.listDatas = this.handle_detail_datas(this.listDatas, mainValue);
 
-        for(let item of this.listDatas){
-            if(item[this.mainKey] == mainValue){
-                for(let jtem of this.config){
+        for(let item of this.listDatas) {
+            if(item[this.mainKey] == mainValue) {
+                for(let jtem of this.config) {
                     let { fname, fvalue, isvisiable } = jtem;
                     
-                    for(let key in item){
-                        if(key == fname && jtem.isadd){ // isvisiable是在列表中的显隐，现在由模板绑定字段控制。这里的是编辑页面
-                            switch(type){
+                    for(let key in item) {
+                        if(key == fname && jtem.isadd) { // isvisiable是在列表中的显隐，现在由模板绑定字段控制。这里的是编辑页面
+                            switch(type) {
                                 case 'edit': 
                                     edit_param[key] = item[key];
                                 break;
@@ -385,7 +332,7 @@ class List_Container extends React.Component {
             /* 绑定点击事件
             模版中所谓的head就是每块元素的最顶层标签
             */
-            if(bind){
+            if(bind) {
                 // 长按菜单
                 let timer = null;
                 
@@ -397,8 +344,8 @@ class List_Container extends React.Component {
                 instance.onTouchStart = e => {
                     timer = setTimeout(() => {
                         let opera = [];
-                        for(let item of this.power){
-                            switch(item){
+                        for(let item of this.power) {
+                            switch(item) {
                                 // case 'Add': 
                                 //     opera.push({text: '新增', onPress: () => this.handle_item_edit(mainKey, 'add')});
                                 // break;
@@ -427,25 +374,25 @@ class List_Container extends React.Component {
             }
 
             /* 列表页预处理 */
-            if(instance[bindKey]){
+            if(instance[bindKey]) {
                 /* 处理时间格式 */
-                if(format){
+                if(format) {
                     instance.children = item[key] ? moment(item[key]).format(format) : item[key];
                 }
     
                 /* 处理小数保留位数 */
-                if(decimalcount){
+                if(decimalcount) {
                     instance.children = item[key] ? parseFloat(item[key]).toFixed(decimalcount) : instance.children;
                 }
                 
                 /* 处理单位 */
-                if(unit){
+                if(unit) {
                     instance.children = item[key] ? `${instance.children} ${unit}` : instance.children;
                 }
 
                 instance.children = instance.children ? instance.children : item[key];
             }else{
-                if(instance && typeof instance.children === 'object'){
+                if(instance && typeof instance.children === 'object') {
                     this.travel_children(instance.children, item, mainKey);
                 }
             }
@@ -457,12 +404,12 @@ class List_Container extends React.Component {
     handle_formdata = () => {
         let formData = this.props.form.getFieldsValue();
 
-        for(let key in formData){
-            for(let item of this.config){
+        for(let key in formData) {
+            for(let item of this.config) {
                 let { fname, controltype, dateformat = 'YYYY-MM-DD hh:mm:ss' } = item;
 
-                if(key == fname){
-                    switch(controltype){
+                if(key == fname) {
+                    switch(controltype) {
                         case 2:
                             formData[key] = moment(formData[key]).format('YYYY-MM-DD hh:mm:ss');
                         break;
@@ -509,20 +456,20 @@ class List_Container extends React.Component {
 
     // 处理增改
     handle_edit_datas = params => {
-        T.ajax({
-            ...params,
-            success: resp => {
-                const { data } = resp;
-                if(!data.result){
-                    Toast.fail('出现未知错误，反正你这趟是白点了，找人问问是为啥？');
-                }
-
-                this.state.search_param.PageIndex = 1;
-                // 刷新列表
-                this.search('refresh');
-                // 过渡动画，重置数据
-                this.reset();
+        fetch(generalbackstageUrl + `?${Serialize(params.data)}`)
+        .then(result => result.json())
+        .then(result => {
+            const { data } = result;
+            
+            if(!data.result) {
+                Toast.fail('出现未知错误，反正你这趟是白点了，找人问问是为啥？');
             }
+
+            this.state.search_param.PageIndex = 1;
+            // 刷新列表
+            this.search('refresh');
+            // 过渡动画，重置数据
+            this.reset();
         });
     }
 
@@ -593,7 +540,7 @@ class List_Container extends React.Component {
         if(!param) param = this.state[item][key] = '';
         param = new Set(param.split(','));
         
-        if(param.size == 0){
+        if(param.size == 0) {
             param.add(value);
         }else{
             param.has(value) ? param.delete(value) : param.add(value);
@@ -627,7 +574,7 @@ class List_Container extends React.Component {
         // pc中是没有日期格式字符串的配置的，这里hack一下 mark
         dateformat = dateformat.length == 0 ? 'YYYY-MM-DD hh:mm:ss' : dateformat;
 
-        switch(controltype_detail){
+        switch(controltype_detail) {
             case 1: // 文本框
                 // 判断是否是数字
                 let reg = /^\d+$|^\d+\.\d+$/g;
@@ -643,8 +590,8 @@ class List_Container extends React.Component {
             case 3: // 下拉框，关联外键数据
                 // 去掉左右空格
                 // value = value.replace(/\s/g,'');
-                for(let foreign of foreigndata){
-                    if(foreign.value == value){
+                for(let foreign of foreigndata) {
+                    if(foreign.value == value) {
                         value = foreign.label;
                         break;
                     }
@@ -655,9 +602,9 @@ class List_Container extends React.Component {
                 // 去掉左右空格
                 value = value.replace(/\s/g,'');
                 let result = '';
-                for(let foreign of foreigndata){
-                    for(let item of value.split(',')){
-                        if(foreign.value == item){
+                for(let foreign of foreigndata) {
+                    for(let item of value.split(',')) {
+                        if(foreign.value == item) {
                             result += foreign.label + ',';
                         }
                     }
@@ -681,7 +628,7 @@ class List_Container extends React.Component {
     //6. 数值控件 7. TextArea 8.隐藏域hidden 9.时间控件（时间：2012-01-01 00:00:00）
     //10.行政区划Ztree(支持多个) 11.部门Ztree(支持多个) 12.单、多附件上传 13.可输可选 14.地图坐标选取
     /* 搜索、详情、新增/编辑，控件类型都在这里处理 */
-    handle_ControlType = (item, type, detail_item) => {
+    handle_ControlType = (item, type, detail_item, index) => {
         const { search_param, edit_field, edit_param } = this.state;
         let { fname, fvalue, dateformat = 'YYYY-MM-DD', foreigndata, defaultvalue, isnull, regular, maxlen = '-', minlen = '-' } = item;
         const { getFieldProps, getFieldError } = this.props.form;
@@ -696,7 +643,7 @@ class List_Container extends React.Component {
         let element = [];
         let option = {};
 
-        switch (item.controltype){
+        switch (item.controltype) {
             case 1: // 文本框
                 option = {
                     onChange: e => this.handle_input(e, 'edit_param', fname),
@@ -711,9 +658,9 @@ class List_Container extends React.Component {
                     ],
                 }
                 element = type == 'search' ? (
-                    <InputItem onChange={e => this.handle_input(e, 'search_param', fname)} value={search_param[fname]} clear placeholder='请输入'>{fvalue}</InputItem>
+                    <InputItem key={`case_1_inputItem_${index}`} onChange={e => this.handle_input(e, 'search_param', fname)} value={search_param[fname]} clear placeholder='请输入'>{fvalue}</InputItem>
                 ) : (
-                    <InputItem {...getFieldProps(fname, option)} error={!!getFieldError(fname)} onErrorClick={() => this.handle_form_error(fname)} clear placeholder='请输入'>{fvalue}</InputItem>
+                    <InputItem key={`case_1_inputItem_${index}`} {...getFieldProps(fname, option)} error={!!getFieldError(fname)} onErrorClick={() => this.handle_form_error(fname)} clear placeholder='请输入'>{fvalue}</InputItem>
                 );
             break;
 
@@ -728,11 +675,11 @@ class List_Container extends React.Component {
                     ],
                 };
                 element = type == 'search' ? (
-                    <DatePicker value={search_param[fname] ? new Date(search_param[fname]) : null} onChange={date => this.handle_date(date, 'search_param', fname, dateformat)} format={date => (moment(date).format(dateformat))}>
+                    <DatePicker key={`case_2_datePicker_${index}`} value={search_param[fname] ? new Date(search_param[fname]) : null} onChange={date => this.handle_date(date, 'search_param', fname, dateformat)} format={date => (moment(date).format(dateformat))}>
                         <List.Item arrow='horizontal'>{fvalue}</List.Item>
                     </DatePicker>
                 ) : (
-                    <DatePicker {...getFieldProps(fname, option)} error={!!getFieldError(fname)} onErrorClick={() => this.handle_form_error(fname)}>
+                    <DatePicker key={`case_2_datePicker_${index}`} {...getFieldProps(fname, option)} error={!!getFieldError(fname)} onErrorClick={() => this.handle_form_error(fname)}>
                         <List.Item arrow='horizontal'>{fvalue}</List.Item>
                     </DatePicker>
                 );
@@ -747,11 +694,11 @@ class List_Container extends React.Component {
                     ],
                 };
                 element = type == 'search' ? (
-                    <Picker extra='请选择' data={foreigndata} cols={1} onChange={value => this.handle_select(value, 'search_param', fname)} value={[search_param[fname]]}>
+                    <Picker key={`case_3_picker_${index}`} extra='请选择' data={foreigndata} cols={1} onChange={value => this.handle_select(value, 'search_param', fname)} value={[search_param[fname]]}>
                         <List.Item arrow='horizontal'>{fvalue}</List.Item>
                     </Picker>
                 ) : (
-                    <Picker extra='请选择' data={foreigndata} cols={1} {...getFieldProps(fname, option)} error={!!getFieldError(fname)} onErrorClick={() => this.handle_form_error(fname)}>
+                    <Picker key={`case_3_picker_${index}`} extra='请选择' data={foreigndata} cols={1} {...getFieldProps(fname, option)} error={!!getFieldError(fname)} onErrorClick={() => this.handle_form_error(fname)}>
                         <List.Item arrow='horizontal'>{fvalue}</List.Item>
                     </Picker>
                 );
@@ -765,11 +712,11 @@ class List_Container extends React.Component {
                     ],
                 }
                 element = (
-                    <Accordion>
-                        <Accordion.Panel header={fvalue}>
-                            <List>
+                    <Accordion key={`case_5_accordion_${index}`}>
+                        <Accordion.Panel key={`case_5_accordionPanel_${index}`} header={fvalue}>
+                            <List key={`case_5_list_${index}`}>
                                 {
-                                    foreigndata.map(item => (
+                                    foreigndata.map((item, i) => (
                                         <CheckboxItem onChange={value => this.handle_checkbox(item.value, 'search_param', fname)} key={item.value}>{item.label}</CheckboxItem>
                                     ))
                                 }
@@ -789,17 +736,17 @@ class List_Container extends React.Component {
                 let flag = !!search_param[fname + '_Begin'] && !!search_param[fname + '_End'];
 
                 element = type == 'search' ? (
-                    <div>
-                        <List.Item extra={flag ? null : '请选择'} arrow='horizontal' onClick={() => this.setState({calendar_visible: true})}>{fvalue}</List.Item>
-                        <List.Item extra={flag ? moment(search_param[fname + '_Begin']).format('YY-MM-DD hh:mm').toLocaleString() : null} style={{display: flag ? '' : 'none'}}>{fvalue}开始时间</List.Item>
-                        <List.Item extra={flag ? moment(search_param[fname + '_End']).format('YY-MM-DD hh:mm').toLocaleString() : null} style={{display: flag ? '' : 'none'}}>{fvalue}结束时间</List.Item>
+                    <div key={`case_9_div_${index}`}>
+                        <List.Item key={`case_9_list_0_${index}`} extra={flag ? null : '请选择'} arrow='horizontal' onClick={() => this.setState({calendar_visible: true})}>{fvalue}</List.Item>
+                        <List.Item key={`case_9_list_1_${index}`} extra={flag ? moment(search_param[fname + '_Begin']).format('YY-MM-DD hh:mm').toLocaleString() : null} style={{display: flag ? '' : 'none'}}>{fvalue}开始时间</List.Item>
+                        <List.Item key={`case_9_list_2_${index}`} extra={flag ? moment(search_param[fname + '_End']).format('YY-MM-DD hh:mm').toLocaleString() : null} style={{display: flag ? '' : 'none'}}>{fvalue}结束时间</List.Item>
                     </div>
                 ) : null;
             break;
 
             case 99: // label，基本就是给详情页用的
                 element = (
-                    <List.Item extra={this.handle_input_value(detail_item[fname], item)}>{fvalue}</List.Item>
+                    <List.Item key={`case_99_listItem_${index}`} extra={this.handle_input_value(detail_item[fname], item)}>{fvalue}</List.Item>
                 );
             break;
         }
@@ -832,16 +779,16 @@ class List_Container extends React.Component {
 
         let { detail_next, detail_last } = this.state;
 
-        switch(type){
+        switch(type) {
             case 'next': // 上一条
-                for(let i = 0; i < this.listDatas.length; i++){
+                for(let i = 0; i < this.listDatas.length; i++) {
                     let item = this.listDatas[i];
                     item.detail_order--;
                 }
             break;
 
             case 'last': // 下一条
-                for(let i = 0; i < this.listDatas.length; i++){
+                for(let i = 0; i < this.listDatas.length; i++) {
                     let item = this.listDatas[i];
                     item.detail_order++;
                 }
@@ -855,7 +802,7 @@ class List_Container extends React.Component {
     handle_detail_next = () => {
         let [ detail_last, detail_next ] = [false, false];
         let len = this.listDatas.length;
-        if(len != 0){
+        if(len != 0) {
             detail_last = !!this.listDatas[0].detail_order;
             detail_next = !!this.listDatas[len - 1].detail_order;
         }
@@ -874,7 +821,7 @@ class List_Container extends React.Component {
 
     // 滑动加载
     handle_pull_load = () => {
-        if(this.listDatas.length < this.recordCount){
+        if(this.listDatas.length < this.recordCount) {
             let { search_param } = this.state;
             let { PageIndex } = search_param;
 
@@ -904,8 +851,8 @@ class List_Container extends React.Component {
                     <Button onClick={this.handle_search} loading={search_loading}>确定</Button>
                 </List.Item>
                 {
-                    config.map(item => {
-                        return this.handle_ControlType(item, 'search');
+                    config.map((item, i) => {
+                        return this.handle_ControlType(item, 'search', undefined, i);
                     })
                 }
             </List>
@@ -932,8 +879,8 @@ class List_Container extends React.Component {
         let edit_content = (
             <List>
                 {
-                    edit_config.map(item => {
-                        return this.handle_ControlType(item, 'edit');
+                    edit_config.map((item, i) => {
+                        return this.handle_ControlType(item, 'edit', undefined, i);
                     })
                 }
 
@@ -948,12 +895,12 @@ class List_Container extends React.Component {
         let detail_content = (
             <div style={{ overflowX: 'hidden', position: 'relative' }}>
                 {
-                    this.listDatas.map(jtem => {
+                    this.listDatas.map((jtem, j) => {
                         return (
-                            <List className='sc-detail-content' style={{transform: `translate3d(${jtem.detail_order * 100}%, ${jtem.index * -100}%, 0)`}}>
+                            <List key={`listDatas_${j}`} className='sc-detail-content' style={{transform: `translate3d(${jtem.detail_order * 100}%, ${jtem.index * -100}%, 0)`}}>
                                 {
-                                    detail_config.map(item => {
-                                        return this.handle_ControlType(item, 'detail', jtem);
+                                    detail_config.map((item, i) => {
+                                        return this.handle_ControlType(item, 'detail', jtem, i);
                                     })
                                 }
 
