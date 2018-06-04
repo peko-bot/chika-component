@@ -1,8 +1,13 @@
+/*
+ * @Author: zy9@github.com/zy410419243 
+ * @Date: 2018-06-04 17:17:11 
+ * @Last Modified by: zy9
+ * @Last Modified time: 2018-06-04 17:19:23
+ */
 import React from 'react'
 
 import './css/Tabs.css'
 
-/* 受控页签 */
 export default class Tabs extends React.Component {
     constructor(props) {
         super(props);
@@ -119,11 +124,11 @@ export default class Tabs extends React.Component {
 
         let tabs = [];
         tabs.push(
-            <ul className='container' style={containerStyle}>
+            <ul key='container_ul' className='container' style={containerStyle}>
                 {
                     dataSource.map((item, i) => {
                         return (
-                            <li className='item' style={Object.assign({width: 100 / dataSource.length + '%'}, fontStyle)} onClick={e => this.handle_click(item, i, e)} ref={ref => this[`panel_item_${i}`] = ref}>
+                            <li key={`dataSource_${i}`} className='item' style={Object.assign({width: 100 / dataSource.length + '%'}, fontStyle)} onClick={e => this.handle_click(item, i, e)} ref={ref => this[`panel_item_${i}`] = ref}>
                                 <span className={currentSelect == i ? 'active' : null} ref={ref => this[`panel_span_${i}`] = ref}>{item.label}</span>
                                 <div style={currentSelect == i && displayFlag ? ripple_style : null} />
                             </li>
@@ -136,7 +141,7 @@ export default class Tabs extends React.Component {
         let underline = [];
         const {underline_width, left} = underline_item;
         underline.push(
-            <div className='underline-container' style={containerStyle}>
+            <div key='underline' className='underline-container' style={containerStyle}>
                 <div className='underline' style={Object.assign({width: underline_width, transform: `translate3d(${left}px, 0, 0)`}, undelineStyle)}></div>
             </div>
         )
@@ -148,7 +153,7 @@ export default class Tabs extends React.Component {
                 {
                     React.Children.map(children, (child, i) => {
                         return (
-                            <div className='child-content' style={{transform: `translate3d(${(i - currentSelect) * 100}%, 0, 0)`}}>{child}</div>
+                            <div key={`child_${i}`} className='child-content' style={{transform: `translate3d(${(i - currentSelect) * 100}%, 0, 0)`}}>{child}</div>
                         )
                     })
                 }

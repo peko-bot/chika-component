@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243 
  * @Date: 2018-05-28 15:20:13 
  * @Last Modified by: zy9
- * @Last Modified time: 2018-06-04 17:02:39
+ * @Last Modified time: 2018-06-04 17:15:32
  */
 import React from 'react'
 import ReactDOM from 'react-dom'
@@ -37,6 +37,12 @@ const Swiper = props => (
     </Bundle>
 )
 
+const Tabs = props => (
+    <Bundle load={ () => import('./modules/Tabs_demo/Tabs_demo') }>
+        { Tabs => <Tabs {...props}/> }
+    </Bundle>
+)
+
 const MOUNT_NODE = document.getElementById('root');
 
 try {
@@ -47,6 +53,7 @@ try {
                 <Route path='/calendar' component={ Calendar } />
                 <Route path='/list_container' component={ List_Container } />
                 <Route path='/swiper' component={ Swiper } />
+                <Route path='/tabs' component={ Tabs } />
             </div>
         </HashRouter>
     , MOUNT_NODE);

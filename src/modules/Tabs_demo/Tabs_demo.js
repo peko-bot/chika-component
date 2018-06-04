@@ -1,3 +1,9 @@
+/*
+ * @Author: zy9@github.com/zy410419243 
+ * @Date: 2018-06-04 17:16:57 
+ * @Last Modified by:   zy9 
+ * @Last Modified time: 2018-06-04 17:16:57 
+ */
 import React from 'react'
 
 import Tabs from '../../component/Tabs/Tabs'
@@ -23,7 +29,7 @@ export default class Tabs_demo extends React.Component {
     }
 
     onClick = (item, currentSelect) => {
-        this.setState({currentSelect});
+        this.setState({ currentSelect });
     }
 
     config = {
