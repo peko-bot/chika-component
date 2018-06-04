@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243 
  * @Date: 2018-05-28 15:20:13 
  * @Last Modified by: zy9
- * @Last Modified time: 2018-06-02 21:00:48
+ * @Last Modified time: 2018-06-04 17:02:39
  */
 import React from 'react'
 import ReactDOM from 'react-dom'
@@ -31,6 +31,12 @@ const List_Container = props => (
     </Bundle>
 )
 
+const Swiper = props => (
+    <Bundle load={ () => import('./modules/Swiper_demo/Swiper_demo') }>
+        { Swiper => <Swiper {...props}/> }
+    </Bundle>
+)
+
 const MOUNT_NODE = document.getElementById('root');
 
 try {
@@ -40,6 +46,7 @@ try {
                 <Route path='/button' component={ Button } />
                 <Route path='/calendar' component={ Calendar } />
                 <Route path='/list_container' component={ List_Container } />
+                <Route path='/swiper' component={ Swiper } />
             </div>
         </HashRouter>
     , MOUNT_NODE);

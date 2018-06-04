@@ -1,7 +1,15 @@
+/*
+ * @Author: zy9@github.com/zy410419243 
+ * @Date: 2018-06-04 17:05:37 
+ * @Last Modified by: zy9
+ * @Last Modified time: 2018-06-04 17:06:22
+ */
 import React from 'react'
 
 import Swiper from '../../component/Swiper/Swiper'
 import './css/Swiper_demo.css'
+
+const secRecordPath = './data/s_problem_record_hy.json';
 
 class Swiper_demo extends React.Component {
     constructor(props) {
@@ -13,29 +21,25 @@ class Swiper_demo extends React.Component {
 
     dataSource = []
     componentDidMount = () => {
-        T.ajax({
-            key: 'secRecordPath',
-            f: 'json',
-            success: (result) => {
-                this.setState({datas: result}, () => {
-                    this.refs.swiper.reset();
-                });
-            }
-        })
+        fetch(secRecordPath)
+        .then(result => result.json())
+        .then(result => {
+            this.setState({datas: result}, () => {
+                this.refs.swiper.reset();
+            });
+        });
     }
 
     refresh = () => {
-        T.ajax({
-            key: 'secRecordPath',
-            f: 'json',
-            success: (result) => {
-                setTimeout(() => {
-                    this.setState({datas: result}, () => {
-                        this.refs.swiper.cancel_refresh();
-                    });
-                }, 1000);
-            }
-        })
+        fetch(secRecordPath)
+        .then(result => result.json())
+        .then(result => {
+            setTimeout(() => {
+                this.setState({datas: result}, () => {
+                    this.refs.swiper.cancel_refresh();
+                });
+            }, 1000);
+        });
     }
 
     load = () => {
@@ -63,9 +67,9 @@ class Swiper_demo extends React.Component {
                 <Swiper config={this.config} refresh={this.refresh} load={this.load} ref='swiper'>
                     <ul>
                         {
-                            this.state.datas.map((item,i)=>{
+                            this.state.datas.map((item,i) => {
                                 return (
-                                    <li onClick={()=>onClick(item)}>{item}</li>
+                                    <li key={`datas_${i}`} onClick={()=>onClick(item)}>{item}</li>
                                 )
                             })
                         }

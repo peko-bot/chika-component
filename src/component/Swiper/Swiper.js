@@ -1,3 +1,9 @@
+/*
+ * @Author: zy9@github.com/zy410419243 
+ * @Date: 2018-06-04 17:06:39 
+ * @Last Modified by: zy9
+ * @Last Modified time: 2018-06-04 17:14:20
+ */
 import React from 'react'
 
 import './css/Swiper.css'
@@ -205,7 +211,7 @@ class Swiper extends React.Component {
         let refresh = [];
         if(config.refresh === true || config.refresh === undefined){
             refresh.push(
-                <div className={refresh_end?'refresh refresh-end':'refresh'} style={refresh_style}>
+                <div key={`child_${Math.random() * 10000}`} className={refresh_end?'refresh refresh-end':'refresh'} style={refresh_style}>
                     <span className='refresh-icon' style={{transform:`rotateZ(${icon_deg}deg)`}}>
                         <img src={refresh_img} />
                     </span>
@@ -217,7 +223,7 @@ class Swiper extends React.Component {
         let load = [];
         if(config.load === true || config.load === undefined){
             load.push(
-                <div className={load_end?'load load-end':'load'} style={load_style}>
+                <div key={`child_${Math.random() * 10000}`} className={load_end?'load load-end':'load'} style={load_style}>
                     <span className='load-icon' style={{transform:`rotateZ(${icon_deg}deg)`}}>
                         <img src={load_img} />
                     </span>
@@ -230,17 +236,18 @@ class Swiper extends React.Component {
             <div className='Swiper'>
                 <div ref='wrapper' className='wrapper'>
                     {
-                        React.Children.map(this.props.children, (child)=>{
-                            child = React.cloneElement(child, {className: 'child-z-index-8'});
+                        React.Children.map(this.props.children, child => {
+                            child = React.cloneElement(child, { className: 'child-z-index-8' });
+
                             return (
                                 <div>
                                     <div style={wrap_style} ref='scroller'>{child}</div>
 
                                     {/* 上拉刷新 */}
-                                    {refresh}
+                                    { refresh }
 
                                     {/* 下拉加载 */}
-                                    {load}
+                                    { load }
                                 </div>
                             )
                         })
