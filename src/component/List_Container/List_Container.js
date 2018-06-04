@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243 
  * @Date: 2017-09-29 15:00:45
  * @Last Modified by: zy9
- * @Last Modified time: 2018-06-04 16:08:16
+ * @Last Modified time: 2018-06-04 17:01:02
  */
 import React from 'react'
 
@@ -321,17 +321,15 @@ class List_Container extends React.Component {
         React.Children.map(children, child => {
             let { bind, format, decimalcount, unit } = child.props;
 
+            child.key = `child_${Math.random() * 10000}`;
+
             let instance = child.props;
             let key = instance[bindKey];
 
             // children中有绑定事件时，把这个格子的数据传出去
-            instance.onClick = e => {
-                instance.onChange && instance.onChange(item);
-            }
+            instance.onClick = e => (instance.onChange && instance.onChange(item));
 
-            /* 绑定点击事件
-            模版中所谓的head就是每块元素的最顶层标签
-            */
+            /* 绑定点击事件，模版中所谓的head就是每块元素的最顶层标签 */
             if(bind) {
                 // 长按菜单
                 let timer = null;
@@ -391,7 +389,7 @@ class List_Container extends React.Component {
                 }
 
                 instance.children = instance.children ? instance.children : item[key];
-            }else{
+            } else {
                 if(instance && typeof instance.children === 'object') {
                     this.travel_children(instance.children, item, mainKey);
                 }
@@ -406,12 +404,12 @@ class List_Container extends React.Component {
 
         for(let key in formData) {
             for(let item of this.config) {
-                let { fname, controltype, dateformat = 'YYYY-MM-DD hh:mm:ss' } = item;
+                let { fname, controltype, dateformat = 'YYYY-MM-DD HH:mm:ss' } = item;
 
                 if(key == fname) {
                     switch(controltype) {
                         case 2:
-                            formData[key] = moment(formData[key]).format('YYYY-MM-DD hh:mm:ss');
+                            formData[key] = moment(formData[key]).format('YYYY-MM-DD HH:mm:ss');
                         break;
 
                         case 3:
@@ -542,7 +540,7 @@ class List_Container extends React.Component {
         
         if(param.size == 0) {
             param.add(value);
-        }else{
+        } else {
             param.has(value) ? param.delete(value) : param.add(value);
         }
         param.delete(',');
@@ -572,7 +570,7 @@ class List_Container extends React.Component {
         let { controltype_detail, dateformat, foreigndata, unit, decimalcount } = item;
 
         // pc中是没有日期格式字符串的配置的，这里hack一下 mark
-        dateformat = dateformat.length == 0 ? 'YYYY-MM-DD hh:mm:ss' : dateformat;
+        dateformat = dateformat.length == 0 ? 'YYYY-MM-DD HH:mm:ss' : dateformat;
 
         switch(controltype_detail) {
             case 1: // 文本框
@@ -712,8 +710,8 @@ class List_Container extends React.Component {
                     ],
                 }
                 element = (
-                    <Accordion key={`case_5_accordion_${index}`}>
-                        <Accordion.Panel key={`case_5_accordionPanel_${index}`} header={fvalue}>
+                    <Accordion>
+                        <Accordion.Panel header={fvalue}>
                             <List key={`case_5_list_${index}`}>
                                 {
                                     foreigndata.map((item, i) => (
@@ -738,8 +736,8 @@ class List_Container extends React.Component {
                 element = type == 'search' ? (
                     <div key={`case_9_div_${index}`}>
                         <List.Item key={`case_9_list_0_${index}`} extra={flag ? null : '请选择'} arrow='horizontal' onClick={() => this.setState({calendar_visible: true})}>{fvalue}</List.Item>
-                        <List.Item key={`case_9_list_1_${index}`} extra={flag ? moment(search_param[fname + '_Begin']).format('YY-MM-DD hh:mm').toLocaleString() : null} style={{display: flag ? '' : 'none'}}>{fvalue}开始时间</List.Item>
-                        <List.Item key={`case_9_list_2_${index}`} extra={flag ? moment(search_param[fname + '_End']).format('YY-MM-DD hh:mm').toLocaleString() : null} style={{display: flag ? '' : 'none'}}>{fvalue}结束时间</List.Item>
+                        <List.Item key={`case_9_list_1_${index}`} extra={flag ? moment(search_param[fname + '_Begin']).format('YY-MM-DD HH:mm').toLocaleString() : null} style={{display: flag ? '' : 'none'}}>{fvalue}开始时间</List.Item>
+                        <List.Item key={`case_9_list_2_${index}`} extra={flag ? moment(search_param[fname + '_End']).format('YY-MM-DD HH:mm').toLocaleString() : null} style={{display: flag ? '' : 'none'}}>{fvalue}结束时间</List.Item>
                     </div>
                 ) : null;
             break;
@@ -812,7 +810,7 @@ class List_Container extends React.Component {
 
     /* 时段确定事件 */
     handle_calendar_submit = (start, end) => {
-        let format = 'YYYY-MM-DD hh:mm:ss';
+        let format = 'YYYY-MM-DD HH:mm:ss';
         this.state.search_param[this.calendar_key + '_Begin'] = moment(start).format(format);
         this.state.search_param[this.calendar_key + '_End'] = moment(end).format(format);
         
@@ -850,11 +848,7 @@ class List_Container extends React.Component {
                 <List.Item>
                     <Button onClick={this.handle_search} loading={search_loading}>确定</Button>
                 </List.Item>
-                {
-                    config.map((item, i) => {
-                        return this.handle_ControlType(item, 'search', undefined, i);
-                    })
-                }
+                { config.map((item, i) => this.handle_ControlType(item, 'search', undefined, i)) }
             </List>
         );
 
@@ -879,9 +873,7 @@ class List_Container extends React.Component {
         let edit_content = (
             <List>
                 {
-                    edit_config.map((item, i) => {
-                        return this.handle_ControlType(item, 'edit', undefined, i);
-                    })
+                    edit_config.map((item, i) => this.handle_ControlType(item, 'edit', undefined, i))
                 }
 
                 <List.Item>
@@ -899,9 +891,7 @@ class List_Container extends React.Component {
                         return (
                             <List key={`listDatas_${j}`} className='sc-detail-content' style={{transform: `translate3d(${jtem.detail_order * 100}%, ${jtem.index * -100}%, 0)`}}>
                                 {
-                                    detail_config.map((item, i) => {
-                                        return this.handle_ControlType(item, 'detail', jtem, i);
-                                    })
+                                    detail_config.map((item, i) => this.handle_ControlType(item, 'detail', jtem, i))
                                 }
 
                                 <List.Item>
@@ -937,7 +927,9 @@ class List_Container extends React.Component {
                 { extend_add }
 
                 {/* 搜索面板 */}
-                <Drawer open={search_field_open} onOpenChange={this.handle_search_change} className='sc-search-drawer' sidebar={sidebar} position='right' sidebarStyle={{width: '77%', background: 'rgba(50, 50, 50, .35)'}} overlayStyle={{backgroundColor: 'rgba(50, 50, 50, 0)'}} style={{display: this.pageType == 'list' ? '' : 'none'}} />
+                <Drawer open={search_field_open} onOpenChange={this.handle_search_change} className='sc-search-drawer' sidebar={sidebar} position='right' sidebarStyle={{width: '77%', background: 'rgba(50, 50, 50, .35)'}} overlayStyle={{backgroundColor: 'rgba(50, 50, 50, 0)'}} style={{display: this.pageType == 'list' ? '' : 'none'}}>
+                    <span></span>
+                </Drawer>
 
                 {/* 模板渲染 */}
                 <PullToRefresh direction='up' style={{height: container_height, overflow: 'auto'}} onRefresh={this.handle_pull_load} refreshing={pull_load}>

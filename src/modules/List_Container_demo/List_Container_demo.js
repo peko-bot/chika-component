@@ -1,8 +1,8 @@
 /*
  * @Author: zy9@github.com/zy410419243 
  * @Date: 2018-06-02 21:02:58 
- * @Last Modified by:   zy9 
- * @Last Modified time: 2018-06-02 21:02:58 
+ * @Last Modified by: zy9
+ * @Last Modified time: 2018-06-04 17:00:24
  */
 import React from 'react'
 
@@ -17,10 +17,6 @@ export default class List_Container_demo extends React.Component {
     constructor(props) {
         super(props)
         this.state = {}
-    }
-
-    componentDidMount = () => {
-
     }
 
     handle_onChange = item => {
@@ -52,26 +48,26 @@ export default class List_Container_demo extends React.Component {
             <div className='List_Container_demo'>
                 <Container config={this.config} debug height={500}>
                     <Accordion defaultActiveKey='0' style={{margin: '10px 8px'}}>
-                            <Accordion.Panel header={<label>{`最近更新时间： ${moment().format('YYYY-MM-DD hh:mm:ss')}`}</label>}>
-                                <WingBlank>
-                                    {/* <List bind> */}
-                                    <List onChange={this.handle_onChange}>
-                                        <List.Item>
-                                            <label>id</label>
-                                            <label data-key='rs_id' style={{float: 'right'}} />
-                                        </List.Item>
-                                        <List.Item>
-                                            <label>水库名称</label>
-                                            <label data-key='rs_name' style={{float: 'right'}} />
-                                        </List.Item>
-                                        <List.Item>
-                                            <label>建成时间</label>
-                                            {/* format需要写在最下层，不能有子标签 */}
-                                            <label data-key='create_tm' format='YYYY-MM-DD' style={{float: 'right'}} />
-                                        </List.Item>
-                                    </List>
-                                </WingBlank>
-                            </Accordion.Panel>
+                        <Accordion.Panel header={<label>{`最近更新时间： ${moment().format('YYYY-MM-DD HH:mm:ss')}`}</label>}>
+                            <WingBlank>
+                                {/* <List bind> */}
+                                <List onChange={this.handle_onChange}>
+                                    <List.Item>
+                                        <label>id</label>
+                                        <label data-key='id' style={{float: 'right'}} />
+                                    </List.Item>
+                                    <List.Item>
+                                        <label>水库名称</label>
+                                        <label data-key='sectionidname' style={{float: 'right'}} />
+                                    </List.Item>
+                                    <List.Item>
+                                        <label>建成时间</label>
+                                        {/* format需要写在最下层，不能有子标签 */}
+                                        <label data-key='months' format='YYYY-MM-DD' style={{float: 'right'}} />
+                                    </List.Item>
+                                </List>
+                            </WingBlank>
+                        </Accordion.Panel>
                     </Accordion>
                 </Container>
             </div>
