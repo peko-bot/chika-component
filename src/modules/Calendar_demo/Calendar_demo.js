@@ -5,7 +5,7 @@ import './css/Calendar_demo.css'
 
 import moment from 'moment'
 
-const dataSourceUrl = '../../data/calendar_demo.json'
+const dataSourceUrl = 'src/data/calendar_demo.json'
 
 export default class Calendar_demo extends React.Component {
     constructor(props) {

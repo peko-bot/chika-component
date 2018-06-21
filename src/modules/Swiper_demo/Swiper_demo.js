@@ -2,14 +2,14 @@
  * @Author: zy9@github.com/zy410419243 
  * @Date: 2018-06-04 17:05:37 
  * @Last Modified by: zy9
- * @Last Modified time: 2018-06-04 17:06:22
+ * @Last Modified time: 2018-06-21 21:39:10
  */
 import React from 'react'
 
 import Swiper from '../../component/Swiper/Swiper'
 import './css/Swiper_demo.css'
 
-const secRecordPath = './data/s_problem_record_hy.json';
+const secRecordPath = '../../data/s_problem_record_hy.json';
 
 class Swiper_demo extends React.Component {
     constructor(props) {

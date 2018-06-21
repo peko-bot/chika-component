@@ -4,8 +4,10 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "start": "webpack-dev-server --mode development",
-    "build": "webpack -p --mode production"
+    "start": "node webpack.dev.js",
+    "build": "node webpack.prod.js",
+    "dev": "node webpack.prod.js development",
+    "push": "git add .&& git commit -m \"update\" && git push"
   },
   "dependencies": {
     "antd-mobile": "^2.1.11",
@@ -16,9 +18,10 @@
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.4",
     "babel-plugin-import": "^1.7.0",
-    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
+    "clean-webpack-plugin": "^0.1.19",
     "copy-webpack-plugin": "^4.5.1",
     "css-loader": "^0.28.11",
     "html-webpack-plugin": "^3.2.0",
@@ -27,12 +30,13 @@
     "postcss-loader": "^2.1.4",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
+    "react-hot-loader": "^4.3.3",
     "react-router-dom": "^4.2.2",
-    "redbox-react": "^1.6.0",
     "style-loader": "^0.21.0",
+    "toho-log-plugin": "git+https://github.com/zy410419243/toho-log-plugin.git",
     "url-loader": "^1.0.1",
     "webpack": "^4.8.3",
-    "webpack-cli": "^2.0.15",
+    "webpack-cli": "^3.0.8",
     "webpack-dev-server": "^3.1.3"
   },
   "license": "MIT"
