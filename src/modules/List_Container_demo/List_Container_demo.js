@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243 
  * @Date: 2018-06-02 21:02:58 
  * @Last Modified by: zy9
- * @Last Modified time: 2018-06-04 17:00:24
+ * @Last Modified time: 2018-06-28 09:55:05
  */
 import React from 'react'
 
@@ -46,7 +46,7 @@ export default class List_Container_demo extends React.Component {
     render() {
         return (
             <div className='List_Container_demo'>
-                <Container config={this.config} debug height={500}>
+                <Container config={this.config} debug height='100%'>
                     <Accordion defaultActiveKey='0' style={{margin: '10px 8px'}}>
                         <Accordion.Panel header={<label>{`最近更新时间： ${moment().format('YYYY-MM-DD HH:mm:ss')}`}</label>}>
                             <WingBlank>
