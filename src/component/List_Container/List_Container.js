@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243 
  * @Date: 2017-09-29 15:00:45
  * @Last Modified by: zy9
- * @Last Modified time: 2018-06-04 17:01:02
+ * @Last Modified time: 2018-06-28 09:40:26
  */
 import React from 'react'
 
@@ -17,10 +17,10 @@ import './css/List_Container.css'
 import extend from '../../util/DeepClone'
 import Serialize from '../../util/Serialize'
 
-const getConfigUrl = '../../data/getConfig.json' // http://222.185.24.19:9002/webapi/api/v2/generalbackstage/getconfig
-const tableConfigUrl = '../../data/tableconfig.json' // http://222.185.24.19:9002/webapi/api/v2/generalbackstage/getinterfacedata
-const searchUrl = '../../data/search.json' // http://222.185.24.19:9002/webapi/api/v2/generalbackstage/getdata
-const generalbackstageUrl = '../../data/tableconfig.json' // http://222.185.24.19:9002/webapi/api/v2/generalbackstage/operatedata
+const getConfigUrl = '../../src/data/getConfig.json' // http://222.185.24.19:9002/webapi/api/v2/generalbackstage/getconfig
+const tableConfigUrl = '../../src/data/tableconfig.json' // http://222.185.24.19:9002/webapi/api/v2/generalbackstage/getinterfacedata
+const searchUrl = '../../src/data/search.json' // http://222.185.24.19:9002/webapi/api/v2/generalbackstage/getdata
+const generalbackstageUrl = '../../src/data/tableconfig.json' // http://222.185.24.19:9002/webapi/api/v2/generalbackstage/operatedata
 
 class List_Container extends React.Component {
     constructor(props) {
