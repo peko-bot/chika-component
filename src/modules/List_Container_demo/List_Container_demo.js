@@ -2,11 +2,11 @@
  * @Author: zy9@github.com/zy410419243 
  * @Date: 2018-06-02 21:02:58 
  * @Last Modified by: zy9
- * @Last Modified time: 2018-06-28 09:55:05
+ * @Last Modified time: 2018-07-03 15:41:54
  */
 import React from 'react'
 
-import Container from '../../component/List_Container/List_Container'
+import Container from '../../component/List_Container'
 // import {Container} from 'sc-component-mobile'
 import './css/List_Container_demo.css'
 
