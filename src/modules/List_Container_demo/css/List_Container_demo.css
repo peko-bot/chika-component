@@ -1,6 +1,7 @@
 .List_Container_demo {
     padding: 5px 4px;
     background-color: #f2f2f2;
+    user-select: none;
 }
 
 .List_Container_demo .container {

@@ -2,31 +2,20 @@
  * @Author: zy9@github.com/zy410419243 
  * @Date: 2018-07-04 09:59:21 
  * @Last Modified by: zy9
- * @Last Modified time: 2018-07-05 09:44:38
+ * @Last Modified time: 2018-07-05 14:53:11
  */
 import React, { Component } from 'react'
 
-import { PullToRefresh } from 'antd-mobile'
+import { PullToRefresh, Modal } from 'antd-mobile'
+const operation = Modal.operation;
 
 import moment from 'moment'
 import extend from '../../util/DeepClone'
 
 export default class Templet extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            loading: false,
-        }
-    }
-
-    componentDidMount = () => {
-    
-    }
-
     // 递归复制模版，填入数据
-   travel_children = (children, item, mainKey) => {
-        const { bindKey = 'data-key' } = this.props;
+    travel_children = (children, item, mainValue) => {
+        const { bindKey = 'data-key', onDetail, power, onDelete } = this.props;
 
         React.Children.map(children, child => {
             let { bind, format, decimalcount, unit } = child.props;
@@ -37,7 +26,7 @@ export default class Templet extends Component {
             let key = instance[bindKey];
 
             // children中有绑定事件时，把这个格子的数据传出去
-            instance.onClick = e => (instance.onChange && instance.onChange(item));
+            // instance.onClick = e => (instance.onChange && instance.onChange(item));
 
             /* 绑定点击事件，模版中所谓的head就是每块元素的最顶层标签 */
             if(bind) {
@@ -46,24 +35,25 @@ export default class Templet extends Component {
                 
                 /* 查看详情 */
                 instance.onClick = e => {
-                    this.handle_item_edit(mainKey, 'detail');
+                    onDetail && onDetail(mainValue, 'detail');
+                    // this.handle_item_edit(mainValue, 'detail');
                 }
 
                 instance.onTouchStart = e => {
                     timer = setTimeout(() => {
                         let opera = [];
-                        for(let item of this.power) {
+                        for(let item of power) {
                             switch(item) {
                                 // case 'Add':
                                 //     opera.push({text: '新增', onPress: () => this.handle_item_edit(mainKey, 'add')});
                                 // break;
 
                                 case 'Del':
-                                    opera.push({text: '删除', onPress: () => this.delete(mainKey)});
+                                    opera.push({text: '删除', onPress: () => onDelete(mainValue)});
                                 break;
 
                                 case 'Update':
-                                    opera.push({text: '修改', onPress: () => this.handle_item_edit(mainKey, 'edit')});
+                                    opera.push({text: '修改', onPress: () => onDetail && onDetail(mainValue, 'edit')});
                                 break;
                             }
                         }
@@ -71,7 +61,7 @@ export default class Templet extends Component {
                     }, 800);
                 }
 
-                // 滑动时停止计时，不然滑着滑着弹菜单，很尴尬
+                // 滑动时停止计时，不然滑着滑着弹菜单，很监介
                 instance.onTouchMove = () => {
                     clearTimeout(timer);
                 }
@@ -103,7 +93,7 @@ export default class Templet extends Component {
                 instance.children = instance.children ? instance.children : value;
             } else {
                 if(instance && typeof instance.children === 'object') {
-                    this.travel_children(instance.children, item, mainKey);
+                    this.travel_children(instance.children, item, mainValue);
                 }
             }
         })
@@ -118,13 +108,13 @@ export default class Templet extends Component {
             let item = dataSource[i];
 
             // 详情页排序
-            item.detail_order = i;
-            item.index = i;
+            // item.detail_order = i;
+            // item.index = i;
 
             // 复制模版对象
             let singleTemplet = extend({}, templet);
 
-            const value = item[mainKey]
+            const value = item[mainKey];
             this.mainValue = value;
             // 渲染模版
             this.travel_children(singleTemplet, item, value);
@@ -135,15 +125,11 @@ export default class Templet extends Component {
     }
 
     render = () => {
-        const { height, currentState, display, loading, dataSource } = this.props;
+        const { display, dataSource } = this.props;
 
         return (
             <div className='Templet'>
-                {/* <PullToRefresh direction='up' style={{ height, overflow: 'auto' }} onRefresh={ this.handle_pull_load } refreshing={ loading }> */}
-                    {/* <div className='sc-content' style={{ transform: `translate3d(${ currentState * 100 }%, 0, 0)`, display }} ref={ ref => this.content = ref }> */}
-                        { dataSource.length ? this.buildTemplet() : <img src='../../src/assets/List_Container/nodata.png' style={{ width: '100%' }} /> }
-                    {/* </div> */}
-                {/* </PullToRefresh> */}
+                { dataSource.length ? this.buildTemplet() : <img src='../../src/assets/List_Container/nodata.png' style={{ width: '100%' }} /> }
             </div>
         )
     }
