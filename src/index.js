@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243 
  * @Date: 2018-05-28 15:20:13 
  * @Last Modified by: zy9
- * @Last Modified time: 2018-06-21 22:15:21
+ * @Last Modified time: 2018-07-04 17:08:29
  */
 import React from 'react'
 import ReactDOM from 'react-dom'
@@ -18,8 +18,8 @@ const render = Component => ReactDOM.render(
     </AppContainer>, MOUNT_NODE
 )
 
-ReactDOM.render(<Router />, MOUNT_NODE);
-// render(Router);
+// ReactDOM.render(<Router />, MOUNT_NODE);
+render(Router);
 
 if (module.hot) {
     module.hot.accept('./router', () => {

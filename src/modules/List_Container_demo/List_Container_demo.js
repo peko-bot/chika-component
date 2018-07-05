@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243 
  * @Date: 2018-06-02 21:02:58 
  * @Last Modified by: zy9
- * @Last Modified time: 2018-07-03 15:41:54
+ * @Last Modified time: 2018-07-05 09:44:06
  */
 import React from 'react'
 
@@ -46,29 +46,32 @@ export default class List_Container_demo extends React.Component {
     render() {
         return (
             <div className='List_Container_demo'>
-                <Container config={this.config} debug height='100%'>
-                    <Accordion defaultActiveKey='0' style={{margin: '10px 8px'}}>
-                        <Accordion.Panel header={<label>{`最近更新时间： ${moment().format('YYYY-MM-DD HH:mm:ss')}`}</label>}>
-                            <WingBlank>
-                                {/* <List bind> */}
-                                <List onChange={this.handle_onChange}>
-                                    <List.Item>
-                                        <label>id</label>
-                                        <label data-key='id' style={{float: 'right'}} />
-                                    </List.Item>
-                                    <List.Item>
-                                        <label>水库名称</label>
-                                        <label data-key='sectionidname' style={{float: 'right'}} />
-                                    </List.Item>
-                                    <List.Item>
-                                        <label>建成时间</label>
-                                        {/* format需要写在最下层，不能有子标签 */}
-                                        <label data-key='months' format='YYYY-MM-DD' style={{float: 'right'}} />
-                                    </List.Item>
-                                </List>
-                            </WingBlank>
-                        </Accordion.Panel>
-                    </Accordion>
+                <Container config={this.config} debug style={{ height: (document.documentElement.clientHeight || document.body.clientHeight) - 10 }}>
+                    <div className='container' bind='true'>
+                        <ul>
+                            <li>
+                                <div className='left'>
+                                    <label>名称&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;：</label>
+                                    <label data-key='id'></label>
+                                </div>
+                                <div className='right'>
+                                    <label>所在河流&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;：</label>
+                                    <label data-key='sectionidname'></label>
+                                </div>
+                            </li>
+
+                            <li>
+                                <div className='left'>
+                                    <label>水闸类型：</label>
+                                    <label data-key='sectionidname'></label>
+                                </div>
+                                <div className='right'>
+                                    <label>最大过闸流量：</label>
+                                    <label data-key='months' format='YYYY-MM-DD'></label>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
                 </Container>
             </div>
         )

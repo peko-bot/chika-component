@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243 
  * @Date: 2017-09-29 15:00:45
  * @Last Modified by: zy9
- * @Last Modified time: 2018-07-03 15:48:25
+ * @Last Modified time: 2018-07-05 09:44:22
  */
 import React from 'react'
 
@@ -11,10 +11,10 @@ const operation = Modal.operation;
 const { alert } = Modal;
 const CheckboxItem = Checkbox.CheckboxItem
 import { createForm } from 'rc-form'
-import moment from 'moment'
+
+import Templet from './Templet'
 
 import './css/List_Container.css'
-import extend from '../../util/DeepClone'
 import Serialize from '../../util/Serialize'
 
 const getConfigUrl = '../../src/data/getConfig.json' // http://222.185.24.19:9002/webapi/api/v2/generalbackstage/getconfig
@@ -77,13 +77,15 @@ class List_Container extends React.Component {
                 let {detail_next, detail_last} = this.handle_detail_next();
                 switch(direction) {
                     case 'toLeft':
-                        if(detail_next)
+                        if(detail_next) {
                             this.handle_detail_pagination('next', detail_next);
+                        }
                     break;
 
                     case 'toRight':
-                        if(detail_last)
+                        if(detail_last) {
                             this.handle_detail_pagination('last', detail_last);
+                        }
                     break;
                 }
             }
@@ -192,54 +194,23 @@ class List_Container extends React.Component {
         fetch(url ? tableConfig : search)
         .then(result => result.json())
         .then(result => {
-            try {
-                let { list, recordcount } = result.data;
+            let { list, recordcount } = result.data;
 
-                // 设置分页参数
-                this.recordCount = recordcount;
+            // 设置分页参数
+            this.recordCount = recordcount;
 
-                switch(search_type) {
-                    case 'pull_load': // 下拉加载
-                        this.listDatas = [...this.listDatas, ...list];
-                    break;
-        
-                    default:
-                        this.listDatas = list;
-                    break;
-                }
-
-                // 重置详情页left顺序，顺带重新渲染模版
-                this.children = [];
-                for(let i = 0; i < this.listDatas.length; i++) {
-                    let item = this.listDatas[i];
-
-                    // 详情页排序
-                    item.detail_order = i;
-                    item.index = i;
-
-                    // 复制模版对象
-                    let children = extend({}, this.props.children);
-                    this.mainValue = item[this.mainKey];
-                    // 渲染模版
-                    this.travel_children(children, item, item[this.mainKey]);
-                    this.children.push(children);
-                }
-
-                // 搜索后关闭面板
-                this.state.search_field_open ? this.handle_search_change() : this.setState({loading: false, search_loading: false, pull_load: false});
-            } catch (error) {
-                let { message } = error;
-
-                switch(message) {
-                    case 'Cannot read property "list" of undefined':
-                        console.error(`url: ${ requestUrl }\n这接口返回的数据结构咱可不认识\n如果你认识，请用正确的方式带她回家\n内什么..三年起步啊..`);
-                    break;
-
-                    default:
-                        console.error(`"${ message }"\n咱并不怎么识字儿，服务器就告儿我这个，说您肯定认识，您得自个儿慢慢调了`);
-                    break;
-                }
+            switch(search_type) {
+                case 'pull_load': // 下拉加载
+                    this.listDatas = [...this.listDatas, ...list];
+                break;
+    
+                default:
+                    this.listDatas = list;
+                break;
             }
+
+            // 搜索后关闭面板
+            this.state.search_field_open ? this.handle_search_change() : this.setState({loading: false, search_loading: false, pull_load: false});
         })
     }
 
@@ -310,91 +281,6 @@ class List_Container extends React.Component {
         }
 
         this.setState({ currentState: -1, edit_param, edit_config, detail_config });
-    }
-
-    /* 递归模版，填入数据
-        可能有更好的处理方法，不需要深拷贝  mark
-    */
-    travel_children = (children, item, mainKey) => {
-        const { bindKey = 'data-key' } = this.props;
-
-        React.Children.map(children, child => {
-            let { bind, format, decimalcount, unit } = child.props;
-
-            child.key = `child_${Math.random() * 10000}`;
-
-            let instance = child.props;
-            let key = instance[bindKey];
-
-            // children中有绑定事件时，把这个格子的数据传出去
-            instance.onClick = e => (instance.onChange && instance.onChange(item));
-
-            /* 绑定点击事件，模版中所谓的head就是每块元素的最顶层标签 */
-            if(bind) {
-                // 长按菜单
-                let timer = null;
-                
-                /* 查看详情 */
-                instance.onClick = e => {
-                    this.handle_item_edit(mainKey, 'detail');
-                }
-
-                instance.onTouchStart = e => {
-                    timer = setTimeout(() => {
-                        let opera = [];
-                        for(let item of this.power) {
-                            switch(item) {
-                                // case 'Add': 
-                                //     opera.push({text: '新增', onPress: () => this.handle_item_edit(mainKey, 'add')});
-                                // break;
-
-                                case 'Del':
-                                    opera.push({text: '删除', onPress: () => this.delete(mainKey)});
-                                break;
-
-                                case 'Update':
-                                    opera.push({text: '修改', onPress: () => this.handle_item_edit(mainKey, 'edit')});
-                                break;
-                            }
-                        }
-                        opera.length != 0 ? operation(opera) : null;
-                    }, 800);
-                }
-
-                // 滑动时停止计时，不然滑着滑着弹菜单，很尴尬
-                instance.onTouchMove = () => {
-                    clearTimeout(timer);
-                }
-
-                instance.onTouchEnd = () => {
-                    clearTimeout(timer);
-                }
-            }
-
-            /* 列表页预处理 */
-            if(instance[bindKey]) {
-                /* 处理时间格式 */
-                if(format) {
-                    instance.children = item[key] ? moment(item[key]).format(format) : item[key];
-                }
-    
-                /* 处理小数保留位数 */
-                if(decimalcount) {
-                    instance.children = item[key] ? parseFloat(item[key]).toFixed(decimalcount) : instance.children;
-                }
-                
-                /* 处理单位 */
-                if(unit) {
-                    instance.children = item[key] ? `${instance.children} ${unit}` : instance.children;
-                }
-
-                instance.children = instance.children ? instance.children : item[key];
-            } else {
-                if(instance && typeof instance.children === 'object') {
-                    this.travel_children(instance.children, item, mainKey);
-                }
-            }
-        })
     }
 
     // 格式化表单数据
@@ -836,7 +722,7 @@ class List_Container extends React.Component {
     render = () => {
         let { children, config, props } = this;
         const { currentState, edit_config, search_field_open, detail_config, calendar_visible, loading, search_loading, container_height, pull_load } = this.state;
-        const { height = ClientHeight, } = props;
+        const { style } = props;
         /* 
             @param hasSearch: false, // 是否显示搜索面板
             @param hasAdd: false, // 是否显示右下添加按钮
@@ -918,8 +804,28 @@ class List_Container extends React.Component {
             </div>
         ) : null;
 
+        const templet_config = {
+            height: container_height,
+            currentState,
+            display: this.pageType == 'list' ? '' : 'none',
+            mainKey: this.mainKey,
+            templet: props.children,
+            dataSource: this.listDatas
+        };
+
+        const drawer_config = {
+            open: search_field_open,
+            onOpenChange: this.handle_search_change,
+            className: 'sc-search-drawer',
+            sidebar,
+            position: 'right',
+            sidebarStyle: { width: '77%', background: 'rgba(50, 50, 50, .35)' },
+            overlayStyle: { backgroundColor: 'rgba(50, 50, 50, 0)' },
+            style: { display: this.pageType == 'list' ? '' : 'none' }
+        };
+
         return (
-            <div className='List_Container' style={{ height }}>
+            <div className='List_Container' style={ Object.assign({}, { height: ClientHeight }, style) }>
                 {/* 触发搜索的方块 */}
                 { extend_drawer }
 
@@ -927,16 +833,12 @@ class List_Container extends React.Component {
                 { extend_add }
 
                 {/* 搜索面板 */}
-                <Drawer open={search_field_open} onOpenChange={this.handle_search_change} className='sc-search-drawer' sidebar={sidebar} position='right' sidebarStyle={{width: '77%', background: 'rgba(50, 50, 50, .35)'}} overlayStyle={{backgroundColor: 'rgba(50, 50, 50, 0)'}} style={{display: this.pageType == 'list' ? '' : 'none'}}>
+                <Drawer { ...drawer_config }>
                     <span></span>
                 </Drawer>
 
                 {/* 模板渲染 */}
-                <PullToRefresh direction='up' style={{height: container_height, overflow: 'auto'}} onRefresh={this.handle_pull_load} refreshing={pull_load}>
-                    <div className='sc-content' style={{transform: `translate3d(${currentState * 100}%, 0, 0)`, display: this.pageType == 'list' ? '' : 'none'}} ref={ref => this.content = ref}>
-                        {loading ? null : children.length == 0 ? <img src='../../assets/List_Container/nodata.png' /> : children}
-                    </div>
-                </PullToRefresh>
+                <Templet { ...templet_config } />
 
                 {/* 新增/修改/详情 */}
                 <div className='sc-edit-content' style={{transform: `translate3d(${(currentState + 1) * 100}%, 0, 0)`}} ref={ref => this.edit_content = ref}>
