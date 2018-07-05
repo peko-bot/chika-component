@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243 
  * @Date: 2018-07-04 09:59:21 
  * @Last Modified by: zy9
- * @Last Modified time: 2018-07-05 14:53:11
+ * @Last Modified time: 2018-07-05 16:28:20
  */
 import React, { Component } from 'react'
 
@@ -44,9 +44,9 @@ export default class Templet extends Component {
                         let opera = [];
                         for(let item of power) {
                             switch(item) {
-                                // case 'Add':
-                                //     opera.push({text: '新增', onPress: () => this.handle_item_edit(mainKey, 'add')});
-                                // break;
+                                case 'Add':
+                                    opera.push({text: '新增', onPress: () => onDetail && onDetail(mainValue, 'add')});
+                                break;
 
                                 case 'Del':
                                     opera.push({text: '删除', onPress: () => onDelete(mainValue)});
@@ -100,24 +100,20 @@ export default class Templet extends Component {
     }
 
     buildTemplet = () => {
-        const { dataSource, mainKey, templet } = this.props;
+        const { dataSource, mainKey, templet, mainValue } = this.props;
 
         // 重置详情页left顺序，顺带重新渲染模版
         let children = [];
         for(let i = 0; i < dataSource.length; i++) {
             let item = dataSource[i];
 
-            // 详情页排序
-            // item.detail_order = i;
-            // item.index = i;
-
             // 复制模版对象
             let singleTemplet = extend({}, templet);
 
-            const value = item[mainKey];
-            this.mainValue = value;
+            mainValue(item[mainKey]);
+
             // 渲染模版
-            this.travel_children(singleTemplet, item, value);
+            this.travel_children(singleTemplet, item, item[mainKey]);
             children.push(singleTemplet);
         }
 

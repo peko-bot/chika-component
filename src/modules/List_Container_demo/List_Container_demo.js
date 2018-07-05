@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243 
  * @Date: 2018-06-02 21:02:58 
  * @Last Modified by: zy9
- * @Last Modified time: 2018-07-05 14:34:32
+ * @Last Modified time: 2018-07-05 15:25:42
  */
 import React from 'react'
 
@@ -27,8 +27,8 @@ export default class List_Container_demo extends React.Component {
         tcid: 10093,
         menuid: 1428,
         pageSize: 5,
-        hasSearch: false, // 是否显示搜索面板
-        hasAdd: false, // 是否显示右下添加按钮
+        // hasSearch: false, // 是否显示搜索面板
+        // hasAdd: false, // 是否显示右下添加按钮
         // UserId: 1,
         // CellPhone: 13900000000,
         // RequestUrl: '../../webapi/api/v2/generalbackstage/getdata',

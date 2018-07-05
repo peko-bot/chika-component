@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243 
  * @Date: 2017-09-29 15:00:45
  * @Last Modified by: zy9
- * @Last Modified time: 2018-07-05 15:02:02
+ * @Last Modified time: 2018-07-05 17:05:00
  */
 import React from 'react'
 
@@ -13,6 +13,7 @@ const CheckboxItem = Checkbox.CheckboxItem
 import { createForm } from 'rc-form'
 
 import Templet from './Templet'
+import { bind_touch_direction } from '../../util/Touch'
 
 import './css/List_Container.css'
 
@@ -65,7 +66,7 @@ class List_Container extends React.Component {
     componentDidMount = () => {
         const { hasSearch = true } = this.props.config;
         // 绑定搜索面板滑动事件
-        hasSearch ? this.bind_touch_direction(this.content, direction => {
+        hasSearch ? bind_touch_direction(this.content, direction => {
             switch(direction) {
                 case 'toLeft':
                     this.handle_search_change();
@@ -74,7 +75,7 @@ class List_Container extends React.Component {
         }) : null;
 
         // 绑定详情页点击及滑动事件
-        this.bind_touch_direction(this.edit_content, direction => {
+        bind_touch_direction(this.edit_content, direction => {
             const { pageType } = this.state;
 
             if(pageType == 'detail') {
@@ -99,49 +100,6 @@ class List_Container extends React.Component {
         this.get_config();
     }
     
-    // 绑定 判断滑动方向 事件
-    bind_touch_direction = (ref, callback) => {
-        let startX, startY, endX, endY;
-        ref.addEventListener('touchstart', e => {
-            startX = e.touches[0].pageX;
-            startY = e.touches[0].pageY;
-        });
-
-        ref.addEventListener('touchend', e => {
-            endX = e.changedTouches[0].pageX;
-            endY = e.changedTouches[0].pageY;
-
-            let direction = this.getDirection(startX, startY, endX, endY);
-
-            callback(direction);
-        });
-    }
-
-    //根据起点终点返回方向
-    getDirection(startX, startY, endX, endY) {
-        let angx = endX - startX;
-        let angy = endY - startY;
-        let result = '我一直站在此处没有动，等你买橘回来给我付车费';
- 
-        // 如果滑动距离太短
-        if (Math.abs(angx) < 25 && Math.abs(angy) < 25) {
-            return result;
-        }
- 
-        let angle = Math.atan2(angy, angx) * 180 / Math.PI;
-        if (angle >= -135 && angle <= -45) {
-            result = 'toTop';
-        } else if (angle > 45 && angle < 135) {
-            result = 'toDown';
-        } else if ((angle >= 135 && angle <= 180) || (angle >= -180 && angle < -135)) {
-            result = 'toLeft';
-        } else if (angle >= -45 && angle <= 45) {
-            result = 'toRight';
-        }
- 
-        return result;
-    }
-
     // 请求配置
     get_config = () => {
         const { tcid = -1, menuid = -1 } = this.props.config;
@@ -158,7 +116,7 @@ class List_Container extends React.Component {
             this.config = tablefieldconfig;
 
             /* 
-                搜索主键是列表点到详情页请求数据的那个唯一标识
+                搜索主键是列表点到详情页请求数据的唯一标识
             */
             for(let item of tablefieldconfig) {
                 // 判断是不是搜索主键，暂时按只有一个算
@@ -721,6 +679,9 @@ class List_Container extends React.Component {
         }
     }
 
+    // 获得主键值，用作新增/修改
+    get_main_value = value => this.mainValue = value;
+
     render = () => {
         let { children, config, props } = this;
         const { currentState, edit_config, search_field_open, detail_config, calendar_visible, loading, search_loading, container_height, pull_load, pageType } = this.state;
@@ -746,14 +707,14 @@ class List_Container extends React.Component {
         /* 详情页上一条数据 */
         let last = (
             <div className='sc-extend-drawer sc-left' onClick={ () => this.handle_detail_pagination('last', detail_last) } style={{ display: pageType == 'detail' && detail_last ? '' : 'none', top: (ClientHeight - 100) / 2 }}>
-                <img src='../../assets/List_Container/arrow-left.png' />
+                <img src='../../src/assets/List_Container/arrow-left.png' />
             </div>
         );
 
         /* 详情页下一条数据 */
         let next = (
             <div className='sc-extend-drawer sc-right' onClick={ () => this.handle_detail_pagination('next', detail_next) } style={{ display: pageType == 'detail' && detail_next ? '' : 'none', top: (ClientHeight - 100) / 2 }}>
-                <img src='../../assets/List_Container/arrow-right.png' />
+                <img src='../../src/assets/List_Container/arrow-right.png' />
             </div>
         );
 
@@ -795,7 +756,7 @@ class List_Container extends React.Component {
         /* 触发搜索的方块 */
         let extend_drawer = hasSearch ? (
             <div className='sc-extend-drawer sc-right' onClick={this.handle_search_change} style={{display: search_field_open || pageType != 'list' ? 'none' : '', top: (ClientHeight - 100) / 2}}>
-                <img src='../../assets/List_Container/arrow-left.png' />
+                <img src='../../src/assets/List_Container/arrow-left.png' />
             </div>
         ) : null;
 
@@ -807,10 +768,9 @@ class List_Container extends React.Component {
         ) : null;
 
         const templet_config = {
-            // height: container_height,
-            // currentState,
             display: pageType == 'list' ? '' : 'none',
             mainKey: this.mainKey,
+            mainValue: this.get_main_value,
             templet: props.children,
             dataSource: this.listDatas,
             onDetail: this.handle_item_edit,
@@ -845,7 +805,7 @@ class List_Container extends React.Component {
                 {/* 模板渲染 */}
                 <PullToRefresh direction='up' style={{height: container_height, overflow: 'auto'}} onRefresh={this.handle_pull_load} refreshing={pull_load}>
                     <div className='sc-content' style={{transform: `translate3d(${currentState * 100}%, 0, 0)`, display: pageType == 'list' ? '' : 'none'}} ref={ref => this.content = ref}>
-                    <Templet { ...templet_config } />
+                        <Templet { ...templet_config } />
                     </div>
                 </PullToRefresh>
 
