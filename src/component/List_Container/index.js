@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243 
  * @Date: 2017-09-29 15:00:45
  * @Last Modified by: zy9
- * @Last Modified time: 2018-07-05 17:05:00
+ * @Last Modified time: 2018-07-05 17:28:49
  */
 import React from 'react'
 
@@ -14,6 +14,7 @@ import { createForm } from 'rc-form'
 
 import Templet from './Templet'
 import { bind_touch_direction } from '../../util/Touch'
+import { handle_detail_datas } from './DataHandler'
 
 import './css/List_Container.css'
 
@@ -176,29 +177,6 @@ class List_Container extends React.Component {
         })
     }
 
-    /* 处理详情页数据排序，用于过渡动画
-        先找到对应value所在的index，然后根据index加入order属性
-        left: order * -100%
-    */
-    handle_detail_datas = (datas, value) => {
-        let index = -1;
-        for(let i = 0; i < datas.length; i++) {
-            let item = datas[i];
-            if(item[this.mainKey] == value) {
-                index = i;
-
-                break;
-            }
-        }
-
-        for(let i = 0, order = -index; i < datas.length; i++, order++) {
-            let item = datas[i];
-            item.detail_order = order;
-        }
-
-        return datas;
-    }
-
     /* 
         初始化新增/编辑页面
         mainValue为搜索主键对应的值，mainKey在this里
@@ -210,7 +188,7 @@ class List_Container extends React.Component {
         pageType = type;
         // this.mainValue = mainValue;
 
-        this.listDatas = this.handle_detail_datas(this.listDatas, mainValue);
+        this.listDatas = handle_detail_datas(this.listDatas, mainValue, this.mainKey);
 
         for(let item of this.listDatas) {
             if(item[this.mainKey] == mainValue) {
@@ -370,13 +348,13 @@ class List_Container extends React.Component {
 
     handle_input = (e, item, key) => {
         this.state[item][key] = e;
-        this.setState();
+        this.setState({});
     }
 
     handle_select = (e, item, key) => {
         // 内部数据结构处理，数组需要转化，需要级联选择 mark
         this.state[item][key] = e[0];
-        this.setState();
+        this.setState({});
     }
 
     handle_checkbox = (value, item, key) => {
@@ -392,12 +370,12 @@ class List_Container extends React.Component {
         param.delete(',');
         
         this.state[item][key] = [...param].toString();
-        this.setState();
+        this.setState({});
     }
 
     handle_date = (date, item, key, format) => {
         this.state[item][key] = moment(date).format(format);
-        this.setState();
+        this.setState({});
     }
 
     // 验证
@@ -621,8 +599,6 @@ class List_Container extends React.Component {
     handle_detail_pagination = (type, detail) => {
         if(!detail) return;
 
-        let { detail_next, detail_last } = this.state;
-
         switch(type) {
             case 'next': // 上一条
                 for(let i = 0; i < this.listDatas.length; i++) {
@@ -639,7 +615,7 @@ class List_Container extends React.Component {
             break;
         }
 
-        this.setState();
+        this.setState({});
     }
 
     // 判断是否有上一条/下一条
@@ -736,19 +712,17 @@ class List_Container extends React.Component {
         let detail_content = (
             <div style={{ overflowX: 'hidden', position: 'relative' }}>
                 {
-                    this.listDatas.map((jtem, j) => {
-                        return (
-                            <List key={`listDatas_${j}`} className='sc-detail-content' style={{transform: `translate3d(${jtem.detail_order * 100}%, ${j * -100}%, 0)`}}>
-                                {
-                                    detail_config.map((item, i) => this.handle_ControlType(item, 'detail', jtem, i))
-                                }
+                    this.listDatas.map((jtem, j) => (
+                        <List key={`listDatas_${j}`} className='sc-detail-content' style={{transform: `translate3d(${jtem.detail_order * 100}%, ${j * -100}%, 0)`}}>
+                            {
+                                detail_config.map((item, i) => this.handle_ControlType(item, 'detail', jtem, i))
+                            }
 
-                                <List.Item>
-                                    <Button onClick={this.reset}>返回上一级</Button>
-                                </List.Item>
-                            </List>
-                        );
-                    })
+                            <List.Item>
+                                <Button onClick={this.reset}>返回上一级</Button>
+                            </List.Item>
+                        </List>
+                    ))
                 }
             </div>
         );
@@ -811,9 +785,9 @@ class List_Container extends React.Component {
 
                 {/* 新增/修改/详情 */}
                 <div className='sc-edit-content' style={{transform: `translate3d(${(currentState + 1) * 100}%, 0, 0)`}} ref={ref => this.edit_content = ref}>
-                    {/* {last} */}
+                    {last}
                     {pageType == 'detail' ? detail_content : edit_content}
-                    {/* {next} */}
+                    {next}
                 </div>
 
                 <Calendar visible={calendar_visible} onCancel={() => {this.setState({calendar_visible: false})}} pickTime onConfirm={this.handle_calendar_submit} />
