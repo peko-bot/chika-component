@@ -1,1 +1,43 @@
-{"data":{"colname":"\"id\",\"bottle\",\"sectionid\",\"months\",\"sectionidNAME\"","list":[{"id":7,"bottle":"6,7,8","sectionid":16,"months":"2017-11-01T00:00:00","sectionidname":"埭头"},{"id":8,"bottle":"2,3","sectionid":18,"months":"2017-11-01T00:00:00","sectionidname":"怀溪镇"},{"id":2,"bottle":"3,4,5,6","sectionid":12,"months":"2017-11-01T00:00:00","sectionidname":"对雾"},{"id":5,"bottle":"1,2,3,4","sectionid":7,"months":"2017-08-01T00:00:00","sectionidname":"东皋"},{"id":6,"bottle":"10,11,12,13","sectionid":10,"months":"2017-08-01T00:00:00","sectionidname":"仙岩镇"},{"id":12,"sectionid":6,"sectionidname":"上塘"},{"id":13,"sectionid":6,"sectionidname":"上塘"},{"id":14,"sectionid":33,"sectionidname":"升天基村"},{"id":15,"sectionid":4,"sectionidname":"石柱"},{"id":16,"sectionid":14,"sectionidname":"鳌江"},{"id":17,"sectionid":34,"sectionidname":"仙岩镇"},{"id":19,"sectionid":34,"sectionidname":"仙岩镇"},{"id":20,"sectionid":16,"sectionidname":"埭头"},{"id":21,"sectionid":6,"sectionidname":"上塘"}],"recordcount":14}}
+{
+    "data": {
+        "colname": "\"id\",\"bottle\",\"sectionid\",\"months\",\"sectionidNAME\"",
+        "list": [
+            {
+                "id": 7,
+                "bottle": "6,7,8",
+                "sectionid": 16,
+                "months": "2017-11-01T00:00:00",
+                "sectionidname": "埭头"
+            },
+            {
+                "id": 8,
+                "bottle": "2,3",
+                "sectionid": 18,
+                "months": "2017-11-01T00:00:00",
+                "sectionidname": "怀溪镇"
+            },
+            {
+                "id": 2,
+                "bottle": "3,4,5,6",
+                "sectionid": 12,
+                "months": "2017-11-01T00:00:00",
+                "sectionidname": "对雾"
+            },
+            {
+                "id": 5,
+                "bottle": "1,2,3,4",
+                "sectionid": 7,
+                "months": "2017-08-01T00:00:00",
+                "sectionidname": "东皋"
+            },
+            {
+                "id": 6,
+                "bottle": "10,11,12,13",
+                "sectionid": 10,
+                "months": "2017-08-01T00:00:00",
+                "sectionidname": "仙岩镇"
+            }
+        ],
+        "recordcount": 5
+    }
+}

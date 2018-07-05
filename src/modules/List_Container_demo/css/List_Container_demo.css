@@ -1,22 +1,41 @@
 .List_Container_demo {
-    background: #F0F0F0;
-    position: relative;
-    overflow-x: hidden;
+    padding: 5px 4px;
+    background-color: #f2f2f2;
+    user-select: none;
 }
 
-.List_Container_demo .item {
-    background: #FFF;
-    padding: 10px 8px;
-    margin: 10px 8px;
-    min-height: 80px;
-    list-style: none;
+.List_Container_demo .container {
+    overflow: auto;
+    font-size: 14px;
 }
 
-.List_Container_demo .item .content {
+.List_Container_demo .container ul {
     overflow: hidden;
     background-color: #fff;
     margin-bottom: 7px;
-    border: 1px solid #e4e4e4;
+    border: 1px solid #E4E4E4;
     border-radius: 6px;
     padding: 0;
+}
+
+.List_Container_demo .container ul li {
+    padding: 5px;
+    list-style: none;
+    border-bottom: 1px solid #e4e4e4;
+    color: #676767;
+    height: 26px;
+    line-height: 26px;
+}
+
+.List_Container_demo .left {
+    float: left;
+    width: 50%;
+    height: 37px;
+    line-height: 37px;
+    margin-top: -5px;
+    border-right: 1px solid #e4e4e4;
+}
+
+.List_Container_demo .right label {
+    margin-left: 5px;
 }
