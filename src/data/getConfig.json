@@ -1,53 +1,80 @@
 {
     "data": {
-        "power": "Add,Update,Del,Select",
+        "power": "Select,Add,Del,Update",
         "tablefieldconfig": [
             {
-                "id": 30054,
-                "fname": "id",
-                "fvalue": "id",
-                "physicalcolname": "id",
+                "id": 113442,
+                "fname": "pjnm",
+                "fvalue": "工程名称",
+                "physicalcolname": "",
                 "iskey": true,
-                "isnull": true,
-                "issearchfield": false,
-                "searchtype": 5,
+                "isnull": false,
+                "issearchfield": true,
+                "searchtype": -1,
                 "searchorder": null,
                 "minlen": null,
-                "maxlen": 8,
+                "maxlen": null,
+                "decimalcount": null,
+                "regular": "",
+                "orderid": 21,
+                "isvisiable": true,
+                "defaultvalue": "",
+                "unit": "",
+                "controltype": 0,
+                "editpageorderid": 21,
+                "controlheight": "",
+                "controlwidth": "",
+                "isadd": true,
+                "fieldtag": null,
+                "foreigndata": [],
+                "dateformat": ""
+            },
+            {
+                "id": 113438,
+                "fname": "dam_cd",
+                "fvalue": "堰坝名称代码",
+                "physicalcolname": "dam_cd",
+                "iskey": true,
+                "isnull": false,
+                "issearchfield": false,
+                "searchtype": 8,
+                "searchorder": null,
+                "minlen": null,
+                "maxlen": 12,
                 "decimalcount": null,
                 "regular": "",
                 "orderid": 1,
-                "isvisiable": false,
+                "isvisiable": true,
                 "defaultvalue": "",
                 "unit": "",
                 "controltype": 1,
                 "editpageorderid": 1,
                 "controlheight": "",
                 "controlwidth": "",
-                "isadd": false,
+                "isadd": true,
                 "fieldtag": null,
                 "foreigndata": [],
                 "dateformat": ""
             },
             {
-                "id": 30055,
-                "fname": "bottle",
-                "fvalue": "瓶号",
-                "physicalcolname": "bottle",
+                "id": 113439,
+                "fname": "retain_dam_type",
+                "fvalue": "挡水主坝类型",
+                "physicalcolname": "retain_dam_type",
                 "iskey": false,
                 "isnull": false,
                 "issearchfield": false,
                 "searchtype": 8,
                 "searchorder": null,
                 "minlen": null,
-                "maxlen": 200,
+                "maxlen": 10,
                 "decimalcount": null,
                 "regular": "",
                 "orderid": 6,
                 "isvisiable": true,
                 "defaultvalue": "",
                 "unit": "",
-                "controltype": 1002,
+                "controltype": 1,
                 "editpageorderid": 6,
                 "controlheight": "",
                 "controlwidth": "",
@@ -57,879 +84,58 @@
                 "dateformat": ""
             },
             {
-                "id": 30056,
-                "fname": "sectionid",
-                "fvalue": "断面名称",
-                "physicalcolname": "sectionid",
+                "id": 113440,
+                "fname": "dam_width",
+                "fvalue": "坝高",
+                "physicalcolname": "dam_width",
                 "iskey": false,
                 "isnull": false,
-                "issearchfield": true,
+                "issearchfield": false,
+                "searchtype": 5,
+                "searchorder": null,
+                "minlen": null,
+                "maxlen": 9,
+                "decimalcount": 3,
+                "regular": "",
+                "orderid": 11,
+                "isvisiable": true,
+                "defaultvalue": "",
+                "unit": "",
+                "controltype": 1,
+                "editpageorderid": 11,
+                "controlheight": "",
+                "controlwidth": "",
+                "isadd": true,
+                "fieldtag": null,
+                "foreigndata": [],
+                "dateformat": ""
+            },
+            {
+                "id": 113441,
+                "fname": "crest_length",
+                "fvalue": "坝长",
+                "physicalcolname": "crest_length",
+                "iskey": false,
+                "isnull": false,
+                "issearchfield": false,
                 "searchtype": 5,
                 "searchorder": null,
                 "minlen": null,
                 "maxlen": 8,
-                "decimalcount": null,
-                "regular": "",
-                "orderid": 5,
-                "isvisiable": true,
-                "defaultvalue": "",
-                "unit": "",
-                "controltype": 3,
-                "editpageorderid": 5,
-                "controlheight": "",
-                "controlwidth": "170px",
-                "isadd": true,
-                "fieldtag": null,
-                "foreigndata": [
-                    {
-                        "text": "石柱",
-                        "value": 4,
-                        "label": "石柱"
-                    },
-                    {
-                        "text": "圣和宫",
-                        "value": 5,
-                        "label": "圣和宫"
-                    },
-                    {
-                        "text": "上塘",
-                        "value": 6,
-                        "label": "上塘"
-                    },
-                    {
-                        "text": "东皋",
-                        "value": 7,
-                        "label": "东皋"
-                    },
-                    {
-                        "text": "下家岙大口井",
-                        "value": 8,
-                        "label": "下家岙大口井"
-                    },
-                    {
-                        "text": "岩头镇自来水厂水源地",
-                        "value": 9,
-                        "label": "岩头镇自来水厂水源地"
-                    },
-                    {
-                        "text": "仙岩镇",
-                        "value": 10,
-                        "label": "仙岩镇"
-                    },
-                    {
-                        "text": "桥墩水库",
-                        "value": 11,
-                        "label": "桥墩水库"
-                    },
-                    {
-                        "text": "对雾",
-                        "value": 12,
-                        "label": "对雾"
-                    },
-                    {
-                        "text": "龙港镇",
-                        "value": 13,
-                        "label": "龙港镇"
-                    },
-                    {
-                        "text": "鳌江",
-                        "value": 14,
-                        "label": "鳌江"
-                    },
-                    {
-                        "text": "鳌江镇（压）",
-                        "value": 15,
-                        "label": "鳌江镇（压）"
-                    },
-                    {
-                        "text": "埭头",
-                        "value": 16,
-                        "label": "埭头"
-                    },
-                    {
-                        "text": "顺溪镇",
-                        "value": 17,
-                        "label": "顺溪镇"
-                    },
-                    {
-                        "text": "怀溪镇",
-                        "value": 18,
-                        "label": "怀溪镇"
-                    },
-                    {
-                        "text": "交溪口(东溪)",
-                        "value": 19,
-                        "label": "交溪口(东溪)"
-                    },
-                    {
-                        "text": "交溪口(寿泰溪)",
-                        "value": 20,
-                        "label": "交溪口(寿泰溪)"
-                    },
-                    {
-                        "text": "桐山溪",
-                        "value": 21,
-                        "label": "桐山溪"
-                    },
-                    {
-                        "text": "三魁",
-                        "value": 22,
-                        "label": "三魁"
-                    },
-                    {
-                        "text": "溪底寮",
-                        "value": 23,
-                        "label": "溪底寮"
-                    },
-                    {
-                        "text": "里光村",
-                        "value": 24,
-                        "label": "里光村"
-                    },
-                    {
-                        "text": "百丈口",
-                        "value": 25,
-                        "label": "百丈口"
-                    },
-                    {
-                        "text": "交溪垟",
-                        "value": 26,
-                        "label": "交溪垟"
-                    },
-                    {
-                        "text": "三插溪",
-                        "value": 27,
-                        "label": "三插溪"
-                    },
-                    {
-                        "text": "泗溪镇",
-                        "value": 28,
-                        "label": "泗溪镇"
-                    },
-                    {
-                        "text": "罗阳镇",
-                        "value": 29,
-                        "label": "罗阳镇"
-                    },
-                    {
-                        "text": "瑞安",
-                        "value": 30,
-                        "label": "瑞安"
-                    },
-                    {
-                        "text": "塘下",
-                        "value": 31,
-                        "label": "塘下"
-                    },
-                    {
-                        "text": "下埠水闸",
-                        "value": 32,
-                        "label": "下埠水闸"
-                    },
-                    {
-                        "text": "升天基村",
-                        "value": 33,
-                        "label": "升天基村"
-                    },
-                    {
-                        "text": "仙岩镇",
-                        "value": 34,
-                        "label": "仙岩镇"
-                    },
-                    {
-                        "text": "龙港镇",
-                        "value": 35,
-                        "label": "龙港镇"
-                    },
-                    {
-                        "text": "东门",
-                        "value": 36,
-                        "label": "东门"
-                    },
-                    {
-                        "text": "林岱",
-                        "value": 37,
-                        "label": "林岱"
-                    },
-                    {
-                        "text": "水头镇",
-                        "value": 38,
-                        "label": "水头镇"
-                    },
-                    {
-                        "text": "赵山渡水库",
-                        "value": 39,
-                        "label": "赵山渡水库"
-                    },
-                    {
-                        "text": "平阳坑",
-                        "value": 40,
-                        "label": "平阳坑"
-                    },
-                    {
-                        "text": "吴界山",
-                        "value": 41,
-                        "label": "吴界山"
-                    },
-                    {
-                        "text": "龙湖",
-                        "value": 42,
-                        "label": "龙湖"
-                    },
-                    {
-                        "text": "珊溪水库",
-                        "value": 43,
-                        "label": "珊溪水库"
-                    },
-                    {
-                        "text": "峃口",
-                        "value": 44,
-                        "label": "峃口"
-                    },
-                    {
-                        "text": "岩门",
-                        "value": 45,
-                        "label": "岩门"
-                    },
-                    {
-                        "text": "上林",
-                        "value": 46,
-                        "label": "上林"
-                    },
-                    {
-                        "text": "龙凤桥",
-                        "value": 47,
-                        "label": "龙凤桥"
-                    },
-                    {
-                        "text": "百丈漈水库",
-                        "value": 48,
-                        "label": "百丈漈水库"
-                    },
-                    {
-                        "text": "东溪",
-                        "value": 49,
-                        "label": "东溪"
-                    },
-                    {
-                        "text": "玉壶镇三房井",
-                        "value": 50,
-                        "label": "玉壶镇三房井"
-                    },
-                    {
-                        "text": "玉泉溪",
-                        "value": 51,
-                        "label": "玉泉溪"
-                    },
-                    {
-                        "text": "吴桥",
-                        "value": 52,
-                        "label": "吴桥"
-                    },
-                    {
-                        "text": "南湖大桥",
-                        "value": 53,
-                        "label": "南湖大桥"
-                    },
-                    {
-                        "text": "白象大桥",
-                        "value": 54,
-                        "label": "白象大桥"
-                    },
-                    {
-                        "text": "蒲中路",
-                        "value": 55,
-                        "label": "蒲中路"
-                    },
-                    {
-                        "text": "机场水厂",
-                        "value": 56,
-                        "label": "机场水厂"
-                    },
-                    {
-                        "text": "小方岩",
-                        "value": 57,
-                        "label": "小方岩"
-                    },
-                    {
-                        "text": "北岙",
-                        "value": 58,
-                        "label": "北岙"
-                    },
-                    {
-                        "text": "水心殿",
-                        "value": 59,
-                        "label": "水心殿"
-                    },
-                    {
-                        "text": "南塘大桥",
-                        "value": 60,
-                        "label": "南塘大桥"
-                    },
-                    {
-                        "text": "立公桥",
-                        "value": 61,
-                        "label": "立公桥"
-                    },
-                    {
-                        "text": "樟岙大桥",
-                        "value": 62,
-                        "label": "樟岙大桥"
-                    },
-                    {
-                        "text": "水倦桥",
-                        "value": 63,
-                        "label": "水倦桥"
-                    },
-                    {
-                        "text": "十里亭桥",
-                        "value": 64,
-                        "label": "十里亭桥"
-                    },
-                    {
-                        "text": "西山河",
-                        "value": 65,
-                        "label": "西山河"
-                    },
-                    {
-                        "text": "江心屿",
-                        "value": 66,
-                        "label": "江心屿"
-                    },
-                    {
-                        "text": "前庄桥",
-                        "value": 67,
-                        "label": "前庄桥"
-                    },
-                    {
-                        "text": "三维桥",
-                        "value": 68,
-                        "label": "三维桥"
-                    },
-                    {
-                        "text": "仰义水库",
-                        "value": 69,
-                        "label": "仰义水库"
-                    },
-                    {
-                        "text": "山根",
-                        "value": 70,
-                        "label": "山根"
-                    },
-                    {
-                        "text": "小旦村",
-                        "value": 71,
-                        "label": "小旦村"
-                    },
-                    {
-                        "text": "上戍",
-                        "value": 72,
-                        "label": "上戍"
-                    },
-                    {
-                        "text": "上埠头",
-                        "value": 73,
-                        "label": "上埠头"
-                    },
-                    {
-                        "text": "泽雅水库",
-                        "value": 74,
-                        "label": "泽雅水库"
-                    },
-                    {
-                        "text": "潘桥镇",
-                        "value": 75,
-                        "label": "潘桥镇"
-                    },
-                    {
-                        "text": "郭溪桥",
-                        "value": 76,
-                        "label": "郭溪桥"
-                    },
-                    {
-                        "text": "梅园村",
-                        "value": 77,
-                        "label": "梅园村"
-                    },
-                    {
-                        "text": "碧莲",
-                        "value": 78,
-                        "label": "碧莲"
-                    },
-                    {
-                        "text": "岩坦",
-                        "value": 79,
-                        "label": "岩坦"
-                    },
-                    {
-                        "text": "鲤溪",
-                        "value": 80,
-                        "label": "鲤溪"
-                    },
-                    {
-                        "text": "承天村",
-                        "value": 138,
-                        "label": "承天村"
-                    },
-                    {
-                        "text": "台边村",
-                        "value": 139,
-                        "label": "台边村"
-                    },
-                    {
-                        "text": "仙居村",
-                        "value": 140,
-                        "label": "仙居村"
-                    },
-                    {
-                        "text": "木湾",
-                        "value": 141,
-                        "label": "木湾"
-                    },
-                    {
-                        "text": "大住村",
-                        "value": 142,
-                        "label": "大住村"
-                    },
-                    {
-                        "text": "泗溪大桥",
-                        "value": 143,
-                        "label": "泗溪大桥"
-                    },
-                    {
-                        "text": "瑞安潮位站",
-                        "value": 144,
-                        "label": "瑞安潮位站"
-                    },
-                    {
-                        "text": "中心大桥",
-                        "value": 145,
-                        "label": "中心大桥"
-                    },
-                    {
-                        "text": "众安桥",
-                        "value": 146,
-                        "label": "众安桥"
-                    },
-                    {
-                        "text": "鳌江潮位站",
-                        "value": 147,
-                        "label": "鳌江潮位站"
-                    },
-                    {
-                        "text": "埭头水文站",
-                        "value": 148,
-                        "label": "埭头水文站"
-                    },
-                    {
-                        "text": "顺溪水库",
-                        "value": 149,
-                        "label": "顺溪水库"
-                    },
-                    {
-                        "text": "山门水位站",
-                        "value": 150,
-                        "label": "山门水位站"
-                    },
-                    {
-                        "text": "五十丈",
-                        "value": 151,
-                        "label": "五十丈"
-                    },
-                    {
-                        "text": "西山水文站",
-                        "value": 152,
-                        "label": "西山水文站"
-                    },
-                    {
-                        "text": "赵山渡",
-                        "value": 153,
-                        "label": "赵山渡"
-                    },
-                    {
-                        "text": "平阳坑大桥",
-                        "value": 154,
-                        "label": "平阳坑大桥"
-                    },
-                    {
-                        "text": "高一村",
-                        "value": 155,
-                        "label": "高一村"
-                    },
-                    {
-                        "text": "峃口水文站",
-                        "value": 156,
-                        "label": "峃口水文站"
-                    },
-                    {
-                        "text": "三板桥村",
-                        "value": 157,
-                        "label": "三板桥村"
-                    },
-                    {
-                        "text": "上林大桥",
-                        "value": 158,
-                        "label": "上林大桥"
-                    },
-                    {
-                        "text": "太场村",
-                        "value": 159,
-                        "label": "太场村"
-                    },
-                    {
-                        "text": "岩头村",
-                        "value": 160,
-                        "label": "岩头村"
-                    },
-                    {
-                        "text": "塘河桥",
-                        "value": 161,
-                        "label": "塘河桥"
-                    },
-                    {
-                        "text": "瓯江翻水站",
-                        "value": 162,
-                        "label": "瓯江翻水站"
-                    },
-                    {
-                        "text": "南雅桥",
-                        "value": 163,
-                        "label": "南雅桥"
-                    },
-                    {
-                        "text": "潘桥大桥",
-                        "value": 164,
-                        "label": "潘桥大桥"
-                    },
-                    {
-                        "text": "碧莲水文站",
-                        "value": 165,
-                        "label": "碧莲水文站"
-                    },
-                    {
-                        "text": "源头村",
-                        "value": 166,
-                        "label": "源头村"
-                    },
-                    {
-                        "text": "南岸村",
-                        "value": 167,
-                        "label": "南岸村"
-                    },
-                    {
-                        "text": "石柱水文站",
-                        "value": 168,
-                        "label": "石柱水文站"
-                    },
-                    {
-                        "text": "下城岙",
-                        "value": 169,
-                        "label": "下城岙"
-                    },
-                    {
-                        "text": "上塘潮位站",
-                        "value": 170,
-                        "label": "上塘潮位站"
-                    },
-                    {
-                        "text": "东皋大桥",
-                        "value": 171,
-                        "label": "东皋大桥"
-                    },
-                    {
-                        "text": "鱼仓村",
-                        "value": 172,
-                        "label": "鱼仓村"
-                    },
-                    {
-                        "text": "吴家园水库",
-                        "value": 174,
-                        "label": "吴家园水库"
-                    },
-                    {
-                        "text": "挺南水库",
-                        "value": 175,
-                        "label": "挺南水库"
-                    },
-                    {
-                        "text": "车站路大桥",
-                        "value": 176,
-                        "label": "车站路大桥"
-                    },
-                    {
-                        "text": "萧江塘河桥",
-                        "value": 177,
-                        "label": "萧江塘河桥"
-                    },
-                    {
-                        "text": "石坦桥",
-                        "value": 178,
-                        "label": "石坦桥"
-                    },
-                    {
-                        "text": "永中水位站",
-                        "value": 179,
-                        "label": "永中水位站"
-                    },
-                    {
-                        "text": "青山水库",
-                        "value": 180,
-                        "label": "青山水库"
-                    },
-                    {
-                        "text": "长坑水库",
-                        "value": 181,
-                        "label": "长坑水库"
-                    },
-                    {
-                        "text": "龙潭坑水库",
-                        "value": 182,
-                        "label": "龙潭坑水库"
-                    },
-                    {
-                        "text": "枫树坑水库",
-                        "value": 183,
-                        "label": "枫树坑水库"
-                    },
-                    {
-                        "text": "金溪水库",
-                        "value": 184,
-                        "label": "金溪水库"
-                    },
-                    {
-                        "text": "青岱大桥",
-                        "value": 185,
-                        "label": "青岱大桥"
-                    },
-                    {
-                        "text": "包田村",
-                        "value": 186,
-                        "label": "包田村"
-                    },
-                    {
-                        "text": "吉祥院",
-                        "value": 187,
-                        "label": "吉祥院"
-                    },
-                    {
-                        "text": "龙翔桥",
-                        "value": 188,
-                        "label": "龙翔桥"
-                    },
-                    {
-                        "text": "黄坑水库",
-                        "value": 189,
-                        "label": "黄坑水库"
-                    },
-                    {
-                        "text": "梅溪大桥",
-                        "value": 190,
-                        "label": "梅溪大桥"
-                    },
-                    {
-                        "text": "碧湖大桥",
-                        "value": 191,
-                        "label": "碧湖大桥"
-                    },
-                    {
-                        "text": "刘英大桥",
-                        "value": 192,
-                        "label": "刘英大桥"
-                    },
-                    {
-                        "text": "连心桥",
-                        "value": 193,
-                        "label": "连心桥"
-                    },
-                    {
-                        "text": "丁埠头村",
-                        "value": 194,
-                        "label": "丁埠头村"
-                    },
-                    {
-                        "text": "南下桥",
-                        "value": 195,
-                        "label": "南下桥"
-                    },
-                    {
-                        "text": "康庄大桥",
-                        "value": 196,
-                        "label": "康庄大桥"
-                    },
-                    {
-                        "text": "护法寺调节水库",
-                        "value": 197,
-                        "label": "护法寺调节水库"
-                    },
-                    {
-                        "text": "灵溪水位站",
-                        "value": 198,
-                        "label": "灵溪水位站"
-                    },
-                    {
-                        "text": "环西大桥",
-                        "value": 199,
-                        "label": "环西大桥"
-                    },
-                    {
-                        "text": "官岙双剑口水库",
-                        "value": 200,
-                        "label": "官岙双剑口水库"
-                    },
-                    {
-                        "text": "铁场水库",
-                        "value": 201,
-                        "label": "铁场水库"
-                    },
-                    {
-                        "text": "十八孔水库",
-                        "value": 202,
-                        "label": "十八孔水库"
-                    },
-                    {
-                        "text": "下垟郑村",
-                        "value": 203,
-                        "label": "下垟郑村"
-                    },
-                    {
-                        "text": "泗溪水位站",
-                        "value": 204,
-                        "label": "泗溪水位站"
-                    },
-                    {
-                        "text": "新林桥",
-                        "value": 205,
-                        "label": "新林桥"
-                    },
-                    {
-                        "text": "翁溪村",
-                        "value": 206,
-                        "label": "翁溪村"
-                    },
-                    {
-                        "text": "仕阳",
-                        "value": 207,
-                        "label": "仕阳"
-                    },
-                    {
-                        "text": "岭尾水库",
-                        "value": 208,
-                        "label": "岭尾水库"
-                    },
-                    {
-                        "text": "涂厂渡口",
-                        "value": 209,
-                        "label": "涂厂渡口"
-                    },
-                    {
-                        "text": "新垟村",
-                        "value": 210,
-                        "label": "新垟村"
-                    },
-                    {
-                        "text": "林溪水库",
-                        "value": 211,
-                        "label": "林溪水库"
-                    },
-                    {
-                        "text": "福溪水库",
-                        "value": 212,
-                        "label": "福溪水库"
-                    },
-                    {
-                        "text": "十八玍水库",
-                        "value": 213,
-                        "label": "十八玍水库"
-                    },
-                    {
-                        "text": "友谊大桥",
-                        "value": 214,
-                        "label": "友谊大桥"
-                    },
-                    {
-                        "text": "钟前水库",
-                        "value": 215,
-                        "label": "钟前水库"
-                    },
-                    {
-                        "text": "花南桥",
-                        "value": 216,
-                        "label": "花南桥"
-                    },
-                    {
-                        "text": "久防大桥",
-                        "value": 217,
-                        "label": "久防大桥"
-                    },
-                    {
-                        "text": "淡溪水库",
-                        "value": 218,
-                        "label": "淡溪水库"
-                    },
-                    {
-                        "text": "前林村",
-                        "value": 219,
-                        "label": "前林村"
-                    },
-                    {
-                        "text": "西塍大桥",
-                        "value": 220,
-                        "label": "西塍大桥"
-                    },
-                    {
-                        "text": "汽车站桥",
-                        "value": 221,
-                        "label": "汽车站桥"
-                    },
-                    {
-                        "text": "东浦桥",
-                        "value": 222,
-                        "label": "东浦桥"
-                    },
-                    {
-                        "text": "白石水库",
-                        "value": 223,
-                        "label": "白石水库"
-                    },
-                    {
-                        "text": "333",
-                        "value": 224,
-                        "label": "333"
-                    },
-                    {
-                        "text": "老铜钱水库坝下",
-                        "value": 225,
-                        "label": "老铜钱水库坝下"
-                    }
-                ],
-                "dateformat": ""
-            },
-            {
-                "id": 30057,
-                "fname": "months",
-                "fvalue": "月份",
-                "physicalcolname": "months",
-                "iskey": false,
-                "isnull": false,
-                "issearchfield": true,
-                "searchtype": 9,
-                "searchorder": null,
-                "minlen": null,
-                "maxlen": 100,
-                "decimalcount": null,
+                "decimalcount": 2,
                 "regular": "",
                 "orderid": 16,
                 "isvisiable": true,
                 "defaultvalue": "",
                 "unit": "",
-                "controltype": 9,
+                "controltype": 1,
                 "editpageorderid": 16,
                 "controlheight": "",
                 "controlwidth": "",
                 "isadd": true,
                 "fieldtag": null,
                 "foreigndata": [],
-                "dateformat": "YYYY-MM"
+                "dateformat": ""
             }
         ]
     }

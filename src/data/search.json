@@ -1,43 +1,98 @@
 {
     "data": {
-        "colname": "\"id\",\"bottle\",\"sectionid\",\"months\",\"sectionidNAME\"",
+        "colname": "\"RowNum\",\"dam_cd\",\"dam_width\",\"crest_length\",\"retain_dam_type\",\"pjnm\",\"describe\"",
         "list": [
             {
-                "id": 7,
-                "bottle": "6,7,8",
-                "sectionid": 16,
-                "months": "2017-11-01T00:00:00",
-                "sectionidname": "埭头"
+                "rownum": 1,
+                "dam_cd": "Z000001     ",
+                "dam_width": 16,
+                "crest_length": 63,
+                "retain_dam_type": "堆石坝    ",
+                "pjnm": "德江坞",
+                "describe": ""
             },
             {
-                "id": 8,
-                "bottle": "2,3",
-                "sectionid": 18,
-                "months": "2017-11-01T00:00:00",
-                "sectionidname": "怀溪镇"
+                "rownum": 2,
+                "dam_cd": "Z000002     ",
+                "dam_width": 0.7,
+                "crest_length": 13.8,
+                "retain_dam_type": "堆石坝    ",
+                "pjnm": "六谷地村混凝土堰坝1",
+                "describe": ""
             },
             {
-                "id": 2,
-                "bottle": "3,4,5,6",
-                "sectionid": 12,
-                "months": "2017-11-01T00:00:00",
-                "sectionidname": "对雾"
+                "rownum": 3,
+                "dam_cd": "Z000003     ",
+                "dam_width": 2.4,
+                "crest_length": 42.4,
+                "retain_dam_type": "混凝土坝  ",
+                "pjnm": "赤龙坝",
+                "describe": ""
             },
             {
-                "id": 5,
-                "bottle": "1,2,3,4",
-                "sectionid": 7,
-                "months": "2017-08-01T00:00:00",
-                "sectionidname": "东皋"
+                "rownum": 4,
+                "dam_cd": "Z000004     ",
+                "dam_width": 3.5,
+                "crest_length": 45,
+                "retain_dam_type": "混凝土坝  ",
+                "pjnm": "湖家埭坝2",
+                "describe": ""
             },
             {
-                "id": 6,
-                "bottle": "10,11,12,13",
-                "sectionid": 10,
-                "months": "2017-08-01T00:00:00",
-                "sectionidname": "仙岩镇"
+                "rownum": 5,
+                "dam_cd": "Z000005     ",
+                "dam_width": 6.2,
+                "crest_length": 34,
+                "retain_dam_type": "混凝土坝  ",
+                "pjnm": "家猫坞山塘",
+                "describe": ""
+            },
+            {
+                "rownum": 6,
+                "dam_cd": "Z000006     ",
+                "dam_width": 16,
+                "crest_length": 66,
+                "retain_dam_type": "混凝土坝  ",
+                "pjnm": "南塘坞山塘",
+                "describe": ""
+            },
+            {
+                "rownum": 7,
+                "dam_cd": "Z000007     ",
+                "dam_width": 12.1,
+                "crest_length": 38,
+                "retain_dam_type": "混凝土坝  ",
+                "pjnm": "西步坞山塘",
+                "describe": ""
+            },
+            {
+                "rownum": 8,
+                "dam_cd": "Z000008     ",
+                "dam_width": 0.9,
+                "crest_length": 22,
+                "retain_dam_type": "混凝土坝  ",
+                "pjnm": "东沈村混凝土堰坝1",
+                "describe": ""
+            },
+            {
+                "rownum": 9,
+                "dam_cd": "Z000009     ",
+                "dam_width": 1.6,
+                "crest_length": 17.3,
+                "retain_dam_type": "混凝土坝  ",
+                "pjnm": "东沈村混凝土堰坝2",
+                "describe": ""
+            },
+            {
+                "rownum": 10,
+                "dam_cd": "Z000010     ",
+                "dam_width": 1.2,
+                "crest_length": 15,
+                "retain_dam_type": "混凝土坝  ",
+                "pjnm": "东沈村混凝土堰坝3",
+                "describe": ""
             }
         ],
-        "recordcount": 5
+        "recordcount": 21
     }
 }

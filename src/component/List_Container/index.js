@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243 
  * @Date: 2017-09-29 15:00:45
  * @Last Modified by: zy9
- * @Last Modified time: 2018-07-06 15:21:29
+ * @Last Modified time: 2018-07-06 15:28:00
  */
 import React from 'react'
 
@@ -21,10 +21,15 @@ import './css/List_Container.css'
 import Serialize from '../../util/Serialize'
 import moment from 'moment'
 
-const getConfigUrl = '../../src/data/getConfig.json' // http://222.185.24.19:9002/webapi/api/v2/generalbackstage/getconfig
-const tableConfigUrl = '../../src/data/tableconfig.json' // http://222.185.24.19:9002/webapi/api/v2/generalbackstage/getinterfacedata
-const searchUrl = '../../src/data/search.json' // http://222.185.24.19:9002/webapi/api/v2/generalbackstage/getdata
-const generalbackstageUrl = '../../src/data/tableconfig.json' // http://222.185.24.19:9002/webapi/api/v2/generalbackstage/operatedata
+const getConfigUrl = '../../src/data/getConfig.json'
+const tableConfigUrl = '../../src/data/tableconfig.json'
+const searchUrl = '../../src/data/search.json'
+const generalbackstageUrl = '../../src/data/tableconfig.json'
+
+// const getConfigUrl = 'http://61.175.121.68:9001/webapi/api/v2/generalbackstage/getconfig'
+// const tableConfigUrl = 'http://61.175.121.68:9001/webapi/api/v2/generalbackstage/getinterfacedata'
+// const searchUrl = 'http://61.175.121.68:9001/webapi/api/v2/generalbackstage/getdata'
+// const generalbackstageUrl = 'http://61.175.121.68:9001/webapi/api/v2/generalbackstage/operatedata'
 
 class List_Container extends React.Component {
     constructor(props) {
@@ -139,22 +144,23 @@ class List_Container extends React.Component {
         CellPhone ? data.CellPhone = CellPhone : null;
 
         // 两种请求方式
-        let ajax_param = url ? {
-            key: 'getUrlData',
-            f: 'json',
-            method: debug ? 'GET' : 'POST',
-            data: Object.assign({}, { RequestUrl, RequestParams: Object.assign({}, data, RequestParams), RequestMethod }),
-        } : {
-            key: 'search',
-            f: 'json',
-            method: debug ? 'GET' : 'POST',
-            data: Object.assign({}, search_param, data, RequestParams),
-        };
+        data = url ?
+            Object.assign({}, { RequestUrl, RequestParams: Object.assign({}, data, RequestParams), RequestMethod })
+            :
+            Object.assign({}, search_param, data, RequestParams)
 
-        let tableConfig = `${tableConfigUrl}?${Serialize(ajax_param.data)}`;
-        let search = `${searchUrl}?${Serialize(ajax_param.data)}`;
+        let tableConfig = `${tableConfigUrl}?${Serialize(data)}`;
+        let search = `${searchUrl}?${Serialize(data)}`;
 
-        fetch(url ? tableConfig : search)
+        const options = {
+            method: debug ? 'GET' : 'POST',
+            credentials: 'include', // 加入cookie
+            headers: {
+                'Content-Type': 'application/json; charset=UTF-8'
+            },
+        }
+
+        fetch(url ? tableConfig : search, options)
         .then(result => result.json())
         .then(result => {
             let { list, recordcount } = result.data;
