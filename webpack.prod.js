@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243 
  * @Date: 2018-05-20 13:48:08 
  * @Last Modified by: zy9
- * @Last Modified time: 2018-06-21 21:12:34
+ * @Last Modified time: 2018-07-06 17:08:36
  */
 const webpack = require('webpack');
 const fs = require('fs');
@@ -43,22 +43,30 @@ const options = {
     devServer: {
         port: 9099
     },
+    externals: {
+        'react': 'react',
+        'react-dom': 'react-dom'
+    },
     resolve: {
         extensions: ['.js', '.jsx'],
     },
-    devtool: dev ? 'source-map' : '',
+    // devtool: dev ? 'source-map' : '',
+    devtool: 'source-map',
     entry: {
-        main: __dirname + '/src',
+        // main: __dirname + '/src',
+        List_Container: __dirname + '/src/component/List_Container'
     },
     output: {
         path: __dirname + '/dist',
-        filename: '[name].js',
-        chunkFilename: dev ? 'vendor/[name].[chunkHash:8].js' : 'vendor/[name].js'
+        filename: '[name]/index.js',
+        chunkFilename: dev ? 'vendor/[name].[chunkHash:8].js' : 'vendor/[name].js',
+        libraryTarget: 'umd'
     },
     plugins,
     module: commonModule
 }
 
-dev && webpack(options).watch({}, () => {});
+// dev && webpack(options).watch({}, () => {});
 
-!dev && webpack(options).run();
+// !dev && webpack(options).run();
+webpack(options).run();
