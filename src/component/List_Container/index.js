@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243 
  * @Date: 2017-09-29 15:00:45
  * @Last Modified by: zy9
- * @Last Modified time: 2018-07-05 17:28:49
+ * @Last Modified time: 2018-07-06 15:21:29
  */
 import React from 'react'
 
@@ -107,7 +107,7 @@ class List_Container extends React.Component {
 
         this.setState({ loading: true });
 
-        fetch(`${getConfigUrl}?${Serialize({tcid, menuid})}`)
+        fetch(`${ getConfigUrl }?${Serialize({tcid, menuid})}`)
         .then(result => result.json())
         .then(result => {
             // 无论如何都会有查看的权限
