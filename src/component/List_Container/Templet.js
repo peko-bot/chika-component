@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243 
  * @Date: 2018-07-04 09:59:21 
  * @Last Modified by: zy9
- * @Last Modified time: 2018-07-06 15:31:46
+ * @Last Modified time: 2018-07-06 17:36:59
  */
 import React, { Component } from 'react'
 
@@ -125,7 +125,7 @@ export default class Templet extends Component {
 
         return (
             <div className='Templet'>
-                { dataSource.length ? this.buildTemplet() : <img src='../../src/assets/List_Container/nodata.png' style={{ width: '100%' }} /> }
+                { dataSource.length ? this.buildTemplet() : <img src='../../assets/List_Container/nodata.png' style={{ width: '100%' }} /> }
             </div>
         )
     }

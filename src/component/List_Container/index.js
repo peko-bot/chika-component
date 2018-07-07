@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243 
  * @Date: 2017-09-29 15:00:45
  * @Last Modified by: zy9
- * @Last Modified time: 2018-07-06 15:28:00
+ * @Last Modified time: 2018-07-06 17:36:39
  */
 import React from 'react'
 
@@ -21,10 +21,10 @@ import './css/List_Container.css'
 import Serialize from '../../util/Serialize'
 import moment from 'moment'
 
-const getConfigUrl = '../../src/data/getConfig.json'
-const tableConfigUrl = '../../src/data/tableconfig.json'
-const searchUrl = '../../src/data/search.json'
-const generalbackstageUrl = '../../src/data/tableconfig.json'
+const getConfigUrl = '../../data/getConfig.json'
+const tableConfigUrl = '../../data/tableconfig.json'
+const searchUrl = '../../data/search.json'
+const generalbackstageUrl = '../../data/tableconfig.json'
 
 // const getConfigUrl = 'http://61.175.121.68:9001/webapi/api/v2/generalbackstage/getconfig'
 // const tableConfigUrl = 'http://61.175.121.68:9001/webapi/api/v2/generalbackstage/getinterfacedata'
@@ -689,14 +689,14 @@ class List_Container extends React.Component {
         /* 详情页上一条数据 */
         let last = (
             <div className='sc-extend-drawer sc-left' onClick={ () => this.handle_detail_pagination('last', detail_last) } style={{ display: pageType == 'detail' && detail_last ? '' : 'none', top: (ClientHeight - 100) / 2 }}>
-                <img src='../../src/assets/List_Container/arrow-left.png' />
+                <img src='../../assets/List_Container/arrow-left.png' />
             </div>
         );
 
         /* 详情页下一条数据 */
         let next = (
             <div className='sc-extend-drawer sc-right' onClick={ () => this.handle_detail_pagination('next', detail_next) } style={{ display: pageType == 'detail' && detail_next ? '' : 'none', top: (ClientHeight - 100) / 2 }}>
-                <img src='../../src/assets/List_Container/arrow-right.png' />
+                <img src='../../assets/List_Container/arrow-right.png' />
             </div>
         );
 
@@ -736,7 +736,7 @@ class List_Container extends React.Component {
         /* 触发搜索的方块 */
         let extend_drawer = hasSearch ? (
             <div className='sc-extend-drawer sc-right' onClick={this.handle_search_change} style={{display: search_field_open || pageType != 'list' ? 'none' : '', top: (ClientHeight - 100) / 2}}>
-                <img src='../../src/assets/List_Container/arrow-left.png' />
+                <img src='../../assets/List_Container/arrow-left.png' />
             </div>
         ) : null;
 
