@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243 
  * @Date: 2018-06-02 21:02:58 
  * @Last Modified by: zy9
- * @Last Modified time: 2018-07-09 10:29:46
+ * @Last Modified time: 2018-07-09 14:42:54
  */
 import React from 'react'
 
@@ -13,12 +13,22 @@ import './css/List_Container_demo.css'
 export default class List_Container_demo extends React.Component {
     constructor(props) {
         super(props)
-        this.state = {}
+        this.state = {
+            loading: true,
+        }
     }
 
     handle_onChange = item => {
         console.log(item)
     }
+
+    // componentDidMount = () => {
+    //     setTimeout(() => {
+    //         this.container.get_config();
+            
+    //         console.log('update')
+    //     }, 3000);
+    // }
 
     config = {
         tcid: 10874,
@@ -42,9 +52,11 @@ export default class List_Container_demo extends React.Component {
 
     //  domain='http://61.175.121.68:9001'
     render() {
+        const { loading } = this.state;
+
         return (
             <div className='List_Container_demo'>
-                <Container config={this.config} style={{ height: (document.documentElement.clientHeight || document.body.clientHeight) - 10 }}>
+                <Container config={ this.config } wrappedComponentRef={ ref => this.container = ref } style={{ height: (document.documentElement.clientHeight || document.body.clientHeight) - 10 }}>
                     <div className='container' bind='true'>
                         <ul>
                             <li>
@@ -61,7 +73,7 @@ export default class List_Container_demo extends React.Component {
                             <li>
                                 <div className='left'>
                                     <label>坝长：</label>
-                                    <label data-key='crest_length'></label>
+                                    <label data-key='crest_length' unit='m'></label>
                                 </div>
                                 <div className='right'>
                                     <label>主坝类型：</label>

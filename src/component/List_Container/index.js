@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243 
  * @Date: 2017-09-29 15:00:45
  * @Last Modified by: zy9
- * @Last Modified time: 2018-07-09 13:50:25
+ * @Last Modified time: 2018-07-09 15:15:28
  */
 import React from 'react'
 
@@ -110,7 +110,7 @@ class List_Container extends React.Component {
 
         this.setState({ loading: true });
 
-        fetch(`${ this.getConfigUrl }?${Serialize({tcid, menuid})}`)
+        fetch(`${ this.getConfigUrl }?${ Serialize({tcid, menuid}) }`)
         .then(result => result.json())
         .then(result => {
             // 无论如何都会有查看的权限
@@ -195,7 +195,7 @@ class List_Container extends React.Component {
         for(let item of this.listDatas) {
             if(item[this.mainKey] == mainValue) {
                 for(let jtem of this.config) {
-                    let { fname, fvalue, isvisiable } = jtem;
+                    let { fname, isvisiable } = jtem;
                     
                     for(let key in item) {
                         if(key == fname && jtem.isadd) { // isvisiable是在列表中的显隐，现在由模板绑定字段控制。这里的是编辑页面
@@ -285,7 +285,7 @@ class List_Container extends React.Component {
 
     // 处理增改
     handle_edit_datas = params => {
-        fetch(this.generalbackstageUrl + `?${Serialize(params.data)}`)
+        fetch(this.generalbackstageUrl + `?${ Serialize(params.data) }`)
         .then(result => result.json())
         .then(result => {
             const { data } = result;
@@ -344,9 +344,7 @@ class List_Container extends React.Component {
         ]);
     }
 
-    handle_form_error = fname => {
-        Toast.info(this.props.form.getFieldError(fname).join('、'), 2, null, false);
-    }
+    handle_form_error = fname => Toast.info(this.props.form.getFieldError(fname).join('、'), 2, null, false);
 
     handle_input = (e, item, key) => {
         this.state[item][key] = e;
@@ -394,6 +392,8 @@ class List_Container extends React.Component {
     handle_input_value = (value, item) => {
         if(value === '') return value;
 
+        if(value && typeof value == 'string') value = value.trim();
+
         let { controltype_detail, dateformat, foreigndata, unit, decimalcount } = item;
 
         // pc中是没有日期格式字符串的配置的，这里hack一下 mark
@@ -401,11 +401,9 @@ class List_Container extends React.Component {
 
         switch(controltype_detail) {
             case 1: // 文本框
-                // 判断是否是数字
-                let reg = /^\d+$|^\d+\.\d+$/g;
                 // 保留小数位数
-                if(reg.test(value) && decimalcount) value = `${ parseFloat(value).toFixed(decimalcount) } ${unit}`;
-                
+                if(typeof value == 'number' && decimalcount)
+                    value = `${ parseFloat(value).toFixed(decimalcount) } ${ unit }`;
             break;
 
             case 2: // 时间
@@ -425,7 +423,7 @@ class List_Container extends React.Component {
 
             case 5: // 多选框
                 // 去掉左右空格
-                value = value.replace(/\s/g,'');
+                // value = value.replace(/\s/g,'');
                 let result = '';
                 for(let foreign of foreigndata) {
                     for(let item of value.split(',')) {
@@ -475,17 +473,17 @@ class List_Container extends React.Component {
                     /* 设置默认值 */
                     initialValue: this.handle_input_value(edit_param[fname], item) || this.handle_input_value(defaultvalue, item),
                     rules: [
-                        {required: !!isnull, message: '该值不能为空'},
-                        {pattern: regular, message: '该值不符合规则'},
-                        {max: maxlen, message: `长度太长，最多为${maxlen}个字符`},
-                        {min: minlen, message: `长度太短，最少为${minlen}个字符`},
+                        { required: !!isnull, message: '该值不能为空' },
+                        { pattern: regular, message: '该值不符合规则' },
+                        { max: maxlen, message: `长度太长，最多为${ maxlen }个字符` },
+                        { min: minlen, message: `长度太短，最少为${ minlen }个字符` },
                         // {validator: (rule, value, callback) => this.validate_value(rule, value, callback, item)},
                     ],
                 }
                 element = type == 'search' ? (
-                    <InputItem key={`case_1_inputItem_${index}`} onChange={e => this.handle_input(e, 'search_param', fname)} value={search_param[fname]} clear placeholder='请输入'>{fvalue}</InputItem>
+                    <InputItem key={ `case_1_inputItem_${ index }` } onChange={ e => this.handle_input(e, 'search_param', fname) } value={ search_param[fname] } clear placeholder='请输入'>{ fvalue }</InputItem>
                 ) : (
-                    <InputItem key={`case_1_inputItem_${index}`} {...getFieldProps(fname, option)} error={!!getFieldError(fname)} onErrorClick={() => this.handle_form_error(fname)} clear placeholder='请输入'>{fvalue}</InputItem>
+                    <InputItem key={ `case_1_inputItem_${ index }` } {...getFieldProps(fname, option)} error={ !!getFieldError(fname) } onErrorClick={ () => this.handle_form_error(fname) } clear placeholder='请输入'>{ fvalue }</InputItem>
                 );
             break;
 
@@ -495,17 +493,15 @@ class List_Container extends React.Component {
                 option = {
                     onChange: date => this.handle_date(date, 'edit_param', fname, dateformat),
                     initialValue: initDate || defaultvalue,
-                    rules: [
-                        {required: !!isnull, message: '该值不能为空'},
-                    ],
+                    rules: [{ required: !!isnull, message: '该值不能为空' },],
                 };
                 element = type == 'search' ? (
-                    <DatePicker key={`case_2_datePicker_${index}`} value={search_param[fname] ? new Date(search_param[fname]) : null} onChange={date => this.handle_date(date, 'search_param', fname, dateformat)} format={date => (moment(date).format(dateformat))}>
-                        <List.Item arrow='horizontal'>{fvalue}</List.Item>
+                    <DatePicker key={ `case_2_datePicker_${index}` } value={ search_param[fname] ? new Date(search_param[fname]) : null } onChange={ date => this.handle_date(date, 'search_param', fname, dateformat) } format={ date => (moment(date).format(dateformat)) }>
+                        <List.Item arrow='horizontal'>{ fvalue }</List.Item>
                     </DatePicker>
                 ) : (
-                    <DatePicker key={`case_2_datePicker_${index}`} {...getFieldProps(fname, option)} error={!!getFieldError(fname)} onErrorClick={() => this.handle_form_error(fname)}>
-                        <List.Item arrow='horizontal'>{fvalue}</List.Item>
+                    <DatePicker key={ `case_2_datePicker_${index}` } { ...getFieldProps(fname, option) } error={ !!getFieldError(fname) } onErrorClick={ () => this.handle_form_error(fname) }>
+                        <List.Item arrow='horizontal'>{ fvalue }</List.Item>
                     </DatePicker>
                 );
             break;
@@ -514,17 +510,15 @@ class List_Container extends React.Component {
                 option = {
                     onChange: value => this.handle_select(value, 'edit_param', fname),
                     initialValue: [edit_param[fname]],
-                    rules: [
-                        {required: !!isnull, message: '该值不能为空'},
-                    ],
+                    rules: [ { required: !!isnull, message: '该值不能为空' }, ],
                 };
                 element = type == 'search' ? (
-                    <Picker key={`case_3_picker_${index}`} extra='请选择' data={foreigndata} cols={1} onChange={value => this.handle_select(value, 'search_param', fname)} value={[search_param[fname]]}>
+                    <Picker key={ `case_3_picker_${index}` } extra='请选择' data={ foreigndata } cols={ 1 } onChange={ value => this.handle_select(value, 'search_param', fname) } value={ [search_param[fname]] }>
                         <List.Item arrow='horizontal'>{fvalue}</List.Item>
                     </Picker>
                 ) : (
-                    <Picker key={`case_3_picker_${index}`} extra='请选择' data={foreigndata} cols={1} {...getFieldProps(fname, option)} error={!!getFieldError(fname)} onErrorClick={() => this.handle_form_error(fname)}>
-                        <List.Item arrow='horizontal'>{fvalue}</List.Item>
+                    <Picker key={ `case_3_picker_${index}` } extra='请选择' data={ foreigndata } cols={ 1 } { ...getFieldProps(fname, option) } error={ !!getFieldError(fname) } onErrorClick={ () => this.handle_form_error(fname) }>
+                        <List.Item arrow='horizontal'>{ fvalue }</List.Item>
                     </Picker>
                 );
             break;
@@ -532,19 +526,13 @@ class List_Container extends React.Component {
             case 5: // 多选框
                 option = {
                     onChange: value => this.handle_checkbox(value, 'search_param', fname),
-                    rules: [
-                        {required: !!isnull, message: '该值不能为空'},
-                    ],
+                    rules: [ {required: !!isnull, message: '该值不能为空'}, ],
                 }
                 element = (
                     <Accordion>
-                        <Accordion.Panel header={fvalue}>
-                            <List key={`case_5_list_${index}`}>
-                                {
-                                    foreigndata.map((item, i) => (
-                                        <CheckboxItem onChange={value => this.handle_checkbox(item.value, 'search_param', fname)} key={item.value}>{item.label}</CheckboxItem>
-                                    ))
-                                }
+                        <Accordion.Panel header={ fvalue }>
+                            <List key={ `case_5_list_${index}` }>
+                                { foreigndata.map(item => <CheckboxItem onChange={ value => this.handle_checkbox(item.value, 'search_param', fname) } key={ item.value }>{ item.label }</CheckboxItem>) }
                             </List>
                         </Accordion.Panel>
                     </Accordion>
@@ -553,26 +541,24 @@ class List_Container extends React.Component {
 
             case 9: // 时段
                 option = {
-                    rules: [
-                        {required: !!isnull, message: '该值不能为空'},
-                    ]
+                    rules: [{ required: !!isnull, message: '该值不能为空' },]
                 }
                 
                 this.calendar_key = fname;
                 let flag = !!search_param[fname + '_Begin'] && !!search_param[fname + '_End'];
 
                 element = type == 'search' ? (
-                    <div key={`case_9_div_${index}`}>
-                        <List.Item key={`case_9_list_0_${index}`} extra={flag ? null : '请选择'} arrow='horizontal' onClick={() => this.setState({calendar_visible: true})}>{fvalue}</List.Item>
-                        <List.Item key={`case_9_list_1_${index}`} extra={flag ? moment(search_param[fname + '_Begin']).format('YY-MM-DD HH:mm').toLocaleString() : null} style={{display: flag ? '' : 'none'}}>{fvalue}开始时间</List.Item>
-                        <List.Item key={`case_9_list_2_${index}`} extra={flag ? moment(search_param[fname + '_End']).format('YY-MM-DD HH:mm').toLocaleString() : null} style={{display: flag ? '' : 'none'}}>{fvalue}结束时间</List.Item>
+                    <div key={`case_9_div_${ index }`}>
+                        <List.Item key={ `case_9_list_0_${index}` } extra={ flag ? null : '请选择'} arrow='horizontal' onClick={() => this.setState({calendar_visible: true}) }>{ fvalue }</List.Item>
+                        <List.Item key={ `case_9_list_1_${index}` } extra={ flag ? moment(search_param[fname + '_Begin']).format('YY-MM-DD HH:mm').toLocaleString() : null } style={{ display: flag ? '' : 'none' }}>{ fvalue }开始时间</List.Item>
+                        <List.Item key={ `case_9_list_2_${index}` } extra={ flag ? moment(search_param[fname + '_End']).format('YY-MM-DD HH:mm').toLocaleString() : null } style={{ display: flag ? '' : 'none' }}>{ fvalue }结束时间</List.Item>
                     </div>
                 ) : null;
             break;
 
             case 99: // label，基本就是给详情页用的
                 element = (
-                    <List.Item key={`case_99_listItem_${index}`} extra={this.handle_input_value(detail_item[fname], item)}>{fvalue}</List.Item>
+                    <List.Item key={`case_99_listItem_${ index }`} extra={ this.handle_input_value(detail_item[fname], item) }>{ fvalue }</List.Item>
                 );
             break;
         }
@@ -593,7 +579,7 @@ class List_Container extends React.Component {
     handle_search = () => {
         let { search_param } = this.state;
 
-        search_param = Object.assign(search_param, {AddSearchField: 1});
+        search_param = Object.assign(search_param, { AddSearchField: 1 });
         this.setState({ search_loading: true, search_param }, () => {
             this.search('search');
         })
@@ -653,7 +639,7 @@ class List_Container extends React.Component {
                 AddSearchField: 1,
                 PageIndex: ++PageIndex,
             };
-            this.setState({pull_load: true, search_param: Object.assign(search_param, param)}, () => {
+            this.setState({ pull_load: true, search_param: Object.assign(search_param, param) }, () => {
                 this.search('pull_load');
             });
         }
@@ -677,7 +663,7 @@ class List_Container extends React.Component {
         let sidebar = (
             <List>
                 <List.Item>
-                    <Button onClick={this.handle_search} loading={search_loading}>确定</Button>
+                    <Button onClick={ this.handle_search } loading={ search_loading }>确定</Button>
                 </List.Item>
                 { config.map((item, i) => this.handle_ControlType(item, 'search', undefined, i)) }
             </List>
@@ -689,13 +675,11 @@ class List_Container extends React.Component {
         /* 新增/修改都是这个 */
         let edit_content = (
             <List>
-                {
-                    edit_config.map((item, i) => this.handle_ControlType(item, 'edit', undefined, i))
-                }
+                { edit_config.map((item, i) => this.handle_ControlType(item, 'edit', undefined, i)) }
 
                 <List.Item>
-                    <Button type='primary' onClick={this.save} inline style={{ marginRight: 4, width: 'calc(50% - 4px)' }}>保存</Button>
-                    <Button inline onClick={this.reset} style={{ width: '50%' }}>返回</Button>
+                    <Button type='primary' onClick={ this.save } inline style={{ marginRight: 4, width: 'calc(50% - 4px)' }}>保存</Button>
+                    <Button inline onClick={ this.reset } style={{ width: '50%' }}>返回</Button>
                 </List.Item>
             </List>
         );
@@ -705,13 +689,11 @@ class List_Container extends React.Component {
             <div style={{ overflowX: 'hidden', position: 'relative' }}>
                 {
                     this.listDatas.map((jtem, j) => (
-                        <List key={`listDatas_${j}`} className='sc-detail-content' style={{transform: `translate3d(${jtem.detail_order * 100}%, ${j * -100}%, 0)`}}>
-                            {
-                                detail_config.map((item, i) => this.handle_ControlType(item, 'detail', jtem, i))
-                            }
+                        <List key={`listDatas_${ j }`} className='sc-detail-content' style={{ transform: `translate3d(${ jtem.detail_order * 100 }%, ${ j * -100 }%, 0)` }}>
+                            { detail_config.map((item, i) => this.handle_ControlType(item, 'detail', jtem, i)) }
 
                             <List.Item>
-                                <Button onClick={this.reset}>返回上一级</Button>
+                                <Button onClick={ this.reset }>返回上一级</Button>
                             </List.Item>
                         </List>
                     ))
@@ -721,14 +703,14 @@ class List_Container extends React.Component {
 
         /* 触发搜索的方块 */
         let extend_drawer = hasSearch ? (
-            <div className='sc-extend-drawer sc-right' onClick={this.handle_search_change} style={{display: search_field_open || pageType != 'list' ? 'none' : '', top: (ClientHeight - 100) / 2}}>
+            <div className='sc-extend-drawer sc-right' onClick={ this.handle_search_change } style={{ display: search_field_open || pageType != 'list' ? 'none' : '', top: (ClientHeight - 100) / 2 }}>
                 <img src='../../assets/List_Container/arrow-left.png' />
             </div>
         ) : null;
 
         /* 触发添加的图标 */
         let extend_add = hasAdd ? (
-            <div className='sc-extend-add' onClick={() => this.handle_item_edit(this.mainValue, 'add')} style={{display: search_field_open || pageType != 'list' ? 'none' : ''}}>
+            <div className='sc-extend-add' onClick={ () => this.handle_item_edit(this.mainValue, 'add') } style={{ display: search_field_open || pageType != 'list' ? 'none' : '' }}>
                 <i className='sc-extend-add-icon'>+</i>
             </div>
         ) : null;
@@ -761,9 +743,7 @@ class List_Container extends React.Component {
             displayLast: pageType == 'detail' && detail_last ? '' : 'none',
             displayNext: pageType == 'detail' && detail_next ? '' : 'none',
             height: style.height,
-            onClick: type => {
-                type == 'next' ? this.handle_detail_pagination(type, detail_next) : this.handle_detail_pagination(type, detail_last);
-            },
+            onClick: type => { type == 'next' ? this.handle_detail_pagination(type, detail_next) : this.handle_detail_pagination(type, detail_last) },
         };
 
         return (
@@ -780,21 +760,21 @@ class List_Container extends React.Component {
                 </Drawer>
 
                 {/* 模板渲染 */}
-                <PullToRefresh direction='up' style={{height: container_height, overflow: 'auto'}} onRefresh={this.handle_pull_load} refreshing={pull_load}>
-                    <div className='sc-content' style={{transform: `translate3d(${currentState * 100}%, 0, 0)`, display: pageType == 'list' ? '' : 'none'}} ref={ref => this.content = ref}>
+                <PullToRefresh direction='up' style={{ height: container_height, overflow: 'auto' }} onRefresh={ this.handle_pull_load } refreshing={ pull_load }>
+                    <div className='sc-content' style={{ transform: `translate3d(${currentState * 100}%, 0, 0)`, display: pageType == 'list' ? '' : 'none' }} ref={ ref => this.content = ref }>
                         <Templet { ...templet_config } />
                     </div>
                 </PullToRefresh>
 
                 {/* 新增/修改/详情 */}
-                <div className='sc-edit-content' style={{transform: `translate3d(${(currentState + 1) * 100}%, 0, 0)`}} ref={ref => this.edit_content = ref}>
-                    {pageType == 'detail' ? detail_content : edit_content}
+                <div className='sc-edit-content' style={{ transform: `translate3d(${ (currentState + 1) * 100 }%, 0, 0)` }} ref={ ref => this.edit_content = ref }>
+                    { pageType == 'detail' ? detail_content : edit_content }
                     <DetailArrow { ...detail_arrow_config } />
                 </div>
 
-                <Calendar visible={calendar_visible} onCancel={() => {this.setState({calendar_visible: false})}} pickTime onConfirm={this.handle_calendar_submit} />
+                <Calendar visible={ calendar_visible } onCancel={ () => { this.setState({ calendar_visible: false }) } } pickTime onConfirm={ this.handle_calendar_submit } />
 
-                <ActivityIndicator animating={loading} text='正在加载...' toast size='large' />
+                <ActivityIndicator animating={ loading } text='正在加载...' toast size='large' />
             </div>
         )
     }
