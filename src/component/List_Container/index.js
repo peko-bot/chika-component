@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243 
  * @Date: 2017-09-29 15:00:45
  * @Last Modified by: zy9
- * @Last Modified time: 2018-07-06 17:36:39
+ * @Last Modified time: 2018-07-09 11:33:30
  */
 import React from 'react'
 
@@ -13,6 +13,8 @@ const CheckboxItem = Checkbox.CheckboxItem
 import { createForm } from 'rc-form'
 
 import Templet from './Templet'
+import DetailArrow from './DetailArrow'
+
 import { bind_touch_direction } from '../../util/Touch'
 import { handle_detail_datas } from './DataHandler'
 
@@ -20,16 +22,6 @@ import './css/List_Container.css'
 
 import Serialize from '../../util/Serialize'
 import moment from 'moment'
-
-const getConfigUrl = '../../data/getConfig.json'
-const tableConfigUrl = '../../data/tableconfig.json'
-const searchUrl = '../../data/search.json'
-const generalbackstageUrl = '../../data/tableconfig.json'
-
-// const getConfigUrl = 'http://61.175.121.68:9001/webapi/api/v2/generalbackstage/getconfig'
-// const tableConfigUrl = 'http://61.175.121.68:9001/webapi/api/v2/generalbackstage/getinterfacedata'
-// const searchUrl = 'http://61.175.121.68:9001/webapi/api/v2/generalbackstage/getdata'
-// const generalbackstageUrl = 'http://61.175.121.68:9001/webapi/api/v2/generalbackstage/operatedata'
 
 class List_Container extends React.Component {
     constructor(props) {
@@ -56,6 +48,12 @@ class List_Container extends React.Component {
             pull_load: false, // 滑动分页是否加载中
             pageType: 'list', // 当前页面状态，列表页为list，编辑页为edit,详情页为detail,新增页为add
         }
+
+        // 用作debug
+        this.getConfigUrl = props.domain ? props.domain + '/webapi/api/v2/generalbackstage/getconfig' : '../../data/getConfig.json';
+        this.tableConfigUrl = props.domain ? props.domain + '/webapi/api/v2/generalbackstage/getinterfacedata' : '../../data/tableconfig.json';
+        this.searchUrl = props.domain ? props.domain + '/webapi/api/v2/generalbackstage/getdata' : '../../data/search.json';
+        this.generalbackstageUrl = props.domain ? props.domain + '/webapi/api/v2/generalbackstage/operatedata' : '../../data/tableconfig.json';
 
         this.children = [] // 遍历模板根据数据渲染 reactNode
         this.listDatas = [] // 列表数据 object
@@ -112,7 +110,7 @@ class List_Container extends React.Component {
 
         this.setState({ loading: true });
 
-        fetch(`${ getConfigUrl }?${Serialize({tcid, menuid})}`)
+        fetch(`${ this.getConfigUrl }?${Serialize({tcid, menuid})}`)
         .then(result => result.json())
         .then(result => {
             // 无论如何都会有查看的权限
@@ -136,7 +134,7 @@ class List_Container extends React.Component {
     // 展示列表请求数据
     search = search_type => {
         let { search_param } = this.state;
-        let { url, config, debug } = this.props;
+        let { url, config, domain } = this.props;
         let { RequestUrl, RequestParams = {}, RequestMethod = 'GET', UserId = null, CellPhone = null } = config;
 
         let data = {};
@@ -149,12 +147,12 @@ class List_Container extends React.Component {
             :
             Object.assign({}, search_param, data, RequestParams)
 
-        let tableConfig = `${tableConfigUrl}?${Serialize(data)}`;
-        let search = `${searchUrl}?${Serialize(data)}`;
+        let tableConfig = `${this.tableConfigUrl}?${Serialize(data)}`;
+        let search = `${this.searchUrl}?${Serialize(data)}`;
 
         const options = {
-            method: debug ? 'GET' : 'POST',
-            credentials: 'include', // 加入cookie
+            method: domain ? 'POST' : 'GET',
+            // credentials: 'include', // 加入cookie
             headers: {
                 'Content-Type': 'application/json; charset=UTF-8'
             },
@@ -258,7 +256,7 @@ class List_Container extends React.Component {
 
     // 新增/修改提交
     save = () => {
-        const { debug } = this.props;
+        const { domain } = this.props;
 
         this.props.form.validateFields({ force: true }, (error, value) => {
             let { search_param, pageType } = this.state;
@@ -275,7 +273,7 @@ class List_Container extends React.Component {
             let ajax_param = {
                 key: 'generalbackstage',
                 f: 'json',
-                method: debug ? 'GET' : 'POST',
+                method: domain ? 'POST' : 'GET',
                 data: Object.assign({}, search_param, data, this.handle_formdata(), pageType == 'edit' ? mainKey : {}),
             };
 
@@ -289,7 +287,7 @@ class List_Container extends React.Component {
 
     // 处理增改
     handle_edit_datas = params => {
-        fetch(generalbackstageUrl + `?${Serialize(params.data)}`)
+        fetch(this.generalbackstageUrl + `?${Serialize(params.data)}`)
         .then(result => result.json())
         .then(result => {
             const { data } = result;
@@ -322,7 +320,7 @@ class List_Container extends React.Component {
     }
 
     delete = mainValue => {
-        const { debug } = this.props;
+        const { domain } = this.props;
 
         alert(`长痛不如短痛，删tm的`, '真删了啊？', [
             { text: '容朕三思' },
@@ -340,7 +338,7 @@ class List_Container extends React.Component {
                 let ajax_param = {
                     key: 'generalbackstage',
                     f: 'json',
-                    method: debug ? 'GET' : 'POST',
+                    method: domain ? 'POST' : 'GET',
                     data: Object.assign({}, {TCID: tcid}, data, mainKey),
                 };
                 this.handle_edit_datas(ajax_param);
@@ -368,6 +366,7 @@ class List_Container extends React.Component {
         if(!param) param = this.state[item][key] = '';
         param = new Set(param.split(','));
         
+        // 用作去掉勾选状态
         if(param.size == 0) {
             param.add(value);
         } else {
@@ -560,6 +559,7 @@ class List_Container extends React.Component {
                         {required: !!isnull, message: '该值不能为空'},
                     ]
                 }
+                
                 this.calendar_key = fname;
                 let flag = !!search_param[fname + '_Begin'] && !!search_param[fname + '_End'];
 
@@ -667,7 +667,9 @@ class List_Container extends React.Component {
     render = () => {
         let { children, config, props } = this;
         const { currentState, edit_config, search_field_open, detail_config, calendar_visible, loading, search_loading, container_height, pull_load, pageType } = this.state;
-        const { style } = props;
+        let { style, bindKey } = props;
+
+        style = Object.assign({}, { height: ClientHeight }, style);
         /* 
             @param hasSearch: false, // 是否显示搜索面板
             @param hasAdd: false, // 是否显示右下添加按钮
@@ -685,20 +687,6 @@ class List_Container extends React.Component {
 
         let param = this.handle_detail_next();
         let [ detail_last, detail_next ] = [ param.detail_last, param.detail_next ];
-
-        /* 详情页上一条数据 */
-        let last = (
-            <div className='sc-extend-drawer sc-left' onClick={ () => this.handle_detail_pagination('last', detail_last) } style={{ display: pageType == 'detail' && detail_last ? '' : 'none', top: (ClientHeight - 100) / 2 }}>
-                <img src='../../assets/List_Container/arrow-left.png' />
-            </div>
-        );
-
-        /* 详情页下一条数据 */
-        let next = (
-            <div className='sc-extend-drawer sc-right' onClick={ () => this.handle_detail_pagination('next', detail_next) } style={{ display: pageType == 'detail' && detail_next ? '' : 'none', top: (ClientHeight - 100) / 2 }}>
-                <img src='../../assets/List_Container/arrow-right.png' />
-            </div>
-        );
 
         /* 新增/修改都是这个 */
         let edit_content = (
@@ -755,7 +743,8 @@ class List_Container extends React.Component {
             dataSource: this.listDatas,
             onDetail: this.handle_item_edit,
             power: this.power,
-            onDelete: this.delete
+            onDelete: this.delete,
+            bindKey,
         };
 
         const drawer_config = {
@@ -769,8 +758,17 @@ class List_Container extends React.Component {
             style: { display: pageType == 'list' ? '' : 'none' }
         };
 
+        const detail_arrow_config = {
+            displayLast: pageType == 'detail' && detail_last ? '' : 'none',
+            displayNext: pageType == 'detail' && detail_next ? '' : 'none',
+            height: style.height,
+            onClick: type => {
+                type == 'next' ? this.handle_detail_pagination(type, detail_next) : this.handle_detail_pagination(type, detail_last);
+            },
+        };
+
         return (
-            <div className='List_Container' style={ Object.assign({}, { height: ClientHeight }, style) }>
+            <div className='List_Container' style={ style }>
                 {/* 触发搜索的方块 */}
                 { extend_drawer }
 
@@ -791,9 +789,8 @@ class List_Container extends React.Component {
 
                 {/* 新增/修改/详情 */}
                 <div className='sc-edit-content' style={{transform: `translate3d(${(currentState + 1) * 100}%, 0, 0)`}} ref={ref => this.edit_content = ref}>
-                    {last}
                     {pageType == 'detail' ? detail_content : edit_content}
-                    {next}
+                    <DetailArrow { ...detail_arrow_config } />
                 </div>
 
                 <Calendar visible={calendar_visible} onCancel={() => {this.setState({calendar_visible: false})}} pickTime onConfirm={this.handle_calendar_submit} />

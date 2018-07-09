@@ -2,12 +2,12 @@
  * @Author: zy9@github.com/zy410419243 
  * @Date: 2018-06-02 21:02:58 
  * @Last Modified by: zy9
- * @Last Modified time: 2018-07-08 13:29:31
+ * @Last Modified time: 2018-07-09 10:29:46
  */
 import React from 'react'
 
-// import Container from '../../component/List_Container'
-import Container from '../../../dist/List_Container'
+import Container from '../../component/List_Container'
+// import Container from '../../../dist/List_Container'
 import './css/List_Container_demo.css'
 
 export default class List_Container_demo extends React.Component {
@@ -40,10 +40,11 @@ export default class List_Container_demo extends React.Component {
         // RequestMethod: 'POST',
     }
 
+    //  domain='http://61.175.121.68:9001'
     render() {
         return (
             <div className='List_Container_demo'>
-                <Container config={this.config} debug style={{ height: (document.documentElement.clientHeight || document.body.clientHeight) - 10 }}>
+                <Container config={this.config} style={{ height: (document.documentElement.clientHeight || document.body.clientHeight) - 10 }}>
                     <div className='container' bind='true'>
                         <ul>
                             <li>
@@ -53,7 +54,7 @@ export default class List_Container_demo extends React.Component {
                                 </div>
                                 <div className='right'>
                                     <label>坝高：</label>
-                                    <label data-key='dam_width' unit='m' decimalcount={2}></label>
+                                    <label data-key='dam_width' unit='m' decimalcount={ 2 }></label>
                                 </div>
                             </li>
 
