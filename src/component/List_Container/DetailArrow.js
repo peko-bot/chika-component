@@ -2,13 +2,13 @@
  * @Author: zy9@github.com/zy410419243 
  * @Date: 2018-07-09 10:54:50 
  * @Last Modified by: zy9
- * @Last Modified time: 2018-07-09 11:29:15
+ * @Last Modified time: 2018-07-09 13:49:27
  */
 import React, { Component } from 'react'
 
 export default class DetailArrow extends Component {
     render = () => {
-        let { displayLast, displayNext, height, onClick } = this.props;
+        let { displayLast, displayNext, height, onClick, visible = false } = this.props;
 
         /* 详情页上一条数据 */
         const last = (
@@ -26,8 +26,8 @@ export default class DetailArrow extends Component {
 
         return (
             <div className='DetailArrow'>
-                { last }
-                { next }
+                { visible && last }
+                { visible && next }
             </div>
         )
     }

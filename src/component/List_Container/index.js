@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243 
  * @Date: 2017-09-29 15:00:45
  * @Last Modified by: zy9
- * @Last Modified time: 2018-07-09 11:33:30
+ * @Last Modified time: 2018-07-09 13:50:25
  */
 import React from 'react'
 
@@ -119,9 +119,7 @@ class List_Container extends React.Component {
 
             this.config = tablefieldconfig;
 
-            /* 
-                搜索主键是列表点到详情页请求数据的唯一标识
-            */
+            // 搜索主键是列表点到详情页请求数据的唯一标识
             for(let item of tablefieldconfig) {
                 // 判断是不是搜索主键，暂时按只有一个算
                 if(item.iskey) this.mainKey = item.fname;
@@ -667,7 +665,7 @@ class List_Container extends React.Component {
     render = () => {
         let { children, config, props } = this;
         const { currentState, edit_config, search_field_open, detail_config, calendar_visible, loading, search_loading, container_height, pull_load, pageType } = this.state;
-        let { style, bindKey } = props;
+        let { style, bindKey, detailArrow } = props;
 
         style = Object.assign({}, { height: ClientHeight }, style);
         /* 
@@ -759,6 +757,7 @@ class List_Container extends React.Component {
         };
 
         const detail_arrow_config = {
+            visible: detailArrow,
             displayLast: pageType == 'detail' && detail_last ? '' : 'none',
             displayNext: pageType == 'detail' && detail_next ? '' : 'none',
             height: style.height,

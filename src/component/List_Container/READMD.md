@@ -102,6 +102,7 @@
 | height | 容器高度 | String 或 Number | document.body.clientHeight |
 | onChange | 传出点击事件的值。当只查看且child有点击事件时，这个参数可以获得点击的child中的值，并可以在这个方法里写事件，大概就是覆盖原生的onClick事件 | item => console.log(item) | 无 |
 | domain | 服务地址domain，如果不传则会请求本地json，目录在/src/data中 | String | 无 |
+| detailArrow | 详情页翻页箭头是否显示 | Boolean | false |
 | config | 配置，详见下方说明 | {} | 无 |
 * 有两种请求方式，默认以tcid和menuid的形式请求数据，但有时会调第三方的接口，url = true的用处就在这了。
 * bind会覆盖原有的click和touch事件
