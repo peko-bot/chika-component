@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243 
  * @Date: 2017-09-29 15:00:45
  * @Last Modified by: zy9
- * @Last Modified time: 2018-07-10 09:48:33
+ * @Last Modified time: 2018-07-10 09:54:16
  */
 import React from 'react'
 
@@ -114,7 +114,7 @@ class List_Container extends React.Component {
         .then(result => result.json())
         .then(result => {
             // 无论如何都会有查看的权限
-            let {power, tablefieldconfig} = result.data;
+            let { power, tablefieldconfig } = result.data;
             this.power = power.split(',');
 
             this.config = tablefieldconfig;
@@ -145,8 +145,8 @@ class List_Container extends React.Component {
             :
             Object.assign({}, search_param, data, RequestParams)
 
-        let tableConfig = `${this.tableConfigUrl}?${Serialize(data)}`;
-        let search = `${this.searchUrl}?${Serialize(data)}`;
+        let tableConfig = `${ this.tableConfigUrl }?${ Serialize(data) }`;
+        let search = `${ this.searchUrl }?${ Serialize(data) }`;
 
         const options = {
             method: domain ? 'POST' : 'GET',
@@ -175,7 +175,7 @@ class List_Container extends React.Component {
             }
 
             // 搜索后关闭面板
-            this.state.search_field_open ? this.handle_search_change() : this.setState({loading: false, search_loading: false, pull_load: false});
+            this.state.search_field_open ? this.handle_search_change() : this.setState({ loading: false, search_loading: false, pull_load: false });
         })
     }
 

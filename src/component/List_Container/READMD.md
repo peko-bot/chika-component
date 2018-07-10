@@ -100,23 +100,12 @@
 | data-key | 物理字段名，需要和接口中的字段对应 | String | 无 |
 | bindKey | 如果data-key被占用了，可以把这个属性放到Container上，``` <Container bindKey='data-test' />``` ,于是现在绑定物理字段名的key变成data-test了 | String | 'data-key' |
 | height | 容器高度 | String 或 Number | document.body.clientHeight |
-| onChange | 传出点击事件的值。当只查看且child有点击事件时，这个参数可以获得点击的child中的值，并可以在这个方法里写事件，大概就是覆盖原生的onClick事件 | item => console.log(item) | 无 |
 | domain | 服务地址domain，如果不传则会请求本地json，目录在/src/data中 | String | 无 |
 | wrappedComponentRef | 替代原先的ref获得组件对象以调用其中方法，详情参考[这里](https://github.com/react-component/form#note-use-wrappedcomponentref-instead-of-withref-after-rc-form140) | {} | 无 |
 | detailArrow | 详情页翻页箭头是否显示 | Boolean | false |
 | config | 配置，详见下方说明 | {} | 无 |
 * 有两种请求方式，默认以tcid和menuid的形式请求数据，但有时会调第三方的接口，url = true的用处就在这了。
 * bind会覆盖原有的click和touch事件
-* 在使用onChange时，如果原来的标签上有onClick可能会冲突。这个没辙
-
-
-## 以下参数都需要写到Container的子标签中
-| 参数 | 说明 | 类型 | 默认值 |
-| :------: | ----- | :------: | :------: |
-| unit | 单位，用在列表页 | String | 无 |
-| format | 字段为日期时，格式化字符串 | String | YYYY-MM-DD |
-| decimalcount | 浮点数保留位数 | Number | 0 |
-* 注：绑定的节点得是底层，就是没子标签的那种，比如上面的CREATETIME。
 
 ## config
 | 参数 | 说明 | 类型 | 默认值 |
@@ -130,12 +119,20 @@
 | RequestParams | 非标准接口地址参数，这里可以直接固定搜索参数，可以用在一级页面跳转到二级页面，用带过来的参数搜索。搜索时需要加上AddSearchField字段表示搜索，否则搜索会失效 | {} |
 | RequestMethod | 非标准接口请求方式 | String | GET |
 
+## 以下参数都需要写到Container的子标签中
+| 参数 | 说明 | 类型 | 默认值 |
+| :------: | ----- | :------: | :------: |
+| unit | 单位，用在列表页 | String | 无 |
+| format | 字段为日期时，格式化字符串 | String | YYYY-MM-DD |
+| decimalcount | 浮点数保留位数 | Number | 0 |
+| onChange | 点击事件，会覆盖跳转详情，会传出当前格子数据 | item => {} | 无 |
+* 绑定的节点得是底层，就是没子标签的那种，比如上面的CREATETIME。
+* 在使用onChange时，如果原来的标签上有onClick可能会冲突。这个没辙
 
 ## pc配置注意项
-* 配置项中还没有日期格式化字符串的配置，所以详情页中的日期默认YYYY-MM-DD hh:mm:ss的格式
+* 配置项中还没有日期格式化字符串的配置，所以详情页中的日期默认YYYY-MM-DD HH:mm:ss的格式
 * 目前导出和导入还未实现，选了也没用
 * ControlType=9 时段，实现是有实现，但不符合后端代码对时间处理的要求，可以当成没有
-* 我当你精通pc的各配置的，雏的话问问边上的人，或者等我明天或者明天的明天写个具体文档
 
 ## 已实现的控件类型
 | ControlType | 说明 |

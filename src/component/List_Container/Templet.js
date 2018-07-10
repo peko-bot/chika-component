@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243 
  * @Date: 2018-07-04 09:59:21 
  * @Last Modified by: zy9
- * @Last Modified time: 2018-07-06 17:36:59
+ * @Last Modified time: 2018-07-10 10:51:37
  */
 import React, { Component } from 'react'
 
@@ -26,7 +26,13 @@ export default class Templet extends Component {
             let key = instance[bindKey];
 
             // children中有绑定事件时，把这个格子的数据传出去
-            // instance.onClick = e => (instance.onChange && instance.onChange(item));
+            if(instance.onChange) {
+                instance.onClick = e => {
+                    e.stopPropagation();
+                    
+                    instance.onChange(item);
+                }
+            }
 
             /* 绑定点击事件，模版中所谓的head就是每块元素的最顶层标签 */
             if(bind) {
@@ -36,24 +42,24 @@ export default class Templet extends Component {
                 /* 查看详情 */
                 instance.onClick = e => {
                     onDetail && onDetail(mainValue, 'detail');
-                    // this.handle_item_edit(mainValue, 'detail');
                 }
 
                 instance.onTouchStart = e => {
                     timer = setTimeout(() => {
                         let opera = [];
+
                         for(let item of power) {
                             switch(item) {
                                 case 'Add':
-                                    opera.push({text: '新增', onPress: () => onDetail && onDetail(mainValue, 'add')});
+                                    opera.push({ text: '新增', onPress: () => onDetail && onDetail(mainValue, 'add') });
                                 break;
 
                                 case 'Del':
-                                    opera.push({text: '删除', onPress: () => onDelete(mainValue)});
+                                    opera.push({ text: '删除', onPress: () => onDelete(mainValue) });
                                 break;
 
                                 case 'Update':
-                                    opera.push({text: '修改', onPress: () => onDetail && onDetail(mainValue, 'edit')});
+                                    opera.push({ text: '修改', onPress: () => onDetail && onDetail(mainValue, 'edit') });
                                 break;
                             }
                         }
