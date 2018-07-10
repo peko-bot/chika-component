@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243 
  * @Date: 2018-05-20 13:48:08 
  * @Last Modified by: zy9
- * @Last Modified time: 2018-07-09 10:05:59
+ * @Last Modified time: 2018-07-10 11:22:10
  */
 const webpack = require('webpack');
 const fs = require('fs');
@@ -30,6 +30,8 @@ plugins.push(
         },
     ])
 );
+
+plugins.push(new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/));
 
 plugins.push(new TohoLogPlugin({ dev }));
 

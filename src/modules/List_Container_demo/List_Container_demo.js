@@ -2,12 +2,12 @@
  * @Author: zy9@github.com/zy410419243 
  * @Date: 2018-06-02 21:02:58 
  * @Last Modified by: zy9
- * @Last Modified time: 2018-07-10 10:54:25
+ * @Last Modified time: 2018-07-10 11:22:34
  */
 import React from 'react'
 
-import Container from '../../component/List_Container'
-// import Container from '../../../dist/List_Container'
+// import Container from '../../component/List_Container'
+import Container from '../../../dist/List_Container'
 import './css/List_Container_demo.css'
 
 export default class List_Container_demo extends React.Component {
@@ -76,13 +76,9 @@ export default class List_Container_demo extends React.Component {
                                     <label>坝长：</label>
                                     <label data-key='crest_length' unit='m'></label>
                                 </div>
-                                {/* <div className='right'>
-                                    <label>主坝类型：</label>
-                                    <label data-key='retain_dam_type'></label>
-                                </div> */}
                                 <div className='right'>
                                     <label>主坝类型：</label>
-                                    <label onChange={ this.handle_onChange }>test</label>
+                                    <label data-key='retain_dam_type' onChange={ this.handle_onChange }></label>
                                 </div>
                             </li>
                         </ul>
