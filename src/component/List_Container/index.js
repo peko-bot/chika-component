@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243 
  * @Date: 2017-09-29 15:00:45
  * @Last Modified by: zy9
- * @Last Modified time: 2018-07-09 15:15:28
+ * @Last Modified time: 2018-07-10 09:48:33
  */
 import React from 'react'
 
@@ -464,7 +464,7 @@ class List_Container extends React.Component {
         /* 因为搜索条件也是要用到这里的，
             如果不判断type，form的key会重复绑定，导致第二次编辑无法输入 */
         let element = [];
-        let option = {};
+        let option = {}, params = {};
 
         switch (item.controltype) {
             case 1: // 文本框
@@ -480,10 +480,17 @@ class List_Container extends React.Component {
                         // {validator: (rule, value, callback) => this.validate_value(rule, value, callback, item)},
                     ],
                 }
+
+                params = {
+                    key: `case_1_inputItem_${ index }`,
+                    clear: true,
+                    placeholder: '请输入'
+                }
+
                 element = type == 'search' ? (
-                    <InputItem key={ `case_1_inputItem_${ index }` } onChange={ e => this.handle_input(e, 'search_param', fname) } value={ search_param[fname] } clear placeholder='请输入'>{ fvalue }</InputItem>
+                    <InputItem { ...params } onChange={ e => this.handle_input(e, 'search_param', fname) } value={ search_param[fname] }>{ fvalue }</InputItem>
                 ) : (
-                    <InputItem key={ `case_1_inputItem_${ index }` } {...getFieldProps(fname, option)} error={ !!getFieldError(fname) } onErrorClick={ () => this.handle_form_error(fname) } clear placeholder='请输入'>{ fvalue }</InputItem>
+                    <InputItem { ...params } {...getFieldProps(fname, option)} error={ !!getFieldError(fname) } onErrorClick={ () => this.handle_form_error(fname) }>{ fvalue }</InputItem>
                 );
             break;
 
@@ -512,12 +519,18 @@ class List_Container extends React.Component {
                     initialValue: [edit_param[fname]],
                     rules: [ { required: !!isnull, message: '该值不能为空' }, ],
                 };
+                params = {
+                    key: `case_3_picker_${index}`,
+                    extra: '请选择',
+                    data: foreigndata,
+                    cols: 1,
+                }
                 element = type == 'search' ? (
-                    <Picker key={ `case_3_picker_${index}` } extra='请选择' data={ foreigndata } cols={ 1 } onChange={ value => this.handle_select(value, 'search_param', fname) } value={ [search_param[fname]] }>
+                    <Picker { ...params } onChange={ value => this.handle_select(value, 'search_param', fname) } value={ [search_param[fname]] }>
                         <List.Item arrow='horizontal'>{fvalue}</List.Item>
                     </Picker>
                 ) : (
-                    <Picker key={ `case_3_picker_${index}` } extra='请选择' data={ foreigndata } cols={ 1 } { ...getFieldProps(fname, option) } error={ !!getFieldError(fname) } onErrorClick={ () => this.handle_form_error(fname) }>
+                    <Picker { ...params } { ...getFieldProps(fname, option) } error={ !!getFieldError(fname) } onErrorClick={ () => this.handle_form_error(fname) }>
                         <List.Item arrow='horizontal'>{ fvalue }</List.Item>
                     </Picker>
                 );
@@ -526,7 +539,7 @@ class List_Container extends React.Component {
             case 5: // 多选框
                 option = {
                     onChange: value => this.handle_checkbox(value, 'search_param', fname),
-                    rules: [ {required: !!isnull, message: '该值不能为空'}, ],
+                    rules: [{ required: !!isnull, message: '该值不能为空' },],
                 }
                 element = (
                     <Accordion>
@@ -610,7 +623,7 @@ class List_Container extends React.Component {
 
     // 判断是否有上一条/下一条
     handle_detail_next = () => {
-        let [ detail_last, detail_next ] = [false, false];
+        let [detail_last, detail_next] = [false, false];
         let len = this.listDatas.length;
         if(len != 0) {
             detail_last = !!this.listDatas[0].detail_order;
@@ -670,7 +683,14 @@ class List_Container extends React.Component {
         );
 
         let param = this.handle_detail_next();
-        let [ detail_last, detail_next ] = [ param.detail_last, param.detail_next ];
+        let [detail_last, detail_next] = [param.detail_last, param.detail_next];
+
+        // const title = (
+        //     <div style={{ padding: 10 }}>
+        //         <div className='title-border'></div>
+        //         <div className='title'>姚江二通道（慈江）工程（慈城段）</div>
+        //     </div>
+        // );
 
         /* 新增/修改都是这个 */
         let edit_content = (
@@ -687,6 +707,7 @@ class List_Container extends React.Component {
         /* 详情页 */
         let detail_content = (
             <div style={{ overflowX: 'hidden', position: 'relative' }}>
+                {/* { title } */}
                 {
                     this.listDatas.map((jtem, j) => (
                         <List key={`listDatas_${ j }`} className='sc-detail-content' style={{ transform: `translate3d(${ jtem.detail_order * 100 }%, ${ j * -100 }%, 0)` }}>

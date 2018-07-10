@@ -60,11 +60,11 @@
 }
 
 .List_Container .sc-extend-add .sc-extend-add-icon {
-    font-weight: 400!important;
+    font-weight: 400 !important;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     position: relative;
-    text-decoration: none!important;
+    text-decoration: none !important;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -107,7 +107,6 @@
     flex-basis: 50%;
 }
 
-
 /* 针对搜索面板的样式调整 */
 
 .List_Container .sc-search-drawer .am-list-item-middle {
@@ -145,7 +144,6 @@
     color: #FFF;
 }
 
-
 /* 修改文本框灰字颜色 */
 
 .List_Container .sc-search-drawer input::-webkit-input-placeholder,
@@ -178,6 +176,20 @@ textarea:-ms-input-placeholder {
     color: #FFF;
     font-size: 16px;
     text-align: right;
+}
+
+.List_Container .sc-edit-content .title {
+    font-family: MicrosoftYaHei;
+    font-size: 20px;
+    color: #0067bc;
+    font-weight: bold;
+    display: inline;
+}
+
+.List_Container .sc-edit-content .title-border {
+    border: 2px solid #024e97;
+    margin-right: 10px;
+    display: inline;
 }
 
 .List_Container .sc-edit-content .am-input-control input {
