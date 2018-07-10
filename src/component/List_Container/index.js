@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243 
  * @Date: 2017-09-29 15:00:45
  * @Last Modified by: zy9
- * @Last Modified time: 2018-07-10 09:54:16
+ * @Last Modified time: 2018-07-10 15:55:57
  */
 import React from 'react'
 
@@ -14,6 +14,7 @@ import { createForm } from 'rc-form'
 
 import Templet from './Templet'
 import DetailArrow from './DetailArrow'
+import FunctionalButton from './FunctionalButton'
 
 import { bind_touch_direction } from '../../util/Touch'
 import { handle_detail_datas } from './DataHandler'
@@ -68,9 +69,9 @@ class List_Container extends React.Component {
     }
 
     componentDidMount = () => {
-        const { hasSearch = true } = this.props.config;
+        const { showSearch = true } = this.props.config;
         // 绑定搜索面板滑动事件
-        hasSearch ? bind_touch_direction(this.content, direction => {
+        showSearch ? bind_touch_direction(this.content, direction => {
             switch(direction) {
                 case 'toLeft':
                     this.handle_search_change();
@@ -665,13 +666,9 @@ class List_Container extends React.Component {
         let { children, config, props } = this;
         const { currentState, edit_config, search_field_open, detail_config, calendar_visible, loading, search_loading, container_height, pull_load, pageType } = this.state;
         let { style, bindKey, detailArrow } = props;
-
+        const { showSearch = true, showButton = true } = props.config;
+        
         style = Object.assign({}, { height: ClientHeight }, style);
-        /* 
-            @param hasSearch: false, // 是否显示搜索面板
-            @param hasAdd: false, // 是否显示右下添加按钮
-        */
-        const { hasSearch = true, hasAdd = true } = props.config;
 
         let sidebar = (
             <List>
@@ -723,16 +720,9 @@ class List_Container extends React.Component {
         );
 
         /* 触发搜索的方块 */
-        let extend_drawer = hasSearch ? (
+        let extend_drawer = showSearch ? (
             <div className='sc-extend-drawer sc-right' onClick={ this.handle_search_change } style={{ display: search_field_open || pageType != 'list' ? 'none' : '', top: (ClientHeight - 100) / 2 }}>
                 <img src='../../assets/List_Container/arrow-left.png' />
-            </div>
-        ) : null;
-
-        /* 触发添加的图标 */
-        let extend_add = hasAdd ? (
-            <div className='sc-extend-add' onClick={ () => this.handle_item_edit(this.mainValue, 'add') } style={{ display: search_field_open || pageType != 'list' ? 'none' : '' }}>
-                <i className='sc-extend-add-icon'>+</i>
             </div>
         ) : null;
 
@@ -767,13 +757,18 @@ class List_Container extends React.Component {
             onClick: type => { type == 'next' ? this.handle_detail_pagination(type, detail_next) : this.handle_detail_pagination(type, detail_last) },
         };
 
+        const functional_button_config = {
+            visible: showButton && !search_field_open && pageType == 'list',
+            onAdd: type => this.handle_item_edit(this.mainValue, type),
+        };
+
         return (
             <div className='List_Container' style={ style }>
                 {/* 触发搜索的方块 */}
                 { extend_drawer }
 
                 {/* 触发添加的图标 */}
-                { extend_add }
+                <FunctionalButton { ...functional_button_config } />
 
                 {/* 搜索面板 */}
                 <Drawer { ...drawer_config }>
@@ -782,7 +777,7 @@ class List_Container extends React.Component {
 
                 {/* 模板渲染 */}
                 <PullToRefresh direction='up' style={{ height: container_height, overflow: 'auto' }} onRefresh={ this.handle_pull_load } refreshing={ pull_load }>
-                    <div className='sc-content' style={{ transform: `translate3d(${currentState * 100}%, 0, 0)`, display: pageType == 'list' ? '' : 'none' }} ref={ ref => this.content = ref }>
+                    <div className='sc-content' style={{ transform: `translate3d(${ currentState * 100 }%, 0, 0)`, display: pageType == 'list' ? '' : 'none' }} ref={ ref => this.content = ref }>
                         <Templet { ...templet_config } />
                     </div>
                 </PullToRefresh>

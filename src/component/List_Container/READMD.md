@@ -115,6 +115,8 @@
 | pageSize | 每页显示多少条，后期会去掉这个参数，换成读主表配置中的参数 | int | 2 |
 | UserId | 跟CellPhone一样是确定权限用的。比如给这个用户配置了修改的权限，不传这个参数依旧是不能编辑的，传了才能；当然如果没配置权限的话这个可以不用管。因为各种app外壳获得方式不一样，如果有需要的话自行传入 | Number | -1 |
 | CellPhone | 跟UserId二选一即可 | String 或 Number | null |
+| showSearch | 是否显示搜索面板 | Boolean | true |
+| showButton | 是否显示右下功能按钮 | Boolean | true |
 | RequestUrl | 非标准接口地址 | String | 无 |
 | RequestParams | 非标准接口地址参数，这里可以直接固定搜索参数，可以用在一级页面跳转到二级页面，用带过来的参数搜索。搜索时需要加上AddSearchField字段表示搜索，否则搜索会失效 | {} |
 | RequestMethod | 非标准接口请求方式 | String | GET |

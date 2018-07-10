@@ -2,19 +2,19 @@
  * @Author: zy9@github.com/zy410419243 
  * @Date: 2018-06-02 21:02:58 
  * @Last Modified by: zy9
- * @Last Modified time: 2018-07-10 11:22:34
+ * @Last Modified time: 2018-07-10 15:36:09
  */
 import React from 'react'
 
-// import Container from '../../component/List_Container'
-import Container from '../../../dist/List_Container'
+import Container from '../../component/List_Container'
+// import Container from '../../../dist/List_Container'
 import './css/List_Container_demo.css'
 
 export default class List_Container_demo extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            loading: true,
+            
         }
     }
 
@@ -35,8 +35,8 @@ export default class List_Container_demo extends React.Component {
         tcid: 10874,
         menuid: 1428,
         // pageSize: 5,
-        // hasSearch: false, // 是否显示搜索面板
-        hasAdd: false, // 是否显示右下添加按钮
+        showSearch: false, // 是否显示搜索面板
+        // showButton: false, // 是否显示右下添加按钮
         // UserId: 1,
         // CellPhone: 13900000000,
         // RequestUrl: '../../webapi/api/v2/generalbackstage/getdata',
@@ -53,8 +53,6 @@ export default class List_Container_demo extends React.Component {
 
     //  domain='http://61.175.121.68:9001'
     render() {
-        const { loading } = this.state;
-
         return (
             <div className='List_Container_demo'>
                 <Container config={ this.config } wrappedComponentRef={ ref => this.container = ref } style={{ height: (document.documentElement.clientHeight || document.body.clientHeight) - 10 }}>
