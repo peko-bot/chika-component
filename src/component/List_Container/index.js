@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243 
  * @Date: 2017-09-29 15:00:45
  * @Last Modified by: zy9
- * @Last Modified time: 2018-07-12 11:33:32
+ * @Last Modified time: 2018-07-12 15:28:04
  */
 import React from 'react'
 
@@ -147,15 +147,17 @@ class List_Container extends React.Component {
             :
             Object.assign({}, search_param, data, RequestParams)
 
-        let tableConfig = `${ this.tableConfigUrl }?${ Serialize(data) }`;
-        let search = `${ this.searchUrl }?${ Serialize(data) }`;
+        // let tableConfig = `${ this.tableConfigUrl }?${ Serialize(data) }`;
+        let tableConfig = `${ this.tableConfigUrl }`;
+        // let search = `${ this.searchUrl }?${ Serialize(data) }`;
+        let search = `${ this.searchUrl }`;
 
         const options = {
             method: domain ? 'POST' : 'GET',
-            // credentials: 'include', // 加入cookie
             headers: {
-                'Content-Type': 'application/json; charset=UTF-8'
+                'Content-Type': 'application/json; charset=UTF-8',
             },
+            body: domain ? JSON.stringify(data) : null,
         }
 
         fetch(url ? tableConfig : search, options)
