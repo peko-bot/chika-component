@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243 
  * @Date: 2018-05-20 13:48:08 
  * @Last Modified by: zy9
- * @Last Modified time: 2018-07-10 11:22:10
+ * @Last Modified time: 2018-07-12 20:12:49
  */
 const webpack = require('webpack');
 const fs = require('fs');
@@ -58,7 +58,8 @@ const options = {
     entry: {
         // main: __dirname + '/src',
         List_Container: basePath + 'List_Container',
-        Tabs: basePath + 'Tabs'
+        Tabs: basePath + 'Tabs',
+        Progress: basePath + 'Progress',
     },
     output: {
         path: __dirname + '/dist',

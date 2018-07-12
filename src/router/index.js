@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243 
  * @Date: 2018-06-21 21:02:49 
  * @Last Modified by: zy9
- * @Last Modified time: 2018-06-21 21:59:30
+ * @Last Modified time: 2018-07-12 19:48:46
  */
 import React, { Component } from 'react'
 import { Route, NavLink, HashRouter } from 'react-router-dom'
@@ -39,6 +39,12 @@ const Tabs = props => (
     </Bundle>
 )
 
+const Progress = props => (
+    <Bundle load={ () => import('../modules/Progress_demo') }>
+        { Progress => <Progress {...props}/> }
+    </Bundle>
+)
+
 export default class Router extends Component {
     render = () => (
         <HashRouter>
@@ -48,6 +54,7 @@ export default class Router extends Component {
                 <Route path='/list_container' component={ List_Container } />
                 <Route path='/swiper' component={ Swiper } />
                 <Route path='/tabs' component={ Tabs } />
+                <Route path='/progress' component={ Progress } />
             </div>
         </HashRouter>
     )
