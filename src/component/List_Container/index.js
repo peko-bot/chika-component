@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243 
  * @Date: 2017-09-29 15:00:45
  * @Last Modified by: zy9
- * @Last Modified time: 2018-07-10 15:55:57
+ * @Last Modified time: 2018-07-12 11:33:32
  */
 import React from 'react'
 
@@ -29,7 +29,7 @@ class List_Container extends React.Component {
         super(props);
 
         let { url, config } = props;
-        let { tcid, pageSize = 10} = config;
+        let { tcid, pageSize = 10 } = config;
 
         this.state = {
             currentState: 0, // 页面所处位置
@@ -66,6 +66,7 @@ class List_Container extends React.Component {
         this.detail_last = false // 详情页是否还有上一页，true表示还有上一页
         this.calendar_key = '' // 时段搜索参数名
         this.recordCount = 0 // 数据总数，分页，用于是否继续请求分页接口
+        // this.sortBy = [] // 排序字段
     }
 
     componentDidMount = () => {
@@ -412,8 +413,6 @@ class List_Container extends React.Component {
             break;
 
             case 3: // 下拉框，关联外键数据
-                // 去掉左右空格
-                // value = value.replace(/\s/g,'');
                 for(let foreign of foreigndata) {
                     if(foreign.value == value) {
                         value = foreign.label;
@@ -423,8 +422,6 @@ class List_Container extends React.Component {
             break;
 
             case 5: // 多选框
-                // 去掉左右空格
-                // value = value.replace(/\s/g,'');
                 let result = '';
                 for(let foreign of foreigndata) {
                     for(let item of value.split(',')) {
@@ -665,7 +662,7 @@ class List_Container extends React.Component {
     render = () => {
         let { children, config, props } = this;
         const { currentState, edit_config, search_field_open, detail_config, calendar_visible, loading, search_loading, container_height, pull_load, pageType } = this.state;
-        let { style, bindKey, detailArrow } = props;
+        let { style, bindKey, detailArrow, sortBy } = props;
         const { showSearch = true, showButton = true } = props.config;
         
         style = Object.assign({}, { height: ClientHeight }, style);
@@ -735,6 +732,7 @@ class List_Container extends React.Component {
             onDetail: this.handle_item_edit,
             power: this.power,
             onDelete: this.delete,
+            // onSort: sortBy => this.sortBy = sortBy,
             bindKey,
         };
 
@@ -760,6 +758,13 @@ class List_Container extends React.Component {
         const functional_button_config = {
             visible: showButton && !search_field_open && pageType == 'list',
             onAdd: type => this.handle_item_edit(this.mainValue, type),
+            dataSource: this.listDatas,
+            sortBy,
+            onSort: datas => {
+                this.listDatas = datas;
+
+                this.setState({});
+            },
         };
 
         return (

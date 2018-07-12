@@ -2,12 +2,12 @@
  * @Author: zy9@github.com/zy410419243 
  * @Date: 2018-06-02 21:02:58 
  * @Last Modified by: zy9
- * @Last Modified time: 2018-07-10 15:36:09
+ * @Last Modified time: 2018-07-12 12:07:01
  */
 import React from 'react'
 
-import Container from '../../component/List_Container'
-// import Container from '../../../dist/List_Container'
+// import Container from '../../component/List_Container'
+import Container from '../../../dist/List_Container'
 import './css/List_Container_demo.css'
 
 export default class List_Container_demo extends React.Component {
@@ -36,7 +36,7 @@ export default class List_Container_demo extends React.Component {
         menuid: 1428,
         // pageSize: 5,
         showSearch: false, // 是否显示搜索面板
-        // showButton: false, // 是否显示右下添加按钮
+        // showButton: false, // 是否显示右下功能按钮
         // UserId: 1,
         // CellPhone: 13900000000,
         // RequestUrl: '../../webapi/api/v2/generalbackstage/getdata',
@@ -51,11 +51,22 @@ export default class List_Container_demo extends React.Component {
         // RequestMethod: 'POST',
     }
 
+    sortBy = [
+        {
+            key: 'dam_width',
+            text: '坝高',
+        },
+        {
+            key: 'crest_length',
+            text: '坝长',
+        },
+    ]
+
     //  domain='http://61.175.121.68:9001'
     render() {
         return (
             <div className='List_Container_demo'>
-                <Container config={ this.config } wrappedComponentRef={ ref => this.container = ref } style={{ height: (document.documentElement.clientHeight || document.body.clientHeight) - 10 }}>
+                <Container config={ this.config } sortBy={ this.sortBy } wrappedComponentRef={ ref => this.container = ref } style={{ height: (document.documentElement.clientHeight || document.body.clientHeight) - 10 }}>
                     <div className='container' bind='true'>
                         <ul>
                             <li>
@@ -65,14 +76,14 @@ export default class List_Container_demo extends React.Component {
                                 </div>
                                 <div className='right'>
                                     <label>坝高：</label>
-                                    <label data-key='dam_width' unit='m' decimalcount={ 2 }></label>
+                                    <label data-key='dam_width' data-sort='坝高' unit='m' decimalcount={ 2 }></label>
                                 </div>
                             </li>
 
                             <li>
                                 <div className='left'>
                                     <label>坝长：</label>
-                                    <label data-key='crest_length' unit='m'></label>
+                                    <label data-key='crest_length' data-sort='坝长' unit='m'></label>
                                 </div>
                                 <div className='right'>
                                     <label>主坝类型：</label>

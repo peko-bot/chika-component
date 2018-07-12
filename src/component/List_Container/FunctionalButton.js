@@ -2,35 +2,32 @@
  * @Author: zy9@github.com/zy410419243 
  * @Date: 2018-07-10 13:50:10 
  * @Last Modified by: zy9
- * @Last Modified time: 2018-07-10 17:46:49
+ * @Last Modified time: 2018-07-12 11:43:32
  */
 import React, { Component } from 'react'
 
 import { Modal, List, Button } from 'antd-mobile'
 
+import { compare } from '../../util/Sort'
+
 export default class FunctionalButton extends Component {
     constructor(props) {
         super(props);
 
+        // 初始化排序属性
+        let default_var = {
+            status: '无',
+            direction: 'horizontal'
+        };
+        let datas = [];
+        for(let item of props.sortBy) {
+            item = Object.assign({}, default_var, item);
+            datas.push(item);
+        }
+
         this.state = {
-            modal_visible: true,
-            datas: [
-                {
-                    status: '降序',
-                    direction: 'down',
-                    text: 'test1'
-                },
-                {
-                    status: '升序',
-                    direction: 'up',
-                    text: 'test2'
-                },
-                {
-                    status: '无',
-                    direction: 'horizontal',
-                    text: 'test3'
-                },
-            ],
+            modal_visible: false,
+            datas,
         }
     }
 
@@ -44,11 +41,25 @@ export default class FunctionalButton extends Component {
 
     /**
      * 排序顺序，初始为无，箭头向右
-     * 无 => 升序 => 降序 => 无
-     * horizontal => up => down => horizontal
+     * 无 => 升序 => 降序
+     * horizontal => up => down
+     * 只有一个字段参与排序
     */
     handle_onClick = item => {
-        let { direction, status } = item;
+        let { dataSource, onSort } = this.props;
+        let { datas } = this.state;
+        let { direction, status, key } = item;
+
+        for(let ins of datas) {
+            let { key: ins_key } = ins;
+
+            if(key != ins_key) {
+                ins.direction = 'horizontal';
+                ins.status = '无';
+            }
+        }
+
+        let isDesc = false;
 
         switch(direction) {
             case 'horizontal':
@@ -59,11 +70,12 @@ export default class FunctionalButton extends Component {
             case 'up':
                 item.direction = 'down';
                 item.status = '降序';
+                isDesc = true;
             break;
 
             case 'down':
-                item.direction = 'horizontal';
-                item.status = '无';
+                item.direction = 'up';
+                item.status = '升序';
             break;
 
             default:
@@ -72,11 +84,14 @@ export default class FunctionalButton extends Component {
             break;
         }
 
-        this.setState({});
+        dataSource.sort(compare(key, isDesc));
+        onSort(dataSource);
+
+        this.setState({ datas });
     }
 
     render = () => {
-        const { visible } = this.props;
+        const { visible, sortBy } = this.props;
         const { modal_visible, datas } = this.state;
 
         return (

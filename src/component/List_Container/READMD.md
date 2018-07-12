@@ -5,104 +5,126 @@
 ## 示例
 
 * 第一步
-   ``` bash
-   npm install sc-component-mobile --save
-   ```
+在package.json的dependencies里加入``` "react-mobile-component": "git+https://github.com/zy410419243/react-mobile-component.git" ```  
 
-   npm上的代码已经n年没更了，真要用还是clone下吧
+    npm install  
 
 * 第二步
     * 在模板文件里写html
     ``` html
-      render = () => {
-          <div className='item'>
-              <div>
-                  <span>测试字段1：</span>
-                  <span data-key='RNAME'>RNAME</span>
-              </div>
-              <div>
-                  <span>测试字段2：</span>
-                  <span data-key='REALNAME'>REALNAME</span>
-              </div>
-              <div>
-                  <span>测试字段3：</span>
-                  <span data-key='U_ADDRESS'>U_ADDRESS</span>
-              </div>
-              <div>
-                  <span>测试字段4：</span>
-                  <span data-key='CREATETIME' format='YYYY-MM-DD'>CREATETIME</span>
-              </div>
-          </div>
-      }
+        render() {
+            return (
+                <div className='List_Container_demo'>
+                    <div className='container'>
+                        <ul>
+                            <li>
+                                <div className='left'>
+                                    <label>名称：</label>
+                                    <label>pjnm</label>
+                                </div>
+                                <div className='right'>
+                                    <label>坝高：</label>
+                                    <label>dam_width</label>
+                                </div>
+                            </li>
+
+                            <li>
+                                <div className='left'>
+                                    <label>坝长：</label>
+                                    <label>crest_length</label>
+                                </div>
+                                <div className='right'>
+                                    <label>主坝类型：</label>
+                                    <label>retain_dam</label>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            )
+        }
     ``` 
     
     * 效果图  
-    ![img](./demo_img/first.jpg)
+    ![img](./demo_img/first.png)
     
 * 第三步
 
     觉着没问题以后再加点细节
     ``` html
-       import { Container } from 'sc-component-mobile'
+        config = {
+            tcid: 10874,
+            menuid: 1428,
+            // pageSize: 5,
+            showSearch: false, // 是否显示搜索面板
+            showButton: false, // 是否显示右下功能按钮
+            // UserId: 1,
+            // CellPhone: 13900000000,
+            // RequestUrl: '../../webapi/api/v2/generalbackstage/getdata',
+            RequestParams: {
+                // TCID: 1620,
+                // PageSize: 10,
+                // PageIndex: 1,
+                // CellPhone: 13900000000,
+                // sectionid: 4,
+                // AddSearchField: 1,
+            },
+            // RequestMethod: 'POST',
+        }
 
-       config = {
-           tcid: 1620,
-           menuid: 315,
-           pageSize: 10,
-           // UserId: 1,
-           CellPhone: '13900000000',
-           // requestUrl: 'http://www.baidu.com',
-           // requestParams: {
-           //    test1: 'test1',
-           //    test2: 'test2',
-           //    test3: 'test3',
-           // },
-           // requestMethod: 'GET',
-       }
-       
-       render = () => {
-          <Container config={this.config}>
-              <div className='item' bind>
-                  <div>
-                      <span>测试字段1：</span>
-                      <span data-key='RNAME'>RNAME</span>
-                  </div>
-                  <div>
-                      <span>测试字段2：</span>
-                      <span data-key='REALNAME'>REALNAME</span>
-                  </div>
-                  <div>
-                      <span>测试字段3：</span>
-                      <span data-key='U_ADDRESS'>U_ADDRESS</span>
-                  </div>
-                  <div>
-                      <span>测试字段4：</span>
-                      <span data-key='CREATETIME' format='YYYY-MM-DD'>CREATETIME</span>
-                  </div>
-              </div>
-          </Container>
-       }
+        render() {
+            return (
+                <div className='List_Container_demo'>
+                    <Container config={ this.config } style={{ height: document.documentElement.clientHeight - 10 }}>
+                        <div className='container' bind='true'>
+                            <ul>
+                                <li>
+                                    <div className='left'>
+                                        <label>名称：</label>
+                                        <label data-key='pjnm'></label>
+                                    </div>
+                                    <div className='right'>
+                                        <label>坝高：</label>
+                                        <label data-key='dam_width' data-sort='坝高' unit='m' decimalcount={ 2 }></label>
+                                    </div>
+                                </li>
+
+                                <li>
+                                    <div className='left'>
+                                        <label>坝长：</label>
+                                        <label data-key='crest_length' data-sort='坝长' unit='m'></label>
+                                    </div>
+                                    <div className='right'>
+                                        <label>主坝类型：</label>
+                                        <label data-key='retain_dam_type' onChange={ this.handle_onChange }></label>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </Container>
+                </div>
+            )
+        }
     ```
     
     * 效果图  
-    ![img](./demo_img/second.jpg)
+    ![img](./demo_img/second.png)
     
-## 最终效果图
-  ![img](./demo_img/demo_list_container.gif)  
-  这里图跟gif版本没对上，不过大概就是这么个意思了。  
-  至于gif里的报错...其实就是演示下大概，再往下看可就要收钱了...
+    * 最终效果图  
+    ![img](./demo_img/demo_list_container.gif)  
+    因为数据问题，侧边栏里搜索项是空的  
+    还有其它功能没放进gif，得自行体验了
 
 ## API
 | 参数 | 说明 | 类型 | 默认值 |
 | :------: | ----- | :------: | :------: |
 | url | true时会用第三方接口 | Boolean |  false |
-| bind | 长按和点击事件绑定的地方。上面的例子是绑在整块模版上，于是长按模板就能触发事件，点击也能跳转到详情 | Boolean | true |
-| data-key | 物理字段名，需要和接口中的字段对应 | String | 无 |
 | bindKey | 如果data-key被占用了，可以把这个属性放到Container上，``` <Container bindKey='data-test' />``` ,于是现在绑定物理字段名的key变成data-test了 | String | 'data-key' |
 | height | 容器高度 | String 或 Number | document.body.clientHeight |
 | domain | 服务地址domain，如果不传则会请求本地json，目录在/src/data中 | String | 无 |
 | wrappedComponentRef | 替代原先的ref获得组件对象以调用其中方法，详情参考[这里](https://github.com/react-component/form#note-use-wrappedcomponentref-instead-of-withref-after-rc-form140) | {} | 无 |
 | detailArrow | 详情页翻页箭头是否显示 | Boolean | false |
+| sortBy | 排序字段 | [{ key: '', text: '' }] | false |
 | config | 配置，详见下方说明 | {} | 无 |
 * 有两种请求方式，默认以tcid和menuid的形式请求数据，但有时会调第三方的接口，url = true的用处就在这了。
 * bind会覆盖原有的click和touch事件
@@ -126,6 +148,8 @@
 | :------: | ----- | :------: | :------: |
 | unit | 单位，用在列表页 | String | 无 |
 | format | 字段为日期时，格式化字符串 | String | YYYY-MM-DD |
+| bind | 长按和点击事件绑定的地方。上面的例子是绑在整块模版上，于是长按模板就能触发事件，点击也能跳转到详情 | Boolean | true |
+| data-key | 物理字段名，需要和接口中的字段对应 | String | 无 |
 | decimalcount | 浮点数保留位数 | Number | 0 |
 | onChange | 点击事件，会覆盖跳转详情，会传出当前格子数据 | item => {} | 无 |
 * 绑定的节点得是底层，就是没子标签的那种，比如上面的CREATETIME。

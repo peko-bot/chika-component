@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243 
  * @Date: 2018-07-04 09:59:21 
  * @Last Modified by: zy9
- * @Last Modified time: 2018-07-10 10:51:37
+ * @Last Modified time: 2018-07-12 11:30:12
  */
 import React, { Component } from 'react'
 
@@ -13,6 +13,15 @@ import moment from 'moment'
 import extend from '../../util/DeepClone'
 
 export default class Templet extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+
+        }
+
+        // this.sortBy = [] // 排序字段
+    }
+
     // 递归复制模版，填入数据
     travel_children = (children, item, mainValue) => {
         const { bindKey = 'data-key', onDetail, power, onDelete } = this.props;
@@ -20,10 +29,34 @@ export default class Templet extends Component {
         React.Children.map(children, child => {
             let { bind, format, decimalcount, unit } = child.props;
 
-            child.key = `child_${Math.random() * 10000}`;
+            child.key = `child_${ Math.random() * 10000 }`;
 
             let instance = child.props;
             let key = instance[bindKey];
+
+            // // 用作排序
+            // if(instance['data-sort']) {
+            //     let flag = true;
+
+            //     for(let item of this.sortBy) {
+            //         let { key } = item;
+
+            //         if(instance['data-key'] == key) {
+            //             flag = false;
+
+            //             break;
+            //         }
+            //     }
+
+            //     if(flag) {
+            //         this.sortBy.push({
+            //             key: instance['data-key'],
+            //             text: instance['data-sort'],
+            //             direction: 'horizontal',
+            //             status: '无'
+            //         });
+            //     }
+            // }
 
             // children中有绑定事件时，把这个格子的数据传出去
             if(instance.onChange) {
@@ -50,9 +83,9 @@ export default class Templet extends Component {
 
                         for(let item of power) {
                             switch(item) {
-                                case 'Add':
-                                    opera.push({ text: '新增', onPress: () => onDetail && onDetail(mainValue, 'add') });
-                                break;
+                                // case 'Add':
+                                //     opera.push({ text: '新增', onPress: () => onDetail && onDetail(mainValue, 'add') });
+                                // break;
 
                                 case 'Del':
                                     opera.push({ text: '删除', onPress: () => onDelete(mainValue) });
@@ -106,7 +139,7 @@ export default class Templet extends Component {
     }
 
     buildTemplet = () => {
-        const { dataSource, mainKey, templet, mainValue } = this.props;
+        const { dataSource, mainKey, templet, mainValue, onSort } = this.props;
 
         // 重置详情页left顺序，顺带重新渲染模版
         let children = [];
@@ -120,8 +153,12 @@ export default class Templet extends Component {
 
             // 渲染模版
             this.travel_children(singleTemplet, item, item[mainKey]);
+
             children.push(singleTemplet);
         }
+
+        // 传出排序字段
+        // onSort(this.sortBy);
 
         return children;
     }
