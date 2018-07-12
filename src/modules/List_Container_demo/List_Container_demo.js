@@ -2,12 +2,12 @@
  * @Author: zy9@github.com/zy410419243 
  * @Date: 2018-06-02 21:02:58 
  * @Last Modified by: zy9
- * @Last Modified time: 2018-07-12 12:07:01
+ * @Last Modified time: 2018-07-12 13:36:09
  */
 import React from 'react'
 
-// import Container from '../../component/List_Container'
-import Container from '../../../dist/List_Container'
+import Container from '../../component/List_Container'
+// import Container from '../../../dist/List_Container'
 import './css/List_Container_demo.css'
 
 export default class List_Container_demo extends React.Component {
