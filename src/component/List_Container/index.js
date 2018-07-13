@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243 
  * @Date: 2017-09-29 15:00:45
  * @Last Modified by: zy9
- * @Last Modified time: 2018-07-12 15:28:04
+ * @Last Modified time: 2018-07-13 10:34:46
  */
 import React from 'react'
 
@@ -664,7 +664,7 @@ class List_Container extends React.Component {
     render = () => {
         let { children, config, props } = this;
         const { currentState, edit_config, search_field_open, detail_config, calendar_visible, loading, search_loading, container_height, pull_load, pageType } = this.state;
-        let { style, bindKey, detailArrow, sortBy } = props;
+        let { style, bindKey, detailArrow, sortBy = [] } = props;
         const { showSearch = true, showButton = true } = props.config;
         
         style = Object.assign({}, { height: ClientHeight }, style);
