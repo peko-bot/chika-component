@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243 
  * @Date: 2017-09-29 15:00:45
  * @Last Modified by: zy9
- * @Last Modified time: 2018-07-13 10:34:46
+ * @Last Modified time: 2018-07-14 14:41:47
  */
 import React from 'react'
 
@@ -762,6 +762,7 @@ class List_Container extends React.Component {
             onAdd: type => this.handle_item_edit(this.mainValue, type),
             dataSource: this.listDatas,
             sortBy,
+            power: this.power,
             onSort: datas => {
                 this.listDatas = datas;
 

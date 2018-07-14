@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243 
  * @Date: 2018-07-10 13:50:10 
  * @Last Modified by: zy9
- * @Last Modified time: 2018-07-12 11:43:32
+ * @Last Modified time: 2018-07-14 14:46:44
  */
 import React, { Component } from 'react'
 
@@ -24,7 +24,7 @@ export default class FunctionalButton extends Component {
             item = Object.assign({}, default_var, item);
             datas.push(item);
         }
-
+        
         this.state = {
             modal_visible: false,
             datas,
@@ -91,8 +91,20 @@ export default class FunctionalButton extends Component {
     }
 
     render = () => {
-        const { visible, sortBy } = this.props;
+        const { visible, sortBy, power } = this.props;
         const { modal_visible, datas } = this.state;
+
+        let extra_add = null;
+
+        for(let item of power) {
+            if(item.includes('Add')) {
+                extra_add = (
+                    <List.Item>
+                        <Button type='primary' onClick={ this.handle_onAdd }>新增</Button>
+                    </List.Item>
+                );
+            }
+        }
 
         return (
             <div className='FunctionalButton'>
@@ -107,9 +119,7 @@ export default class FunctionalButton extends Component {
                                 <List.Item extra={ item.status } key={ index } arrow={ item.direction } onClick={ () => this.handle_onClick(item) }>{ item.text }</List.Item>
                             ))
                         }
-                        <List.Item>
-                            <Button type='primary' onClick={ this.handle_onAdd }>新增</Button>
-                        </List.Item>
+                        { extra_add }
                     </List>
                 </Modal>
             </div>
