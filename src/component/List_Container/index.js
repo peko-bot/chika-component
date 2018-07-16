@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243 
  * @Date: 2017-09-29 15:00:45
  * @Last Modified by: zy9
- * @Last Modified time: 2018-07-14 14:41:47
+ * @Last Modified time: 2018-07-16 15:46:09
  */
 import React from 'react'
 
@@ -186,41 +186,63 @@ class List_Container extends React.Component {
     /* 
         初始化新增/编辑页面
         mainValue为搜索主键对应的值，mainKey在this里
-        处理逻辑有冗余 mark
+        TODO: 该方法需要重构
     */
     handle_item_edit = (mainValue, type) => {
         let { edit_config, detail_config, currentState, edit_field, edit_param, pageType } = this.state;
 
         pageType = type;
-        // this.mainValue = mainValue;
 
         this.listDatas = handle_detail_datas(this.listDatas, mainValue, this.mainKey);
 
-        for(let item of this.listDatas) {
-            if(item[this.mainKey] == mainValue) {
-                for(let jtem of this.config) {
-                    let { fname, isvisiable } = jtem;
-                    
-                    for(let key in item) {
-                        if(key == fname && jtem.isadd) { // isvisiable是在列表中的显隐，现在由模板绑定字段控制。这里的是编辑页面
-                            switch(type) {
-                                case 'edit': 
-                                    edit_param[key] = item[key];
-                                break;
+        if(this.listDatas.length == 0) {
+            for(let item of this.config) {
+                const { fname, isvisiable, isadd, controltype } = item;
 
-                                case 'add':
-                                    edit_param = {};
-                                break;
+                if(isadd) {
+                    switch(type) {
+                        case 'add':
+                            edit_param = {};
+                        break;
+                    }
+
+                    // 初始化配置属性
+                    const element = Object.assign({}, item, {
+                        controltype: type == 'detail' ? 99 : controltype,
+                        fname,
+                        controltype_detail: type == 'detail' ? controltype : null
+                    });
+                    // isvisiable，详情是否显示
+                    type == 'detail' ? (isvisiable ? detail_config.push(element) : null) : edit_config.push(element);
+                }
+            }
+        } else {
+            for(let item of this.listDatas) {
+                if(item[this.mainKey] == mainValue) {
+                    for(let jtem of this.config) {
+                        const { fname, isvisiable, isadd } = jtem;
+                        
+                        for(let key in item) {
+                            if(key == fname && isadd) { // isvisiable是在列表中的显隐，现在由模板绑定字段控制。这里的是编辑页面
+                                switch(type) {
+                                    case 'edit': 
+                                        edit_param[key] = item[key];
+                                    break;
+    
+                                    case 'add':
+                                        edit_param = {};
+                                    break;
+                                }
+    
+                                // 初始化配置属性
+                                const element = Object.assign({}, jtem, {
+                                    controltype: type == 'detail' ? 99 : jtem.controltype,
+                                    fname: key,
+                                    controltype_detail: type == 'detail' ? jtem.controltype : null
+                                });
+                                // isvisiable，详情是否显示
+                                type == 'detail' ? (isvisiable ? detail_config.push(element) : null) : edit_config.push(element);
                             }
-
-                            // 初始化配置属性
-                            let element = Object.assign({}, jtem, {
-                                controltype: type == 'detail' ? 99 : jtem.controltype,
-                                fname: key,
-                                controltype_detail: type == 'detail' ? jtem.controltype : null
-                            });
-                            // isvisiable，详情是否显示
-                            type == 'detail' ? (isvisiable ? detail_config.push(element) : null) : edit_config.push(element);
                         }
                     }
                 }
@@ -230,8 +252,10 @@ class List_Container extends React.Component {
         this.setState({ currentState: -1, edit_param, edit_config, detail_config, pageType });
     }
 
-    // 格式化表单数据
-    // 这是黔驴技穷，正确的做法应该是在form里直接格式化了 mark
+    /**
+     * 格式化表单数据
+     * TODO: 需要在form里直接格式化数据
+     */
     handle_formdata = () => {
         let formData = this.props.form.getFieldsValue();
 
@@ -356,7 +380,7 @@ class List_Container extends React.Component {
     }
 
     handle_select = (e, item, key) => {
-        // 内部数据结构处理，数组需要转化，需要级联选择 mark
+        // TODO: 内部数据结构处理，数组需要转化，需要级联选择 
         this.state[item][key] = e[0];
         this.setState({});
     }
@@ -400,7 +424,7 @@ class List_Container extends React.Component {
 
         let { controltype_detail, dateformat, foreigndata, unit, decimalcount } = item;
 
-        // pc中是没有日期格式字符串的配置的，这里hack一下 mark
+        // TODO: pc中是没有日期格式字符串的配置的，这里是hack，
         dateformat = dateformat.length == 0 ? 'YYYY-MM-DD HH:mm:ss' : dateformat;
 
         switch(controltype_detail) {
@@ -458,7 +482,7 @@ class List_Container extends React.Component {
 
         if(type == 'search' && !item.issearchfield) return null;
 
-        // pc中是没有日期格式字符串的配置的，这里hack一下 mark
+        // TODO: pc中是没有日期格式字符串的配置的，这里是hack
         dateformat = dateformat.length == 0 ? 'YYYY-MM-DD' : dateformat;
         
         /* 因为搜索条件也是要用到这里的，

@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243 
  * @Date: 2018-07-04 09:59:21 
  * @Last Modified by: zy9
- * @Last Modified time: 2018-07-12 13:48:26
+ * @Last Modified time: 2018-07-16 14:17:22
  */
 import React, { Component } from 'react'
 
@@ -13,15 +13,6 @@ import moment from 'moment'
 import extend from '../../util/DeepClone'
 
 export default class Templet extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-
-        }
-
-        // this.sortBy = [] // 排序字段
-    }
-
     // 递归复制模版，填入数据
     travel_children = (children, item, mainValue) => {
         const { bindKey = 'data-key', onDetail, power, onDelete } = this.props;
@@ -33,30 +24,6 @@ export default class Templet extends Component {
 
             let instance = child.props;
             let key = instance[bindKey];
-
-            // // 用作排序
-            // if(instance['data-sort']) {
-            //     let flag = true;
-
-            //     for(let item of this.sortBy) {
-            //         let { key } = item;
-
-            //         if(instance['data-key'] == key) {
-            //             flag = false;
-
-            //             break;
-            //         }
-            //     }
-
-            //     if(flag) {
-            //         this.sortBy.push({
-            //             key: instance['data-key'],
-            //             text: instance['data-sort'],
-            //             direction: 'horizontal',
-            //             status: '无'
-            //         });
-            //     }
-            // }
 
             // children中有绑定事件时，把这个格子的数据传出去
             if(instance.onChange) {
@@ -156,9 +123,6 @@ export default class Templet extends Component {
 
             children.push(singleTemplet);
         }
-
-        // 传出排序字段
-        // onSort(this.sortBy);
 
         return children;
     }

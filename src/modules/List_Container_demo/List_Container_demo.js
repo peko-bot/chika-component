@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243 
  * @Date: 2018-06-02 21:02:58 
  * @Last Modified by: zy9
- * @Last Modified time: 2018-07-13 15:59:57
+ * @Last Modified time: 2018-07-16 15:46:43
  */
 import React from 'react'
 
@@ -33,7 +33,7 @@ export default class List_Container_demo extends React.Component {
 
     config = {
         tcid: 10874,
-        menuid: 1428,
+        menuid: 1392,
         // pageSize: 5,
         showSearch: false, // 是否显示搜索面板
         // showButton: false, // 是否显示右下功能按钮

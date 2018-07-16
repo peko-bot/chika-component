@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243 
  * @Date: 2018-07-05 15:23:27 
  * @Last Modified by: zy9
- * @Last Modified time: 2018-07-05 17:18:39
+ * @Last Modified time: 2018-07-16 14:46:04
  */
 /**
  * 处理详情页数据排序，用于过渡动画
@@ -10,6 +10,10 @@
  * left: order * -100%
 */
 const handle_detail_datas = (datas, value, mainKey) => {
+    if(datas.length == 0) {
+        return datas;
+    }
+
     let index = -1;
     
     for(let i = 0; i < datas.length; i++) {
