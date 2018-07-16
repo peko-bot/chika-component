@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243 
  * @Date: 2018-07-12 19:48:04 
  * @Last Modified by: zy9
- * @Last Modified time: 2018-07-16 09:36:05
+ * @Last Modified time: 2018-07-16 10:03:12
  */
 import React, { Component } from 'react'
 
@@ -32,8 +32,11 @@ export default class Progress_demo extends Component {
             #01fefc 100%)`;
 
         return (
-            <div className='Progress_demo'>
-                <Progress percent={ 70 } height={ 20 } customImage={ customImage } active />
+            <div className='Progress_demo' style={{ background: '#ccc', height: document.documentElement.clientHeight }}>
+                <div style={{ width: '70%', float: 'left', marginRight: 15 }}>
+                    <Progress percent={ 70 } height={ 20 } customImage={ customImage } innerStyle={{ background: 'rgba(255, 255, 255, 0.4)' }} active />
+                </div>
+                <span>70</span>
             </div>
         )
     }
