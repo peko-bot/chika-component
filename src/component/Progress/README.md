@@ -28,6 +28,7 @@
 | :------: | ----- | :------: | :------: |
 | percent | 进度条长度 | number | 50 |
 | height | 进度条高度 | number 或 string | 8 |
-| start | 渐变开始颜色 | string | #F96 |
-| end | 渐变结束颜色 | string | #1890ff |
-| active | 是否带有浮光 | Boolean | false |
+| start | 渐变开始颜色 | string | 无 |
+| end | 渐变结束颜色 | string | 无 |
+| active | 是否带有浮光 | boolean | false |
+| customImage | 自定义background-image。和start-end二选一，优先start-end | string | '' |
