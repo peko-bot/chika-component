@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243 
  * @Date: 2018-07-04 09:59:21 
  * @Last Modified by: zy9
- * @Last Modified time: 2018-07-16 14:17:22
+ * @Last Modified time: 2018-07-17 13:55:58
  */
 import React, { Component } from 'react'
 
@@ -80,7 +80,7 @@ export default class Templet extends Component {
             let value = item[key];
 
             /* 列表页预处理 */
-            if(instance[bindKey]) {
+            if(instance[bindKey] && value !== undefined) {
                 /* 处理时间格式 */
                 if(format) {
                     instance.children = value = moment(value).format(format);
@@ -93,7 +93,7 @@ export default class Templet extends Component {
                 
                 /* 处理单位 */
                 if(unit) {
-                    instance.children = value = `${value} ${unit}`;
+                    instance.children = value = `${ value } ${ unit }`;
                 }
 
                 instance.children = instance.children ? instance.children : value;
