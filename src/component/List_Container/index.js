@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243 
  * @Date: 2017-09-29 15:00:45
  * @Last Modified by: zy9
- * @Last Modified time: 2018-07-16 15:46:09
+ * @Last Modified time: 2018-07-17 10:48:16
  */
 import React from 'react'
 
@@ -566,8 +566,8 @@ class List_Container extends React.Component {
                     rules: [{ required: !!isnull, message: '该值不能为空' },],
                 }
                 element = (
-                    <Accordion>
-                        <Accordion.Panel header={ fvalue }>
+                    <Accordion key={ `case_5_accordion_${index}` }>
+                        <Accordion.Panel header={ fvalue } key={ `case_5_accordion_panel_${index}` }>
                             <List key={ `case_5_list_${index}` }>
                                 { foreigndata.map(item => <CheckboxItem onChange={ value => this.handle_checkbox(item.value, 'search_param', fname) } key={ item.value }>{ item.label }</CheckboxItem>) }
                             </List>
