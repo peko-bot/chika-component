@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243 
  * @Date: 2017-09-29 15:00:45
  * @Last Modified by: zy9
- * @Last Modified time: 2018-07-17 10:48:16
+ * @Last Modified time: 2018-07-19 08:36:41
  */
 import React from 'react'
 
@@ -195,10 +195,10 @@ class List_Container extends React.Component {
 
         this.listDatas = handle_detail_datas(this.listDatas, mainValue, this.mainKey);
 
-        if(this.listDatas.length == 0) {
-            for(let item of this.config) {
-                const { fname, isvisiable, isadd, controltype } = item;
+        for(let item of this.config) {
+            const { fname, isvisiable, isadd, controltype } = item;
 
+            if(this.listDatas.length == 0) {
                 if(isadd) {
                     switch(type) {
                         case 'add':
@@ -215,18 +215,14 @@ class List_Container extends React.Component {
                     // isvisiable，详情是否显示
                     type == 'detail' ? (isvisiable ? detail_config.push(element) : null) : edit_config.push(element);
                 }
-            }
-        } else {
-            for(let item of this.listDatas) {
-                if(item[this.mainKey] == mainValue) {
-                    for(let jtem of this.config) {
-                        const { fname, isvisiable, isadd } = jtem;
-                        
-                        for(let key in item) {
+            } else {
+                for(let jtem of this.listDatas) {
+                    if(jtem[this.mainKey] == mainValue) {
+                        for(let key in jtem) {
                             if(key == fname && isadd) { // isvisiable是在列表中的显隐，现在由模板绑定字段控制。这里的是编辑页面
                                 switch(type) {
                                     case 'edit': 
-                                        edit_param[key] = item[key];
+                                        edit_param[key] = jtem[key];
                                     break;
     
                                     case 'add':
@@ -235,11 +231,12 @@ class List_Container extends React.Component {
                                 }
     
                                 // 初始化配置属性
-                                const element = Object.assign({}, jtem, {
-                                    controltype: type == 'detail' ? 99 : jtem.controltype,
+                                const element = Object.assign({}, item, {
+                                    controltype: type == 'detail' ? 99 : controltype,
                                     fname: key,
-                                    controltype_detail: type == 'detail' ? jtem.controltype : null
+                                    controltype_detail: type == 'detail' ? controltype : null
                                 });
+                                
                                 // isvisiable，详情是否显示
                                 type == 'detail' ? (isvisiable ? detail_config.push(element) : null) : edit_config.push(element);
                             }
