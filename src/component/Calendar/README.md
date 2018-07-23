@@ -29,4 +29,4 @@
 | style | 同select中的style | {} | 无 |
 
 ## 演示效果
-![img](https://github.com/zy410419243/react-mobile-component/blob/master/src/assets/component/Calendar/demo.gif)
+![img](./demo.gif)

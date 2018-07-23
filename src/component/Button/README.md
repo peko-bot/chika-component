@@ -12,4 +12,4 @@
 按钮默认宽50px，高28px，如有需要自己传style调整
 
 ## 演示效果
-![img](https://github.com/zy410419243/react-mobile-component/blob/master/src/assets/component/Button/demo_button.gif)
+![img](./demo_button.gif)

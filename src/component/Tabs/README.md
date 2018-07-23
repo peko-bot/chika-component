@@ -4,7 +4,7 @@
 - 受控
 
 ## 效果
-  ![img](https://github.com/zy410419243/react-mobile-component/blob/master/src/assets/component/Tabs/demo_tabs.gif)  
+  ![img](./demo_tabs.gif)  
   
 ## 示例
 ``` html
