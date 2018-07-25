@@ -2,19 +2,15 @@
  * @Author: zy9@github.com/zy410419243 
  * @Date: 2018-05-20 13:48:08 
  * @Last Modified by: zy9
- * @Last Modified time: 2018-07-23 10:21:49
+ * @Last Modified time: 2018-07-25 11:15:12
  */
 const webpack = require('webpack');
-const fs = require('fs');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-// const WebpackOnBuildPlugin = require('on-build-webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const TohoLogPlugin = require('toho-log-plugin');
-const path = require('path');
-const { logInfo, commonModule, commonPlugin, log, onCompile } = require('./webpack.common');
+const { commonModule, commonPlugin } = require('./webpack.common');
 
-const buildPath = __dirname + '/dist/';
-const dev = process.argv.includes('development') ? true : false;
+const dev = !!process.argv.includes('development');
 
 let plugins = commonPlugin;
 
