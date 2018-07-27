@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243 
  * @Date: 2018-06-21 21:02:49 
  * @Last Modified by: zy9
- * @Last Modified time: 2018-07-13 15:59:18
+ * @Last Modified time: 2018-07-27 20:22:26
  */
 import React, { Component } from 'react'
 import { Route, NavLink, HashRouter } from 'react-router-dom'
@@ -45,6 +45,12 @@ const Progress = props => (
     </Bundle>
 )
 
+const EasyLeaflet = props => (
+    <Bundle load={ () => import('../modules/EasyLeaflet_demo') }>
+        { EasyLeaflet => <EasyLeaflet {...props}/> }
+    </Bundle>
+)
+
 export default class Router extends Component {
     render = () => (
         <HashRouter>
@@ -55,6 +61,7 @@ export default class Router extends Component {
                 <Route path='/swiper' component={ Swiper } />
                 <Route path='/tabs' component={ Tabs } />
                 <Route path='/progress' component={ Progress } />
+                <Route path='/easyLeaflet' component={ EasyLeaflet } />
             </div>
         </HashRouter>
     )

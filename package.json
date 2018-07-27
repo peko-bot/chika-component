@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "antd-mobile": "latest",
+    "leaflet": "^1.3.3",
+    "leaflet.markercluster": "^1.3.0",
     "moment": "latest",
     "rc-form": "latest"
   },
