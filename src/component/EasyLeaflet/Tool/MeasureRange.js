@@ -2,12 +2,12 @@
  * @Author: zy9@github.com/zy410419243 
  * @Date: 2018-07-27 20:34:50 
  * @Last Modified by: zy9
- * @Last Modified time: 2018-07-27 20:35:45
+ * @Last Modified time: 2018-07-28 08:42:46
  * @Description: 测距
  */
-import MultilateralDraw from './MultilateralDraw'
+import MultilateralDraw from '../Parent/MultilateralDraw'
 
-export default class MeasureRange extends MultilateralDraw {
+export class MeasureRange extends MultilateralDraw {
     constructor(props) {
         super(props);
         this.initialize();

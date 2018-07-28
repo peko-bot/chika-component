@@ -1,5 +1,14 @@
+/*
+ * @Author: zy9@github.com/zy410419243 
+ * @Date: 2018-07-28 08:09:28 
+ * @Last Modified by: zy9
+ * @Last Modified time: 2018-07-28 08:22:48
+ */
 import React from 'react'
-import k, { Legend, Popup } from '../../component/EasyLeaflet'
+
+import k from '../../component/EasyLeaflet'
+
+import Popup from '../../component/EasyLeaflet/Custom/Popup'
 
 import Detail from './popup'
 
@@ -32,14 +41,12 @@ export default class maptest extends React.Component {
             zoomSnap: 0
         });
 
-        setTimeout(() => {
-            this.map.on('moveend', e => {
-                console.log(this.map.getCenter())
-                this.setState({ visible: true, info: this.map.getCenter() });
-            })
-        }, 1000);
+        this.map.on('moveend', e => {
+            console.log(this.map.getCenter())
+            // this.setState({ visible: true, info: this.map.getCenter() });
+        })
 
-        k.e.zoomIn()
+        // k.e.zoomIn()
     }
 
     handleBack = () => this.setState({ visible: false });

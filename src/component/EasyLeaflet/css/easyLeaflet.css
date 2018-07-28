@@ -1,8 +1,3 @@
-* {
-    margin: 0;
-    padding: 0
-}
-
 div {
     box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -219,7 +214,7 @@ div {
 .leaflet_measureArea_close span {
     position: relative;
     display: block;
-    background: url('../assets/easyLeaflet/close.png') no-repeat;
+    background: url('../../../assets/easyLeaflet/close.png') no-repeat;
     height: 12px;
     width: 12px;
     border: 1px solid #f00;
@@ -247,7 +242,7 @@ div {
 }
 
 .leaflet_measureArea_close span {
-    background: url('../assets/easyLeaflet/close_blue.png') no-repeat;
+    background: url('../../../assets/easyLeaflet/close_blue.png') no-repeat;
     background-size: 100% 100%;
     border: 1px solid #00aeff;
     background-color: #fff;
