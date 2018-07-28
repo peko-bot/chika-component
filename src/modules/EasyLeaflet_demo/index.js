@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243
  * @Date: 2018-07-28 08:09:28
  * @Last Modified by: zy9
- * @Last Modified time: 2018-07-28 08:22:48
+ * @Last Modified time: 2018-07-28 23:06:11
  */
 import React from 'react';
 
@@ -19,15 +19,13 @@ export default class maptest extends React.Component {
 			layoutState: false,
 			layoutIndex: 1,
 			visible: false,
-			info: null,
+			info: { lat: -1, lng: -1 },
 		};
 	}
-    markerData
-    layoutData
+
     map = null;
     pageH = document.documentElement.clientHeight || document.body.clientHeight;
     pageW = document.documentElement.clientWidth || document.body.clientWidth;;
-    map = null;
 
     componentDidMount () {
     	this.map = k.init('mapBox', 'dxt', {
@@ -42,11 +40,12 @@ export default class maptest extends React.Component {
     	});
 
     	this.map.on('moveend', e => {
-    		console.log(this.map.getCenter());
-    		// this.setState({ visible: true, info: this.map.getCenter() });
+    		const { lat, lng } = this.map.getCenter();
+
+    		this.setState({ visible: true, info: { lat, lng } });
     	});
 
-    	// k.e.zoomIn()
+    	// k.e.zoomIn();
     }
 
     handleBack = () => this.setState({ visible: false });
