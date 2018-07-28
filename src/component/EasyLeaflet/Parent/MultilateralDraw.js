@@ -1,75 +1,82 @@
 /*
- * @Author: zy9@github.com/zy410419243 
- * @Date: 2018-07-27 20:30:28 
+ * @Author: zy9@github.com/zy410419243
+ * @Date: 2018-07-27 20:30:28
  * @Last Modified by: zy9
  * @Last Modified time: 2018-07-27 20:34:43
  * @Description: 线面绘制基类
  */
 export default class MultilateralDraw {
     options = {
-        drawState: 0,
-        draw: null,
-        moveDraw: null,
-        time: 0,
-        prePoint: null,
-        thisPoint: null,
-        points: [],
-        _points: [],
-        icon: [],
-        closeL: 0,
-        lengthT: 0
+    	drawState: 0,
+    	draw: null,
+    	moveDraw: null,
+    	time: 0,
+    	prePoint: null,
+    	thisPoint: null,
+    	points: [],
+    	_points: [],
+    	icon: [],
+    	closeL: 0,
+    	lengthT: 0
     }
     firstClick = (e, type, { draw, moveDraw, pointStyle }) => {
-        this.options.prePoint = this.options.thisPoint = { latlng: e.latlng, layerPoint: e.layerPoint };
-        this.options.time = new Date().getTime();
-        this.options.draw = L[type]([e.latlng], draw).addTo(map);
-        this.options.moveDraw = L[type]([], moveDraw).addTo(map);
-        let point = L.marker(e.latlng, { icon: L.icon(pointStyle) }).addTo(map);
-        this.options.points.push(point);
+    	this.options.prePoint = this.options.thisPoint = { latlng: e.latlng, layerPoint: e.layerPoint };
+    	this.options.time = new Date().getTime();
+    	this.options.draw = L[type]([e.latlng], draw).addTo(map);
+    	this.options.moveDraw = L[type]([], moveDraw).addTo(map);
+    	let point = L.marker(e.latlng, { icon: L.icon(pointStyle) }).addTo(map);
+
+    	this.options.points.push(point);
     }
     nextClick = (e, style) => {
-        this.options.closeL = (e.latlng.lng > this.options.thisPoint.latlng.lng) ? '20px' : '-20px';
-        this.options.lengthT = (e.latlng.lat > this.options.thisPoint.latlng.lat) ? '-25px' : '18px';
-        this.options.thisPoint = { latlng: e.latlng, layerPoint: e.layerPoint };
-        eHelper.addLatLng(this.options.draw, [e.latlng]);
-        let point = L.marker(e.latlng, { icon: L.icon(style) }).addTo(map);
-        this.options.points.push(point);
+    	this.options.closeL = (e.latlng.lng > this.options.thisPoint.latlng.lng) ? '20px' : '-20px';
+    	this.options.lengthT = (e.latlng.lat > this.options.thisPoint.latlng.lat) ? '-25px' : '18px';
+    	this.options.thisPoint = { latlng: e.latlng, layerPoint: e.layerPoint };
+    	eHelper.addLatLng(this.options.draw, [e.latlng]);
+    	let point = L.marker(e.latlng, { icon: L.icon(style) }).addTo(map);
+
+    	this.options.points.push(point);
     }
     enterClick = (e, className, length, callBack) => {
-        let btn = L.marker(e.latlng, { icon: L.divIcon({ className: 'leaflet_' + className + '_close', html: "<span style = 'left : " + this.options.closeL + "'></span>" }) }).addTo(map);
-        btn.on('click', (e) => {
-            this.options.draw.remove();
-            this.options.points.map(item => item.remove());
-            this.options.icon.map(item => item.remove());
-        })
-        this.options.icon.push(btn);
-        let measureName = (className === 'measureRange') ? '总长' : '总面积';
-        if (!!length) {
-            let lengthIcon = L.marker(e.latlng, { icon: L.divIcon({ className: 'leaflet_' + className + '_length', html: "<span style = 'top : " + this.options.lengthT + "'>" + measureName + "<span>" + length.num + "</span>" + length.unit + "</span>" }) }).addTo(map);
-            this.options.icon.push(lengthIcon);
-        }
-        this.options.moveDraw.remove();
-        this.options.moveDraw = null;
-        !!callBack && callBack()
+    	let btn = L.marker(e.latlng, { icon: L.divIcon({ className: 'leaflet_' + className + '_close', html: '<span style = \'left : ' + this.options.closeL + '\'></span>' }) }).addTo(map);
+
+    	btn.on('click', (e) => {
+    		this.options.draw.remove();
+    		this.options.points.map(item => item.remove());
+    		this.options.icon.map(item => item.remove());
+    	});
+    	this.options.icon.push(btn);
+    	let measureName = (className === 'measureRange') ? '总长' : '总面积';
+
+    	if (length) {
+    		let lengthIcon = L.marker(e.latlng, { icon: L.divIcon({ className: 'leaflet_' + className + '_length', html: '<span style = \'top : ' + this.options.lengthT + '\'>' + measureName + '<span>' + length.num + '</span>' + length.unit + '</span>' }) }).addTo(map);
+
+    		this.options.icon.push(lengthIcon);
+    	}
+    	this.options.moveDraw.remove();
+    	this.options.moveDraw = null;
+    	!!callBack && callBack();
     }
     judgeDistence = (e) => {
-        return Math.pow(this.options.thisPoint.layerPoint.x - e.layerPoint.x, 2) + Math.pow(this.options.thisPoint.layerPoint.y - e.layerPoint.y, 2) > 16
+    	return Math.pow(this.options.thisPoint.layerPoint.x - e.layerPoint.x, 2) + Math.pow(this.options.thisPoint.layerPoint.y - e.layerPoint.y, 2) > 16;
     }
     calcLineCenterPoint = (endPoint = false) => {
-        let _points = [], p = this.options.points;
-        p.map((item, i) => {
-            //latLngToLayerPoint
-            if (endPoint || !endPoint && i + 1 < p.length) {
-                let j = (i + 1 < p.length) ? i + 1 : 0,
-                    iP = map.latLngToLayerPoint(p[i]._latlng),
-                    jP = map.latLngToLayerPoint(p[j]._latlng),
-                    point = {
-                        center: { lat: (p[i]._latlng.lat + p[j]._latlng.lat) / 2, lng: (p[i]._latlng.lng + p[j]._latlng.lng) / 2 },
-                        length: Math.sqrt(Math.pow(iP.x - jP.x, 2) + Math.pow(iP.y - jP.y, 2))
-                    };
-                _points.push(point);
-            }
-        })
-        return _points
+    	let _points = [], p = this.options.points;
+
+    	p.map((item, i) => {
+    		//latLngToLayerPoint
+    		if (endPoint || !endPoint && i + 1 < p.length) {
+    			let j = (i + 1 < p.length) ? i + 1 : 0,
+    				iP = map.latLngToLayerPoint(p[i]._latlng),
+    				jP = map.latLngToLayerPoint(p[j]._latlng),
+    				point = {
+    					center: { lat: (p[i]._latlng.lat + p[j]._latlng.lat) / 2, lng: (p[i]._latlng.lng + p[j]._latlng.lng) / 2 },
+    					length: Math.sqrt(Math.pow(iP.x - jP.x, 2) + Math.pow(iP.y - jP.y, 2))
+    				};
+
+    			_points.push(point);
+    		}
+    	});
+    	return _points;
     }
 }
