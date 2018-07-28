@@ -2,10 +2,12 @@
  * @Author: zy9@github.com/zy410419243
  * @Date: 2018-07-28 08:05:07
  * @Last Modified by: zy9
- * @Last Modified time: 2018-07-28 08:50:17
+ * @Last Modified time: 2018-07-28 21:52:08
  * @Description: 可控线
  */
 import MultilateralDraw from '../Parent/MultilateralDraw';
+
+const CLICK = 'MAP_CLICK';
 
 export class ControlLine extends MultilateralDraw {
 	constructor (props) {
@@ -28,7 +30,7 @@ export class ControlLine extends MultilateralDraw {
     			this.options.moveDraw.remove();
     			this.options.moveDraw = null;
     			setTimeout(() => {
-    				controlLine[_CLICK] = null; delete controlLine[_CLICK];
+    				controlLine[CLICK] = null; delete controlLine[CLICK];
     				eHelper.setCursor(null);
     				map.doubleClickZoom.enable();
     				eHelper.on(controlLine, _ZOOMEND, this.buildControlPoint);
@@ -51,21 +53,21 @@ export class ControlLine extends MultilateralDraw {
     	this.options.drawState = 1;
     }
     buildControlPoint = () => {
-    	let _points = this.calcLineCenterPoint(), i = 0;
+    	let points = this.calcLineCenterPoint(), i = 0;
 
-    	_points.map((item, j) => {
-    		if (item.length > 40 && !!this.options._points[i]) {
-    			this.options._points[i].setLatLng(item.center);
+    	points.map((item, j) => {
+    		if (item.length > 40 && !!this.options['_points'][i]) {
+    			this.options['_points'][i].setLatLng(item.center);
     			i++;
-    		} else if (item.length > 40 && !this.options._points[i]) {
-    			this.options._points[i] = L.marker(item.center, { icon: L.icon(controlLinePoint), index: j }).addTo(map);
+    		} else if (item.length > 40 && !this.options['_points'][i]) {
+    			this.options['_points'][i] = L.marker(item.center, { icon: L.icon(controlLinePoint), index: j }).addTo(map);
     			i++;
     		}
     	});
-    	this.options._points.map((child, c) => {
+    	this.options['_points'].map((child, c) => {
     		if (c >= i) {
     			!!child && child.remove();
-    			this.options._points[c] = null;
+    			this.options['_points'][c] = null;
     		}
     	});
     }

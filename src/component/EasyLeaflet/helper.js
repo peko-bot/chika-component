@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243
  * @Date: 2018-07-28 08:13:25
  * @Last Modified by: zy9
- * @Last Modified time: 2018-07-28 08:15:27
+ * @Last Modified time: 2018-07-28 21:49:09
  */
 /**帮助项
  * init_4326 天地图4326瓦片构建初始化
@@ -32,7 +32,7 @@
 import L from 'leaflet';
 
 export const eHelper = {
-	init_4490: function (url) {
+	'init_4490': function (url) {
 		L.TileLayer.WebDogTileLayer = L.TileLayer.extend({
 			getTileUrl: function (tilePoint) {
 				let urlArgs,
@@ -47,7 +47,7 @@ export const eHelper = {
 						y: tilePoint.y
 					};
 				}
-				return this._url._url + '/tile/' + urlArgs.z + '/' + urlArgs.x + '/' + urlArgs.y;
+				return this['_url']['_url'] + '/tile/' + urlArgs.z + '/' + urlArgs.x + '/' + urlArgs.y;
 			}
 		});
 
@@ -74,7 +74,7 @@ export const eHelper = {
 
 		lay.addTo(map);
 	},
-	init_4326: () => {
+	'init_4326': () => {
 		L.TileLayer.WMTS = L.TileLayer.extend({
 			defaultWmtsParams: {
 				service: 'WMTS',
@@ -86,7 +86,7 @@ export const eHelper = {
 				format: 'image/jpeg'
 			},
 			initialize: function (e, t) {
-				this._url = e;
+				this['_url'] = e;
 				let n = L.extend({}, this.defaultWmtsParams),
 					r = t.tileSize || this.options.tileSize;
 
@@ -108,7 +108,7 @@ export const eHelper = {
 				L.TileLayer.prototype.onAdd.call(this, e);
 			},
 			getTileUrl: function (e, t) {
-				let n = this._map;
+				let n = this['_map'];
 				let crs = n.options.crs;
 				let tileSize = this.options.tileSize;
 				let nwPoint = e.multiplyBy(tileSize);
@@ -126,7 +126,7 @@ export const eHelper = {
 				let Y0 = this.matrixIds[t].topLeftCorner.lat;
 				let tilecol = Math.floor((nw.x - X0) / (tilewidth));
 				let tilerow = -Math.floor((nw.y - Y0) / tilewidth);
-				let url = L.Util.template(this._url, {
+				let url = L.Util.template(this['_url'], {
 					s: Math.floor(Math.abs(parseInt(ident) + parseInt(tilerow) + parseInt(tilecol) + Math.random() * 7) % 7).toString()
 				});
 
@@ -174,16 +174,16 @@ export const eHelper = {
 	isFunction: (v) => { return Object.prototype.toString.call(v) === '[object Function]'; },
 	isObject: (v) => { return Object.prototype.toString.call(v) === '[object Object]'; },
 	templateValue: (str, data) => {
-		let target_str = '',
-			target_key = '';
+		let targetStr = '',
+			targetKey = '';
 
 		while (str.indexOf('@{') >= 0) {
-			let f_index = str.indexOf('@{'),
-				l_index = str.indexOf('}');
+			let fIndex = str.indexOf('@{'),
+				lIndex = str.indexOf('}');
 
-			target_str = str.substring(f_index, l_index + 1);
-			target_key = str.substring(f_index + 2, l_index);
-			str = str.replace(target_str, data[target_key]);
+			targetStr = str.substring(fIndex, lIndex + 1);
+			targetKey = str.substring(fIndex + 2, lIndex);
+			str = str.replace(targetStr, data[targetKey]);
 		}
 		return str;
 	},
@@ -279,7 +279,7 @@ export const eHelper = {
 
 		points.map((item, i) => {
 			if (i < points.length - 1) {
-				let partLength = eHelper.getFlatternDistance(item._latlng.lat, item._latlng.lng, points[i + 1]._latlng.lat, points[i + 1]._latlng.lng);
+				let partLength = eHelper.getFlatternDistance(item['_latlng'].lat, item['_latlng'].lng, points[i + 1]['_latlng'].lat, points[i + 1]['_latlng'].lng);
 
 				length += partLength;
 			}
@@ -347,10 +347,10 @@ export const eHelper = {
 
 		for (let i = 0; i < points.length; ++i) {
 			let j = (i + 1) % points.length,
-				xi = points[i]._latlng.lng * metersPerDegree * Math.cos(points[i]._latlng.lat * radiansPerDegree),
-				yi = points[i]._latlng.lat * metersPerDegree,
-				xj = points[j]._latlng.lng * metersPerDegree * Math.cos(points[j]._latlng.lat * radiansPerDegree),
-				yj = points[j]._latlng.lat * metersPerDegree;
+				xi = points[i]['_latlng'].lng * metersPerDegree * Math.cos(points[i]['_latlng'].lat * radiansPerDegree),
+				yi = points[i]['_latlng'].lat * metersPerDegree,
+				xj = points[j]['_latlng'].lng * metersPerDegree * Math.cos(points[j]['_latlng'].lat * radiansPerDegree),
+				yj = points[j]['_latlng'].lat * metersPerDegree;
 
 			a += xi * yj - xj * yi;
 		}
@@ -390,10 +390,10 @@ export const eHelper = {
 		return angle;
 	},
 	Bearing: (from, to) => {
-		let lat1 = from._latlng.lat * radiansPerDegree,
-			lon1 = from._latlng.lng * radiansPerDegree,
-			lat2 = to._latlng.lat * radiansPerDegree,
-			lon2 = to._latlng.lng * radiansPerDegree,
+		let lat1 = from['_latlng'].lat * radiansPerDegree,
+			lon1 = from['_latlng'].lng * radiansPerDegree,
+			lat2 = to['_latlng'].lat * radiansPerDegree,
+			lon2 = to['_latlng'].lng * radiansPerDegree,
 			angle = -Math.atan2(Math.sin(lon1 - lon2) * Math.cos(lat2), Math.cos(lat1) * Math.sin(lat2) - Math.sin(lat1) * Math.cos(lat2) * Math.cos(lon1 - lon2));
 
 		if (angle < 0) {

@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243
  * @Date: 2018-07-27 20:30:28
  * @Last Modified by: zy9
- * @Last Modified time: 2018-07-27 20:34:43
+ * @Last Modified time: 2018-07-28 21:52:58
  * @Description: 线面绘制基类
  */
 export default class MultilateralDraw {
@@ -61,22 +61,22 @@ export default class MultilateralDraw {
     	return Math.pow(this.options.thisPoint.layerPoint.x - e.layerPoint.x, 2) + Math.pow(this.options.thisPoint.layerPoint.y - e.layerPoint.y, 2) > 16;
     }
     calcLineCenterPoint = (endPoint = false) => {
-    	let _points = [], p = this.options.points;
+    	let points = [], p = this.options.points;
 
     	p.map((item, i) => {
     		//latLngToLayerPoint
     		if (endPoint || !endPoint && i + 1 < p.length) {
     			let j = (i + 1 < p.length) ? i + 1 : 0,
-    				iP = map.latLngToLayerPoint(p[i]._latlng),
-    				jP = map.latLngToLayerPoint(p[j]._latlng),
+    				iP = map.latLngToLayerPoint(p[i]['_latlng']),
+    				jP = map.latLngToLayerPoint(p[j]['_latlng']),
     				point = {
-    					center: { lat: (p[i]._latlng.lat + p[j]._latlng.lat) / 2, lng: (p[i]._latlng.lng + p[j]._latlng.lng) / 2 },
+    					center: { lat: (p[i]['_latlng'].lat + p[j]['_latlng'].lat) / 2, lng: (p[i]['_latlng'].lng + p[j]['_latlng'].lng) / 2 },
     					length: Math.sqrt(Math.pow(iP.x - jP.x, 2) + Math.pow(iP.y - jP.y, 2))
     				};
 
-    			_points.push(point);
+    			points.push(point);
     		}
     	});
-    	return _points;
+    	return points;
     }
 }

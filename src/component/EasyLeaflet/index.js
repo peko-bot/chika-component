@@ -20,13 +20,13 @@ import ControlCircle from './Tool/ControlCircle';
 /**地图对象 */
 let map = null, layerObject = {}, event = {}, range = {}, area = {}, controlPoint = {}, controlCircle = {}, controlLine = {};
 /**全局参数 */
-const _MOVE = 'MAP_MOVE';
-const _MOUSEMOVE = 'MAP_MOUSEMOVE';
-const _CLICK = 'MAP_CLICK';
-const _MOUSEDOWN = 'MAP_MOUSEDOWN';
-const _MOUSEUP = 'MAP_MOUSEUP';
-const _ZOOMEND = 'MAP_ZOOMEND';
-const _HOVERPOPUPID = 'leaflet_popup_hover_wrap';
+const MOVE = 'MAP_MOVE';
+const MOUSEMOVE = 'MAP_MOUSEMOVE';
+const CLICK = 'MAP_CLICK';
+const MOUSEDOWN = 'MAP_MOUSEDOWN';
+const MOUSEUP = 'MAP_MOUSEUP';
+const ZOOMEND = 'MAP_ZOOMEND';
+const HOVERPOPUPID = 'leaflet_popup_hover_wrap';
 const earthRadiusMeters = 6371000.0;
 const metersPerDegree = 2.0 * Math.PI * earthRadiusMeters / 360.0;
 const radiansPerDegree = Math.PI / 180.0;
@@ -62,8 +62,8 @@ const tile = {
 	TygtName: L.tileLayer('http://t{s}.tianditu.cn/DataServer?T=cia_w&X={x}&Y={y}&L={z}', { subdomains: ['0', '1', '2', '3', '4', '5', '6', '7'] }),
 	Tjtt: L.tileLayer('http://t{s}.tianditu.cn/DataServer?T=vec_w&X={x}&Y={y}&L={z}', { subdomains: ['0', '1', '2', '3', '4', '5', '6', '7'] }),
 	TjttName: L.tileLayer('http://t{s}.tianditu.cn/DataServer?T=cva_w&X={x}&Y={y}&L={z}', { subdomains: ['0', '1', '2', '3', '4', '5', '6', '7'] }),
-	map_4490: L.tileLayer('http://218.94.6.92:6080/arcgis/rest/services/jspub_raster_L4_L20/MapServer'),
-	map_4490_name: L.tileLayer('http://218.94.6.92:6080/arcgis/rest/services/jspub_raster_anno_L3_L20/MapServer')
+	'map_4490': L.tileLayer('http://218.94.6.92:6080/arcgis/rest/services/jspub_raster_L4_L20/MapServer'),
+	'map_4490_name': L.tileLayer('http://218.94.6.92:6080/arcgis/rest/services/jspub_raster_anno_L3_L20/MapServer')
 };
 /**地图初始化
  * dxt   : 谷歌地形图
@@ -94,6 +94,7 @@ const init = (dom, type, params) => {
 		case 'Tygt': tile.Tygt.addTo(map); tile.TygtName.addTo(map); break;
 		case 'Tjtt': tile.Tjtt.addTo(map); tile.TjttName.addTo(map); break;
 		case 'map_4490': eHelper.init_4490(); eHelper.addSpecialLayer(tile.map_4490, 3); eHelper.addSpecialLayer(tile.map_4490_name, 2); eHelper.init_4326(); break;
+		default: break;
 	}
 	if (mapArgument.latlngControl) {
 		L.Control.LatLng = L.Control.extend({
@@ -102,12 +103,12 @@ const init = (dom, type, params) => {
 			},
 			initialize: function (options) {
 				L.Util.extend(this.options, options);
-				eHelper.on(event, _MOUSEMOVE, this.moveFun);
-				eHelper.on(event, _CLICK, this.moveFun);
+				eHelper.on(event, MOUSEMOVE, this.moveFun);
+				eHelper.on(event, CLICK, this.moveFun);
 			},
 			onAdd: function (map) {
-				this._container = L.DomUtil.create('div', 'leaflet-control-latlng');
-				return this._container;
+				this.container = L.DomUtil.create('div', 'leaflet-control-latlng');
+				return this.container;
 			},
 			moveFun: function (e) {
 				let lat = eHelper.latlngFormat(e.latlng.lat),
@@ -122,7 +123,7 @@ const init = (dom, type, params) => {
 	}
 	let popupDom = document.createElement('div');
 
-	popupDom.id = _HOVERPOPUPID;
+	popupDom.id = HOVERPOPUPID;
 	document.getElementById(dom).appendChild(popupDom);
 	return map;
 };
@@ -178,12 +179,12 @@ const addPoints = (points, event, { iconSetting = defaultIconStyle, tooltipSetti
 			x: [0, 0, -15, 15][['top', 'bottom', 'left', 'right'].indexOf(hoverBoxSetting.direction || 'top')],
 			y: [-15, 15, 0, 0][['top', 'bottom', 'left', 'right'].indexOf(hoverBoxSetting.direction || 'top')]
 		};
-		let Dom = document.getElementById(_HOVERPOPUPID);
+		let Dom = document.getElementById(HOVERPOPUPID);
 
 		!!Dom && ReactDOM.render(<Popup config={PopupConfig}><ValueKey config={hoverBoxSetting} dataSource={data} /></Popup>, Dom);
 	};
 	let mouseoutEvent = (e) => {
-		let Dom = document.getElementById(_HOVERPOPUPID);
+		let Dom = document.getElementById(HOVERPOPUPID);
 
 		!!Dom && ReactDOM.render(<div></div>, Dom);
 	};

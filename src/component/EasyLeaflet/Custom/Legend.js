@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243
  * @Date: 2018-07-28 08:08:07
  * @Last Modified by: zy9
- * @Last Modified time: 2018-07-28 08:10:04
+ * @Last Modified time: 2018-07-28 21:54:25
  */
 
 /**图例构建
@@ -17,20 +17,20 @@ import React from 'react';
 export class Legend extends React.Component {
 	constructor (props) {
 		super(props);
+
 		this.state = {
 			atk: true
 		};
 	}
-    toggleLegend = () => {
-    	this.setState({ atk: !this.state.atk });
-    }
-    render () {
+	toggleLegend = () => this.setState({ atk: !this.state.atk });
+
+    render = () => {
     	const { config } = this.props;
     	let width = (config.width) ? { width: config.width } : {};
 
     	return (
-    		<div className={'leaflet_legend ' + (config.theme || 'dark')} style={width}>
-    			<div className='legend_title' onClick={() => this.toggleLegend()}>{config.title}</div>
+    		<div className={'leaflet_legend ' + (config.theme || 'dark')} style={ width }>
+    			<div className='legend_title' onClick={ () => this.toggleLegend() }>{ config.title }</div>
     			<div className='legend_body' style={{ display: (this.state.atk) ? 'block' : 'none' }}>
     				{
     					config.row.map((item, i) => {
@@ -42,7 +42,7 @@ export class Legend extends React.Component {
     							case 'img': icon = <i className='legend_icon' style={{ background: 'url(' + item.src + ') no-repeat', backgroundSize: '100% 100%' }}></i>; break;
     							default: icon = <i className='legend_icon'></i>; break;
     						}
-    						return <div className='legendItem' key={`legend${i}`}>{icon}<span>{item.name}</span></div>;
+    						return <div className='legendItem' key={`legend${ i }`}>{icon}<span>{ item.name }</span></div>;
     					})
     				}
     			</div>

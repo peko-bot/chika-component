@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243
  * @Date: 2018-07-28 08:47:36
  * @Last Modified by: zy9
- * @Last Modified time: 2018-07-28 09:15:59
+ * @Last Modified time: 2018-07-28 21:52:34
  */
 
 /**可控要素通用 */
@@ -37,8 +37,8 @@ export default class Control {
     		});
 
     		this.options.menu = L.marker(this.options.mLatLng, { icon: rightClickIcon }).addTo(map);
-    		this.options.menu._icon.style.zIndex = 9999;
-    		obj.map((item, i) => this.options.menu._icon.childNodes[i].addEventListener('click', e => eHelper.isFunction(item.func) && item.func()));
+    		this.options.menu['_icon'].style.zIndex = 9999;
+    		obj.map((item, i) => this.options.menu['_icon'].childNodes[i].addEventListener('click', e => eHelper.isFunction(item.func) && item.func()));
     	}
     }
 }

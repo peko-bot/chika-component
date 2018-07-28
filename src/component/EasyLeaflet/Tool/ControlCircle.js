@@ -1,8 +1,8 @@
 /*
  * @Author: zy9@github.com/zy410419243
  * @Date: 2018-07-28 09:14:42
- * @Last Modified by:   zy9
- * @Last Modified time: 2018-07-28 09:14:42
+ * @Last Modified by: zy9
+ * @Last Modified time: 2018-07-28 21:50:17
  */
 import Control from '../Parent/Control';
 
@@ -22,7 +22,7 @@ export class ControlCircle extends Control {
     	if (!this.options.circle) {
     		this.options.circle = L.circle(e.latlng, { radius: this.options.r }).addTo(map);
     		this.options.center = L.circleMarker(e.latlng, markerControlPoint).addTo(map);
-    		this.options.cLatLng = map.layerPointToLatLng([this.options.circle._point.x + this.options.circle._radius, this.options.circle._point.y]);
+    		this.options.cLatLng = map.layerPointToLatLng([this.options.circle['_point'].x + this.options.circle['_radius'], this.options.circle['_point'].y]);
     		this.options.point = L.circleMarker(this.options.cLatLng, markerControlPoint).addTo(map);
     		eHelper.setCursor(null);
     		this.options.state = 1;
@@ -49,15 +49,15 @@ export class ControlCircle extends Control {
     	this.options.mLatLng = e.latlng;
     	if (this.options.state === 1) {
     		this.options.point.setLatLng([e.latlng.lat - this.options.Dlat, e.latlng.lng - this.options.Dlng]);
-    		this.options.r = eHelper.getFlatternDistance(this.options.circle._latlng.lat, this.options.circle._latlng.lng, e.latlng.lat - this.options.Dlat, e.latlng.lng - this.options.Dlng);
+    		this.options.r = eHelper.getFlatternDistance(this.options.circle['_latlng'].lat, this.options.circle['_latlng'].lng, e.latlng.lat - this.options.Dlat, e.latlng.lng - this.options.Dlng);
     		this.options.circle.setRadius(this.options.r);
     	} else if (this.options.state === 2) {
-    		let plat = e.latlng.lat - this.options.Dlat - this.options.circle._latlng.lat,
-    			plng = e.latlng.lng - this.options.Dlng - this.options.circle._latlng.lng;
+    		let plat = e.latlng.lat - this.options.Dlat - this.options.circle['_latlng'].lat,
+    			plng = e.latlng.lng - this.options.Dlng - this.options.circle['_latlng'].lng;
 
     		this.options.circle.setLatLng([e.latlng.lat - this.options.Dlat, e.latlng.lng - this.options.Dlng]);
     		this.options.center.setLatLng([e.latlng.lat - this.options.Dlat, e.latlng.lng - this.options.Dlng]);
-    		this.options.point.setLatLng([this.options.point._latlng.lat + plat, this.options.point._latlng.lng + plng]);
+    		this.options.point.setLatLng([this.options.point['_latlng'].lat + plat, this.options.point['_latlng'].lng + plng]);
     	}
     }
     rightMenu = (e) => {

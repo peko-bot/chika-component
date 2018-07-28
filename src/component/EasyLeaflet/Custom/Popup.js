@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243
  * @Date: 2018-07-28 08:08:59
  * @Last Modified by: zy9
- * @Last Modified time: 2018-07-28 08:24:18
+ * @Last Modified time: 2018-07-28 21:54:38
  */
 
 /**自定义内容弹框
@@ -55,10 +55,10 @@ export default class Popup extends React.Component {
     		//     boxStyle.top = size.y / (bounds._southWest.lat - bounds._northEast.lat) * (config.lat - bounds._northEast.lat) + dy;
     	}
     	return (
-    		<div style={boxStyle}>
+    		<div style={ boxStyle }>
     			{
     				React.Children.map(this.props.children, (child, i) => {
-    					return <div>{child}</div>;
+    					return <div>{ child }</div>;
     				})
     			}
     		</div>
