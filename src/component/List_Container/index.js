@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243
  * @Date: 2017-09-29 15:00:45
  * @Last Modified by: zy9
- * @Last Modified time: 2018-07-28 10:48:05
+ * @Last Modified time: 2018-07-30 09:24:55
  */
 import React from 'react';
 
@@ -16,6 +16,7 @@ import { createForm } from 'rc-form';
 import Templet from './Templet';
 import DetailArrow from './DetailArrow';
 import FunctionalButton from './FunctionalButton';
+import MapBox from './MaxBox';
 
 import { bindTouchDirection } from '../../util/Touch';
 import { handleDetailDatas } from './DataHandler';
@@ -49,6 +50,7 @@ class ListContainer extends React.Component {
 			containerHeight: ClientHeight, // 容器高度，用于滑动加载
 			pullLoad: false, // 滑动分页是否加载中
 			pageType: 'list', // 当前页面状态，列表页为list，编辑页为edit,详情页为detail,新增页为add
+			mapBoxUrl: '', // 地图url，同时控制iframe显隐
 		};
 
 		// 用作debug
@@ -521,6 +523,11 @@ class ListContainer extends React.Component {
     	let initDate = editParam[fname] ? new Date(editParam[fname]) : new Date();
     	let flag = !!searchParam[fname + '_Begin'] && !!searchParam[fname + '_End'];
 
+    	const getLatng = () => {
+    		// location.hash = '#/easyLeaflet';
+    		this.setState({ mapBoxUrl: '#/easyLeaflet' });
+    	};
+
     	switch (item.controltype) {
     		case 1: // 文本框
     			option = {
@@ -621,6 +628,33 @@ class ListContainer extends React.Component {
     					<List.Item key={ `case_9_list_2_${index}` } extra={ flag ? moment(searchParam[fname + '_End']).format('YY-MM-DD HH:mm').toLocaleString() : null } style={{ display: flag ? '' : 'none' }}>{ fvalue }结束时间</List.Item>
     				</div>
     			) : null;
+    			break;
+
+    		case 14: // 地图选点
+    			option = {
+    				onChange: e => this.handleInput(e, 'editParam', fname),
+    				/* 设置默认值 */
+    				initialValue: this.handleInputValue(editParam[fname], item) || this.handleInputValue(defaultvalue, item),
+    				rules: [
+    					{ required: !!isnull, message: '该值不能为空' },
+    					{ pattern: regular, message: '该值不符合规则' },
+    					{ max: maxlen, message: `长度太长，最多为${ maxlen }个字符` },
+    					{ min: minlen, message: `长度太短，最少为${ minlen }个字符` },
+    					// {validator: (rule, value, callback) => this.validate_value(rule, value, callback, item)},
+    				],
+    			};
+
+    			params = {
+    				key: `case_1_inputItem_${ index }`,
+    				clear: true,
+    				placeholder: '请输入'
+    			};
+
+    			element = type == 'search' ? (
+    				<InputItem { ...params } onChange={ e => this.handleInput(e, 'searchParam', fname) } value={ searchParam[fname] }>{ fvalue }</InputItem>
+    			) : (
+    				<List.Item key={`case_14_listItem_${ index }`} arrow='horizontal' onClick={ getLatng } extra={ this.handleInputValue(editParam[fname], item) || '请选择' }>{ fvalue }</List.Item>
+    			);
     			break;
 
     		case 99: // label，基本就是给详情页用的
@@ -730,7 +764,7 @@ class ListContainer extends React.Component {
 
     render = () => {
     	let { children, config, props } = this;
-    	const { currentState, editConfig, searchFieldOpen, detailConfig, calendarVisible, loading, searchLoading, containerHeight, pullLoad, pageType } = this.state;
+    	const { currentState, editConfig, searchFieldOpen, detailConfig, calendarVisible, loading, searchLoading, containerHeight, pullLoad, pageType, mapBoxUrl } = this.state;
     	let { style, bindKey, detailArrow, sortBy = [] } = props;
     	const { showSearch = true, showButton = true } = props.config;
 
@@ -864,6 +898,8 @@ class ListContainer extends React.Component {
     			</div>
 
     			<Calendar visible={ calendarVisible } onCancel={ () => { this.setState({ calendarVisible: false }); } } pickTime onConfirm={ this.handleCalendarSubmit } />
+
+    			<MapBox url={ mapBoxUrl } onClose={ () => this.setState({ mapBoxUrl: '' }) } />
 
     			<ActivityIndicator animating={ loading } text='正在加载...' toast size='large' />
     		</div>

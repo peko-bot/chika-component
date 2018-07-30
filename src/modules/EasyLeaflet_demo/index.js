@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243
  * @Date: 2018-07-28 08:09:28
  * @Last Modified by: zy9
- * @Last Modified time: 2018-07-28 23:06:11
+ * @Last Modified time: 2018-07-30 10:48:09
  */
 import React from 'react';
 
@@ -18,8 +18,7 @@ export default class maptest extends React.Component {
 		this.state = {
 			layoutState: false,
 			layoutIndex: 1,
-			visible: false,
-			info: { lat: -1, lng: -1 },
+			info: { lat: '', lng: '', address: '' },
 		};
 	}
 
@@ -27,38 +26,50 @@ export default class maptest extends React.Component {
     pageH = document.documentElement.clientHeight || document.body.clientHeight;
     pageW = document.documentElement.clientWidth || document.body.clientWidth;;
 
-    componentDidMount () {
-    	this.map = k.init('mapBox', 'dxt', {
-    		center: [39.90123456789, 116.2987654321],
-    		crs: L.CRS.EPSG3857,
-    		zoom: 15,
-    		dragging: true,
-    		zoomControl: false,
-    		attributionControl: false,
-    		latlngControl: false,
-    		zoomSnap: 0
-    	});
+    componentDidMount = () => {
+    	// 重画
+    	const mapInit = () => {
+    		this.map = k.init('mapBox', 'dxt', {
+    			center: [29.9502, 121.4839],
+    			crs: L.CRS.EPSG3857,
+    			zoom: 15,
+    			dragging: true,
+    			zoomControl: false,
+    			attributionControl: false,
+    			latlngControl: false,
+    			zoomSnap: 0
+    		});
+    	};
 
-    	this.map.on('moveend', e => {
-    		const { lat, lng } = this.map.getCenter();
+    	mapInit();
 
-    		this.setState({ visible: true, info: { lat, lng } });
-    	});
+    	// 避免第二次跳转到地图时，地图会变灰
+    	setTimeout(() => {
+    		this.map.remove();
 
-    	// k.e.zoomIn();
+    		mapInit();
+
+    		// 获得默认坐标
+    		k.e.zoomIn();
+
+    		this.map.on('moveend', e => {
+    			const { lat, lng, address = 'test' } = this.map.getCenter();
+
+    			// location.hash = `${ location.hash }?lat=${ lat }&lng=${ lng }&address=${ address }`;
+    			this.setState({ info: { lat, lng, address } });
+    		});
+    	}, 0);
     }
 
-    handleBack = () => this.setState({ visible: false });
-
-    render () {
-    	const { info, visible } = this.state;
+    render = () => {
+    	const { info } = this.state;
 
     	return (
     		<div id='mapBox' style={{ height: this.pageH }}>
     			<Popup>
     				<img src='../../assets/easyLeaflet/defaultIcon.png' style={{ position: 'absolute', top: this.pageH / 2 - 48, left: this.pageW / 2 - 24 }} />
 
-    				<Detail visible={ visible } info={ info } onBack={ this.handleBack } />
+    				<Detail info={ info } />
     			</Popup>
     		</div>
     	);

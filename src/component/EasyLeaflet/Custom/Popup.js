@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243
  * @Date: 2018-07-28 08:08:59
  * @Last Modified by: zy9
- * @Last Modified time: 2018-07-28 21:54:38
+ * @Last Modified time: 2018-07-30 09:54:13
  */
 
 /**自定义内容弹框
@@ -37,7 +37,7 @@ export default class Popup extends React.Component {
     	this.setState();
     }
     render () {
-    	let boxStyle = { position: 'absolute', zIndex: 9997 },
+    	let boxStyle = { position: 'absolute', zIndex: 9997, width: '100%', height: '80%' },
     		dx, dy,
     		{ config } = this.props;
 
