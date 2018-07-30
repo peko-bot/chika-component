@@ -2,11 +2,11 @@
  * @Author: zy9@github.com/zy410419243
  * @Date: 2018-07-27 16:25:44
  * @Last Modified by: zy9
- * @Last Modified time: 2018-07-30 10:50:41
+ * @Last Modified time: 2018-07-30 11:11:48
  */
 import React, { Component } from 'react';
 
-import { Modal, List, Button } from 'antd-mobile';
+import { Modal, List } from 'antd-mobile';
 
 import './css/popup.css';
 

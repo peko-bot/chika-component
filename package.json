@@ -10,11 +10,11 @@
     "push": "git add .&& git commit -m \"update\" && git push"
   },
   "dependencies": {
-    "antd-mobile": "latest",
+    "antd-mobile": "^2.2.2",
     "leaflet": "^1.3.3",
     "leaflet.markercluster": "^1.3.0",
-    "moment": "latest",
-    "rc-form": "latest"
+    "moment": "^2.22.2",
+    "rc-form": "^2.2.1"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",

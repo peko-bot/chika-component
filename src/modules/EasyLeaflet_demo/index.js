@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243
  * @Date: 2018-07-28 08:09:28
  * @Last Modified by: zy9
- * @Last Modified time: 2018-07-30 10:48:09
+ * @Last Modified time: 2018-07-30 13:34:43
  */
 import React from 'react';
 
@@ -56,6 +56,8 @@ export default class maptest extends React.Component {
     			const { lat, lng, address = 'test' } = this.map.getCenter();
 
     			// location.hash = `${ location.hash }?lat=${ lat }&lng=${ lng }&address=${ address }`;
+    			window.parent.leafletLatng = { lat, lng, address };
+
     			this.setState({ info: { lat, lng, address } });
     		});
     	}, 0);

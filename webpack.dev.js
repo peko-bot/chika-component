@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243
  * @Date: 2018-05-20 13:48:08
  * @Last Modified by: zy9
- * @Last Modified time: 2018-07-06 17:35:59
+ * @Last Modified time: 2018-07-30 14:52:30
  */
 const webpack = require('webpack');
 const webpackDevServer = require('webpack-dev-server');
@@ -15,7 +15,7 @@ let plugins = commonPlugin;
 
 plugins.push(new webpack.HotModuleReplacementPlugin());
 plugins.push(new webpack.NamedModulesPlugin());
-plugins.push(new TohoLogPlugin({ dev: false }));
+plugins.push(new TohoLogPlugin({ dev: true }));
 
 const devServerOptions = {
 	port: 9099,

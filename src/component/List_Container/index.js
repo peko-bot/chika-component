@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243
  * @Date: 2017-09-29 15:00:45
  * @Last Modified by: zy9
- * @Last Modified time: 2018-07-30 09:24:55
+ * @Last Modified time: 2018-07-30 15:29:26
  */
 import React from 'react';
 
@@ -447,7 +447,7 @@ class ListContainer extends React.Component {
 
     // 详情页数据预处理
     handleInputValue = (value, item) => {
-    	if(value === '') return value;
+    	if(!value) return value;
 
     	if(value && typeof value == 'string') value = value.trim();
 
@@ -493,8 +493,11 @@ class ListContainer extends React.Component {
     			value = moment(new Date(value)).format(dateformat);
     			break;
 
-    		default:
+    		case 14: // 地图坐标选取
 
+    			break;
+
+    		default:
     			break;
     	}
 
@@ -524,7 +527,8 @@ class ListContainer extends React.Component {
     	let flag = !!searchParam[fname + '_Begin'] && !!searchParam[fname + '_End'];
 
     	const getLatng = () => {
-    		// location.hash = '#/easyLeaflet';
+    		this.mapFname = fname;
+
     		this.setState({ mapBoxUrl: '#/easyLeaflet' });
     	};
 
@@ -650,11 +654,40 @@ class ListContainer extends React.Component {
     				placeholder: '请输入'
     			};
 
-    			element = type == 'search' ? (
-    				<InputItem { ...params } onChange={ e => this.handleInput(e, 'searchParam', fname) } value={ searchParam[fname] }>{ fvalue }</InputItem>
-    			) : (
-    				<List.Item key={`case_14_listItem_${ index }`} arrow='horizontal' onClick={ getLatng } extra={ this.handleInputValue(editParam[fname], item) || '请选择' }>{ fvalue }</List.Item>
-    			);
+    			if(!editParam[fname] || Object.keys(editParam[fname]) == 0) {
+    				element = (
+    					<List.Item key={`case_14_listItem_${ index }`} arrow='horizontal' onClick={ getLatng } extra={ '请选择' }>{ fvalue }</List.Item>
+    				);
+    			} else {
+    				element = [];
+
+    				for(let key in editParam[fname]) {
+    					switch(key) {
+    						case 'address':
+    							element.push(
+    								<List.Item key={`case_14_listItem_address_${ index }`} arrow='horizontal' onClick={ getLatng } extra={ editParam[fname]['address'] }>地址</List.Item>
+    							);
+    							break;
+
+    						case 'lat':
+    							element.push(
+    								<List.Item key={`case_14_listItem_lat_${ index }`} extra={ editParam[fname]['lat'] }>纬度</List.Item>
+    							);
+    							break;
+
+    						case 'lng':
+    							element.push(
+    								<List.Item key={`case_14_listItem_lng_${ index }`} extra={ editParam[fname]['lng'] }>经度</List.Item>
+    							);
+    							break;
+
+    						default:
+
+    							break;
+    					}
+    				}
+    			}
+
     			break;
 
     		case 99: // label，基本就是给详情页用的
@@ -759,6 +792,14 @@ class ListContainer extends React.Component {
     	}
     }
 
+	handleOnMapClose = latng => {
+		let { editParam } = this.state;
+
+		editParam = Object.assign({}, editParam, { [this.mapFname]: latng });
+
+		this.setState({ mapBoxUrl: '', editParam });
+	}
+
     // 获得主键值，用作新增/修改
     getMainValue = value => this.mainValue = value;
 
@@ -782,13 +823,6 @@ class ListContainer extends React.Component {
     	let param = this.handleDetailNext();
     	let [detailLast, detailNext] = [param.detailLast, param.detailNext];
 
-    	// const title = (
-    	//     <div style={{ padding: 10 }}>
-    	//         <div className='title-border'></div>
-    	//         <div className='title'>姚江二通道（慈江）工程（慈城段）</div>
-    	//     </div>
-    	// );
-
     	/* 新增/修改都是这个 */
     	let editContent = (
     		<List>
@@ -804,7 +838,6 @@ class ListContainer extends React.Component {
     	/* 详情页 */
     	let detailContent = (
     		<div style={{ overflowX: 'hidden', position: 'relative' }}>
-    			{/* { title } */}
     			{
     				this.listDatas.map((jtem, j) => (
     					<List key={`listDatas_${ j }`} className='sc-detail-content' style={{ transform: `translate3d(${ jtem.detailOrder * 100 }%, ${ j * -100 }%, 0)` }}>
@@ -899,7 +932,7 @@ class ListContainer extends React.Component {
 
     			<Calendar visible={ calendarVisible } onCancel={ () => { this.setState({ calendarVisible: false }); } } pickTime onConfirm={ this.handleCalendarSubmit } />
 
-    			<MapBox url={ mapBoxUrl } onClose={ () => this.setState({ mapBoxUrl: '' }) } />
+    			<MapBox url={ mapBoxUrl } onClose={ this.handleOnMapClose } />
 
     			<ActivityIndicator animating={ loading } text='正在加载...' toast size='large' />
     		</div>
