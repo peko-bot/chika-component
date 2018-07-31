@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243
  * @Date: 2017-09-29 15:00:45
  * @Last Modified by: zy9
- * @Last Modified time: 2018-07-31 09:46:04
+ * @Last Modified time: 2018-07-31 10:40:43
  */
 import React from 'react';
 
@@ -279,7 +279,8 @@ class ListContainer extends React.Component {
      * TODO: 需要在form里直接格式化数据
      */
     handleFormdata = () => {
-    	let formData = this.props.form.getFieldsValue();
+    	const { editParam } = this.state;
+    	let formData = Object.assign({}, this.props.form.getFieldsValue(), editParam);
 
     	for(let key in formData) {
     		for(let item of this.config) {
@@ -638,6 +639,7 @@ class ListContainer extends React.Component {
 
     		case 14: // 地图选点
     			option = {
+    				onChange: value => { console.log(value); },
     				rules: [ { required: !!isnull, message: '该值不能为空' }, ],
     			};
 
@@ -651,9 +653,9 @@ class ListContainer extends React.Component {
 
     				let [lng, lat, address] = latng;
 
-    				element.push(<List.Item { ...getFieldProps(fname + '_lng', option) } error={ !!getFieldError(fname + '_lng') } onErrorClick={ () => this.handleFormError(fname) } key={`case_14_listItem_lng_${ index }`} extra={ lng }>经度</List.Item>);
-    				element.push(<List.Item { ...getFieldProps(fname + '_lat', option) } error={ !!getFieldError(fname + '_lat') } onErrorClick={ () => this.handleFormError(fname) } key={`case_14_listItem_lat_${ index }`} extra={ lat }>纬度</List.Item>);
-    				element.push(<List.Item { ...getFieldProps(fname + '_address', option) } error={ !!getFieldError(fname + '_address') } onErrorClick={ () => this.handleFormError(fname) } key={`case_14_listItem_address_${ index }`} arrow='horizontal' onClick={ () => getLatng({ lat, lng }) } extra={ address }>地址</List.Item>);
+    				element.push(<List.Item key={`case_14_listItem_lng_${ index }`} extra={ lng }>经度</List.Item>);
+    				element.push(<List.Item key={`case_14_listItem_lat_${ index }`} extra={ lat }>纬度</List.Item>);
+    				element.push(<List.Item key={`case_14_listItem_address_${ index }`} arrow='horizontal' onClick={ () => getLatng({ lat, lng }) } extra={ address }>地址</List.Item>);
     			}
     			break;
 
