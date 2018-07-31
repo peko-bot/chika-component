@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243
  * @Date: 2018-06-02 21:02:58
  * @Last Modified by: zy9
- * @Last Modified time: 2018-07-31 13:49:11
+ * @Last Modified time: 2018-07-31 13:52:50
  */
 import React from 'react';
 
@@ -62,7 +62,7 @@ export default class ListContainerDemo extends React.Component {
     	},
     ]
 
-    //  domain='http://61.175.121.68:9001/webapi/'
+    //  domain='http://61.175.121.68:9001/webapi/api/v2/generalbackstage/'
     render () {
     	return (
     		<div className='List_Container_demo'>
