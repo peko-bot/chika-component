@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243
  * @Date: 2018-05-20 13:48:08
  * @Last Modified by: zy9
- * @Last Modified time: 2018-07-28 09:31:39
+ * @Last Modified time: 2018-07-31 10:48:01
  */
 const webpack = require('webpack');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
@@ -56,7 +56,8 @@ const options = {
 		'List_Container': basePath + 'List_Container',
 		Tabs: basePath + 'Tabs',
 		Progress: basePath + 'Progress',
-		Calendar: basePath + 'Calendar/Calendar'
+		Calendar: basePath + 'Calendar/Calendar',
+		EasyLeaflet: basePath + 'EasyLeaflet',
 	},
 	output: {
 		path: __dirname + '/dist',
