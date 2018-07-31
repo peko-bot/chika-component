@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243
  * @Date: 2017-09-29 15:00:45
  * @Last Modified by: zy9
- * @Last Modified time: 2018-07-31 10:40:43
+ * @Last Modified time: 2018-07-31 13:49:17
  */
 import React from 'react';
 
@@ -54,10 +54,10 @@ class ListContainer extends React.Component {
 		};
 
 		// 用作debug
-		this.getConfigUrl = domain ? domain + '/webapi/api/v2/generalbackstage/getconfig' : '../../data/getConfig.json';
-		this.tableConfigUrl = domain ? domain + '/webapi/api/v2/generalbackstage/getinterfacedata' : '../../data/tableconfig.json';
-		this.searchUrl = domain ? domain + '/webapi/api/v2/generalbackstage/getdata' : '../../data/search.json';
-		this.generalbackstageUrl = domain ? domain + '/webapi/api/v2/generalbackstage/operatedata' : '../../data/tableconfig.json';
+		this.getConfigUrl = domain ? domain + 'api/v2/generalbackstage/getconfig' : '../../data/getConfig.json';
+		this.tableConfigUrl = domain ? domain + 'api/v2/generalbackstage/getinterfacedata' : '../../data/tableconfig.json';
+		this.searchUrl = domain ? domain + 'api/v2/generalbackstage/getdata' : '../../data/search.json';
+		this.generalbackstageUrl = domain ? domain + 'api/v2/generalbackstage/operatedata' : '../../data/tableconfig.json';
 
 		this.children = []; // 遍历模板根据数据渲染 reactNode
 		this.listDatas = []; // 列表数据 object
