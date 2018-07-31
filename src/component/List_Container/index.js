@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243
  * @Date: 2017-09-29 15:00:45
  * @Last Modified by: zy9
- * @Last Modified time: 2018-07-31 13:52:45
+ * @Last Modified time: 2018-07-31 15:14:35
  */
 import React from 'react';
 
@@ -532,7 +532,6 @@ class ListContainer extends React.Component {
     		this.mapFname = fname;
 
     		this.setState({ mapBoxUrl: `#/easyLeaflet?lat=${ lat }&lng=${ lng }` });
-
     	};
 
     	switch (item.controltype) {

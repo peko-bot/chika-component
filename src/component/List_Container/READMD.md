@@ -72,10 +72,28 @@
             // RequestMethod: 'POST',
         }
 
+        sortBy = [
+            {
+                key: 'dam_width',
+                text: '坝高',
+            },
+            {
+                key: 'crest_length',
+                text: '坝长',
+            },
+        ]
+
         render() {
+            const params = {
+                config: this.config,
+                sortBy: this.sortBy,
+                wrappedComponentRef: ref => this.container = ref,
+                style: { height: (document.documentElement.clientHeight || document.body.clientHeight) - 10 }
+            };
+
             return (
                 <div className='List_Container_demo'>
-                    <Container config={ this.config } style={{ height: document.documentElement.clientHeight - 10 }}>
+                    <Container { ...params }>
                         <div className='container' bind='true'>
                             <ul>
                                 <li>
@@ -85,14 +103,14 @@
                                     </div>
                                     <div className='right'>
                                         <label>坝高：</label>
-                                        <label data-key='dam_width' data-sort='坝高' unit='m' decimalcount={ 2 }></label>
+                                        <label data-key='dam_width' unit='m' decimalcount={ 2 }></label>
                                     </div>
                                 </li>
 
                                 <li>
                                     <div className='left'>
                                         <label>坝长：</label>
-                                        <label data-key='crest_length' data-sort='坝长' unit='m'></label>
+                                        <label data-key='crest_length' unit='m'></label>
                                     </div>
                                     <div className='right'>
                                         <label>主坝类型：</label>
@@ -122,7 +140,7 @@
 | bindKey | 如果data-key被占用了，可以把这个属性放到Container上，``` <Container bindKey='data-test' />``` ,于是现在绑定物理字段名的key变成data-test了 | String | 'data-key' |
 | height | 容器高度 | String 或 Number | document.body.clientHeight |
 | domain | 服务地址domain，如果不传则会请求本地json，目录在/src/data中 | String | 无 |
-| wrappedComponentRef | 替代原先的ref获得组件对象以调用其中方法，详情参考[这里](https://github.com/react-component/form#note-use-wrappedcomponentref-instead-of-withref-after-rc-form140) | {} | 无 |
+| wrappedComponentRef | 替代原先的ref获得组件对象以调用其中方法，详情参考[这里](https://github.com/react-component/form#note-use-wrappedcomponentref-instead-of-withref-after-rc-form140) | {}，用作外部搜索 | 无 |
 | detailArrow | 详情页翻页箭头是否显示 | Boolean | false |
 | sortBy | 排序字段 | [{ key: '', text: '' }] | false |
 | config | 配置，详见下方说明 | {} | 无 |
@@ -168,4 +186,5 @@
 | 3 | 下拉框 |
 | 5 | 复选框 |
 | 9 | 时段 |
+| 14 | 地图选址 |
 | 99 | label，基本就用在详情页 |
