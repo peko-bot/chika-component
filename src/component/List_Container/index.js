@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243
  * @Date: 2017-09-29 15:00:45
  * @Last Modified by: zy9
- * @Last Modified time: 2018-07-30 15:29:26
+ * @Last Modified time: 2018-07-31 09:46:04
  */
 import React from 'react';
 
@@ -239,7 +239,8 @@ class ListContainer extends React.Component {
     			for(let jtem of this.listDatas) {
     				if(jtem[this.mainKey] == mainValue) {
     					for(let key in jtem) {
-    						if(key == fname && isadd) { // isvisiable是在列表中的显隐，现在由模板绑定字段控制。这里的是编辑页面
+    						if(isadd && key == fname) {
+    							// if(isadd && (key == fname || (fname + '_lat') == key || (fname + '_lng') == key || (fname + '_address') == key)) {
     							switch(type) {
     								case 'edit':
     									editParam[key] = jtem[key];
@@ -307,9 +308,9 @@ class ListContainer extends React.Component {
 
     // 新增/修改提交
     save = () => {
-    	const { domain } = this.props;
+    	const { domain, form } = this.props;
 
-    	this.props.form.validateFields({ force: true }, (error, value) => {
+    	form.validateFields({ force: true }, (error, value) => {
     		let { searchParam, pageType } = this.state;
     		let { UserId = null, CellPhone = null } = this.props.config;
 
@@ -526,10 +527,11 @@ class ListContainer extends React.Component {
     	let initDate = editParam[fname] ? new Date(editParam[fname]) : new Date();
     	let flag = !!searchParam[fname + '_Begin'] && !!searchParam[fname + '_End'];
 
-    	const getLatng = () => {
+    	const getLatng = ({ lat, lng }) => {
     		this.mapFname = fname;
 
-    		this.setState({ mapBoxUrl: '#/easyLeaflet' });
+    		this.setState({ mapBoxUrl: `#/easyLeaflet?lat=${ lat }&lng=${ lng }` });
+
     	};
 
     	switch (item.controltype) {
@@ -626,7 +628,7 @@ class ListContainer extends React.Component {
     			this.calendarKey = fname;
 
     			element = type == 'search' ? (
-    				<div key={`case_9_div_${ index }`}>
+    				<div key={ `case_9_div_${ index }` }>
     					<List.Item key={ `case_9_list_0_${index}` } extra={ flag ? null : '请选择'} arrow='horizontal' onClick={() => this.setState({ calendarVisible: true }) }>{ fvalue }</List.Item>
     					<List.Item key={ `case_9_list_1_${index}` } extra={ flag ? moment(searchParam[fname + '_Begin']).format('YY-MM-DD HH:mm').toLocaleString() : null } style={{ display: flag ? '' : 'none' }}>{ fvalue }开始时间</List.Item>
     					<List.Item key={ `case_9_list_2_${index}` } extra={ flag ? moment(searchParam[fname + '_End']).format('YY-MM-DD HH:mm').toLocaleString() : null } style={{ display: flag ? '' : 'none' }}>{ fvalue }结束时间</List.Item>
@@ -636,22 +638,7 @@ class ListContainer extends React.Component {
 
     		case 14: // 地图选点
     			option = {
-    				onChange: e => this.handleInput(e, 'editParam', fname),
-    				/* 设置默认值 */
-    				initialValue: this.handleInputValue(editParam[fname], item) || this.handleInputValue(defaultvalue, item),
-    				rules: [
-    					{ required: !!isnull, message: '该值不能为空' },
-    					{ pattern: regular, message: '该值不符合规则' },
-    					{ max: maxlen, message: `长度太长，最多为${ maxlen }个字符` },
-    					{ min: minlen, message: `长度太短，最少为${ minlen }个字符` },
-    					// {validator: (rule, value, callback) => this.validate_value(rule, value, callback, item)},
-    				],
-    			};
-
-    			params = {
-    				key: `case_1_inputItem_${ index }`,
-    				clear: true,
-    				placeholder: '请输入'
+    				rules: [ { required: !!isnull, message: '该值不能为空' }, ],
     			};
 
     			if(!editParam[fname] || Object.keys(editParam[fname]) == 0) {
@@ -660,34 +647,14 @@ class ListContainer extends React.Component {
     				);
     			} else {
     				element = [];
+    				let latng = editParam[fname].split('|');
 
-    				for(let key in editParam[fname]) {
-    					switch(key) {
-    						case 'address':
-    							element.push(
-    								<List.Item key={`case_14_listItem_address_${ index }`} arrow='horizontal' onClick={ getLatng } extra={ editParam[fname]['address'] }>地址</List.Item>
-    							);
-    							break;
+    				let [lng, lat, address] = latng;
 
-    						case 'lat':
-    							element.push(
-    								<List.Item key={`case_14_listItem_lat_${ index }`} extra={ editParam[fname]['lat'] }>纬度</List.Item>
-    							);
-    							break;
-
-    						case 'lng':
-    							element.push(
-    								<List.Item key={`case_14_listItem_lng_${ index }`} extra={ editParam[fname]['lng'] }>经度</List.Item>
-    							);
-    							break;
-
-    						default:
-
-    							break;
-    					}
-    				}
+    				element.push(<List.Item { ...getFieldProps(fname + '_lng', option) } error={ !!getFieldError(fname + '_lng') } onErrorClick={ () => this.handleFormError(fname) } key={`case_14_listItem_lng_${ index }`} extra={ lng }>经度</List.Item>);
+    				element.push(<List.Item { ...getFieldProps(fname + '_lat', option) } error={ !!getFieldError(fname + '_lat') } onErrorClick={ () => this.handleFormError(fname) } key={`case_14_listItem_lat_${ index }`} extra={ lat }>纬度</List.Item>);
+    				element.push(<List.Item { ...getFieldProps(fname + '_address', option) } error={ !!getFieldError(fname + '_address') } onErrorClick={ () => this.handleFormError(fname) } key={`case_14_listItem_address_${ index }`} arrow='horizontal' onClick={ () => getLatng({ lat, lng }) } extra={ address }>地址</List.Item>);
     			}
-
     			break;
 
     		case 99: // label，基本就是给详情页用的

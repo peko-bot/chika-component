@@ -2,15 +2,16 @@
  * @Author: zy9@github.com/zy410419243
  * @Date: 2018-07-28 08:09:28
  * @Last Modified by: zy9
- * @Last Modified time: 2018-07-30 13:34:43
+ * @Last Modified time: 2018-07-31 09:45:14
  */
 import React from 'react';
 
 import k from '../../component/EasyLeaflet';
 
 import Popup from '../../component/EasyLeaflet/Custom/Popup';
-
 import Detail from './popup';
+
+import { GetParams } from '../../util/GetParams';
 
 export default class maptest extends React.Component {
 	constructor (props) {
@@ -27,10 +28,12 @@ export default class maptest extends React.Component {
     pageW = document.documentElement.clientWidth || document.body.clientWidth;;
 
     componentDidMount = () => {
+    	const center = [GetParams('lat') || 29.9502, GetParams('lng') || 121.4839];
+
     	// 重画
     	const mapInit = () => {
     		this.map = k.init('mapBox', 'dxt', {
-    			center: [29.9502, 121.4839],
+    			center,
     			crs: L.CRS.EPSG3857,
     			zoom: 15,
     			dragging: true,
@@ -53,10 +56,9 @@ export default class maptest extends React.Component {
     		k.e.zoomIn();
 
     		this.map.on('moveend', e => {
-    			const { lat, lng, address = 'test' } = this.map.getCenter();
+    			const { lat, lng, address = '暂时只支持坐标选取' } = this.map.getCenter();
 
-    			// location.hash = `${ location.hash }?lat=${ lat }&lng=${ lng }&address=${ address }`;
-    			window.parent.leafletLatng = { lat, lng, address };
+    			window.parent.leafletLatng = `${ lng }|${ lat }|${ address }`;
 
     			this.setState({ info: { lat, lng, address } });
     		});
