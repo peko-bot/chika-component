@@ -143,6 +143,7 @@
 | wrappedComponentRef | 替代原先的ref获得组件对象以调用其中方法，详情参考[这里](https://github.com/react-component/form#note-use-wrappedcomponentref-instead-of-withref-after-rc-form140) | {}，用作外部搜索 | 无 |
 | detailArrow | 详情页翻页箭头是否显示 | Boolean | false |
 | sortBy | 排序字段 | [{ key: '', text: '' }] | false |
+| mapPath | 地图路由地址 | string | #/easyLeaflet |
 | config | 配置，详见下方说明 | {} | 无 |
 * 有两种请求方式，默认以tcid和menuid的形式请求数据，但有时会调第三方的接口，url = true的用处就在这了。
 * bind会覆盖原有的click和touch事件

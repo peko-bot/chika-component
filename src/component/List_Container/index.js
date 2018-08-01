@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243
  * @Date: 2017-09-29 15:00:45
  * @Last Modified by: zy9
- * @Last Modified time: 2018-08-01 13:48:28
+ * @Last Modified time: 2018-08-01 14:05:13
  */
 import React from 'react';
 
@@ -547,10 +547,12 @@ class ListContainer extends React.Component {
     	let flag = !!searchParam[fname + '_Begin'] && !!searchParam[fname + '_End'];
 
     	const getLatng = ({ lat, lng }) => {
+    		const { mapPath = '#/easyLeaflet' } = this.props;
+
     		this.mapFname = fname;
     		this.mapItemFieldPar = parseFieldPar;
 
-    		this.setState({ mapBoxUrl: `#/easyLeaflet?lat=${ lat }&lng=${ lng }` });
+    		this.setState({ mapBoxUrl: `${ mapPath }?lat=${ lat }&lng=${ lng }` });
     	};
 
     	switch (controltype) {
