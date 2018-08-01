@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243
  * @Date: 2018-07-30 09:22:09
  * @Last Modified by: zy9
- * @Last Modified time: 2018-07-31 09:43:46
+ * @Last Modified time: 2018-08-01 10:18:24
  */
 import React, { Component } from 'react';
 
@@ -24,7 +24,9 @@ export default class MaxBox extends Component {
     handleOnClose = () => {
     	const { onClose } = this.props;
 
-    	onClose && onClose(window.leafletLatng);
+    	const [lng, lat, address] = window.leafletLatng.split('|');
+
+    	onClose && onClose({ lng, lat, address });
     }
 
     render = () => {

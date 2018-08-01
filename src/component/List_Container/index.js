@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243
  * @Date: 2017-09-29 15:00:45
  * @Last Modified by: zy9
- * @Last Modified time: 2018-08-01 09:27:13
+ * @Last Modified time: 2018-08-01 10:48:33
  */
 import React from 'react';
 
@@ -521,9 +521,12 @@ class ListContainer extends React.Component {
     //10.行政区划Ztree(支持多个) 11.部门Ztree(支持多个) 12.单、多附件上传 13.可输可选 14.地图坐标选取
     /* 搜索、详情、新增/编辑，控件类型都在这里处理 */
     handleControlType = (item, type, detailItem, index) => {
-    	const { searchParam, editField, editParam } = this.state;
-    	let { fname, fvalue, dateformat = 'YYYY-MM-DD', foreigndata, defaultvalue, isnull, regular, maxlen = '-', minlen = '-' } = item;
+    	let { searchParam, editField, editParam } = this.state;
+    	let { fname, fvalue, dateformat = 'YYYY-MM-DD', foreigndata, defaultvalue, isnull, regular, maxlen = '-', minlen = '-', fieldpar } = item;
     	const { getFieldProps, getFieldError } = this.props.form;
+
+    	let paramName = editParam[fname];
+    	const parseFieldPar = JSON.parse(fieldpar || null);
 
     	if(type == 'search' && !item.issearchfield) return null;
 
@@ -540,6 +543,7 @@ class ListContainer extends React.Component {
 
     	const getLatng = ({ lat, lng }) => {
     		this.mapFname = fname;
+    		this.mapItemFieldPar = parseFieldPar;
 
     		this.setState({ mapBoxUrl: `#/easyLeaflet?lat=${ lat }&lng=${ lng }` });
     	};
@@ -652,15 +656,16 @@ class ListContainer extends React.Component {
     				rules: [ { required: !!isnull, message: '该值不能为空' }, ],
     			};
 
-    			if(!editParam[fname] || Object.keys(editParam[fname]) == 0) {
+    			if(!paramName || Object.keys(paramName) == 0) {
     				element = (
     					<List.Item key={`case_14_listItem_${ index }`} arrow='horizontal' onClick={ getLatng } extra={ '请选择' }>{ fvalue }</List.Item>
     				);
     			} else {
     				element = [];
-    				let latng = editParam[fname].split('|');
+    				const { lng: newLng, lat: newLat, address: newAddress } = parseFieldPar;
+    				const { [newLng]: lng, [newLat]: lat, [newAddress]: address } = paramName;
 
-    				let [lng, lat, address] = latng;
+    				this.state.editParam = { [newLng]: lng, [newLat]: lat, [newAddress]: address };
 
     				element.push(<List.Item key={`case_14_listItem_lng_${ index }`} extra={ lng }>经度</List.Item>);
     				element.push(<List.Item key={`case_14_listItem_lat_${ index }`} extra={ lat }>纬度</List.Item>);
@@ -773,7 +778,14 @@ class ListContainer extends React.Component {
 	handleOnMapClose = latng => {
 		let { editParam } = this.state;
 
-		editParam = Object.assign({}, editParam, { [this.mapFname]: latng });
+		/**
+		 * 因为子表中的配置是一个字段控制经纬度及地址的增删改查，所以需要读fieldpar获得子表配置和库表物理字段名的关系
+		 * 配置中需要手动写经纬度及地址对应的物理字段名，格式为json字符串
+		 */
+		const { lat, lng, address } = this.mapItemFieldPar;
+		const param = { [lng]: latng.lng, [lat]: latng.lat, [address]: latng.address };
+
+		editParam = Object.assign({}, editParam, { [this.mapFname]: param }, param);
 
 		this.setState({ mapBoxUrl: '', editParam });
 	}

@@ -168,7 +168,7 @@
                 "fieldtag": null,
                 "foreigndata": [],
                 "dateformat": "",
-                "fieldpar": "{\"lng\":\"lng\",\"lat\":\"lat\",\"address\": \"address\"}"
+                "fieldpar": "{\"lng\":\"lng1\",\"lat\":\"lat1\",\"address\": \"address1\"}"
             }
         ]
     }
