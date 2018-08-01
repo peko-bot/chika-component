@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243
  * @Date: 2018-07-28 08:09:28
  * @Last Modified by: zy9
- * @Last Modified time: 2018-08-01 11:05:41
+ * @Last Modified time: 2018-08-01 11:27:32
  */
 import React from 'react';
 
@@ -56,10 +56,7 @@ export default class maptest extends React.Component {
     		k.e.zoomIn();
 
     		this.map.on('moveend', e => {
-    			let { lat, lng, address = '暂时只支持坐标选取' } = this.map.getCenter();
-
-    			lat = lat.toFixed(3);
-    			lng = lng.toFixed(3);
+    			let { lat, lng, address = '暂不支持地址显示' } = this.map.getCenter();
 
     			window.parent.leafletLatng = `${ lng }|${ lat }|${ address }`;
 

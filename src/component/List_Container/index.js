@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243
  * @Date: 2017-09-29 15:00:45
  * @Last Modified by: zy9
- * @Last Modified time: 2018-08-01 10:48:33
+ * @Last Modified time: 2018-08-01 13:48:28
  */
 import React from 'react';
 
@@ -522,13 +522,18 @@ class ListContainer extends React.Component {
     /* 搜索、详情、新增/编辑，控件类型都在这里处理 */
     handleControlType = (item, type, detailItem, index) => {
     	let { searchParam, editField, editParam } = this.state;
-    	let { fname, fvalue, dateformat = 'YYYY-MM-DD', foreigndata, defaultvalue, isnull, regular, maxlen = '-', minlen = '-', fieldpar } = item;
+    	let { fname, fvalue, dateformat = 'YYYY-MM-DD', foreigndata, defaultvalue, isnull, regular, maxlen = '-', minlen = '-', fieldpar, controltype, controltypeDetail } = item;
     	const { getFieldProps, getFieldError } = this.props.form;
+
+    	if(type == 'search' && !item.issearchfield) return null;
+
+    	// 坐标在详情页的显示控制
+    	if(type == 'detail' && controltypeDetail == 14) {
+    		controltype = 14;
+    	}
 
     	let paramName = editParam[fname];
     	const parseFieldPar = JSON.parse(fieldpar || null);
-
-    	if(type == 'search' && !item.issearchfield) return null;
 
     	// TODO: pc中是没有日期格式字符串的配置的，这里是hack
     	dateformat = dateformat.length == 0 ? 'YYYY-MM-DD' : dateformat;
@@ -548,7 +553,7 @@ class ListContainer extends React.Component {
     		this.setState({ mapBoxUrl: `#/easyLeaflet?lat=${ lat }&lng=${ lng }` });
     	};
 
-    	switch (item.controltype) {
+    	switch (controltype) {
     		case 1: // 文本框
     			option = {
     				onChange: e => this.handleInput(e, 'editParam', fname),
@@ -652,23 +657,22 @@ class ListContainer extends React.Component {
 
     		case 14: // 地图选点
     			option = {
-    				onChange: value => { console.log(value); },
     				rules: [ { required: !!isnull, message: '该值不能为空' }, ],
     			};
 
-    			if(!paramName || Object.keys(paramName) == 0) {
-    				element = (
-    					<List.Item key={`case_14_listItem_${ index }`} arrow='horizontal' onClick={ getLatng } extra={ '请选择' }>{ fvalue }</List.Item>
-    				);
-    			} else {
+    			if(type == 'detail') {
+    				element = <List.Item key={`case_14_listItem_detail_${ index }`} extra={ detailItem[fname].split('|')[2] }>{ fvalue }</List.Item>;
+    			} else if(!paramName || Object.keys(paramName) == 0) {
+    				element = <List.Item key={`case_14_listItem_${ index }`} arrow='horizontal' onClick={ getLatng } extra={ '请选择' }>{ fvalue }</List.Item>;
+    			} else if(type == 'edit') {
     				element = [];
     				const { lng: newLng, lat: newLat, address: newAddress } = parseFieldPar;
     				const { [newLng]: lng, [newLat]: lat, [newAddress]: address } = paramName;
 
     				this.state.editParam = { [newLng]: lng, [newLat]: lat, [newAddress]: address };
 
-    				element.push(<List.Item key={`case_14_listItem_lng_${ index }`} extra={ lng }>经度</List.Item>);
-    				element.push(<List.Item key={`case_14_listItem_lat_${ index }`} extra={ lat }>纬度</List.Item>);
+    				element.push(<List.Item key={`case_14_listItem_lng_${ index }`} extra={ parseFloat(lng).toFixed(3) }>经度</List.Item>);
+    				element.push(<List.Item key={`case_14_listItem_lat_${ index }`} extra={ parseFloat(lat).toFixed(3) }>纬度</List.Item>);
     				element.push(<List.Item key={`case_14_listItem_address_${ index }`} arrow='horizontal' onClick={ () => getLatng({ lat, lng }) } extra={ address }>地址</List.Item>);
     			}
     			break;

@@ -145,7 +145,7 @@
             {
                 "id": 113442,
                 "fname": "latng",
-                "fvalue": "坐标",
+                "fvalue": "地址",
                 "physicalcolname": "latng",
                 "iskey": false,
                 "isnull": false,
