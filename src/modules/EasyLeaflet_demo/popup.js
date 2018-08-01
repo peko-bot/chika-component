@@ -18,8 +18,8 @@ export default class popup extends Component {
     	return (
     		<Modal popup animationType='slide-up' visible>
     			<List renderHeader={ () => <div>坐标信息</div> }>
-    				<List.Item extra={ parseFloat(lng).toFixed(3) }>经度</List.Item>
-    				<List.Item extra={ parseFloat(lat).toFixed(3) }>纬度</List.Item>
+    				<List.Item extra={ parseFloat(lng).toFixed(6) }>经度</List.Item>
+    				<List.Item extra={ parseFloat(lat).toFixed(6) }>纬度</List.Item>
     				<List.Item extra={ address }>地址</List.Item>
     			</List>
     		</Modal>

@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243
  * @Date: 2017-09-29 15:00:45
  * @Last Modified by: zy9
- * @Last Modified time: 2018-08-01 15:13:38
+ * @Last Modified time: 2018-08-01 16:12:21
  */
 import React from 'react';
 
@@ -57,7 +57,7 @@ class ListContainer extends React.Component {
 		this.getConfigUrl = domain ? domain + 'getconfig' : '../../data/getConfig.json';
 		this.tableConfigUrl = domain ? domain + 'getinterfacedata' : '../../data/tableconfig.json';
 		this.searchUrl = domain ? domain + 'getdata' : '../../data/search.json';
-		this.generalbackstageUrl = domain ? domain + 'operatedata' : '../../data/tableconfig.json';
+		this.generalbackstageUrl = domain ? domain + 'operatedata' : '../../data/operatedata.json';
 
 		this.children = []; // 遍历模板根据数据渲染 reactNode
 		this.listDatas = []; // 列表数据 object
@@ -355,9 +355,9 @@ class ListContainer extends React.Component {
     	fetch(url, ins)
     		.then(result => result.json())
     		.then(result => {
-    			// if(!data.result) {
-    			//     Toast.fail('出现未知错误');
-    			// }
+    			if(!result.data.result) {
+    			    Toast.fail('保存失败，出现未知错误');
+    			}
 
     			this.state.searchParam.PageIndex = 1;
     			// 刷新列表
@@ -678,11 +678,10 @@ class ListContainer extends React.Component {
     				const { lng: newLng, lat: newLat, address: newAddress } = parseFieldPar;
     				const [lng, lat, address] = paramName.split('|');
 
-    				this.state.editParam = { [newLng]: lng, [newLat]: lat, [newAddress]: address };
-    				console.log(lng, lat, address);
+    				this.state.editParam = Object.assign({}, editParam, { [newLng]: lng, [newLat]: lat, [newAddress]: address });
 
-    				element.push(<List.Item key={`case_14_listItem_lng_${ index }`} extra={ parseFloat(lng).toFixed(3) }>经度</List.Item>);
-    				element.push(<List.Item key={`case_14_listItem_lat_${ index }`} extra={ parseFloat(lat).toFixed(3) }>纬度</List.Item>);
+    				element.push(<List.Item key={`case_14_listItem_lng_${ index }`} extra={ parseFloat(lng).toFixed(6) }>经度</List.Item>);
+    				element.push(<List.Item key={`case_14_listItem_lat_${ index }`} extra={ parseFloat(lat).toFixed(6) }>纬度</List.Item>);
     				element.push(<List.Item key={`case_14_listItem_address_${ index }`} arrow='horizontal' onClick={ () => getLatng({ lat, lng }) } extra={ address }>地址</List.Item>);
     			}
     			break;
@@ -798,7 +797,7 @@ class ListContainer extends React.Component {
 		// const { lat, lng, address } = this.mapItemFieldPar;
 		const { lat, lng, address } = latng;
 
-		editParam = { [this.mapFname]: `${ lng }|${ lat }|${ address }` };
+		editParam = Object.assign({}, editParam, { [this.mapFname]: `${ lng }|${ lat }|${ address }` });
 		// const param = { [lng]: latng.lng, [lat]: latng.lat, [address]: latng.address };
 
 		// editParam = Object.assign({}, editParam, { [this.mapFname]: param }, param);
