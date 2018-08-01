@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243
  * @Date: 2017-09-29 15:00:45
  * @Last Modified by: zy9
- * @Last Modified time: 2018-07-31 17:20:20
+ * @Last Modified time: 2018-08-01 09:27:13
  */
 import React from 'react';
 
@@ -309,7 +309,7 @@ class ListContainer extends React.Component {
 
     // 新增/修改提交
     save = () => {
-    	const { domain, form } = this.props;
+    	const { form } = this.props;
 
     	form.validateFields({ force: true }, (error, value) => {
     		let { searchParam, pageType } = this.state;
@@ -325,7 +325,7 @@ class ListContainer extends React.Component {
     		let mainKey = {};
 
     		mainKey[this.mainKey] = this.mainValue;
-    		let params = Object.assign({}, searchParam, data, this.handleFormdata(), pageType == 'edit' ? mainKey : {}, { method: domain ? 'POST' : 'GET', });
+    		let params = Object.assign({}, searchParam, data, this.handleFormdata(), pageType == 'edit' ? mainKey : {});
 
     		if (!error) {
     			this.handleEditDatas(params);
@@ -337,20 +337,26 @@ class ListContainer extends React.Component {
 
     // 处理增改
     handleEditDatas = params => {
-    	// fetch(this.generalbackstageUrl + `?${ Serialize(params.data) }`, {
-    	fetch(this.generalbackstageUrl, {
-    		method: params.method,
-    		// mode:'no-cors',
+    	const { domain } = this.props;
+
+    	const ins = domain ? {
+    		method: 'POST',
     		credentials: 'include', // 加入cookie
     		headers: {
     			'Content-Type': 'application/json; charset=UTF-8'
     		},
     		body: JSON.stringify(params)
-    	})
+    	} : {
+    		method: 'GET',
+    	};
+
+    	const url = domain ? this.generalbackstageUrl : this.generalbackstageUrl + `?${ Serialize(params) }`;
+
+    	fetch(url, ins)
     		.then(result => result.json())
     		.then(result => {
     			// if(!data.result) {
-    			//     Toast.fail('出现未知错误，反正你这趟是白点了，找人问问是为啥？');
+    			//     Toast.fail('出现未知错误');
     			// }
 
     			this.state.searchParam.PageIndex = 1;
