@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243
  * @Date: 2017-09-29 15:00:45
  * @Last Modified by: zy9
- * @Last Modified time: 2018-08-01 14:42:42
+ * @Last Modified time: 2018-08-01 15:13:38
  */
 import React from 'react';
 
@@ -666,19 +666,20 @@ class ListContainer extends React.Component {
     			try {
     				parseFieldPar = JSON.parse(fieldpar || null);
     			} catch (error) {
-    				console.log(error);
+    				console.error(error);
     			}
 
     			if(type == 'detail') {
     				element = <List.Item key={`case_14_listItem_detail_${ index }`} extra={ detailItem[fname].split('|')[2] }>{ fvalue }</List.Item>;
     			} else if(!paramName || Object.keys(paramName) == 0) {
     				element = <List.Item key={`case_14_listItem_${ index }`} arrow='horizontal' onClick={ getLatng } extra={ '请选择' }>{ fvalue }</List.Item>;
-    			} else if(type == 'edit') {
+    			} else if(type == 'edit' && paramName) {
     				element = [];
     				const { lng: newLng, lat: newLat, address: newAddress } = parseFieldPar;
-    				const { [newLng]: lng, [newLat]: lat, [newAddress]: address } = paramName;
+    				const [lng, lat, address] = paramName.split('|');
 
     				this.state.editParam = { [newLng]: lng, [newLat]: lat, [newAddress]: address };
+    				console.log(lng, lat, address);
 
     				element.push(<List.Item key={`case_14_listItem_lng_${ index }`} extra={ parseFloat(lng).toFixed(3) }>经度</List.Item>);
     				element.push(<List.Item key={`case_14_listItem_lat_${ index }`} extra={ parseFloat(lat).toFixed(3) }>纬度</List.Item>);
@@ -790,15 +791,17 @@ class ListContainer extends React.Component {
 
 	handleOnMapClose = latng => {
 		let { editParam } = this.state;
-
 		/**
 		 * 因为子表中的配置是一个字段控制经纬度及地址的增删改查，所以需要读fieldpar获得子表配置和库表物理字段名的关系
 		 * 配置中需要手动写经纬度及地址对应的物理字段名，格式为json字符串
 		 */
-		const { lat, lng, address } = this.mapItemFieldPar;
-		const param = { [lng]: latng.lng, [lat]: latng.lat, [address]: latng.address };
+		// const { lat, lng, address } = this.mapItemFieldPar;
+		const { lat, lng, address } = latng;
 
-		editParam = Object.assign({}, editParam, { [this.mapFname]: param }, param);
+		editParam = { [this.mapFname]: `${ lng }|${ lat }|${ address }` };
+		// const param = { [lng]: latng.lng, [lat]: latng.lat, [address]: latng.address };
+
+		// editParam = Object.assign({}, editParam, { [this.mapFname]: param }, param);
 
 		this.setState({ mapBoxUrl: '', editParam });
 	}
