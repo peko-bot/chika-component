@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243
  * @Date: 2017-09-29 15:00:45
  * @Last Modified by: zy9
- * @Last Modified time: 2018-08-01 14:05:13
+ * @Last Modified time: 2018-08-01 14:42:42
  */
 import React from 'react';
 
@@ -533,7 +533,8 @@ class ListContainer extends React.Component {
     	}
 
     	let paramName = editParam[fname];
-    	const parseFieldPar = JSON.parse(fieldpar || null);
+
+    	let parseFieldPar = null;
 
     	// TODO: pc中是没有日期格式字符串的配置的，这里是hack
     	dateformat = dateformat.length == 0 ? 'YYYY-MM-DD' : dateformat;
@@ -661,6 +662,12 @@ class ListContainer extends React.Component {
     			option = {
     				rules: [ { required: !!isnull, message: '该值不能为空' }, ],
     			};
+
+    			try {
+    				parseFieldPar = JSON.parse(fieldpar || null);
+    			} catch (error) {
+    				console.log(error);
+    			}
 
     			if(type == 'detail') {
     				element = <List.Item key={`case_14_listItem_detail_${ index }`} extra={ detailItem[fname].split('|')[2] }>{ fvalue }</List.Item>;
