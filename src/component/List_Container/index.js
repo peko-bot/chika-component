@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243
  * @Date: 2017-09-29 15:00:45
  * @Last Modified by: zy9
- * @Last Modified time: 2018-07-31 15:14:35
+ * @Last Modified time: 2018-07-31 17:20:20
  */
 import React from 'react';
 
@@ -325,15 +325,10 @@ class ListContainer extends React.Component {
     		let mainKey = {};
 
     		mainKey[this.mainKey] = this.mainValue;
-    		let ajaxParam = {
-    			key: 'generalbackstage',
-    			f: 'json',
-    			method: domain ? 'POST' : 'GET',
-    			data: Object.assign({}, searchParam, data, this.handleFormdata(), pageType == 'edit' ? mainKey : {}),
-    		};
+    		let params = Object.assign({}, searchParam, data, this.handleFormdata(), pageType == 'edit' ? mainKey : {}, { method: domain ? 'POST' : 'GET', });
 
     		if (!error) {
-    			this.handleEditDatas(ajaxParam);
+    			this.handleEditDatas(params);
     		} else {
     			Toast.fail('ヽ(ｏ`皿′ｏ)ﾉ 操作失败', 2, null, false);
     		}
@@ -342,7 +337,16 @@ class ListContainer extends React.Component {
 
     // 处理增改
     handleEditDatas = params => {
-    	fetch(this.generalbackstageUrl + `?${ Serialize(params.data) }`)
+    	// fetch(this.generalbackstageUrl + `?${ Serialize(params.data) }`, {
+    	fetch(this.generalbackstageUrl, {
+    		method: params.method,
+    		// mode:'no-cors',
+    		credentials: 'include', // 加入cookie
+    		headers: {
+    			'Content-Type': 'application/json; charset=UTF-8'
+    		},
+    		body: JSON.stringify(params)
+    	})
     		.then(result => result.json())
     		.then(result => {
     			// if(!data.result) {

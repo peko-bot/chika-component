@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243
  * @Date: 2018-06-02 21:02:58
  * @Last Modified by: zy9
- * @Last Modified time: 2018-07-31 15:30:48
+ * @Last Modified time: 2018-07-31 17:42:25
  */
 import React from 'react';
 
@@ -62,11 +62,11 @@ export default class ListContainerDemo extends React.Component {
     	},
     ]
 
-    //  domain='http://61.175.121.68:9001/webapi/api/v2/generalbackstage/'
     render = () => {
     	const params = {
     		config: this.config,
     		sortBy: this.sortBy,
+    		// domain: 'http://61.175.121.68:9001/webapi/api/v2/generalbackstage/',
     		wrappedComponentRef: ref => this.container = ref,
     		style: { height: (document.documentElement.clientHeight || document.body.clientHeight) - 10 }
     	};
