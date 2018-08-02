@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243
  * @Date: 2017-09-29 15:00:45
  * @Last Modified by: zy9
- * @Last Modified time: 2018-08-02 15:13:21
+ * @Last Modified time: 2018-08-02 16:14:05
  */
 import React from 'react';
 
@@ -410,7 +410,7 @@ class ListContainer extends React.Component {
     			mainKey[this.mainKey] = mainValue;
     			let ajaxParam = Object.assign({}, { TCID: tcid }, data, mainKey);
 
-    			this.handleEditDatas(ajaxParam, 'DELETE');
+    			this.handleEditDatas(ajaxParam, 'POST');
     		} },
     	]);
     }
