@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243
  * @Date: 2017-09-29 15:00:45
  * @Last Modified by: zy9
- * @Last Modified time: 2018-08-02 14:02:45
+ * @Last Modified time: 2018-08-02 14:27:56
  */
 import React from 'react';
 
@@ -316,6 +316,7 @@ class ListContainer extends React.Component {
     // 新增/修改提交
     save = () => {
     	const { form } = this.props;
+    	const { editParam } = this.state;
 
     	form.validateFields({ force: true }, (error, value) => {
     		let { searchParam, pageType } = this.state;
@@ -333,10 +334,10 @@ class ListContainer extends React.Component {
     		mainKey[this.mainKey] = this.mainValue;
 
     		const formData = this.handleFormdata();
-    		let params = Object.assign({}, searchParam, data, formData, pageType == 'edit' ? mainKey : {});
+    		let params = Object.assign({}, searchParam, data, formData, pageType == 'edit' ? mainKey : {}, editParam);
 
     		if (!error && Object.keys(formData) != 0) {
-    			this.handleEditDatas(params);
+    			this.handleEditDatas(params, 'POST');
     		} else {
     			Toast.fail('ヽ(ｏ`皿′ｏ)ﾉ 操作失败', 2, null, false);
     		}
@@ -344,11 +345,11 @@ class ListContainer extends React.Component {
     }
 
     // 处理增改
-    handleEditDatas = params => {
+    handleEditDatas = (params, method) => {
     	const { domain } = this.props;
 
     	const ins = domain ? {
-    		method: 'POST',
+    		method,
     		credentials: 'include', // 加入cookie
     		headers: {
     			'Content-Type': 'application/json; charset=UTF-8'
@@ -391,8 +392,6 @@ class ListContainer extends React.Component {
     }
 
     delete = mainValue => {
-    	const { domain } = this.props;
-
     	alert('长痛不如短痛，删tm的', '真删了啊？', [
     		{ text: '容朕三思' },
     		{ text: '真的', onPress: () => {
@@ -408,14 +407,9 @@ class ListContainer extends React.Component {
     			let mainKey = {};
 
     			mainKey[this.mainKey] = mainValue;
-    			let ajaxParam = {
-    				key: 'generalbackstage',
-    				f: 'json',
-    				method: domain ? 'POST' : 'GET',
-    				data: Object.assign({}, { TCID: tcid }, data, mainKey),
-    			};
+    			let ajaxParam = Object.assign({}, { TCID: tcid }, data, mainKey);
 
-    			this.handleEditDatas(ajaxParam);
+    			this.handleEditDatas(ajaxParam, 'DELETE');
     		} },
     	]);
     }
