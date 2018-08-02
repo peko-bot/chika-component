@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243
  * @Date: 2017-09-29 15:00:45
  * @Last Modified by: zy9
- * @Last Modified time: 2018-08-01 16:12:21
+ * @Last Modified time: 2018-08-02 14:02:45
  */
 import React from 'react';
 
@@ -281,6 +281,7 @@ class ListContainer extends React.Component {
     handleFormdata = () => {
     	const { editParam } = this.state;
     	let formData = Object.assign({}, this.props.form.getFieldsValue(), editParam);
+    	let result = {};
 
     	for(let key in formData) {
     		for(let item of this.config) {
@@ -300,11 +301,16 @@ class ListContainer extends React.Component {
 
     						break;
     				}
+
+    				// 当所有添加项为空时，不提交
+    				if(formData[key]) {
+    					result[key] = formData[key];
+    				}
     			}
     		}
     	}
 
-    	return formData;
+    	return result;
     }
 
     // 新增/修改提交
@@ -325,9 +331,11 @@ class ListContainer extends React.Component {
     		let mainKey = {};
 
     		mainKey[this.mainKey] = this.mainValue;
-    		let params = Object.assign({}, searchParam, data, this.handleFormdata(), pageType == 'edit' ? mainKey : {});
 
-    		if (!error) {
+    		const formData = this.handleFormdata();
+    		let params = Object.assign({}, searchParam, data, formData, pageType == 'edit' ? mainKey : {});
+
+    		if (!error && Object.keys(formData) != 0) {
     			this.handleEditDatas(params);
     		} else {
     			Toast.fail('ヽ(ｏ`皿′ｏ)ﾉ 操作失败', 2, null, false);
