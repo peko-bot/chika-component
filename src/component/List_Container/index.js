@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243
  * @Date: 2017-09-29 15:00:45
  * @Last Modified by: zy9
- * @Last Modified time: 2018-08-02 14:27:56
+ * @Last Modified time: 2018-08-02 15:13:21
  */
 import React from 'react';
 
@@ -133,13 +133,14 @@ class ListContainer extends React.Component {
 
     			this.power = power.split(',');
 
-    			this.config = tablefieldconfig;
-
     			// 搜索主键是列表点到详情页请求数据的唯一标识
     			for(let item of tablefieldconfig) {
+    				item.fname = item.fname.toLowerCase();
     				// 判断是不是搜索主键，暂时按只有一个算
     				if(item.iskey) this.mainKey = item.fname;
     			}
+
+    			this.config = tablefieldconfig;
 
     			this.search();
     		});
@@ -524,7 +525,7 @@ class ListContainer extends React.Component {
     /* 搜索、详情、新增/编辑，控件类型都在这里处理 */
     handleControlType = (item, type, detailItem, index) => {
     	let { searchParam, editField, editParam } = this.state;
-    	let { fname, fvalue, dateformat = 'YYYY-MM-DD', foreigndata, defaultvalue, isnull, regular, maxlen = '-', minlen = '-', fieldpar, controltype, controltypeDetail } = item;
+    	let { fname, fvalue, dateformat = 'YYYY-MM-DD', foreigndata, defaultvalue, isnull, regular, maxlen = '9999', minlen = '0', fieldpar, controltype, controltypeDetail } = item;
     	const { getFieldProps, getFieldError } = this.props.form;
 
     	if(type == 'search' && !item.issearchfield) return null;
