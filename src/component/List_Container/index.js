@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243
  * @Date: 2017-09-29 15:00:45
  * @Last Modified by: zy9
- * @Last Modified time: 2018-08-02 17:55:46
+ * @Last Modified time: 2018-08-03 10:16:27
  */
 import React from 'react';
 
@@ -244,14 +244,10 @@ class ListContainer extends React.Component {
     				controltypeDetail: type == 'detail' ? controltype : null
     			});
 
-    			// isvisiable，详情是否显示
-    			type == 'detail' ? (isvisiable ? detailConfig.push(element) : null) : editConfig.push(element);
-
     			for(let jtem of this.listDatas) {
     				if(jtem[this.mainKey] == mainValue) {
     					for(let key in jtem) {
     						if(isadd && key == fname) {
-    							// if(isadd && (key == fname || (fname + '_lat') == key || (fname + '_lng') == key || (fname + '_address') == key)) {
     							switch(type) {
     								case 'edit':
     									editParam[key] = jtem[key];
@@ -266,15 +262,8 @@ class ListContainer extends React.Component {
     									break;
     							}
 
-    							// // 初始化配置属性
-    							// const element = Object.assign({}, item, {
-    							// 	controltype: type == 'detail' ? 99 : controltype,
-    							// 	fname: key,
-    							// 	controltypeDetail: type == 'detail' ? controltype : null
-    							// });
-
-    							// // isvisiable，详情是否显示
-    							// type == 'detail' ? (isvisiable ? detailConfig.push(element) : null) : editConfig.push(element);
+    							// isvisiable，详情是否显示
+    							type == 'detail' ? (isvisiable ? detailConfig.push(element) : null) : editConfig.push(element);
     						}
     					}
     				}
