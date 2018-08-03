@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243
  * @Date: 2017-09-29 15:00:45
  * @Last Modified by: zy9
- * @Last Modified time: 2018-08-03 10:16:27
+ * @Last Modified time: 2018-08-03 11:10:08
  */
 import React from 'react';
 
@@ -244,6 +244,11 @@ class ListContainer extends React.Component {
     				controltypeDetail: type == 'detail' ? controltype : null
     			});
 
+    			// isvisiable，详情是否显示
+    			if(isadd) {
+    				type == 'detail' ? (isvisiable ? detailConfig.push(element) : null) : editConfig.push(element);
+    			}
+
     			for(let jtem of this.listDatas) {
     				if(jtem[this.mainKey] == mainValue) {
     					for(let key in jtem) {
@@ -261,9 +266,6 @@ class ListContainer extends React.Component {
 
     									break;
     							}
-
-    							// isvisiable，详情是否显示
-    							type == 'detail' ? (isvisiable ? detailConfig.push(element) : null) : editConfig.push(element);
     						}
     					}
     				}
@@ -672,7 +674,7 @@ class ListContainer extends React.Component {
     			}
 
     			if(type == 'detail') {
-    				element = <List.Item key={`case_14_listItem_detail_${ index }`} extra={ detailItem[fname].split('|')[2] }>{ fvalue }</List.Item>;
+    				element = <List.Item key={`case_14_listItem_detail_${ index }`} extra={ detailItem[fname] ? detailItem[fname].split('|')[2] : '' }>{ fvalue }</List.Item>;
     			} else if(!paramName || Object.keys(paramName) == 0) {
     				element = <List.Item key={`case_14_listItem_${ index }`} arrow='horizontal' onClick={ getLatng } extra={ '请选择' }>{ fvalue }</List.Item>;
     			} else if(type == 'edit' && paramName) {
