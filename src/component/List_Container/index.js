@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243
  * @Date: 2017-09-29 15:00:45
  * @Last Modified by: zy9
- * @Last Modified time: 2018-08-03 11:10:08
+ * @Last Modified time: 2018-08-08 13:48:38
  */
 import React from 'react';
 
@@ -927,7 +927,7 @@ class ListContainer extends React.Component {
     			</Drawer>
 
     			{/* 模板渲染 */}
-    			<PullToRefresh direction='up' style={{ height: containerHeight, overflow: 'auto' }} onRefresh={ this.handlePullLoad } refreshing={ pullLoad }>
+    			<PullToRefresh direction='up' style={{ height: style.height, overflow: 'auto' }} onRefresh={ this.handlePullLoad } refreshing={ pullLoad }>
     				<div className='sc-content' style={{ transform: `translate3d(${ currentState * 100 }%, 0, 0)`, display: pageType == 'list' ? '' : 'none' }} ref={ ref => this.content = ref }>
     					<Templet { ...templetConfig } />
     				</div>
