@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243
  * @Date: 2018-07-04 09:59:21
  * @Last Modified by: zy9
- * @Last Modified time: 2018-07-28 09:47:52
+ * @Last Modified time: 2018-08-13 09:58:39
  */
 import React, { Component } from 'react';
 
@@ -18,24 +18,27 @@ export default class Templet extends Component {
     	const { bindKey = 'data-key', onDetail, power, onDelete } = this.props;
 
     	React.Children.map(children, child => {
-    		let { bind, format, decimalcount, unit } = child.props;
+    		let { props = {} } = child;
+    		let { bind, format, decimalcount, unit } = props;
+    		let instance, key;
 
-    		child.key = `child_${ Math.random() * 10000 }`;
+    		if(typeof child !== 'string') {
+    			child.key = `child_${ Math.random() * 10000 }`;
+    			instance = child.props;
+    			key = instance[bindKey];
 
-    		let instance = child.props;
-    		let key = instance[bindKey];
+    			// children中有绑定事件时，把这个格子的数据传出去
+    			if(instance.onChange) {
+    				instance.onClick = e => {
+    					e.stopPropagation();
 
-    		// children中有绑定事件时，把这个格子的数据传出去
-    		if(instance.onChange) {
-    			instance.onClick = e => {
-    				e.stopPropagation();
-
-    				instance.onChange(item);
-    			};
+    					instance.onChange(item);
+    				};
+    			}
     		}
 
     		/* 绑定点击事件，模版中所谓的head就是每块元素的最顶层标签 */
-    		if(bind) {
+    		if(bind && instance) {
     			// 长按菜单
     			let timer = null;
 
@@ -84,25 +87,27 @@ export default class Templet extends Component {
     		let value = item[key];
 
     		/* 列表页预处理 */
-    		if(instance[bindKey] && value !== undefined) {
-    			/* 处理时间格式 */
-    			if(format) {
-    				instance.children = value = moment(value).format(format);
-    			}
+    		if(instance) {
+    			if(instance[bindKey] && value !== undefined) {
+    				/* 处理时间格式 */
+    				if(format) {
+    					instance.children = value = moment(value).format(format);
+    				}
 
-    			/* 处理小数保留位数 */
-    			if(decimalcount) {
-    				instance.children = value = parseFloat(value).toFixed(decimalcount);
-    			}
+    				/* 处理小数保留位数 */
+    				if(decimalcount) {
+    					instance.children = value = parseFloat(value).toFixed(decimalcount);
+    				}
 
-    			/* 处理单位 */
-    			if(unit) {
-    				instance.children = value = `${ value } ${ unit }`;
-    			}
+    				/* 处理单位 */
+    				if(unit) {
+    					instance.children = value = `${ value } ${ unit }`;
+    				}
 
-    			instance.children = instance.children ? instance.children : value;
-    		} else if(instance && typeof instance.children === 'object') {
-    			this.travelChildren(instance.children, item, mainValue);
+    				instance.children = instance.children ? instance.children : value;
+    			} else if(instance && typeof instance.children === 'object') {
+    				this.travelChildren(instance.children, item, mainValue);
+    			}
     		}
     	});
     }
