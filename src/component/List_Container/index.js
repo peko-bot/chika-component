@@ -2,12 +2,12 @@
  * @Author: zy9@github.com/zy410419243
  * @Date: 2017-09-29 15:00:45
  * @Last Modified by: zy9
- * @Last Modified time: 2018-08-08 13:48:38
+ * @Last Modified time: 2018-09-04 10:41:13
  */
 import React from 'react';
 
 import { Modal, DatePicker, List, InputItem, Drawer, Picker, Toast, Button, ActivityIndicator, PullToRefresh, Checkbox, Accordion, Calendar } from 'antd-mobile';
-const operation = Modal.operation;
+// const operation = Modal.operation;
 const { alert } = Modal;
 const CheckboxItem = Checkbox.CheckboxItem;
 
@@ -688,6 +688,10 @@ class ListContainer extends React.Component {
     				element.push(<List.Item key={`case_14_listItem_lat_${ index }`} extra={ parseFloat(lat).toFixed(6) }>纬度</List.Item>);
     				element.push(<List.Item key={`case_14_listItem_address_${ index }`} arrow='horizontal' onClick={ () => getLatng({ lat, lng }) } extra={ address }>地址</List.Item>);
     			}
+    			break;
+
+    		case 12: // 附件上传
+
     			break;
 
     		case 99: // label，基本就是给详情页用的

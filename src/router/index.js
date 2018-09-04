@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243
  * @Date: 2018-06-21 21:02:49
  * @Last Modified by: zy9
- * @Last Modified time: 2018-07-28 13:51:12
+ * @Last Modified time: 2018-09-04 13:47:47
  */
 import React, { Component } from 'react';
 import { Route, NavLink, HashRouter } from 'react-router-dom';
@@ -57,6 +57,18 @@ const EasyLeaflet = props => (
 	</Bundle>
 );
 
+const Upload = props => (
+	<Bundle load={ () => import('../modules/Upload_demo') }>
+		{ Upload => <Upload {...props}/> }
+	</Bundle>
+);
+
+const Test = props => (
+	<Bundle load={ () => import('../modules/Test_demo') }>
+		{ Test => <Test {...props}/> }
+	</Bundle>
+);
+
 export default class Router extends Component {
     render = () => (
     	<HashRouter>
@@ -69,6 +81,8 @@ export default class Router extends Component {
     			<Route path='/progress' component={ Progress } />
     			<Route path='/ripple' component={ Ripple } />
     			<Route path='/easyLeaflet' component={ EasyLeaflet } />
+    			<Route path='/upload' component={ Upload } />
+    			<Route path='/test' component={ Test } />
     		</div>
     	</HashRouter>
     )
