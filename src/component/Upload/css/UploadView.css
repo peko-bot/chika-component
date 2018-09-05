@@ -1,1 +1,22 @@
-.UploadView{}
+.UploadView .img-list {
+    float: left;
+    width: 104px;
+    height: 104px;
+    margin: 0 8px 8px 0;
+}
+
+.UploadView .img-list .img-wrapper {
+    width: 48px;
+    height: 48px;
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    text-align: center;
+}
+
+.UploadView .img-list .img-wrapper img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: static;
+}

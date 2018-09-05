@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243
  * @Date: 2018-09-04 13:46:42
  * @Last Modified by: zy9
- * @Last Modified time: 2018-09-05 11:06:59
+ * @Last Modified time: 2018-09-05 14:42:57
  */
 import React, { Component } from 'react';
 
@@ -13,30 +13,58 @@ export default class index extends Component {
 		super(props);
 
 		this.state = {
-
+			fileList: [],
 		};
 	}
 
-    componentDidMount = () => {
+	componentDidMount = () => {
 
-    }
-
-	onChange = file => {
-		console.log(file);
 	}
 
-	fileList = [
-		{ url: 'test1', id: 1 },
-		{ url: 'test2', id: 2 },
-		{ url: 'test3', id: 3 },
-		{ url: 'test4', id: 4 },
-	]
+	onChange = file => {
+		const { name } = file;
 
-    render = () => {
-    	return (
-    		<div className='index'>
-    			<Upload fileList={ this.fileList } onChange={ this.onChange } />
-    		</div>
-    	);
-    }
+		console.log(file);
+
+		let formData = new FormData();
+		let nameSplit = name.split('.');
+		let type = nameSplit[nameSplit.length - 1];
+
+		formData.append('Filedata', file);
+		formData.append('Filename', name);
+		formData.append('fileext', '*.' + type);
+		formData.append('DataType', 'UploadFile');
+		formData.append('UploadFolder', '/CommonReport/');
+		formData.append('IsConvertOffice', '');
+		formData.append('GetFileName', 'y');
+		formData.append('TCID', '');
+		formData.append('UploadTargetKey', 'n');
+		formData.append('GetFileInfo', 'y');
+
+		// fetch('//jsonplaceholder.typicode.com/posts/', {
+		fetch('../../data/uploadFiles.json', {
+			// method: 'POST',
+			// body: formData,
+			// credentials: 'include',
+		})
+			.then(result => result.text())
+			.then(url => {
+				let { fileList } = this.state;
+
+				fileList.push({ id: ~~(Math.random() * 10000), url });
+
+				this.setState({ fileList });
+			});
+	}
+
+	render = () => {
+		const { fileList } = this.state;
+
+		console.log(fileList);
+		return (
+			<div className='index'>
+				<Upload fileList={ fileList } onChange={ this.onChange } />
+			</div>
+		);
+	}
 }
