@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243
  * @Date: 2018-09-04 13:46:42
  * @Last Modified by: zy9
- * @Last Modified time: 2018-09-05 14:42:57
+ * @Last Modified time: 2018-09-05 20:54:53
  */
 import React, { Component } from 'react';
 
@@ -14,6 +14,7 @@ export default class index extends Component {
 
 		this.state = {
 			fileList: [],
+			loading: false,
 		};
 	}
 
@@ -23,8 +24,6 @@ export default class index extends Component {
 
 	onChange = file => {
 		const { name } = file;
-
-		console.log(file);
 
 		let formData = new FormData();
 		let nameSplit = name.split('.');
@@ -41,6 +40,7 @@ export default class index extends Component {
 		formData.append('UploadTargetKey', 'n');
 		formData.append('GetFileInfo', 'y');
 
+		this.setState({ loading: true });
 		// fetch('//jsonplaceholder.typicode.com/posts/', {
 		fetch('../../data/uploadFiles.json', {
 			// method: 'POST',
@@ -53,17 +53,26 @@ export default class index extends Component {
 
 				fileList.push({ id: ~~(Math.random() * 10000), url });
 
-				this.setState({ fileList });
+				setTimeout(() => {
+					this.setState({ fileList, loading: false });
+				}, 2000);
 			});
 	}
 
-	render = () => {
-		const { fileList } = this.state;
+	onLongPress = () => {
 
-		console.log(fileList);
+	}
+
+	onPress = () => {
+
+	}
+
+	render = () => {
+		const { fileList, loading } = this.state;
+
 		return (
-			<div className='index'>
-				<Upload fileList={ fileList } onChange={ this.onChange } />
+			<div className='index' style={{ padding: 6 }}>
+				<Upload fileList={ fileList } onChange={ this.onChange } onLongPress={ this.onLongPress } onPress={ this.onPress } loading={ false } />
 			</div>
 		);
 	}
