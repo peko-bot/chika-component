@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243
  * @Date: 2018-09-04 13:46:42
  * @Last Modified by: zy9
- * @Last Modified time: 2018-09-05 20:54:53
+ * @Last Modified time: 2018-09-05 21:20:40
  */
 import React, { Component } from 'react';
 
@@ -53,9 +53,7 @@ export default class index extends Component {
 
 				fileList.push({ id: ~~(Math.random() * 10000), url });
 
-				setTimeout(() => {
-					this.setState({ fileList, loading: false });
-				}, 2000);
+				this.setState({ fileList, loading: false });
 			});
 	}
 
@@ -69,11 +67,19 @@ export default class index extends Component {
 
 	render = () => {
 		const { fileList, loading } = this.state;
+		const config = {
+			fileList,
+			onChange: this.onChange,
+			onLongPress: this.onLongPress,
+			onPress: this.onPress,
+			// loading: false,
+			// isShowPlus: false,
+			// plusText: '添加',
+			style: { padding: 6 }
+		};
 
 		return (
-			<div className='index' style={{ padding: 6 }}>
-				<Upload fileList={ fileList } onChange={ this.onChange } onLongPress={ this.onLongPress } onPress={ this.onPress } loading={ false } />
-			</div>
+			<Upload { ...config } />
 		);
 	}
 }
