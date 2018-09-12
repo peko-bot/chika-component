@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243
  * @Date: 2018-06-21 21:02:49
  * @Last Modified by: zy9
- * @Last Modified time: 2018-09-04 13:47:47
+ * @Last Modified time: 2018-09-12 15:42:11
  */
 import React, { Component } from 'react';
 import { Route, NavLink, HashRouter } from 'react-router-dom';
@@ -22,7 +22,7 @@ const Button = props => (
 );
 
 const ListContainer = props => (
-	<Bundle load={ () => import('../modules/List_Container_demo/List_Container_demo') }>
+	<Bundle load={ () => import('../modules/ListContainer_demo') }>
 		{ ListContainer => <ListContainer {...props}/> }
 	</Bundle>
 );
