@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243
  * @Date: 2018-09-14 13:55:48
  * @Last Modified by: zy9
- * @Last Modified time: 2018-09-14 14:47:01
+ * @Last Modified time: 2018-09-14 17:11:47
  */
 import React, { Component } from 'react';
 
@@ -15,22 +15,24 @@ export default class DrawerDemo extends Component {
 		super(props);
 
 		this.state = {
-			position: -defaultWidth,
+			visible: false
 		};
 	}
 
     componentDidMount = () => {
     	setTimeout(() => {
-    		this.setState({ position: 0 });
+    		this.setState({ visible: true });
     	}, 500);
     }
 
+	onChange = visible => this.setState({ visible });
+
     render = () => {
-    	const { position } = this.state;
+    	const { visible } = this.state;
 
     	return (
     		<div className='Drawer_demo'>
-    			<Drawer position={ position }>
+    			<Drawer visible={ visible } onChange={ this.onChange } direction='left'>
                     test
     			</Drawer>
     		</div>
