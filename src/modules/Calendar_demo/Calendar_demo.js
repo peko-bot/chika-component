@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Calendar from '../../component/Calendar/Calendar';
+import Calendar from '../../component/Calendar';
 import './css/Calendar_demo.css';
 
 import moment from 'moment';
