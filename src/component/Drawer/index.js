@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243
  * @Date: 2018-09-14 13:54:25
  * @Last Modified by: zy9
- * @Last Modified time: 2018-09-14 17:11:26
+ * @Last Modified time: 2018-09-14 17:24:58
  */
 import React, { Component } from 'react';
 
@@ -26,6 +26,7 @@ export default class Drawer extends Component {
 		return 'transform error';
 	}
 
+	// 返回箭头方向值跟抽屉位置
 	handleClientView = (direction, clientView, visible, width, type) => {
 		let view, iconDeg;
 
@@ -66,7 +67,7 @@ export default class Drawer extends Component {
 	}
 
     render = () => {
-    	const { children, width = 400, operaNode, direction = 'left', visible, isOperateShow = true, clientView } = this.props;
+    	const { children, width = 400, operaNode, direction = 'left', visible, isOperateShow = true, clientView, style } = this.props;
     	const { iconDeg } = this.handleClientView(direction, clientView, visible, width);
 
     	const operateDrawer = (
@@ -78,7 +79,7 @@ export default class Drawer extends Component {
     	);
 
     	const showDrawer = (
-    		<div className='show-drawer' style={{ transform: this.handlePosition(direction, clientView, visible, width) }}>
+    		<div className='show-drawer' style={ Object.assign({}, { transform: this.handlePosition(direction, clientView, visible, width) }, style) }>
     			{ children }
     		</div>
     	);

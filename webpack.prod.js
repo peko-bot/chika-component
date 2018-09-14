@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243
  * @Date: 2018-05-20 13:48:08
  * @Last Modified by: zy9
- * @Last Modified time: 2018-09-12 15:42:43
+ * @Last Modified time: 2018-09-14 17:19:04
  */
 const webpack = require('webpack');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
@@ -58,6 +58,7 @@ const options = {
 		Progress: basePath + 'Progress',
 		Calendar: basePath + 'Calendar',
 		EasyLeaflet: basePath + 'EasyLeaflet',
+		Drawer: basePath + 'Drawer',
 	},
 	output: {
 		path: __dirname + '/dist',
