@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243
  * @Date: 2018-09-14 13:54:25
  * @Last Modified by: zy9
- * @Last Modified time: 2018-09-14 17:24:58
+ * @Last Modified time: 2018-09-17 09:56:47
  */
 import React, { Component } from 'react';
 
@@ -79,7 +79,7 @@ export default class Drawer extends Component {
     	);
 
     	const showDrawer = (
-    		<div className='show-drawer' style={ Object.assign({}, { transform: this.handlePosition(direction, clientView, visible, width) }, style) }>
+    		<div className='show-drawer' style={ Object.assign({}, { width }, { transform: this.handlePosition(direction, clientView, visible, width) }, style) }>
     			{ children }
     		</div>
     	);
