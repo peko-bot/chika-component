@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243
  * @Date: 2018-09-14 13:54:25
  * @Last Modified by: zy9
- * @Last Modified time: 2018-09-17 09:56:47
+ * @Last Modified time: 2018-09-21 15:19:15
  */
 import React, { Component } from 'react';
 
@@ -67,7 +67,7 @@ export default class Drawer extends Component {
 	}
 
     render = () => {
-    	const { children, width = 400, operaNode, direction = 'left', visible, isOperateShow = true, clientView, style } = this.props;
+    	const { children, width = (document.body.clientWidth || document.documentElement.clientWidth) * 0.7, operaNode, direction = 'left', visible, isOperateShow = true, clientView, style } = this.props;
     	const { iconDeg } = this.handleClientView(direction, clientView, visible, width);
 
     	const operateDrawer = (
