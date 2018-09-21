@@ -2,17 +2,17 @@
  * @Author: zy9@github.com/zy410419243
  * @Date: 2018-05-20 13:48:08
  * @Last Modified by: zy9
- * @Last Modified time: 2018-09-14 17:19:04
+ * @Last Modified time: 2018-09-21 15:23:42
  */
 const webpack = require('webpack');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const TohoLogPlugin = require('toho-log-plugin');
-const { commonModule, commonPlugin } = require('./webpack.common');
+const { commonModule } = require('./webpack.common');
 
 const dev = !!process.argv.includes('development');
 
-let plugins = commonPlugin;
+let plugins = [];
 
 plugins.push(
 	new CopyWebpackPlugin([
@@ -53,12 +53,12 @@ const options = {
 	devtool: dev ? 'source-map' : '',
 	entry: {
 		// main: __dirname + '/src',
-		ListContainer: basePath + 'ListContainer',
-		Tabs: basePath + 'Tabs',
-		Progress: basePath + 'Progress',
-		Calendar: basePath + 'Calendar',
-		EasyLeaflet: basePath + 'EasyLeaflet',
-		Drawer: basePath + 'Drawer',
+		'lib/ListContainer/index': basePath + 'ListContainer',
+		'lib/Tabs/index': basePath + 'Tabs',
+		'lib/Progress/index': basePath + 'Progress',
+		'lib/Calendar/index': basePath + 'Calendar',
+		'lib/EasyLeaflet/index': basePath + 'EasyLeaflet',
+		'lib/Drawer/index': basePath + 'Drawer',
 	},
 	output: {
 		path: __dirname + '/dist',
