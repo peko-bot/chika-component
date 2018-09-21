@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Drawer render correctly 1`] = `
+<div
+  class="Drawer"
+>
+  <div
+    class="show-drawer"
+    style="width:400px;transform:translateX(-400px)"
+  >
+    test
+  </div>
+  <div
+    class="operate-drawer"
+    style="transform:translateX(-460px);background:linear-gradient(to left, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0))"
+  >
+    <div
+      class="scale-wrapper"
+      style="transform:rotateZ(180deg)"
+    >
+      <img
+        src="../../assets/Drawer/arrow.png"
+      />
+    </div>
+  </div>
+</div>
+`;
