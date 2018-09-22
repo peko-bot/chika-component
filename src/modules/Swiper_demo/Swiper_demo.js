@@ -2,11 +2,12 @@
  * @Author: zy9@github.com/zy410419243
  * @Date: 2018-06-04 17:05:37
  * @Last Modified by: zy9
- * @Last Modified time: 2018-07-28 13:22:24
+ * @Last Modified time: 2018-09-22 08:17:14
  */
 import React from 'react';
 
-import Swiper from '../../component/Swiper/Swiper';
+// import Swiper from '../../component/Swiper/Swiper';
+import Swiper from '../../../dist/lib/Swiper';
 import './css/Swiper_demo.css';
 
 const secRecordPath = '/data/s_problem_record_hy.json';

@@ -2,7 +2,7 @@
  * @Author: zy9@github.com/zy410419243
  * @Date: 2018-05-20 13:48:08
  * @Last Modified by: zy9
- * @Last Modified time: 2018-09-21 15:23:42
+ * @Last Modified time: 2018-09-22 08:17:47
  */
 const webpack = require('webpack');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
@@ -59,6 +59,7 @@ const options = {
 		'lib/Calendar/index': basePath + 'Calendar',
 		'lib/EasyLeaflet/index': basePath + 'EasyLeaflet',
 		'lib/Drawer/index': basePath + 'Drawer',
+		'lib/Swiper/index': basePath + 'Swiper',
 	},
 	output: {
 		path: __dirname + '/dist',
