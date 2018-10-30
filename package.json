@@ -1,5 +1,5 @@
 {
-  "name": "react-mobile-component",
+  "name": "react-component",
   "version": "1.1.1",
   "description": "",
   "main": "main.js",
@@ -7,8 +7,7 @@
     "start": "node webpack.dev.js",
     "build": "node webpack.prod.js",
     "test": "jest -c .jest.js",
-    "dev": "node webpack.prod.js development",
-    "push": "git add .&& git commit -m \"update\" && git push"
+    "dev": "node webpack.prod.js development"
   },
   "dependencies": {
     "antd-mobile": "^2.2.2",
