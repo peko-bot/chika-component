@@ -7,7 +7,7 @@ switch (process.env.LIB_DIR) {
     Drawer = require('../../../dist/lib/Drawer').default;
     break;
   case 'lib':
-    Drawer = require('../../../lib/Drawer').default;
+    Drawer = require('../../../lib/component/Drawer').default;
     break;
   default:
     Drawer = require('..').default;
