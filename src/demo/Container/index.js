@@ -1,7 +1,6 @@
 import React from 'react';
 
-import Container from '../../component/ListContainer';
-// import Container from '../../../dist/ListContainer'
+import Container from '../../component/Container';
 import './css/List_Container_demo.css';
 
 export default class ListContainerDemo extends React.Component {

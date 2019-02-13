@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Ripple from '../../component/Ripple/Ripple';
+import Ripple from '../../component/Ripple';
 import './css/Ripple_demo.css';
 
 export default class RippleDemo extends React.Component {

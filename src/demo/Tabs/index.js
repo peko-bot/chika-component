@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Tabs from '../../component/Tabs';
-// import Tabs from '../../../dist/Tabs'
 
 export default class TabsDemo extends React.Component {
   constructor(props) {

@@ -1,7 +1,6 @@
 import React from 'react';
 
-// import Swiper from '../../component/Swiper/Swiper';
-import Swiper from '../../../dist/lib/Swiper';
+import Swiper from '../../component/Swiper';
 import './css/Swiper_demo.css';
 
 const secRecordPath = '/data/s_problem_record_hy.json';
