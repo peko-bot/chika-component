@@ -1,29 +1,23 @@
-/*
- * @Author: zy9@github.com/zy410419243
- * @Date: 2018-05-28 15:20:13
- * @Last Modified by: zy9
- * @Last Modified time: 2018-07-13 16:37:10
- */
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { AppContainer } from 'react-hot-loader';
+import Button from './component/Button';
+import Calendar from './component/Calendar';
+import Drawer from './component/Drawer';
+import EasyLeaflet from './component/EasyLeaflet';
+import Container from './component/Container';
+import Progress from './component/Progress';
+import Ripple from './component/Ripple';
+import Swiper from './component/Swiper';
+import Tabs from './component/Tabs';
+import Upload from './component/Upload';
 
-import Router from './router';
-
-const MOUNT_NODE = document.getElementById('root');
-
-const render = Component => ReactDOM.render(
-	<AppContainer>
-		<Component />
-	</AppContainer>, MOUNT_NODE
-);
-
-// ReactDOM.render(<Router />, MOUNT_NODE);
-render(Router);
-
-if (module.hot) {
-	module.hot.accept('./router', () => {
-		render(require('./router').default);
-	});
-	// module.hot.accept();
-}
+export {
+  Button,
+  Calendar,
+  Drawer,
+  EasyLeaflet,
+  Container,
+  Progress,
+  Ripple,
+  Swiper,
+  Tabs,
+  Upload,
+};
