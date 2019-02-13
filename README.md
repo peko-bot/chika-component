@@ -1,8 +1,10 @@
 # chika-component
 
+![chika-component](./docs/chika-component.png)
+
 暴露作者目前为资浅水准 FE 的一系列山寨组件，你会发现里面有各种组件库的影子，就好像作者的人生一样
 
-### 为什么不用现有的轮子
+## 为什么不用现有的轮子
 
 - “哇，这个轮子造的好屌，麻麻我也想造一个！”
 
@@ -18,4 +20,6 @@
 
 - 西方哪个 repo 我没见过，造个轮子不是轻松得...
 
-# License MIT
+## who's Chika?
+
+https://www.youtube.com/watch?v=Ywq4XR0G4Qk
