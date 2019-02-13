@@ -3,3 +3,4 @@
 /scripts/prettier.js
 *.css
 /lib/
+/es/
