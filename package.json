@@ -4,49 +4,42 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "start": "node webpack.dev.js",
-    "build": "node webpack.prod.js",
-    "test": "jest -c .jest.js",
-    "dev": "node webpack.prod.js development"
+    "start": "nino go -e ./src/go.js",
+    "test": "nino test",
+    "build": "nino koei -c ./scripts/nino.koei.js",
+    "compile": "nino compile",
+    "dev": "nino koei -w-d",
+    "lint": "npx eslint .",
+    "prettier": "node ./scripts/prettier.js",
+    "lint-staged": "lint-staged",
+    "backup": "npm config set registry=https://registry.npmjs.org && npm publish && npm config set registry=https://registry.npm.taobao.org",
+    "pub": "npm run build && npm run compile && git push origin master && npm publish"
   },
   "dependencies": {
-    "antd-mobile": "^2.2.2",
+    "antd-mobile": "^2.2.8",
     "leaflet": "^1.3.3",
     "leaflet.markercluster": "^1.3.0",
     "moment": "^2.22.2",
-    "rc-form": "^2.2.1"
+    "nino-cli": "^0.3.0",
+    "omit.js": "^1.0.0"
   },
   "devDependencies": {
-    "babel-core": "^6.26.3",
-    "babel-eslint": "^10.0.1",
-    "babel-jest": "^23.6.0",
-    "babel-loader": "^7.1.5",
-    "babel-plugin-import": "^1.8.0",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-react": "^6.24.1",
-    "babel-preset-stage-0": "^6.24.1",
-    "chalk": "^2.4.1",
-    "clean-webpack-plugin": "^1.0.1",
-    "copy-webpack-plugin": "^4.5.2",
-    "css-loader": "^2.1.0",
-    "enzyme": "^3.6.0",
-    "enzyme-adapter-react-16": "^1.5.0",
-    "enzyme-to-json": "^3.3.4",
-    "eslint": "^5.2.0",
-    "html-webpack-plugin": "^3.2.0",
-    "jest": "^24.1.0",
-    "mini-css-extract-plugin": "^0.5.0",
-    "postcss-loader": "^3.0.0",
-    "react": "^16.5.2",
-    "react-dom": "^16.5.2",
-    "react-hot-loader": "^4.3.3",
-    "react-router-dom": "^4.3.1",
-    "style-loader": "^0.23.1",
-    "toho-log-plugin": "git+https://github.com/zy410419243/toho-log-plugin.git",
-    "url-loader": "^1.0.1",
-    "webpack": "^4.16.2",
-    "webpack-cli": "^3.1.0",
-    "webpack-dev-server": "^3.1.5"
+    "dekko": "^0.2.1",
+    "eslint": "^5.12.0",
+    "husky": "^1.3.1",
+    "lint-staged": "^8.1.0",
+    "pre-commit": "^1.2.2",
+    "prettier": "^1.15.3"
+  },
+  "pre-commit": [
+    "lint-staged"
+  ],
+  "lint-staged": {
+    "*.{js,css}": [
+      "npm run prettier",
+      "npx eslint .",
+      "git add"
+    ]
   },
   "license": "MIT"
 }
