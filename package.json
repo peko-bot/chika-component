@@ -32,7 +32,9 @@
     "prettier": "^1.15.3"
   },
   "license": "MIT",
-  "pre-commit": [],
+  "pre-commit": [
+    "lint-staged"
+  ],
   "lint-staged": {
     "*.{js,css}": [
       "npm run prettier",
