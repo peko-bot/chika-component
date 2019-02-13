@@ -1,6 +1,6 @@
 import MultilateralDraw from '../Parent/MultilateralDraw';
 
-export class MeasureRange extends MultilateralDraw {
+export default class MeasureRange extends MultilateralDraw {
   constructor(props) {
     super(props);
     this.initialize();

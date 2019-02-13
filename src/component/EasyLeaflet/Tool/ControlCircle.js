@@ -1,6 +1,6 @@
 import Control from '../Parent/Control';
 
-export class ControlCircle extends Control {
+export default class ControlCircle extends Control {
   constructor(props) {
     super(props);
     this.initialize();

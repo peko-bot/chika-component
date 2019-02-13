@@ -1,7 +1,7 @@
 import Control from '../Parent/Control';
 
 /**可控点 */
-export class ControlPoint extends Control {
+export default class ControlPoint extends Control {
   constructor(props) {
     super(props);
     this.initialize();

@@ -2,7 +2,7 @@ import MultilateralDraw from '../Parent/MultilateralDraw';
 
 const CLICK = 'MAP_CLICK';
 
-export class ControlLine extends MultilateralDraw {
+export default class ControlLine extends MultilateralDraw {
   constructor(props) {
     super(props);
     this.initialize();
