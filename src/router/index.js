@@ -1,90 +1,46 @@
-import React, { Component } from 'react';
-import { Route, HashRouter } from 'react-router-dom';
+import React, { Component, Suspense, lazy } from 'react';
+import { HashRouter, Route, Switch } from 'react-router-dom';
 
-import Bundle from '../util/Bundle';
+const Calendar = lazy(() => import('../demo/Calendar'));
+const Button = lazy(() => import('../demo/Button'));
+const Container = lazy(() => import('../demo/Container'));
+const Swiper = lazy(() => import('../demo/Swiper'));
+const Ripple = lazy(() => import('../demo/Ripple'));
+const Tabs = lazy(() => import('../demo/Tabs'));
+const Progress = lazy(() => import('../demo/Progress'));
+const EasyLeaflet = lazy(() => import('../demo/EasyLeaflet'));
+const Upload = lazy(() => import('../demo/Upload'));
+const Drawer = lazy(() => import('../demo/Drawer'));
 
-const Calendar = props => (
-  <Bundle load={() => import('../modules/Calendar_demo/Calendar_demo')}>
-    {Calendar => <Calendar {...props} />}
-  </Bundle>
-);
-
-const Button = props => (
-  <Bundle load={() => import('../modules/Button_demo/Button_demo')}>
-    {Button => <Button {...props} />}
-  </Bundle>
-);
-
-const ListContainer = props => (
-  <Bundle load={() => import('../modules/ListContainer_demo')}>
-    {ListContainer => <ListContainer {...props} />}
-  </Bundle>
-);
-
-const Swiper = props => (
-  <Bundle load={() => import('../modules/Swiper_demo/Swiper_demo')}>
-    {Swiper => <Swiper {...props} />}
-  </Bundle>
-);
-
-const Ripple = props => (
-  <Bundle load={() => import('../modules/Ripple_demo/Ripple_demo')}>
-    {Ripple => <Ripple {...props} />}
-  </Bundle>
-);
-
-const Tabs = props => (
-  <Bundle load={() => import('../modules/Tabs_demo/Tabs_demo')}>
-    {Tabs => <Tabs {...props} />}
-  </Bundle>
-);
-
-const Progress = props => (
-  <Bundle load={() => import('../modules/Progress_demo')}>
-    {Progress => <Progress {...props} />}
-  </Bundle>
-);
-
-const EasyLeaflet = props => (
-  <Bundle load={() => import('../modules/EasyLeaflet_demo')}>
-    {EasyLeaflet => <EasyLeaflet {...props} />}
-  </Bundle>
-);
-
-const Upload = props => (
-  <Bundle load={() => import('../modules/Upload_demo')}>
-    {Upload => <Upload {...props} />}
-  </Bundle>
-);
-
-const Drawer = props => (
-  <Bundle load={() => import('../modules/Drawer_demo')}>
-    {Drawer => <Drawer {...props} />}
-  </Bundle>
-);
-
-const Test = props => (
-  <Bundle load={() => import('../modules/Test_demo')}>
-    {Test => <Test {...props} />}
-  </Bundle>
-);
-
-export default class Router extends Component {
+export default class Entry extends Component {
   render = () => (
     <HashRouter>
-      <div>
-        <Route path="/button" component={Button} />
-        <Route path="/calendar" component={Calendar} />
-        <Route path="/list_container" component={ListContainer} />
-        <Route path="/swiper" component={Swiper} />
-        <Route path="/tabs" component={Tabs} />
-        <Route path="/progress" component={Progress} />
-        <Route path="/ripple" component={Ripple} />
-        <Route path="/easyLeaflet" component={EasyLeaflet} />
-        <Route path="/upload" component={Upload} />
-        <Route path="/drawer" component={Drawer} />
-        <Route path="/test" component={Test} />
-      </div>
+      <Suspense fallback={<div>加载中...</div>}>
+        <Switch>
+          <Route path="/button" component={props => <Button {...props} />} />
+          <Route
+            path="/calendar"
+            component={props => <Calendar {...props} />}
+          />
+          <Route
+            path="/container"
+            component={props => <Container {...props} />}
+          />
+          <Route path="/swiper" component={props => <Swiper {...props} />} />
+          <Route path="/tabs" component={props => <Tabs {...props} />} />
+          <Route
+            path="/progress"
+            component={props => <Progress {...props} />}
+          />
+          <Route path="/ripple" component={props => <Ripple {...props} />} />
+          <Route
+            path="/easyLeaflet"
+            component={props => <EasyLeaflet {...props} />}
+          />
+          <Route path="/upload" component={props => <Upload {...props} />} />
+          <Route path="/drawer" component={props => <Drawer {...props} />} />
+        </Switch>
+      </Suspense>
     </HashRouter>
   );
 }
