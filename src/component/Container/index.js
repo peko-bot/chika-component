@@ -27,7 +27,7 @@ import FunctionalButton from './FunctionalButton';
 import MapBox from './MaxBox';
 
 import { bindTouchDirection } from '../../util/Touch';
-import { handleDetailDatas } from './mockHandler';
+import { handleDetailDatas } from './DataHandler';
 
 import './css/List_Container.css';
 
