@@ -1,5 +1,6 @@
 import React from 'react';
 import { render, mount, shallow } from 'enzyme';
+import 'nino-cli/scripts/setup';
 import Drawer from '..';
 
 describe('Drawer', () => {
