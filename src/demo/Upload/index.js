@@ -33,12 +33,7 @@ export default class index extends Component {
     formData.append('GetFileInfo', 'y');
 
     this.setState({ loading: true });
-    // fetch('//jsonplaceholder.typicode.com/posts/', {
-    fetch('../../data/uploadFiles.json', {
-      // method: 'POST',
-      // body: formData,
-      // credentials: 'include',
-    })
+    fetch('../../mock/uploadFiles.json')
       .then(result => result.text())
       .then(url => {
         let { fileList } = this.state;

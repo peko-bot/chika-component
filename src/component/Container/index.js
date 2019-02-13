@@ -27,7 +27,7 @@ import FunctionalButton from './FunctionalButton';
 import MapBox from './MaxBox';
 
 import { bindTouchDirection } from '../../util/Touch';
-import { handleDetailDatas } from './DataHandler';
+import { handleDetailDatas } from './mockHandler';
 
 import './css/List_Container.css';
 
@@ -65,14 +65,14 @@ class ListContainer extends React.Component {
     // 用作debug
     this.getConfigUrl = domain
       ? domain + 'getconfig'
-      : '../../data/getConfig.json';
+      : '../../mock/getConfig.json';
     this.tableConfigUrl = domain
       ? domain + 'getinterfacedata'
-      : '../../data/tableconfig.json';
-    this.searchUrl = domain ? domain + 'getdata' : '../../data/search.json';
+      : '../../mock/tableconfig.json';
+    this.searchUrl = domain ? domain + 'getdata' : '../../mock/search.json';
     this.generalbackstageUrl = domain
       ? domain + 'operatedata'
-      : '../../data/operatedata.json';
+      : '../../mock/operatedata.json';
 
     this.children = []; // 遍历模板根据数据渲染 reactNode
     this.listDatas = []; // 列表数据 object

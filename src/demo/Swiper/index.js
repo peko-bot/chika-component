@@ -3,7 +3,7 @@ import React from 'react';
 import Swiper from '../../component/Swiper';
 import './css/Swiper_demo.css';
 
-const secRecordPath = '/data/s_problem_record_hy.json';
+const secRecordPath = '/mock/s_problem_record_hy.json';
 
 export default class SwiperDemo extends React.Component {
   constructor(props) {
