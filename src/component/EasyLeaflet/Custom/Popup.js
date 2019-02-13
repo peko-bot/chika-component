@@ -11,7 +11,6 @@
 import React from 'react';
 
 import { defaultDivStyle } from '../css/style';
-import { eHelper } from '../helper';
 
 let map = null;
 
@@ -19,10 +18,6 @@ export default class Popup extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
-  }
-  componentDidMount() {
-    eHelper.on(event, 'MAP_MOVE', this.moveFun);
-    this.setState();
   }
   moveFun = e => {
     this.setState();
@@ -34,8 +29,6 @@ export default class Popup extends React.Component {
         width: '100%',
         height: '80%',
       },
-      dx,
-      dy,
       { config } = this.props;
 
     config = Object.assign({}, defaultDivStyle, config);
@@ -62,9 +55,6 @@ export default class Popup extends React.Component {
           dy = config.y;
           break;
       }
-      // let bounds = map.getBounds(),size = map.getSize();
-      //     boxStyle.left = size.x / (bounds._northEast.lng - bounds._southWest.lng) * (config.lng - bounds._southWest.lng) + dx,
-      //     boxStyle.top = size.y / (bounds._southWest.lat - bounds._northEast.lat) * (config.lat - bounds._northEast.lat) + dy;
     }
     return (
       <div style={boxStyle}>
