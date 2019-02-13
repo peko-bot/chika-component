@@ -31,15 +31,13 @@
     "pre-commit": "^1.2.2",
     "prettier": "^1.15.3"
   },
-  "pre-commit": [
-    "lint-staged"
-  ],
+  "license": "MIT",
+  "pre-commit": [],
   "lint-staged": {
     "*.{js,css}": [
       "npm run prettier",
       "npx eslint .",
       "git add"
     ]
-  },
-  "license": "MIT"
+  }
 }
