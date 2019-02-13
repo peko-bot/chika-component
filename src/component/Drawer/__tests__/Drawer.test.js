@@ -1,13 +1,24 @@
 import React from 'react';
-import { render, mount, shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import 'nino-cli/scripts/setup';
-import Drawer from '..';
+let Drawer;
+switch (process.env.LIB_DIR) {
+  case 'dist':
+    Drawer = require('../../../dist/lib/Drawer').default;
+    break;
+  case 'lib':
+    Drawer = require('../../../lib/Drawer').default;
+    break;
+  default:
+    Drawer = require('..').default;
+    break;
+}
 
 describe('Drawer', () => {
   it('render correctly', () => {
-    const wrapperShow = render(<Drawer visible={true}>test</Drawer>);
+    const wrapperShow = mount(<Drawer visible={true}>test</Drawer>);
 
-    const wrapperHide = render(<Drawer visible={false}>test</Drawer>);
+    const wrapperHide = mount(<Drawer visible={false}>test</Drawer>);
 
     expect(wrapperShow).toMatchSnapshot();
     expect(wrapperHide).toMatchSnapshot();
