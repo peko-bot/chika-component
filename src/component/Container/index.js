@@ -18,19 +18,15 @@ import {
 // const operation = Modal.operation;
 const { alert } = Modal;
 const CheckboxItem = Checkbox.CheckboxItem;
-
+import Upload from './UploadWrapper';
 import { createForm } from 'rc-form';
-
 import Templet from './Templet';
 import DetailArrow from './DetailArrow';
 import FunctionalButton from './FunctionalButton';
 import MapBox from './MaxBox';
-
 import { bindTouchDirection } from '../../util/Touch';
 import { handleDetailDatas } from './DataHandler';
-
 import './css/List_Container.css';
-
 import Serialize from '../../util/Serialize';
 import moment from 'moment';
 
@@ -910,6 +906,18 @@ class ListContainer extends React.Component {
         break;
 
       case 12: // 附件上传
+        element = (
+          <List
+            key={`case_99_attachment_${index}`}
+            renderHeader={() => (
+              <span style={{ color: '#000', fontSize: 17 }}>{fvalue}</span>
+            )}
+          >
+            <List.Item>
+              <Upload />
+            </List.Item>
+          </List>
+        );
         break;
 
       case 99: // label，基本就是给详情页用的
