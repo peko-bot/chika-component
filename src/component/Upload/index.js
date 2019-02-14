@@ -18,11 +18,16 @@ export default class Upload extends Component {
       style,
       isShowPlus,
       plusText,
+      longPress,
     } = this.props;
 
     return (
       <div className="Upload" style={Object.assign({}, style)}>
-        <UploadView fileList={fileList} loading={loading} />
+        <UploadView
+          fileList={fileList}
+          loading={loading}
+          longPress={longPress}
+        />
         <Uploader
           onChange={onChange}
           visible={isShowPlus}
