@@ -914,7 +914,20 @@ class ListContainer extends React.Component {
             )}
           >
             <List.Item>
-              <Upload />
+              <Upload
+                {...getFieldProps(fname, {
+                  onChange: fileList => {
+                    this.state.editParam = Object.assign(
+                      {},
+                      this.state.editParam,
+                      { [fname]: fileList },
+                    );
+                    this.setState({});
+                  },
+                })}
+                error={!!getFieldError(fname)}
+                onErrorClick={() => this.handleFormError(fname)}
+              />
             </List.Item>
           </List>
         );

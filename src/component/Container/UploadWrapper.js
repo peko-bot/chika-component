@@ -1,11 +1,18 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Upload from '../Upload';
 import { ajax, isDev } from '../../util/urlHelper';
 
-export default class UploadWrapper extends Component {
-  static propTypes = {};
+function noop() {}
 
-  static defaultProps = {};
+export default class UploadWrapper extends Component {
+  static propTypes = {
+    onChange: PropTypes.func,
+  };
+
+  static defaultProps = {
+    onChange: noop,
+  };
 
   constructor(props) {
     super(props);
@@ -13,6 +20,7 @@ export default class UploadWrapper extends Component {
     this.state = {
       fileList: [],
     };
+    this.uploadIds = [];
   }
 
   componentDidMount = () => {};
@@ -34,13 +42,20 @@ export default class UploadWrapper extends Component {
 
   handleChange = file => {
     file.url = this.getObjectURL(file);
-    const update = file => {
+
+    const update = (file, result) => {
+      const { onChange } = this.props;
       let { fileList } = this.state;
       fileList.push(file);
-      this.setState({ fileList });
+      this.setState({ fileList }, () => {
+        this.uploadIds.push(result.split('|')[0]);
+        this.uploadIds = Array.from(new Set(this.uploadIds));
+        onChange(this.uploadIds.toString());
+      });
     };
+
     if (isDev) {
-      update(file);
+      update(file, ~~(Math.random() * 100) + '|');
     } else {
       ajax({
         key: 'upload',
@@ -51,7 +66,7 @@ export default class UploadWrapper extends Component {
         },
         type: 'text',
         success: result => {
-          update(file);
+          update(file, result);
         },
       });
     }
