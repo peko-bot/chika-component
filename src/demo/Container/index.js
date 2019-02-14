@@ -58,7 +58,6 @@ export default class ListContainerDemo extends React.Component {
     const params = {
       config: this.config,
       sortBy: this.sortBy,
-      // domain: 'http://61.175.121.68:9001/webapi/api/v2/generalbackstage/',
       wrappedComponentRef: ref => (this.container = ref),
       style: {
         height:

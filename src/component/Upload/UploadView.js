@@ -9,6 +9,7 @@ export default class UploadView extends Component {
     super(props);
 
     this.state = {};
+    this.timer = null;
   }
 
   extname = url => {
@@ -54,6 +55,16 @@ export default class UploadView extends Component {
     reader.readAsDataURL(file);
   };
 
+  handleViewTouchStart = (item, e) => {
+    this.timer = setTimeout(() => {
+      this.props.longPress(item, e);
+    }, 800);
+  };
+
+  handleTouchEnd = e => {
+    clearTimeout(this.timer);
+  };
+
   render = () => {
     const { fileList = [], style, loading } = this.props;
     let view = [];
@@ -65,12 +76,15 @@ export default class UploadView extends Component {
 
     fileList.map((item, i) => {
       const { url } = item;
-
-      let flag = this.isImageUrl(url);
-
-      if (flag) {
+      if (this.isImageUrl(url)) {
         view.push(
-          <div className="img-list" key={'imgList' + i}>
+          <div
+            className="img-list"
+            key={'imgList' + i}
+            onTouchStart={e => this.handleViewTouchStart(item, e)}
+            onTouchMove={this.handleTouchEnd}
+            onTouchEnd={this.handleTouchEnd}
+          >
             <div className="img-wrapper">
               <img src={url} />
             </div>
