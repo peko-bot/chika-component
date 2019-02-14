@@ -41,14 +41,17 @@ export default class UploadWrapper extends Component {
   };
 
   handleChange = file => {
-    file.url = this.getObjectURL(file);
-
     const update = (file, result) => {
       const { onChange } = this.props;
       let { fileList } = this.state;
+      const fileId = result.split('|')[0];
+
+      file.url = this.getObjectURL(file);
+      file.id = fileId;
+
       fileList.push(file);
       this.setState({ fileList }, () => {
-        this.uploadIds.push(result.split('|')[0]);
+        this.uploadIds.push(fileId);
         this.uploadIds = Array.from(new Set(this.uploadIds));
         onChange(this.uploadIds.toString());
       });
@@ -92,10 +95,14 @@ export default class UploadWrapper extends Component {
     return param;
   };
 
-  handleLongPress = ({ name }, e) => {
+  handleLongPress = ({ name, id }, e) => {
+    const { onChange } = this.props;
     let { fileList } = this.state;
 
     fileList = fileList.filter(item => item.name != name);
+
+    this.uploadIds = this.uploadIds.filter(fileId => fileId != id);
+    onChange(this.uploadIds.toString());
 
     this.setState({ fileList });
   };
