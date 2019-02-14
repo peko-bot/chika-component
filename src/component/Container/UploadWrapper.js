@@ -17,7 +17,23 @@ export default class UploadWrapper extends Component {
 
   componentDidMount = () => {};
 
+  getObjectURL = file => {
+    let url = null;
+    if (window.createObjectURL != undefined) {
+      // basic
+      url = window.createObjectURL(file);
+    } else if (window.URL != undefined) {
+      // mozilla(firefox)
+      url = window.URL.createObjectURL(file);
+    } else if (window.webkitURL != undefined) {
+      // webkit or chrome
+      url = window.webkitURL.createObjectURL(file);
+    }
+    return url;
+  };
+
   handleChange = file => {
+    file.url = this.getObjectURL(file);
     const update = file => {
       let { fileList } = this.state;
       fileList.push(file);

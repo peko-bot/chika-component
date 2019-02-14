@@ -23,21 +23,6 @@ export default class UploadView extends Component {
     return (/\.[^./\\]*$/.exec(filenameWithoutSuffix) || [''])[0];
   };
 
-  getObjectURL = file => {
-    let url = null;
-    if (window.createObjectURL != undefined) {
-      // basic
-      url = window.createObjectURL(file);
-    } else if (window.URL != undefined) {
-      // mozilla(firefox)
-      url = window.URL.createObjectURL(file);
-    } else if (window.webkitURL != undefined) {
-      // webkit or chrome
-      url = window.webkitURL.createObjectURL(file);
-    }
-    return url;
-  };
-
   isImageUrl = file => {
     if (imageTypes.includes(file.type)) {
       return true;
@@ -90,11 +75,8 @@ export default class UploadView extends Component {
     );
 
     fileList.map((item, i) => {
-      const url = this.getObjectURL(item);
-
-      let flag = this.isImageUrl(url);
-
-      if (flag) {
+      const { url } = item;
+      if (this.isImageUrl(url)) {
         view.push(
           <div
             className="img-list"
