@@ -1,3 +1,5 @@
+![](https://img.shields.io/circleci/project/github/zy410419243/chika-component.svg?style=flat)
+
 # chika-component
 
 ![chika-component](./docs/chika-component.png)
