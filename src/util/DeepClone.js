@@ -1,4 +1,4 @@
-define([], () => {
+export default (target, options) => {
   var copyIsArray,
     toString = Object.prototype.toString,
     hasOwn = Object.prototype.hasOwnProperty;
@@ -74,5 +74,5 @@ define([], () => {
       return target;
     };
 
-  return extend;
-});
+  return extend(target, options);
+};
