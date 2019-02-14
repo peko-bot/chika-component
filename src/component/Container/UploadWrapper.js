@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Upload from '../Upload';
-import { ajax } from '../../util/urlHelper';
+import { ajax, isDev } from '../../util/urlHelper';
 
 export default class UploadWrapper extends Component {
   static propTypes = {};
@@ -18,16 +18,27 @@ export default class UploadWrapper extends Component {
   componentDidMount = () => {};
 
   handleChange = file => {
-    ajax({
-      key: 'upload',
-      params: {
-        method: 'POST',
-        body: this.getUploadParam(file),
-        mode: 'cors',
-      },
-      type: 'text',
-      success: result => {},
-    });
+    const update = file => {
+      let { fileList } = this.state;
+      fileList.push(file);
+      this.setState({ fileList });
+    };
+    if (isDev) {
+      update(file);
+    } else {
+      ajax({
+        key: 'upload',
+        params: {
+          method: 'POST',
+          body: this.getUploadParam(file),
+          mode: 'cors',
+        },
+        type: 'text',
+        success: result => {
+          update(file);
+        },
+      });
+    }
   };
 
   getUploadParam = file => {
@@ -50,11 +61,23 @@ export default class UploadWrapper extends Component {
     return param;
   };
 
+  handleLongPress = ({ name }, e) => {
+    let { fileList } = this.state;
+
+    fileList = fileList.filter(item => item.name != name);
+
+    this.setState({ fileList });
+  };
+
   render = () => {
     const { fileList } = this.state;
     return (
       <div className="UploadWrapper">
-        <Upload fileList={fileList} onChange={this.handleChange} />
+        <Upload
+          fileList={fileList}
+          onChange={this.handleChange}
+          longPress={this.handleLongPress}
+        />
       </div>
     );
   };
