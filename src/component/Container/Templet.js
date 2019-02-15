@@ -1,12 +1,19 @@
 import React, { Component } from 'react';
-
+import PropTypes from 'prop-types';
 import { Modal } from 'antd-mobile';
 const operation = Modal.operation;
-
 import moment from 'moment';
 import extend from '../../util/DeepClone';
 
 export default class Templet extends Component {
+  static propTypes = {
+    dataSource: PropTypes.array,
+  };
+
+  static defaultProps = {
+    dataSource: [],
+  };
+
   // 递归复制模版，填入数据
   travelChildren = (children, item, mainValue) => {
     const { bindKey = 'data-key', onDetail, power, onDelete } = this.props;
@@ -111,7 +118,7 @@ export default class Templet extends Component {
     });
   };
 
-  buildTemplet = () => {
+  renderTemplet = () => {
     const { dataSource, mainKey, templet, mainValue, onSort } = this.props;
 
     // 重置详情页left顺序，顺带重新渲染模版
@@ -137,17 +144,16 @@ export default class Templet extends Component {
   render = () => {
     const { dataSource } = this.props;
 
-    return (
-      <div className="Templet">
-        {dataSource.length ? (
-          this.buildTemplet()
-        ) : (
+    if (!dataSource.length) {
+      return (
+        <div className="Templet">
           <img
             src="../../assets/List_Container/nodata.png"
             style={{ width: '100%' }}
           />
-        )}
-      </div>
-    );
+        </div>
+      );
+    }
+    return <div className="Templet">{this.renderTemplet()}</div>;
   };
 }

@@ -33,7 +33,8 @@ class ContainerCore extends React.Component {
   static propTypes = {
     power: PropTypes.object.isRequired,
     config: PropTypes.array.isRequired,
-    dataSource: PropTypes.object.isRequired,
+    dataSource: PropTypes.array.isRequired,
+    total: PropTypes.number,
     loading: PropTypes.bool,
   };
 
@@ -45,10 +46,8 @@ class ContainerCore extends React.Component {
       add: false,
     },
     config: [],
-    dataSource: {
-      list: [],
-      total: 0,
-    },
+    dataSource: [],
+    total: 0,
     loading: false,
   };
 
@@ -1236,19 +1235,6 @@ class ContainerCore extends React.Component {
       </div>
     ) : null;
 
-    const templetConfig = {
-      display: pageType == 'list' ? '' : 'none',
-      mainKey: this.mainKey,
-      mainValue: this.getMainValue,
-      templet: props.children,
-      dataSource: this.listDatas,
-      onDetail: this.handleItemEdit,
-      power: this.power,
-      onDelete: this.delete,
-      // onSort: sortBy => this.sortBy = sortBy,
-      bindKey,
-    };
-
     const drawerConfig = {
       open: searchFieldOpen,
       onOpenChange: this.handleSearchChange,
@@ -1313,7 +1299,18 @@ class ContainerCore extends React.Component {
             }}
             ref={ref => (this.content = ref)}
           >
-            <Templet {...templetConfig} />
+            <Templet
+              display={pageType == 'list' ? '' : 'none'}
+              mainKey={this.mainKey}
+              mainValue={this.getMainValue}
+              templet={props.children}
+              dataSource={props.dataSource}
+              onDetail={this.handleItemEdit}
+              power={this.power}
+              onDelete={this.delete}
+              // onSort: sortBy => this.sortBy = sortBy,
+              bindKey={bindKey}
+            />
           </div>
         </PullToRefresh>
 
@@ -1341,7 +1338,7 @@ class ContainerCore extends React.Component {
         <MapBox url={mapBoxUrl} onClose={this.handleOnMapClose} />
 
         <ActivityIndicator
-          animating={loading}
+          animating={props.loading}
           text="正在加载..."
           toast
           size="large"

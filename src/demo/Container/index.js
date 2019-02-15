@@ -32,14 +32,14 @@ export default class ListContainerDemo extends React.Component {
     // UserId: 1,
     // CellPhone: 13900000000,
     // RequestUrl: '../../webapi/api/v2/generalbackstage/getdata',
-    RequestParams: {
-      // TCID: 1620,
-      // PageSize: 10,
-      // PageIndex: 1,
-      // CellPhone: 13900000000,
-      // sectionid: 4,
-      // AddSearchField: 1,
-    },
+    // RequestParams: {
+    // TCID: 1620,
+    // PageSize: 10,
+    // PageIndex: 1,
+    // CellPhone: 13900000000,
+    // sectionid: 4,
+    // AddSearchField: 1,
+    // },
     // RequestMethod: 'POST',
   };
 
@@ -69,7 +69,7 @@ export default class ListContainerDemo extends React.Component {
 
     return (
       <div className="List_Container_demo">
-        <Container {...params}>
+        <Container tableId={-2} menuId={-2}>
           <div className="container" bind="true">
             <ul>
               <li>
