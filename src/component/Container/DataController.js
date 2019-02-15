@@ -4,16 +4,25 @@ import Container from './core';
 import { ajax, isDev } from '../../util/urlHelper';
 
 export default class DataController extends Component {
-  static propTypes = {};
+  static propTypes = {
+    children: PropTypes.element.isRequired,
+    tableId: PropTypes.number.isRequired,
+    menuId: PropTypes.number,
+  };
 
-  static defaultProps = {};
+  static defaultProps = {
+    children: null,
+    tableId: -1,
+    menuId: -1,
+  };
 
   constructor(props) {
     super(props);
 
     this.state = {
       config: [],
-      dataSource: {},
+      dataSource: [],
+      total: 0,
       power: {
         select: false,
         delete: false,
@@ -57,11 +66,11 @@ export default class DataController extends Component {
 
   getConfig = () => {
     this.setState({ loading: true });
-    const { tcid = -1, menuid = -1 } = this.props.config;
+    const { tableId, menuId } = this.props;
 
     ajax({
       url: '../../mock/getConfig.json',
-      data: { tcid, menuid },
+      data: { tableId, menuId },
       success: ({ data }) => {
         this.setState({
           config: data.tablefieldconfig,
@@ -83,20 +92,26 @@ export default class DataController extends Component {
       //   body: JSON.stringify(data),
       //   mode: 'cors',
       // },
-      success: dataSource => {
-        this.setState({ dataSource, loading: false });
+      success: ({ data }) => {
+        this.setState({
+          dataSource: data.list,
+          total: data.recordcount,
+          loading: false,
+        });
       },
     });
   };
 
   render = () => {
-    const { power, config, dataSource, loading } = this.state;
+    const { power, config, dataSource, loading, total } = this.state;
     return (
       <div className="DataController">
         <Container
+          {...this.props}
           power={power}
           config={config}
           dataSource={dataSource}
+          total={total}
           loading={loading}
         />
       </div>
