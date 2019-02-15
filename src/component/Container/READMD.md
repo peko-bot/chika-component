@@ -120,17 +120,17 @@ npm install chika-component --save-dev
 
 ## API
 
-|        参数         | 说明                                                                                                                                                                |          类型           |           默认值           |
-| :-----------------: | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :---------------------: | :------------------------: |
-|         url         | true 时会用第三方接口                                                                                                                                               |         Boolean         |           false            |
-|       bindKey       | 如果 data-key 被占用了，可以把这个属性放到 Container 上，`<Container bindKey='data-test' />` ,于是现在绑定物理字段名的 key 变成 data-test 了                        |         String          |         'data-key'         |
-|       height        | 容器高度                                                                                                                                                            |    String 或 Number     | document.body.clientHeight |
-|       domain        | 服务地址 domain，如果不传则会请求本地 json，目录在/src/mock 中                                                                                                      |         String          |             无             |
-| wrappedComponentRef | 替代原先的 ref 获得组件对象以调用其中方法，详情参考[这里](https://github.com/react-component/form#note-use-wrappedcomponentref-instead-of-withref-after-rc-form140) |    {}，用作外部搜索     |             无             |
-|     detailArrow     | 详情页翻页箭头是否显示                                                                                                                                              |         Boolean         |           false            |
-|       sortBy        | 排序字段                                                                                                                                                            | [{ key: '', text: '' }] |           false            |
-|       mapPath       | 地图路由地址                                                                                                                                                        |         string          |       #/easyLeaflet        |
-|       config        | 配置，详见下方说明                                                                                                                                                  |           {}            |             无             |
+|        参数         | 说明                                                                                                                                                                  |          类型           |           默认值           |
+| :-----------------: | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :---------------------: | :------------------------: |
+|         url         | true 时会用第三方接口                                                                                                                                                 |         Boolean         |           false            |
+|       bindKey       | 如果 data-key 被占用了，可以把这个属性放到 Container 上，`<Container bindKey='data-test' />` ,于是现在绑定物理字段名的 key 变成 data-test 了                          |         String          |         'data-key'         |
+|       height        | 容器高度                                                                                                                                                              |    String 或 Number     | document.body.clientHeight |
+|       domain        | 服务地址 domain，如果不传则会请求本地 json，目录在/src/mock 中                                                                                                        |         String          |             无             |
+| wrappedComponentRef | 替代原先的 ref 获得组件对象以调用其中方法，详情参考[`这里`](https://github.com/react-component/form#note-use-wrappedcomponentref-instead-of-withref-after-rc-form140) | ref => {},用作外部搜索  |             无             |
+|     detailArrow     | 详情页翻页箭头是否显示                                                                                                                                                |         Boolean         |           false            |
+|       sortBy        | 排序字段                                                                                                                                                              | [{ key: '', text: '' }] |           false            |
+|       mapPath       | 地图路由地址                                                                                                                                                          |         string          |       #/easyLeaflet        |
+|       config        | 配置，详见下方说明                                                                                                                                                    |           {}            |             无             |
 
 - 有两种请求方式，默认以 tcid 和 menuid 的形式请求数据，但有时会调第三方的接口，url = true 的用处就在这了。
 - bind 会覆盖原有的 click 和 touch 事件
