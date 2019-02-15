@@ -35,7 +35,7 @@ class ListContainer extends Component {
   static propTypes = {
     url: PropTypes.bool,
     bindKey: PropTypes.string,
-    height: PropTypes.oneOfType(['string', 'number']),
+    height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     domain: PropTypes.string,
     wrappedComponentRef: PropTypes.func,
     detailArrow: PropTypes.bool,
