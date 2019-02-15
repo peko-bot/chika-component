@@ -35,7 +35,8 @@
     "pre-commit": "^1.2.2",
     "prettier": "^1.15.3",
     "rc-form": "^2.4.1",
-    "react-router-dom": "^4.3.1"
+    "react-router-dom": "^4.3.1",
+    "whatwg-fetch": "^3.0.0"
   },
   "license": "MIT",
   "pre-commit": [
