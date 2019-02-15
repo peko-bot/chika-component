@@ -29,7 +29,7 @@ import './css/List_Container.css';
 import Serialize from '../../util/Serialize';
 import moment from 'moment';
 
-class ListContainer extends React.Component {
+class ContainerCore extends React.Component {
   static propTypes = {
     power: PropTypes.object.isRequired,
     config: PropTypes.array.isRequired,
@@ -1354,4 +1354,4 @@ class ListContainer extends React.Component {
 const ClientHeight =
   document.documentElement.clientHeight || document.body.clientHeight;
 
-export default createForm()(ListContainer);
+export default createForm()(ContainerCore);
