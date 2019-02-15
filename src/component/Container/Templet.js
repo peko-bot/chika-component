@@ -8,10 +8,12 @@ import extend from '../../util/DeepClone';
 export default class Templet extends Component {
   static propTypes = {
     dataSource: PropTypes.array,
+    loading: PropTypes.bool,
   };
 
   static defaultProps = {
     dataSource: [],
+    loading: false,
   };
 
   // 递归复制模版，填入数据
@@ -120,14 +122,12 @@ export default class Templet extends Component {
 
   renderTemplet = () => {
     const { dataSource, mainKey, templet, mainValue, onSort } = this.props;
-
     // 重置详情页left顺序，顺带重新渲染模版
     let children = [];
 
     for (let i = 0; i < dataSource.length; i++) {
-      let item = dataSource[i];
-
-      // 复制模版对象
+      const item = dataSource[i];
+      // copy templet
       let singleTemplet = extend({}, templet);
 
       mainValue(item[mainKey]);
@@ -141,18 +141,22 @@ export default class Templet extends Component {
     return children;
   };
 
-  render = () => {
-    const { dataSource } = this.props;
+  renderEmpty = () => {
+    return (
+      <div className="Templet">
+        <img
+          src="../../assets/List_Container/nodata.png"
+          style={{ width: '100%' }}
+        />
+      </div>
+    );
+  };
 
-    if (!dataSource.length) {
-      return (
-        <div className="Templet">
-          <img
-            src="../../assets/List_Container/nodata.png"
-            style={{ width: '100%' }}
-          />
-        </div>
-      );
+  render = () => {
+    const { dataSource, loading } = this.props;
+
+    if (!dataSource.length && !loading) {
+      return this.renderEmpty();
     }
     return <div className="Templet">{this.renderTemplet()}</div>;
   };

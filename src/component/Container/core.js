@@ -1307,6 +1307,7 @@ class ContainerCore extends React.Component {
               dataSource={props.dataSource}
               onDetail={this.handleItemEdit}
               power={this.power}
+              loading={props.loading}
               onDelete={this.delete}
               // onSort: sortBy => this.sortBy = sortBy,
               bindKey={bindKey}
