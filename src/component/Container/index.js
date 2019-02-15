@@ -1,6 +1,5 @@
-import core from './core';
+import Core from './core';
 import DataController from './DataController';
 
-const Container = DataController;
-Container.Core = core;
-export default Container;
+export { Core };
+export default DataController;
