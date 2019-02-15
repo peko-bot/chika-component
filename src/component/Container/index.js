@@ -1,5 +1,5 @@
-import React from 'react';
-
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import {
   Modal,
   DatePicker,
@@ -30,7 +30,32 @@ import './css/List_Container.css';
 import Serialize from '../../util/Serialize';
 import moment from 'moment';
 
-class ListContainer extends React.Component {
+function noop() {}
+class ListContainer extends Component {
+  static propTypes = {
+    url: PropTypes.bool,
+    bindKey: PropTypes.string,
+    height: PropTypes.oneOfType(['string', 'number']),
+    domain: PropTypes.string,
+    wrappedComponentRef: PropTypes.func,
+    detailArrow: PropTypes.bool,
+    sortBy: PropTypes.array,
+    mapPath: PropTypes.string,
+    config: PropTypes.object.isRequired,
+  };
+
+  static defaultProps = {
+    url: false,
+    bindKey: 'data-key',
+    height: document.body.clientHeight,
+    domain: '',
+    wrappedComponentRef: noop,
+    detailArrow: false,
+    sortBy: [],
+    mapPath: '#/easyLeaflet',
+    config: {},
+  };
+
   constructor(props) {
     super(props);
 
