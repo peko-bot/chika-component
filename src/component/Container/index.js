@@ -31,7 +31,7 @@ import Serialize from '../../util/Serialize';
 import moment from 'moment';
 
 function noop() {}
-class ListContainer extends Component {
+export class ContainerCore extends Component {
   static propTypes = {
     url: PropTypes.bool,
     bindKey: PropTypes.string,
@@ -81,31 +81,26 @@ class ListContainer extends Component {
       pullLoad: false, // 滑动分页是否加载中
       pageType: 'list', // 当前页面状态，列表页为list，编辑页为edit,详情页为detail,新增页为add
       mapBoxUrl: '', // 地图url，同时控制iframe显隐
+      // 用作debug
+      getConfigUrl: domain ? domain + 'getconfig' : '../../mock/getConfig.json',
+      tableConfigUrl: domain
+        ? domain + 'getinterfacedata'
+        : '../../mock/tableconfig.json',
+      searchUrl: domain ? domain + 'getdata' : '../../mock/search.json',
+      generalbackstageUrl: domain
+        ? domain + 'operatedata'
+        : '../../mock/operatedata.json',
+      children: [], // 遍历模板根据数据渲染 reactNode
+      listDatas: [], // 列表数据 object
+      power: [], // 权限字符串 string
+      mainKey: '', // 搜索主键 string
+      mainValue: '', // 搜索主键对应的value，用于编辑和修改
+      config: [], // 配置 object
+      // detailNext: false, // 详情页是否还有下一页，true表示还有下一页
+      // detailLast: false, // 详情页是否还有上一页，true表示还有上一页
+      calendarKey: '', // 时段搜索参数名
+      recordCount: 0, // 数据总数，分页，用于是否继续请求分页接口
     };
-
-    // 用作debug
-    this.getConfigUrl = domain
-      ? domain + 'getconfig'
-      : '../../mock/getConfig.json';
-    this.tableConfigUrl = domain
-      ? domain + 'getinterfacedata'
-      : '../../mock/tableconfig.json';
-    this.searchUrl = domain ? domain + 'getdata' : '../../mock/search.json';
-    this.generalbackstageUrl = domain
-      ? domain + 'operatedata'
-      : '../../mock/operatedata.json';
-
-    this.children = []; // 遍历模板根据数据渲染 reactNode
-    this.listDatas = []; // 列表数据 object
-    this.power = []; // 权限字符串 string
-    this.mainKey = ''; // 搜索主键 string
-    this.mainValue = ''; // 搜索主键对应的value，用于编辑和修改
-    this.config = []; // 配置 object
-    this.detailNext = false; // 详情页是否还有下一页，true表示还有下一页
-    this.detailLast = false; // 详情页是否还有上一页，true表示还有上一页
-    this.calendarKey = ''; // 时段搜索参数名
-    this.recordCount = 0; // 数据总数，分页，用于是否继续请求分页接口
-    // this.sortBy = [] // 排序字段
   }
 
   componentDidMount = () => {
@@ -161,22 +156,22 @@ class ListContainer extends Component {
 
     this.setState({ loading: true });
 
-    fetch(`${this.getConfigUrl}?${Serialize({ tcid, menuid })}`)
+    fetch(`${this.state.getConfigUrl}?${Serialize({ tcid, menuid })}`)
       .then(result => result.json())
       .then(result => {
         // 无论如何都会有查看的权限
         let { power, tablefieldconfig } = result.data;
 
-        this.power = power.split(',');
+        this.state.power = power.split(',');
 
         // 搜索主键是列表点到详情页请求数据的唯一标识
         for (let item of tablefieldconfig) {
           item.fname = item.fname.toLowerCase();
           // 判断是不是搜索主键，暂时按只有一个算
-          if (item.iskey) this.mainKey = item.fname;
+          if (item.iskey) this.state.mainKey = item.fname;
         }
 
-        this.config = tablefieldconfig;
+        this.state.config = tablefieldconfig;
 
         this.search();
       });
@@ -211,10 +206,10 @@ class ListContainer extends Component {
         )
       : Object.assign({}, searchParam, data, RequestParams);
 
-    // let tableConfig = `${ this.tableConfigUrl }?${ Serialize(data) }`;
-    let tableConfig = `${this.tableConfigUrl}`;
-    // let search = `${ this.searchUrl }?${ Serialize(data) }`;
-    let search = `${this.searchUrl}`;
+    // let tableConfig = `${ this.state.tableConfigUrl }?${ Serialize(data) }`;
+    let tableConfig = `${this.state.tableConfigUrl}`;
+    // let search = `${ this.state.searchUrl }?${ Serialize(data) }`;
+    let search = `${this.state.searchUrl}`;
 
     const options = {
       method: domain ? 'POST' : 'GET',
@@ -230,15 +225,15 @@ class ListContainer extends Component {
         let { list, recordcount } = result.data;
 
         // 设置分页参数
-        this.recordCount = recordcount;
+        this.state.recordCount = recordcount;
 
         switch (searchType) {
           case 'pullLoad': // 下拉加载
-            this.listDatas = [...this.listDatas, ...list];
+            this.state.listDatas = [...this.state.listDatas, ...list];
             break;
 
           default:
-            this.listDatas = list;
+            this.state.listDatas = list;
             break;
         }
 
@@ -255,7 +250,7 @@ class ListContainer extends Component {
 
   /*
         初始化新增/编辑页面
-        mainValue为搜索主键对应的值，mainKey在this里
+        mainValue为搜索主键对应的值，mainKey在state里
         TODO: 该方法需要重构
     */
   handleItemEdit = (mainValue, type) => {
@@ -263,12 +258,16 @@ class ListContainer extends Component {
 
     pageType = type;
 
-    this.listDatas = handleDetailDatas(this.listDatas, mainValue, this.mainKey);
+    this.state.listDatas = handleDetailDatas(
+      this.state.listDatas,
+      mainValue,
+      this.state.mainKey,
+    );
 
-    for (let item of this.config) {
+    for (let item of this.state.config) {
       const { fname, isvisiable, isadd, controltype } = item;
 
-      if (this.listDatas.length == 0) {
+      if (this.state.listDatas.length == 0) {
         if (isadd) {
           switch (type) {
             case 'add':
@@ -310,8 +309,8 @@ class ListContainer extends Component {
             : editConfig.push(element);
         }
 
-        for (let jtem of this.listDatas) {
-          if (jtem[this.mainKey] == mainValue) {
+        for (let jtem of this.state.listDatas) {
+          if (jtem[this.state.mainKey] == mainValue) {
             for (let key in jtem) {
               if (isadd && key == fname) {
                 switch (type) {
@@ -356,7 +355,7 @@ class ListContainer extends Component {
     let result = {};
 
     for (let key in formData) {
-      for (let item of this.config) {
+      for (let item of this.state.config) {
         let { fname, controltype, dateformat = 'YYYY-MM-DD HH:mm:ss' } = item;
 
         if (key == fname) {
@@ -404,7 +403,7 @@ class ListContainer extends Component {
 
       let mainKey = {};
 
-      mainKey[this.mainKey] = this.mainValue;
+      mainKey[this.state.mainKey] = this.state.mainValue;
 
       const formData = this.handleFormdata();
       let params = Object.assign(
@@ -442,8 +441,8 @@ class ListContainer extends Component {
         };
 
     const url = domain
-      ? this.generalbackstageUrl
-      : this.generalbackstageUrl + `?${Serialize(params)}`;
+      ? this.state.generalbackstageUrl
+      : this.state.generalbackstageUrl + `?${Serialize(params)}`;
 
     fetch(url, ins)
       .then(result => result.json())
@@ -496,7 +495,7 @@ class ListContainer extends Component {
 
           let mainKey = {};
 
-          mainKey[this.mainKey] = mainValue;
+          mainKey[this.state.mainKey] = mainValue;
           let ajaxParam = Object.assign({}, { TCID: tcid }, data, mainKey);
 
           this.handleEditDatas(ajaxParam, 'POST');
@@ -812,7 +811,7 @@ class ListContainer extends Component {
           rules: [{ required: !!isnull, message: '该值不能为空' }],
         };
 
-        this.calendarKey = fname;
+        this.state.calendarKey = fname;
 
         element =
           type == 'search' ? (
@@ -1006,16 +1005,16 @@ class ListContainer extends Component {
 
     switch (type) {
       case 'next': // 上一条
-        for (let i = 0; i < this.listDatas.length; i++) {
-          let item = this.listDatas[i];
+        for (let i = 0; i < this.state.listDatas.length; i++) {
+          let item = this.state.listDatas[i];
 
           item.detailOrder--;
         }
         break;
 
       case 'last': // 下一条
-        for (let i = 0; i < this.listDatas.length; i++) {
-          let item = this.listDatas[i];
+        for (let i = 0; i < this.state.listDatas.length; i++) {
+          let item = this.state.listDatas[i];
 
           item.detailOrder++;
         }
@@ -1031,11 +1030,11 @@ class ListContainer extends Component {
   // 判断是否有上一条/下一条
   handleDetailNext = () => {
     let [detailLast, detailNext] = [false, false];
-    let len = this.listDatas.length;
+    let len = this.state.listDatas.length;
 
     if (len != 0) {
-      detailLast = !!this.listDatas[0].detailOrder;
-      detailNext = !!this.listDatas[len - 1].detailOrder;
+      detailLast = !!this.state.listDatas[0].detailOrder;
+      detailNext = !!this.state.listDatas[len - 1].detailOrder;
     }
 
     return { detailLast, detailNext };
@@ -1045,19 +1044,19 @@ class ListContainer extends Component {
   handleCalendarSubmit = (start, end) => {
     let format = 'YYYY-MM-DD HH:mm:ss';
 
-    this.state.searchParam[this.calendarKey + '_Begin'] = moment(start).format(
-      format,
-    );
-    this.state.searchParam[this.calendarKey + '_End'] = moment(end).format(
-      format,
-    );
+    this.state.searchParam[this.state.calendarKey + '_Begin'] = moment(
+      start,
+    ).format(format);
+    this.state.searchParam[this.state.calendarKey + '_End'] = moment(
+      end,
+    ).format(format);
 
     this.setState({ calendarVisible: false });
   };
 
   // 滑动加载
   handlePullLoad = () => {
-    if (this.listDatas.length < this.recordCount) {
+    if (this.state.listDatas.length < this.state.recordCount) {
       let { searchParam } = this.state;
       let { PageIndex } = searchParam;
 
@@ -1095,14 +1094,16 @@ class ListContainer extends Component {
   };
 
   // 获得主键值，用作新增/修改
-  getMainValue = value => (this.mainValue = value);
+  getMainValue = value => (this.state.mainValue = value);
 
   render = () => {
-    let { children, config, props } = this;
+    let { props } = this;
+    let { config } = this.state;
     const {
       currentState,
       editConfig,
       searchFieldOpen,
+      children,
       detailConfig,
       calendarVisible,
       loading,
@@ -1159,7 +1160,7 @@ class ListContainer extends Component {
     /* 详情页 */
     let detailContent = (
       <div style={{ overflowX: 'hidden', position: 'relative' }}>
-        {this.listDatas.map((jtem, j) => (
+        {this.state.listDatas.map((jtem, j) => (
           <List
             key={`listDatas_${j}`}
             className="sc-detail-content"
@@ -1196,12 +1197,12 @@ class ListContainer extends Component {
 
     const templetConfig = {
       display: pageType == 'list' ? '' : 'none',
-      mainKey: this.mainKey,
+      mainKey: this.state.mainKey,
       mainValue: this.getMainValue,
       templet: props.children,
-      dataSource: this.listDatas,
+      dataSource: this.state.listDatas,
       onDetail: this.handleItemEdit,
-      power: this.power,
+      power: this.state.power,
       onDelete: this.delete,
       // onSort: sortBy => this.sortBy = sortBy,
       bindKey,
@@ -1232,12 +1233,12 @@ class ListContainer extends Component {
 
     const functionalButtonConfig = {
       visible: showButton && !searchFieldOpen && pageType == 'list',
-      onAdd: type => this.handleItemEdit(this.mainValue, type),
-      dataSource: this.listDatas,
+      onAdd: type => this.handleItemEdit(this.state.mainValue, type),
+      dataSource: this.state.listDatas,
       sortBy,
-      power: this.power,
+      power: this.state.power,
       onSort: datas => {
-        this.listDatas = datas;
+        this.state.listDatas = datas;
 
         this.setState({});
       },
@@ -1312,4 +1313,4 @@ class ListContainer extends Component {
 const ClientHeight =
   document.documentElement.clientHeight || document.body.clientHeight;
 
-export default createForm()(ListContainer);
+export default createForm()(ContainerCore);

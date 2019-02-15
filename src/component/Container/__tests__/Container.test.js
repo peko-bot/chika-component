@@ -1,7 +1,10 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import 'nino-cli/scripts/setup';
-import { fetch } from 'whatwg-fetch';
+import 'whatwg-fetch';
+import getConfig from '../../../mock/getConfig.json';
+import search from '../../../mock/search.json';
+
 let Container;
 switch (process.env.LIB_DIR) {
   case 'dist':
@@ -31,19 +34,42 @@ const sortBy = [
   },
 ];
 
-const createWrapper = (...props) =>
-  mount(<Container config={config} sortBy={sortBy} {...props} />);
-
 describe('Container', () => {
-  beforeAll = () => {
-    global.fetch = fetch;
-  };
-
-  afterAll = () => {
-    global.fetch = null;
-  };
-
   it('render correctly', () => {
-    const wrapper = createWrapper();
+    const wrapper = mount(
+      <Container config={config} sortBy={sortBy} height={900}>
+        <div className="container" bind="true">
+          <ul>
+            <li>
+              <div className="left">
+                <label>名称：</label>
+                <label data-key="pjnm" />
+              </div>
+              <div className="right">
+                <label>坝高：</label>
+                <label data-key="dam_width" unit="m" decimalcount={2} />
+              </div>
+            </li>
+          </ul>
+        </div>
+      </Container>,
+    );
+
+    const { power, tablefieldconfig } = getConfig.data;
+    const { list, recordcount } = search.data;
+    wrapper.setState(
+      {
+        power,
+        config: tablefieldconfig,
+        recordCount: recordcount,
+        listDatas: list,
+        loading: false,
+        searchLoading: false,
+        pullLoad: false,
+      },
+      () => {
+        // expect(wrapper).toMatchSnapshot();
+      },
+    );
   });
 });
