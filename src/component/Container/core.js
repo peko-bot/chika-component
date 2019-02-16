@@ -16,7 +16,7 @@ import {
   Calendar,
 } from 'antd-mobile';
 // const operation = Modal.operation;
-const { alert } = Modal;
+const { alert, operation } = Modal;
 const CheckboxItem = Checkbox.CheckboxItem;
 import Upload from './UploadWrapper';
 import { createForm } from 'rc-form';
@@ -1151,9 +1151,37 @@ class ContainerCore extends React.Component {
     console.log('core');
   };
 
+  // show Modal for operation
   handleTemplatePress = (dataItem, childProps, e) => {
-    // eslint-disable-next-line
-    console.log('core');
+    // operation
+    const { add, delete: del, update, select } = this.props.power;
+    let param = [];
+
+    if (!select) {
+      return;
+    }
+
+    if (add) {
+      param.push({
+        text: '新增',
+        // onPress: () => console.log('add'),
+      });
+    }
+
+    if (update) {
+      param.push({
+        text: '修改',
+        // onPress: () => console.log('update'),
+      });
+    }
+
+    if (del) {
+      param.push({
+        text: '删除',
+        // onPress: () => console.log('delete'),
+      });
+    }
+    param.length !== 0 && operation(param);
   };
 
   handleOnMapClose = latng => {
