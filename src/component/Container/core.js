@@ -27,7 +27,8 @@ import MapBox from './MaxBox';
 import { bindTouchDirection } from '../../util/Touch';
 import './css/List_Container.css';
 import Serialize from '../../util/Serialize';
-import moment from 'moment';
+import { format as fnsFormat } from 'date-fns/esm';
+import { zhCN } from 'date-fns/locale';
 
 class ContainerCore extends React.Component {
   static propTypes = {
@@ -176,6 +177,12 @@ class ContainerCore extends React.Component {
 
         this.search();
       },
+    });
+  };
+
+  moment = (date, formatStr) => {
+    return fnsFormat(new Date(date), formatStr, {
+      locale: zhCN,
     });
   };
 
@@ -403,9 +410,7 @@ class ContainerCore extends React.Component {
         if (key == fname) {
           switch (controltype) {
             case 2:
-              formData[key] = moment(formData[key]).format(
-                'YYYY-MM-DD HH:mm:ss',
-              );
+              formData[key] = this.moment(formData[key], dateformat);
               break;
 
             case 3:
@@ -579,7 +584,7 @@ class ContainerCore extends React.Component {
   };
 
   handleDate = (date, item, key, format) => {
-    this.state[item][key] = moment(date).format(format);
+    this.state[item][key] = this.moment(date, format);
     this.setState({});
   };
 
@@ -619,7 +624,7 @@ class ContainerCore extends React.Component {
         break;
 
       case 2: // 时间
-        value = moment(new Date(value)).format(dateformat);
+        value = this.moment(new Date(value), dateformat);
         break;
 
       case 3: // 下拉框，关联外键数据
@@ -643,7 +648,7 @@ class ContainerCore extends React.Component {
         break;
 
       case 9: // 时段，但显示的时候跟时间没区别
-        value = moment(new Date(value)).format(dateformat);
+        value = this.moment(new Date(value), dateformat);
         break;
 
       case 14: // 地图坐标选取
@@ -653,6 +658,28 @@ class ContainerCore extends React.Component {
         break;
     }
 
+    return value;
+  };
+
+  handleChildDataFormat = (value, childProps) => {
+    const { format, decimalcount, unit } = childProps;
+
+    // handle with date
+    if (format) {
+      value = this.moment(value, format);
+    }
+
+    // handle with decimal number
+    if (decimalcount) {
+      // toFixed is not very precise
+      // e.g. 1.019999999999
+      value = +parseFloat(value.toPrecision(12));
+    }
+
+    // handle with unit
+    if (unit) {
+      value = `${value} ${unit}`;
+    }
     return value;
   };
 
@@ -771,7 +798,7 @@ class ContainerCore extends React.Component {
               onChange={date =>
                 this.handleDate(date, 'searchParam', fname, dateformat)
               }
-              format={date => moment(date).format(dateformat)}
+              format={date => this.moment(date, dateformat)}
             >
               <List.Item arrow="horizontal">{fvalue}</List.Item>
             </DatePicker>
@@ -870,9 +897,10 @@ class ContainerCore extends React.Component {
                 key={`case_9_list_1_${index}`}
                 extra={
                   flag
-                    ? moment(searchParam[fname + '_Begin'])
-                        .format('YY-MM-DD HH:mm')
-                        .toLocaleString()
+                    ? this.moment(
+                        searchParam[fname + '_Begin'],
+                        'YY-MM-DD HH:mm',
+                      ).toLocaleString()
                     : null
                 }
                 style={{ display: flag ? '' : 'none' }}
@@ -883,9 +911,10 @@ class ContainerCore extends React.Component {
                 key={`case_9_list_2_${index}`}
                 extra={
                   flag
-                    ? moment(searchParam[fname + '_End'])
-                        .format('YY-MM-DD HH:mm')
-                        .toLocaleString()
+                    ? this.moment(
+                        searchParam[fname + '_End'],
+                        'YY-MM-DD HH:mm',
+                      ).toLocaleString()
                     : null
                 }
                 style={{ display: flag ? '' : 'none' }}
@@ -1084,12 +1113,13 @@ class ContainerCore extends React.Component {
 
   /* 时段确定事件 */
   handleCalendarSubmit = (start, end) => {
-    let format = 'YYYY-MM-DD HH:mm:ss';
-
-    this.state.searchParam[this.calendarKey + '_Begin'] = moment(start).format(
+    const format = 'YYYY-MM-DD HH:mm:ss';
+    this.state.searchParam[this.calendarKey + '_Begin'] = this.moment(
+      start,
       format,
     );
-    this.state.searchParam[this.calendarKey + '_End'] = moment(end).format(
+    this.state.searchParam[this.calendarKey + '_End'] = this.moment(
+      end,
       format,
     );
 
@@ -1300,14 +1330,15 @@ class ContainerCore extends React.Component {
             ref={ref => (this.content = ref)}
           >
             <Template
+              template={props.children}
+              dataSource={props.dataSource}
+              loading={props.loading}
+              onDataFormat={this.handleChildDataFormat}
               // display={pageType == 'list' ? '' : 'none'}
               // mainKey={this.mainKey}
               // mainValue={this.getMainValue}
-              template={props.children}
-              dataSource={props.dataSource}
               // onDetail={this.handleItemEdit}
               // power={this.power}
-              loading={props.loading}
               // onDelete={this.delete}
               // onSort: sortBy => this.sortBy = sortBy,
               // bindKey={bindKey}
