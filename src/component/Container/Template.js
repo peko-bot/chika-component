@@ -52,6 +52,9 @@ export default class Template extends Component {
         clearTimeout(timer);
       };
     }
+    // fix warning: Unknown event handler property
+    delete childProps.onLongPress;
+
     return childNode;
   };
 
