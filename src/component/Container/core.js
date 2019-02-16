@@ -20,7 +20,7 @@ const { alert } = Modal;
 const CheckboxItem = Checkbox.CheckboxItem;
 import Upload from './UploadWrapper';
 import { createForm } from 'rc-form';
-import Templet from './Templet';
+import Template from './Template';
 import DetailArrow from './DetailArrow';
 import FunctionalButton from './FunctionalButton';
 import MapBox from './MaxBox';
@@ -1299,11 +1299,11 @@ class ContainerCore extends React.Component {
             }}
             ref={ref => (this.content = ref)}
           >
-            <Templet
+            <Template
               // display={pageType == 'list' ? '' : 'none'}
               // mainKey={this.mainKey}
               // mainValue={this.getMainValue}
-              templet={props.children}
+              template={props.children}
               dataSource={props.dataSource}
               // onDetail={this.handleItemEdit}
               // power={this.power}
