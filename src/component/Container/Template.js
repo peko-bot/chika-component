@@ -39,36 +39,39 @@ export default class Template extends Component {
     const { onClick, onLongPress, stopPropagation } = childProps;
     childNode.key = `template-child-${Math.random() * 10000}`;
 
-    if (onClick) {
-      childProps.onClick = e => {
-        e.stopPropagation();
-        onClick(dataItem, childProps, e);
+    childProps.onClick = e => {
+      // if stop bubble, click event on the parent dom will not be called,
+      // but if not, callback in core will be called many times
+      // TODO: find a way to avoid this dilemma, but now, stop it
+      e.stopPropagation();
+      onClick && onClick(dataItem, childProps, e);
+      if (!stopPropagation) {
+        parentOnClick(dataItem, childProps, e);
+      }
+    };
+
+    let timer;
+    childProps.onTouchStart = e => {
+      // if stop bubble, click event on the parent dom will not be called,
+      // but if not, callback in core will be called many times
+      // TODO: find a way to avoid this dilemma, but now, stop it
+      e.stopPropagation();
+      timer = setTimeout(() => {
+        onLongPress && onLongPress(dataItem, childProps, e);
         if (!stopPropagation) {
-          parentOnClick(dataItem, childProps, e);
+          parentOnLongPress(dataItem, childProps, e);
         }
-      };
-    }
+      }, timeForTriggerLongPress);
+    };
 
-    if (onLongPress) {
-      let timer;
+    childProps.onTouchMove = () => {
+      clearTimeout(timer);
+    };
 
-      childProps.onTouchStart = e => {
-        timer = setTimeout(() => {
-          onLongPress(dataItem, childProps, e);
-          if (!stopPropagation) {
-            parentOnLongPress(dataItem, childProps, e);
-          }
-        }, timeForTriggerLongPress);
-      };
+    childProps.onTouchEnd = () => {
+      clearTimeout(timer);
+    };
 
-      childProps.onTouchMove = () => {
-        clearTimeout(timer);
-      };
-
-      childProps.onTouchEnd = () => {
-        clearTimeout(timer);
-      };
-    }
     // fix warning: Unknown event handler property
     delete childProps.onLongPress;
     delete childProps.stopPropagation;
