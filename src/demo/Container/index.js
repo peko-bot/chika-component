@@ -9,9 +9,9 @@ export default class ContainerDemo extends React.Component {
     this.state = {};
   }
 
-  handleOnChange = item => {
+  handleOnChange = (item, childProps, e) => {
     // eslint-disable-next-line
-    console.log(item);
+    console.log(item, childProps, e);
   };
 
   // componentDidMount = () => {
@@ -58,7 +58,11 @@ export default class ContainerDemo extends React.Component {
     return (
       <div className="List_Container_demo">
         <Container tableId={-2} menuId={-2}>
-          <div className="container" onLongPress={this.handleOnChange}>
+          <div
+            className="container"
+            onLongPress={this.handleOnChange}
+            onClick={this.handleOnChange}
+          >
             <ul>
               <li>
                 <div className="left">
