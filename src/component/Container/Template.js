@@ -31,7 +31,7 @@ export default class Template extends Component {
     if (onClick) {
       childProps.onClick = e => {
         e.stopPropagation();
-        onClick(dataItem, e);
+        onClick(dataItem, childProps, e);
       };
     }
 
@@ -40,7 +40,7 @@ export default class Template extends Component {
 
       childProps.onTouchStart = e => {
         timer = setTimeout(() => {
-          onLongPress(dataItem, e);
+          onLongPress(dataItem, childProps, e);
         }, 700);
       };
 
