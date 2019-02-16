@@ -1300,17 +1300,17 @@ class ContainerCore extends React.Component {
             ref={ref => (this.content = ref)}
           >
             <Templet
-              display={pageType == 'list' ? '' : 'none'}
-              mainKey={this.mainKey}
-              mainValue={this.getMainValue}
+              // display={pageType == 'list' ? '' : 'none'}
+              // mainKey={this.mainKey}
+              // mainValue={this.getMainValue}
               templet={props.children}
               dataSource={props.dataSource}
-              onDetail={this.handleItemEdit}
-              power={this.power}
+              // onDetail={this.handleItemEdit}
+              // power={this.power}
               loading={props.loading}
-              onDelete={this.delete}
+              // onDelete={this.delete}
               // onSort: sortBy => this.sortBy = sortBy,
-              bindKey={bindKey}
+              // bindKey={bindKey}
             />
           </div>
         </PullToRefresh>

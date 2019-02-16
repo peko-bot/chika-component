@@ -3,17 +3,21 @@ import PropTypes from 'prop-types';
 import { Modal } from 'antd-mobile';
 const operation = Modal.operation;
 import moment from 'moment';
-import extend from '../../util/DeepClone';
+import extend from '../../../util/DeepClone';
 
 export default class Templet extends Component {
   static propTypes = {
     dataSource: PropTypes.array,
     loading: PropTypes.bool,
+    templet: PropTypes.element,
+    bindKey: PropTypes.string,
   };
 
   static defaultProps = {
     dataSource: [],
     loading: false,
+    templet: null,
+    bindKey: 'data-key',
   };
 
   // 递归复制模版，填入数据
@@ -21,12 +25,11 @@ export default class Templet extends Component {
     const { bindKey = 'data-key', onDetail, power, onDelete } = this.props;
 
     React.Children.map(children, child => {
-      let { props = {} } = child;
-      let { bind, format, decimalcount, unit } = props;
+      let { bind, format, decimalcount, unit } = child.props;
       let instance, key;
 
       if (typeof child !== 'string') {
-        child.key = `child_${Math.random() * 10000}`;
+        child.key = `child-${Math.random() * 10000}`;
         instance = child.props;
         key = instance[bindKey];
 
@@ -121,23 +124,17 @@ export default class Templet extends Component {
   };
 
   renderTemplet = () => {
-    const { dataSource, mainKey, templet, mainValue, onSort } = this.props;
+    const { dataSource, mainKey, templet } = this.props;
     // 重置详情页left顺序，顺带重新渲染模版
     let children = [];
-
     for (let i = 0; i < dataSource.length; i++) {
-      const item = dataSource[i];
+      let item = dataSource[i];
       // copy templet
       let singleTemplet = extend({}, templet);
-
-      mainValue(item[mainKey]);
-
-      // 渲染模版
+      // render templet
       this.travelChildren(singleTemplet, item, item[mainKey]);
-
       children.push(singleTemplet);
     }
-
     return children;
   };
 
