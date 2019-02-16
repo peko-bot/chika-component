@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Modal } from 'antd-mobile';
-const operation = Modal.operation;
 import moment from 'moment';
 import extend from '../../util/DeepClone';
 
@@ -82,6 +80,8 @@ export default class Template extends Component {
 
     // handle with decimal number
     if (decimalcount) {
+      // toFixed is not very precise
+      // e.g. 1.019999999999
       value = +parseFloat(value.toPrecision(12));
     }
 
@@ -109,13 +109,12 @@ export default class Template extends Component {
 
   renderTemplate = () => {
     const { dataSource, mainKey, template } = this.props;
-    // 重置详情页left顺序，顺带重新渲染模版
     let children = [];
     for (let i = 0; i < dataSource.length; i++) {
-      let item = dataSource[i];
+      const item = dataSource[i];
       // copy template
-      let singleTemplate = extend({}, template);
-      // render template
+      const singleTemplate = extend({}, template);
+      // render it
       this.travelChildren(singleTemplate, item, item[mainKey]);
       children.push(singleTemplate);
     }
