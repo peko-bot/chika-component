@@ -134,6 +134,7 @@ npm install chika-component --save-dev
 
 - 有两种请求方式，默认以 tcid 和 menuid 的形式请求数据，但有时会调第三方的接口，url = true 的用处就在这了。
 - bind 会覆盖原有的 click 和 touch 事件
+- `Template` 中的 format 参考 [`这里`](https://github.com/date-fns/date-fns/blob/master/docs/unicodeTokens.md)，因为 moment 太大了，用 date-fns 替代
 
 ## config
 
