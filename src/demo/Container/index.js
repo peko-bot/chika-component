@@ -26,21 +26,6 @@ export default class ContainerDemo extends React.Component {
   config = {
     tcid: 10874,
     menuid: 1392,
-    // pageSize: 5,
-    // showSearch: false, // 是否显示搜索面板
-    // showButton: false, // 是否显示右下功能按钮
-    // UserId: 1,
-    // CellPhone: 13900000000,
-    // RequestUrl: '../../webapi/api/v2/generalbackstage/getdata',
-    // RequestParams: {
-    // TCID: 1620,
-    // PageSize: 10,
-    // PageIndex: 1,
-    // CellPhone: 13900000000,
-    // sectionid: 4,
-    // AddSearchField: 1,
-    // },
-    // RequestMethod: 'POST',
   };
 
   sortBy = [
@@ -60,8 +45,9 @@ export default class ContainerDemo extends React.Component {
         <Container tableId={-2} menuId={-2}>
           <div
             className="container"
-            onLongPress={this.handleOnChange}
-            onClick={this.handleOnChange}
+            // onLongPress={this.handleOnChange}
+            // onClick={this.handleOnChange}
+            // stopPropagation
           >
             <ul>
               <li>
@@ -84,7 +70,8 @@ export default class ContainerDemo extends React.Component {
                   <label>主坝类型：</label>
                   <label
                     data-key="retain_dam_type"
-                    onClick={this.handleOnChange}
+                    // onClick={this.handleOnChange}
+                    // stopPropagation
                   />
                 </div>
               </li>
