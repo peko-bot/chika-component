@@ -3,15 +3,15 @@ import React from 'react';
 import Container from '../../component/Container';
 import './css/List_Container_demo.css';
 
-export default class ListContainerDemo extends React.Component {
+export default class ContainerDemo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
   }
 
-  handleOnChange = item => {
+  handleOnChange = (item, childProps, e) => {
     // eslint-disable-next-line
-    console.log(item);
+    console.log(item, childProps, e);
   };
 
   // componentDidMount = () => {
@@ -32,14 +32,14 @@ export default class ListContainerDemo extends React.Component {
     // UserId: 1,
     // CellPhone: 13900000000,
     // RequestUrl: '../../webapi/api/v2/generalbackstage/getdata',
-    RequestParams: {
-      // TCID: 1620,
-      // PageSize: 10,
-      // PageIndex: 1,
-      // CellPhone: 13900000000,
-      // sectionid: 4,
-      // AddSearchField: 1,
-    },
+    // RequestParams: {
+    // TCID: 1620,
+    // PageSize: 10,
+    // PageIndex: 1,
+    // CellPhone: 13900000000,
+    // sectionid: 4,
+    // AddSearchField: 1,
+    // },
     // RequestMethod: 'POST',
   };
 
@@ -55,22 +55,14 @@ export default class ListContainerDemo extends React.Component {
   ];
 
   render = () => {
-    const params = {
-      config: this.config,
-      sortBy: this.sortBy,
-      wrappedComponentRef: ref => (this.container = ref),
-      style: {
-        height:
-          (document.documentElement.clientHeight ||
-            document.body.clientHeight) - 10,
-      },
-      // mapPath: '#/easyLeaflet'
-    };
-
     return (
       <div className="List_Container_demo">
-        <Container {...params}>
-          <div className="container" bind="true">
+        <Container tableId={-2} menuId={-2}>
+          <div
+            className="container"
+            onLongPress={this.handleOnChange}
+            onClick={this.handleOnChange}
+          >
             <ul>
               <li>
                 <div className="left">
@@ -92,7 +84,7 @@ export default class ListContainerDemo extends React.Component {
                   <label>主坝类型：</label>
                   <label
                     data-key="retain_dam_type"
-                    onChange={this.handleOnChange}
+                    onClick={this.handleOnChange}
                   />
                 </div>
               </li>
