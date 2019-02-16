@@ -1146,6 +1146,16 @@ class ContainerCore extends React.Component {
     }
   };
 
+  handleTemplateClick = (dataItem, childProps, e) => {
+    // eslint-disable-next-line
+    console.log('core');
+  };
+
+  handleTemplatePress = (dataItem, childProps, e) => {
+    // eslint-disable-next-line
+    console.log('core');
+  };
+
   handleOnMapClose = latng => {
     let { editParam } = this.state;
     /**
@@ -1334,6 +1344,8 @@ class ContainerCore extends React.Component {
               dataSource={props.dataSource}
               loading={props.loading}
               onDataFormat={this.handleChildDataFormat}
+              onClick={this.handleTemplateClick}
+              onLongPress={this.handleTemplatePress}
               // display={pageType == 'list' ? '' : 'none'}
               // mainKey={this.mainKey}
               // mainValue={this.getMainValue}

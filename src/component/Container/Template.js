@@ -10,6 +10,9 @@ export default class Template extends Component {
     template: PropTypes.element,
     bindKey: PropTypes.string,
     onDataFormat: PropTypes.func,
+    onClick: PropTypes.func,
+    onLongPress: PropTypes.func,
+    timeForTriggerLongPress: PropTypes.number,
   };
 
   static defaultProps = {
@@ -18,42 +21,60 @@ export default class Template extends Component {
     template: null,
     bindKey: 'data-key',
     onDataFormat: noop,
+    onClick: noop,
+    onLongPress: noop,
+    timeForTriggerLongPress: 700,
   };
 
   handleChildEvent = (childNode, dataItem) => {
     if (!childNode || !childNode.props) {
       return childNode;
     }
+    const {
+      onClick: parentOnClick,
+      onLongPress: parentOnLongPress,
+      timeForTriggerLongPress,
+    } = this.props;
     const childProps = childNode.props;
-    const { onClick, onLongPress } = childProps;
+    const { onClick, onLongPress, stopPropagation } = childProps;
     childNode.key = `template-child-${Math.random() * 10000}`;
 
-    if (onClick) {
-      childProps.onClick = e => {
-        e.stopPropagation();
-        onClick(dataItem, childProps, e);
-      };
-    }
+    childProps.onClick = e => {
+      // if stop bubble, click event on the parent dom will not be called,
+      // but if not, callback in core will be called many times
+      // TODO: find a way to avoid this dilemma, but now, stop it
+      e.stopPropagation();
+      onClick && onClick(dataItem, childProps, e);
+      if (!stopPropagation) {
+        parentOnClick(dataItem, childProps, e);
+      }
+    };
 
-    if (onLongPress) {
-      let timer;
+    let timer;
+    childProps.onTouchStart = e => {
+      // if stop bubble, click event on the parent dom will not be called,
+      // but if not, callback in core will be called many times
+      // TODO: find a way to avoid this dilemma, but now, stop it
+      e.stopPropagation();
+      timer = setTimeout(() => {
+        onLongPress && onLongPress(dataItem, childProps, e);
+        if (!stopPropagation) {
+          parentOnLongPress(dataItem, childProps, e);
+        }
+      }, timeForTriggerLongPress);
+    };
 
-      childProps.onTouchStart = e => {
-        timer = setTimeout(() => {
-          onLongPress(dataItem, childProps, e);
-        }, 700);
-      };
+    childProps.onTouchMove = () => {
+      clearTimeout(timer);
+    };
 
-      childProps.onTouchMove = () => {
-        clearTimeout(timer);
-      };
+    childProps.onTouchEnd = () => {
+      clearTimeout(timer);
+    };
 
-      childProps.onTouchEnd = () => {
-        clearTimeout(timer);
-      };
-    }
     // fix warning: Unknown event handler property
     delete childProps.onLongPress;
+    delete childProps.stopPropagation;
 
     return childNode;
   };
