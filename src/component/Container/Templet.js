@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Modal } from 'antd-mobile';
 const operation = Modal.operation;
 import moment from 'moment';
-import extend from '../../../util/DeepClone';
+import extend from '../../util/DeepClone';
 
 export default class Templet extends Component {
   static propTypes = {
@@ -55,41 +55,51 @@ export default class Templet extends Component {
     return childNode;
   };
 
-  // 递归复制模版，填入数据
-  travelChildren = (children, item, mainValue) => {
+  handleChildData = (childNode, dataItem) => {
+    if (!childNode || !childNode.props) {
+      return childNode;
+    }
     const { bindKey } = this.props;
+    const childProps = childNode.props;
+    if ([bindKey] in childProps) {
+      const key = childProps[bindKey];
+      const value = dataItem[key];
+      childProps.children = this.handleChildDataFormat(value, childProps);
+    }
+    return childNode;
+  };
 
+  handleChildDataFormat = (value, childProps) => {
+    const { format, decimalcount, unit } = childProps;
+
+    // handle with date
+    if (format) {
+      value = moment(value).format(format);
+    }
+
+    // handle with decimal number
+    if (decimalcount) {
+      value = +parseFloat(value.toPrecision(12));
+    }
+
+    // handle with unit
+    if (unit) {
+      value = `${value} ${unit}`;
+    }
+
+    return value;
+  };
+
+  travelChildren = (children, item) => {
     React.Children.map(children, child => {
-      let { format, decimalcount, unit } = child.props;
-      let instance, key;
-
-      instance = this.handleChildEvent(child, item);
-
-      /* 绑定点击事件，模版中所谓的head就是每块元素的最顶层标签 */
-      let value = item[key];
-
-      /* 列表页预处理 */
-      if (instance) {
-        if (instance[bindKey] && value !== undefined) {
-          /* 处理时间格式 */
-          if (format) {
-            instance.children = value = moment(value).format(format);
-          }
-
-          /* 处理小数保留位数 */
-          if (decimalcount) {
-            instance.children = value = parseFloat(value).toFixed(decimalcount);
-          }
-
-          /* 处理单位 */
-          if (unit) {
-            instance.children = value = `${value} ${unit}`;
-          }
-
-          instance.children = instance.children ? instance.children : value;
-        } else if (instance && typeof instance.children === 'object') {
-          this.travelChildren(instance.children, item, mainValue);
-        }
+      let childNode = this.handleChildEvent(child, item);
+      childNode = this.handleChildData(childNode, item);
+      if (
+        child.props &&
+        child.props.children &&
+        typeof child.props.children != 'string'
+      ) {
+        this.travelChildren(child.props.children, item);
       }
     });
   };
