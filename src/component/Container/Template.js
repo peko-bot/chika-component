@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
 import extend from '../../util/DeepClone';
 
+function noop() {}
 export default class Template extends Component {
   static propTypes = {
     dataSource: PropTypes.array,
     loading: PropTypes.bool,
     template: PropTypes.element,
     bindKey: PropTypes.string,
+    onDataFormat: PropTypes.func,
   };
 
   static defaultProps = {
@@ -16,6 +17,7 @@ export default class Template extends Component {
     loading: false,
     template: null,
     bindKey: 'data-key',
+    onDataFormat: noop,
   };
 
   handleChildEvent = (childNode, dataItem) => {
@@ -60,37 +62,14 @@ export default class Template extends Component {
     if (!childNode || !childNode.props) {
       return childNode;
     }
-    const { bindKey } = this.props;
+    const { bindKey, onDataFormat } = this.props;
     const childProps = childNode.props;
     if ([bindKey] in childProps) {
       const key = childProps[bindKey];
       const value = dataItem[key];
-      childProps.children = this.handleChildDataFormat(value, childProps);
+      childProps.children = onDataFormat(value, childProps);
     }
     return childNode;
-  };
-
-  handleChildDataFormat = (value, childProps) => {
-    const { format, decimalcount, unit } = childProps;
-
-    // handle with date
-    if (format) {
-      value = moment(value).format(format);
-    }
-
-    // handle with decimal number
-    if (decimalcount) {
-      // toFixed is not very precise
-      // e.g. 1.019999999999
-      value = +parseFloat(value.toPrecision(12));
-    }
-
-    // handle with unit
-    if (unit) {
-      value = `${value} ${unit}`;
-    }
-
-    return value;
   };
 
   travelChildren = (children, item) => {

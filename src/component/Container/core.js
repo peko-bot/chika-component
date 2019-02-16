@@ -656,6 +656,29 @@ class ContainerCore extends React.Component {
     return value;
   };
 
+  handleChildDataFormat = (value, childProps) => {
+    const { format, decimalcount, unit } = childProps;
+
+    // handle with date
+    if (format) {
+      value = moment(value).format(format);
+    }
+
+    // handle with decimal number
+    if (decimalcount) {
+      // toFixed is not very precise
+      // e.g. 1.019999999999
+      value = +parseFloat(value.toPrecision(12));
+    }
+
+    // handle with unit
+    if (unit) {
+      value = `${value} ${unit}`;
+    }
+
+    return value;
+  };
+
   //1. 文本框 2. 时间控件（日期：2012-01-01） 3. 下拉框 4. 单选框 5. 多选框
   //6. 数值控件 7. TextArea 8.隐藏域hidden 9.时间控件（时间：2012-01-01 00:00:00）
   //10.行政区划Ztree(支持多个) 11.部门Ztree(支持多个) 12.单、多附件上传 13.可输可选 14.地图坐标选取
@@ -1300,14 +1323,15 @@ class ContainerCore extends React.Component {
             ref={ref => (this.content = ref)}
           >
             <Template
+              template={props.children}
+              dataSource={props.dataSource}
+              loading={props.loading}
+              onDataFormat={this.handleChildDataFormat}
               // display={pageType == 'list' ? '' : 'none'}
               // mainKey={this.mainKey}
               // mainValue={this.getMainValue}
-              template={props.children}
-              dataSource={props.dataSource}
               // onDetail={this.handleItemEdit}
               // power={this.power}
-              loading={props.loading}
               // onDelete={this.delete}
               // onSort: sortBy => this.sortBy = sortBy,
               // bindKey={bindKey}
