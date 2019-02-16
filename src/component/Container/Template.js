@@ -10,6 +10,8 @@ export default class Template extends Component {
     template: PropTypes.element,
     bindKey: PropTypes.string,
     onDataFormat: PropTypes.func,
+    onClick: PropTypes.func,
+    onLongPress: PropTypes.func,
   };
 
   static defaultProps = {
@@ -18,20 +20,29 @@ export default class Template extends Component {
     template: null,
     bindKey: 'data-key',
     onDataFormat: noop,
+    onClick: noop,
+    onLongPress: noop,
   };
 
   handleChildEvent = (childNode, dataItem) => {
     if (!childNode || !childNode.props) {
       return childNode;
     }
+    const {
+      onClick: parentOnClick,
+      onLongPress: parentOnLongPress,
+    } = this.props;
     const childProps = childNode.props;
-    const { onClick, onLongPress } = childProps;
+    const { onClick, onLongPress, stopPropagation } = childProps;
     childNode.key = `template-child-${Math.random() * 10000}`;
 
     if (onClick) {
       childProps.onClick = e => {
         e.stopPropagation();
         onClick(dataItem, childProps, e);
+        if (!stopPropagation) {
+          parentOnClick(dataItem, childProps, e);
+        }
       };
     }
 
@@ -41,6 +52,9 @@ export default class Template extends Component {
       childProps.onTouchStart = e => {
         timer = setTimeout(() => {
           onLongPress(dataItem, childProps, e);
+          if (!stopPropagation) {
+            parentOnLongPress(dataItem, childProps, e);
+          }
         }, 700);
       };
 
@@ -54,6 +68,7 @@ export default class Template extends Component {
     }
     // fix warning: Unknown event handler property
     delete childProps.onLongPress;
+    delete childProps.stopPropagation;
 
     return childNode;
   };
