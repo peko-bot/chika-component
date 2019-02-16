@@ -12,6 +12,7 @@ export default class Template extends Component {
     onDataFormat: PropTypes.func,
     onClick: PropTypes.func,
     onLongPress: PropTypes.func,
+    timeForTriggerLongPress: PropTypes.number,
   };
 
   static defaultProps = {
@@ -22,6 +23,7 @@ export default class Template extends Component {
     onDataFormat: noop,
     onClick: noop,
     onLongPress: noop,
+    timeForTriggerLongPress: 700,
   };
 
   handleChildEvent = (childNode, dataItem) => {
@@ -31,6 +33,7 @@ export default class Template extends Component {
     const {
       onClick: parentOnClick,
       onLongPress: parentOnLongPress,
+      timeForTriggerLongPress,
     } = this.props;
     const childProps = childNode.props;
     const { onClick, onLongPress, stopPropagation } = childProps;
@@ -55,7 +58,7 @@ export default class Template extends Component {
           if (!stopPropagation) {
             parentOnLongPress(dataItem, childProps, e);
           }
-        }, 700);
+        }, timeForTriggerLongPress);
       };
 
       childProps.onTouchMove = () => {
