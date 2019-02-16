@@ -11,7 +11,7 @@ export default class ContainerDemo extends React.Component {
 
   handleOnChange = (item, childProps, e) => {
     // eslint-disable-next-line
-    console.log(item, childProps, e);
+    console.log('parent');
   };
 
   // componentDidMount = () => {
@@ -43,40 +43,33 @@ export default class ContainerDemo extends React.Component {
     return (
       <div className="List_Container_demo">
         <Container tableId={-2} menuId={-2}>
-          <div
-            className="container"
-            // onLongPress={this.handleOnChange}
-            // onClick={this.handleOnChange}
-            // stopPropagation
-          >
-            <ul>
-              <li>
-                <div className="left">
-                  <label>名称：</label>
-                  <label data-key="pjnm" />
-                </div>
-                <div className="right">
-                  <label>坝高：</label>
-                  <label data-key="dam_width" unit="m" decimalcount={2} />
-                </div>
-              </li>
+          <ul>
+            <li>
+              <div className="left">
+                <label>名称：</label>
+                <label data-key="pjnm" />
+              </div>
+              <div className="right">
+                <label>坝高：</label>
+                <label data-key="dam_width" unit="m" decimalcount={2} />
+              </div>
+            </li>
 
-              <li>
-                <div className="left">
-                  <label>坝长：</label>
-                  <label data-key="crest_length" unit="m" />
-                </div>
-                <div className="right">
-                  <label>主坝类型：</label>
-                  <label
-                    data-key="retain_dam_type"
-                    // onClick={this.handleOnChange}
-                    // stopPropagation
-                  />
-                </div>
-              </li>
-            </ul>
-          </div>
+            <li>
+              <div className="left">
+                <label>坝长：</label>
+                <label data-key="crest_length" unit="m" />
+              </div>
+              <div className="right">
+                <label>主坝类型：</label>
+                <label
+                  data-key="retain_dam_type"
+                  // onClick={this.handleOnChange}
+                  // stopPropagation
+                />
+              </div>
+            </li>
+          </ul>
         </Container>
       </div>
     );
