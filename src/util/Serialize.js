@@ -1,4 +1,4 @@
-define([], () => {
+export default (a, traditional) => {
   var class2type = {
     '[object Boolean]': 'boolean',
     '[object Number]': 'number',
@@ -136,5 +136,5 @@ define([], () => {
       return s.join('&');
     };
 
-  return param;
-});
+  return param(a, traditional);
+};
