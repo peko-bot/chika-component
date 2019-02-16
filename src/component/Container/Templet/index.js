@@ -20,81 +20,52 @@ export default class Templet extends Component {
     bindKey: 'data-key',
   };
 
+  handleChildEvent = (childNode, dataItem) => {
+    if (!childNode || !childNode.props) {
+      return childNode;
+    }
+    const childProps = childNode.props;
+    const { onClick, onLongPress } = childProps;
+    childNode.key = `templet-child-${Math.random() * 10000}`;
+
+    if (onClick) {
+      childProps.onClick = e => {
+        e.stopPropagation();
+        onClick(dataItem, e);
+      };
+    }
+
+    if (onLongPress) {
+      let timer;
+
+      childProps.onTouchStart = e => {
+        timer = setTimeout(() => {
+          onLongPress(dataItem, e);
+        }, 700);
+      };
+
+      childProps.onTouchMove = () => {
+        clearTimeout(timer);
+      };
+
+      childProps.onTouchEnd = () => {
+        clearTimeout(timer);
+      };
+    }
+    return childNode;
+  };
+
   // 递归复制模版，填入数据
   travelChildren = (children, item, mainValue) => {
-    const { bindKey = 'data-key', onDetail, power, onDelete } = this.props;
+    const { bindKey } = this.props;
 
     React.Children.map(children, child => {
-      let { bind, format, decimalcount, unit } = child.props;
+      let { format, decimalcount, unit } = child.props;
       let instance, key;
 
-      if (typeof child !== 'string') {
-        child.key = `child-${Math.random() * 10000}`;
-        instance = child.props;
-        key = instance[bindKey];
-
-        // children中有绑定事件时，把这个格子的数据传出去
-        if (instance.onChange) {
-          instance.onClick = e => {
-            e.stopPropagation();
-
-            instance.onChange(item);
-          };
-        }
-      }
+      instance = this.handleChildEvent(child, item);
 
       /* 绑定点击事件，模版中所谓的head就是每块元素的最顶层标签 */
-      if (bind && instance) {
-        // 长按菜单
-        let timer = null;
-
-        /* 查看详情 */
-        instance.onClick = e => {
-          onDetail && onDetail(mainValue, 'detail');
-        };
-
-        instance.onTouchStart = e => {
-          timer = setTimeout(() => {
-            let opera = [];
-
-            for (let item of power) {
-              switch (item) {
-                // case 'Add':
-                //     opera.push({ text: '新增', onPress: () => onDetail && onDetail(mainValue, 'add') });
-                // break;
-
-                case 'Del':
-                  opera.push({
-                    text: '删除',
-                    onPress: () => onDelete(mainValue),
-                  });
-                  break;
-
-                case 'Update':
-                  opera.push({
-                    text: '修改',
-                    onPress: () => onDetail && onDetail(mainValue, 'edit'),
-                  });
-                  break;
-
-                default:
-                  break;
-              }
-            }
-            opera.length != 0 ? operation(opera) : null;
-          }, 800);
-        };
-
-        // 滑动时停止计时，不然滑着滑着弹菜单，很监介
-        instance.onTouchMove = () => {
-          clearTimeout(timer);
-        };
-
-        instance.onTouchEnd = () => {
-          clearTimeout(timer);
-        };
-      }
-
       let value = item[key];
 
       /* 列表页预处理 */

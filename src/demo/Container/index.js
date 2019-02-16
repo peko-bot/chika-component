@@ -3,7 +3,7 @@ import React from 'react';
 import Container from '../../component/Container';
 import './css/List_Container_demo.css';
 
-export default class ListContainerDemo extends React.Component {
+export default class ContainerDemo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -55,22 +55,10 @@ export default class ListContainerDemo extends React.Component {
   ];
 
   render = () => {
-    const params = {
-      config: this.config,
-      sortBy: this.sortBy,
-      wrappedComponentRef: ref => (this.container = ref),
-      style: {
-        height:
-          (document.documentElement.clientHeight ||
-            document.body.clientHeight) - 10,
-      },
-      // mapPath: '#/easyLeaflet'
-    };
-
     return (
       <div className="List_Container_demo">
         <Container tableId={-2} menuId={-2}>
-          <div className="container" bind="true">
+          <div className="container" onLongPress={this.handleOnChange}>
             <ul>
               <li>
                 <div className="left">
@@ -92,7 +80,7 @@ export default class ListContainerDemo extends React.Component {
                   <label>主坝类型：</label>
                   <label
                     data-key="retain_dam_type"
-                    onChange={this.handleOnChange}
+                    onClick={this.handleOnChange}
                   />
                 </div>
               </li>
