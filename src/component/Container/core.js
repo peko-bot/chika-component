@@ -1147,11 +1147,13 @@ class ContainerCore extends React.Component {
   };
 
   handleTemplateClick = (dataItem, childProps, e) => {
-    // console.log(dataItem, childProps, e);
+    // eslint-disable-next-line
+    console.log(dataItem, childProps, e);
   };
 
   handleTemplatePress = (dataItem, childProps, e) => {
-    // console.log(dataItem, childProps, e);
+    // eslint-disable-next-line
+    console.log(dataItem, childProps, e);
   };
 
   handleOnMapClose = latng => {
