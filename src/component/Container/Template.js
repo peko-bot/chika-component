@@ -5,18 +5,18 @@ const operation = Modal.operation;
 import moment from 'moment';
 import extend from '../../util/DeepClone';
 
-export default class Templet extends Component {
+export default class Template extends Component {
   static propTypes = {
     dataSource: PropTypes.array,
     loading: PropTypes.bool,
-    templet: PropTypes.element,
+    template: PropTypes.element,
     bindKey: PropTypes.string,
   };
 
   static defaultProps = {
     dataSource: [],
     loading: false,
-    templet: null,
+    template: null,
     bindKey: 'data-key',
   };
 
@@ -26,7 +26,7 @@ export default class Templet extends Component {
     }
     const childProps = childNode.props;
     const { onClick, onLongPress } = childProps;
-    childNode.key = `templet-child-${Math.random() * 10000}`;
+    childNode.key = `template-child-${Math.random() * 10000}`;
 
     if (onClick) {
       childProps.onClick = e => {
@@ -104,24 +104,24 @@ export default class Templet extends Component {
     });
   };
 
-  renderTemplet = () => {
-    const { dataSource, mainKey, templet } = this.props;
+  renderTemplate = () => {
+    const { dataSource, mainKey, template } = this.props;
     // 重置详情页left顺序，顺带重新渲染模版
     let children = [];
     for (let i = 0; i < dataSource.length; i++) {
       let item = dataSource[i];
-      // copy templet
-      let singleTemplet = extend({}, templet);
-      // render templet
-      this.travelChildren(singleTemplet, item, item[mainKey]);
-      children.push(singleTemplet);
+      // copy template
+      let singleTemplate = extend({}, template);
+      // render template
+      this.travelChildren(singleTemplate, item, item[mainKey]);
+      children.push(singleTemplate);
     }
     return children;
   };
 
   renderEmpty = () => {
     return (
-      <div className="Templet">
+      <div className="Template">
         <img
           src="../../assets/List_Container/nodata.png"
           style={{ width: '100%' }}
@@ -136,6 +136,6 @@ export default class Templet extends Component {
     if (!dataSource.length && !loading) {
       return this.renderEmpty();
     }
-    return <div className="Templet">{this.renderTemplet()}</div>;
+    return <div className="Template">{this.renderTemplate()}</div>;
   };
 }
