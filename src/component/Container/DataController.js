@@ -29,6 +29,7 @@ export default class DataController extends Component {
         update: false,
         add: false,
       },
+      primaryKey: '',
       loading: false,
     };
   }
@@ -72,13 +73,25 @@ export default class DataController extends Component {
       url: '../../mock/getConfig.json',
       data: { tableId, menuId },
       success: ({ data }) => {
+        const primaryKey = this.getPrimaryKey(data.tablefieldconfig);
         this.setState({
           config: data.tablefieldconfig,
           power: this.handlePowerStr(data.power),
+          primaryKey,
         });
         this.search();
       },
     });
+  };
+
+  getPrimaryKey = data => {
+    const keyItem = data.filter(item => item.iskey);
+    if (!keyItem.length) {
+      console.error('where is the primary key? please check.');
+      return;
+    }
+
+    return keyItem[0]['fname'];
   };
 
   search = () => {
@@ -103,7 +116,14 @@ export default class DataController extends Component {
   };
 
   render = () => {
-    const { power, config, dataSource, loading, total } = this.state;
+    const {
+      power,
+      config,
+      dataSource,
+      loading,
+      total,
+      primaryKey,
+    } = this.state;
     return (
       <div className="DataController">
         <Container
@@ -112,6 +132,7 @@ export default class DataController extends Component {
           config={config}
           dataSource={dataSource}
           total={total}
+          primaryKey={primaryKey}
           loading={loading}
         />
       </div>
