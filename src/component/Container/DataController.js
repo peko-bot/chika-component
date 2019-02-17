@@ -115,6 +115,14 @@ export default class DataController extends Component {
     });
   };
 
+  handleDelete = primaryValue => {
+    ajax({
+      url: '../../mock/operatedata.json',
+      data: { id: primaryValue },
+      success: ({ data }) => {},
+    });
+  };
+
   render = () => {
     const {
       power,
@@ -134,6 +142,7 @@ export default class DataController extends Component {
           total={total}
           primaryKey={primaryKey}
           loading={loading}
+          onDelete={this.handleDelete}
         />
       </div>
     );
