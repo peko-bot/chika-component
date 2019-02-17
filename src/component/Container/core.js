@@ -30,6 +30,7 @@ import Serialize from '../../util/Serialize';
 import { format as fnsFormat } from 'date-fns/esm';
 import { zhCN } from 'date-fns/locale';
 
+function noop() {}
 class ContainerCore extends React.Component {
   static propTypes = {
     power: PropTypes.object.isRequired,
@@ -38,6 +39,7 @@ class ContainerCore extends React.Component {
     total: PropTypes.number,
     loading: PropTypes.bool,
     primaryKey: PropTypes.string,
+    onDelete: PropTypes.func,
   };
 
   static defaultProps = {
@@ -52,6 +54,7 @@ class ContainerCore extends React.Component {
     total: 0,
     loading: false,
     primaryKey: '',
+    onDelete: noop,
   };
 
   constructor(props) {
@@ -523,31 +526,13 @@ class ContainerCore extends React.Component {
     }, 500);
   };
 
-  delete = mainValue => {
+  handleDelete = primaryValue => {
     alert('长痛不如短痛，删tm的', '真删了啊？', [
       { text: '容朕三思' },
       {
         text: '真的',
         onPress: () => {
-          let {
-            UserId = null,
-            CellPhone = null,
-            tcid = -1,
-          } = this.props.config;
-
-          // 拼参数
-          let data = {};
-
-          UserId ? (data.UserId = UserId) : null;
-          CellPhone ? (data.CellPhone = CellPhone) : null;
-          data.OPType = 'delete';
-
-          let mainKey = {};
-
-          mainKey[this.mainKey] = mainValue;
-          let ajaxParam = Object.assign({}, { TCID: tcid }, data, mainKey);
-
-          this.handleEditDatas(ajaxParam, 'POST');
+          this.props.onDelete(primaryValue);
         },
       },
     ]);
@@ -1156,8 +1141,8 @@ class ContainerCore extends React.Component {
   // show Modal for operation
   handleTemplatePress = dataItem => {
     const { primaryKey, power } = this.props;
-    // operation
     const { add, delete: del, update, select } = power;
+    const primaryValue = dataItem[primaryKey];
     let param = [];
 
     if (!select) {
@@ -1181,7 +1166,7 @@ class ContainerCore extends React.Component {
     if (del) {
       param.push({
         text: '删除',
-        // onPress: () => console.log('delete'),
+        onPress: () => this.handleDelete(primaryValue),
       });
     }
     param.length !== 0 && operation(param);
