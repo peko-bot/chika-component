@@ -37,6 +37,7 @@ class ContainerCore extends React.Component {
     dataSource: PropTypes.array.isRequired,
     total: PropTypes.number,
     loading: PropTypes.bool,
+    primaryKey: PropTypes.string,
   };
 
   static defaultProps = {
@@ -50,6 +51,7 @@ class ContainerCore extends React.Component {
     dataSource: [],
     total: 0,
     loading: false,
+    primaryKey: '',
   };
 
   constructor(props) {
@@ -1146,15 +1148,16 @@ class ContainerCore extends React.Component {
     }
   };
 
-  handleTemplateClick = (dataItem, childProps, e) => {
+  handleTemplateClick = dataItem => {
     // eslint-disable-next-line
     console.log('core');
   };
 
   // show Modal for operation
-  handleTemplatePress = (dataItem, childProps, e) => {
+  handleTemplatePress = dataItem => {
+    const { primaryKey, power } = this.props;
     // operation
-    const { add, delete: del, update, select } = this.props.power;
+    const { add, delete: del, update, select } = power;
     let param = [];
 
     if (!select) {
@@ -1171,7 +1174,7 @@ class ContainerCore extends React.Component {
     if (update) {
       param.push({
         text: '修改',
-        // onPress: () => console.log('update'),
+        // onPress: () => console.log(dataItem, primaryKey),
       });
     }
 
