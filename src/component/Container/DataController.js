@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Container from './core';
-import { ajax, isDev } from '../../util/urlHelper';
+import { ajax } from '../../util/urlHelper';
+import { Toast } from 'antd-mobile';
 
 export default class DataController extends Component {
   static propTypes = {
@@ -66,7 +67,9 @@ export default class DataController extends Component {
   };
 
   getConfig = () => {
-    this.setState({ loading: true });
+    if (!this.state.loading) {
+      this.setState({ loading: true });
+    }
     const { tableId, menuId } = this.props;
 
     ajax({
@@ -116,10 +119,20 @@ export default class DataController extends Component {
   };
 
   handleDelete = primaryValue => {
+    if (!this.state.loading) {
+      this.setState({ loading: true });
+    }
     ajax({
       url: '../../mock/operatedata.json',
       data: { id: primaryValue },
-      success: ({ data }) => {},
+      success: ({ data }) => {
+        if (data.result) {
+          this.search();
+        } else {
+          this.setState({ loading: false });
+          Toast.fail('保存失败：' + data.remark || '');
+        }
+      },
     });
   };
 
