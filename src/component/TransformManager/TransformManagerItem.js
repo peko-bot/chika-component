@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-export default class TransformManagerItem extends Component {
+export default class TransformManagerItem extends PureComponent {
   static propTypes = {
     group: PropTypes.string,
     order: PropTypes.number,
