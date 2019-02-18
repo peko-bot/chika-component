@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
 const getGroups = childProps => {
@@ -25,7 +25,7 @@ const generateNewState = (groups, childProps) => {
   return newState;
 };
 
-export default class TransformManager extends Component {
+export default class TransformManager extends PureComponent {
   static propTypes = {
     currentGroup: PropTypes.string,
     currentOrder: PropTypes.number,
@@ -60,8 +60,19 @@ export default class TransformManager extends Component {
     const { currentGroup, currentOrder } = this.props;
     let result = [];
     const current = this.state[currentGroup];
-    for (let item of current) {
-      const { children, ...props } = item;
+    const currentLen = current.length;
+    for (let i = 0; i < currentLen; i++) {
+      const { children, ...props } = current[i];
+      if (i === currentOrder) {
+        result.push(
+          React.createElement(
+            'div',
+            Object.assign({}, props, { style: { color: 'pink' } }),
+            children,
+          ),
+        );
+        continue;
+      }
       result.push(React.createElement('div', props, children));
     }
     return result;
