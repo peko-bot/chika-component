@@ -8,6 +8,7 @@ import Ripple from './component/Ripple';
 import Swiper from './component/Swiper';
 import Tabs from './component/Tabs';
 import Upload from './component/Upload';
+import TransfromManager from './component/TransformManager';
 
 export {
   Button,
@@ -20,4 +21,5 @@ export {
   Swiper,
   Tabs,
   Upload,
+  TransfromManager,
 };
