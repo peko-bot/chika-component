@@ -1,5 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import './css/TransformManager.css';
 
 const getGroups = childProps => {
   let result = [];
@@ -36,7 +38,7 @@ export default class TransformManager extends PureComponent {
     currentOrder: 0,
   };
 
-  static getDerivedStateFromProps(nextProps, prevState) {
+  static getDerivedStateFromProps(nextProps) {
     let childProps = [];
     React.Children.map(nextProps.children, child => {
       childProps.push(Object.assign({}, child.props, { key: child.key }));
@@ -51,8 +53,6 @@ export default class TransformManager extends PureComponent {
     this.state = {};
   }
 
-  componentDidMount = () => {};
-
   renderChildren = () => {
     if (Object.keys(this.state).length === 0) {
       return null;
@@ -62,18 +62,21 @@ export default class TransformManager extends PureComponent {
     const current = this.state[currentGroup];
     const currentLen = current.length;
     for (let i = 0; i < currentLen; i++) {
-      const { children, ...props } = current[i];
-      if (i === currentOrder) {
-        result.push(
-          React.createElement(
-            'div',
-            Object.assign({}, props, { style: { color: 'pink' } }),
-            children,
-          ),
-        );
-        continue;
-      }
-      result.push(React.createElement('div', props, children));
+      const { children, order, style, className, ...props } = current[i];
+      result.push(
+        <div
+          style={Object.assign(
+            {
+              transform: `translate3d(${(order - currentOrder) * 100}%, 0, 0)`,
+            },
+            style,
+          )}
+          className={classNames('Transform-item', className)}
+          {...props}
+        >
+          {children}
+        </div>,
+      );
     }
     return result;
   };
