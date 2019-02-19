@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import './css/TransformManager.css';
 
-const getGroups = childProps => {
+const getGroupTypes = childProps => {
   let result = [];
   for (let item of childProps) {
     result.push(item.group);
@@ -12,8 +12,8 @@ const getGroups = childProps => {
   return result;
 };
 
-// generate state by group names
-const generateNewState = (groups, childProps) => {
+// generate groups by group names
+const generateGroups = (groups, childProps) => {
   let newState = {};
 
   for (let groupName of groups) {
@@ -38,41 +38,59 @@ export default class TransformManager extends PureComponent {
     currentOrder: 0,
   };
 
-  static getDerivedStateFromProps(nextProps) {
+  static getDerivedStateFromProps(nextProps, nextState) {
     let childProps = [];
     React.Children.map(nextProps.children, child => {
       childProps.push(Object.assign({}, child.props, { key: child.key }));
     });
-    const groups = getGroups(childProps);
-    return generateNewState(groups, childProps);
+    const groupTypes = getGroupTypes(childProps);
+    const groups = generateGroups(groupTypes, childProps);
+
+    if (nextState.currentGroup === '') {
+      nextState.currentGroup = nextProps.currentGroup;
+    }
+    if (nextProps.currentGroup === nextState.currentGroup) {
+      nextState.display = groups[nextProps.currentGroup];
+      return nextState;
+    }
+    if (nextProps.currentGroup !== nextState.currentGroup) {
+      nextState.display = [
+        ...groups[nextProps.currentGroup],
+        ...groups[nextState.currentGroup],
+      ];
+      nextState.currentGroup = nextProps.currentGroup;
+      return nextState;
+    }
   }
 
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = {
+      currentGroup: '',
+      display: [],
+    };
   }
 
   renderChildren = () => {
-    if (Object.keys(this.state).length === 0) {
+    if (Object.keys(this.state).length < 2) {
       return null;
     }
-    const { currentGroup, currentOrder } = this.props;
+    const { props, state } = this;
     let result = [];
-    const current = this.state[currentGroup];
-    const currentLen = current.length;
-    for (let i = 0; i < currentLen; i++) {
-      const { children, order, style, className, ...props } = current[i];
+    for (let item of state.display) {
+      const { children, order, style, className, ...rest } = item;
       result.push(
         <div
           style={Object.assign(
             {
-              transform: `translate3d(${(order - currentOrder) * 100}%, 0, 0)`,
+              transform: `translate3d(${(order - props.currentOrder) *
+                100}%, 0, 0)`,
             },
             style,
           )}
           className={classNames('Transform-item', className)}
-          {...props}
+          {...rest}
         >
           {children}
         </div>,
