@@ -1,3 +1,13 @@
+.TransformManager {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
 .TransformManager .Transform-item {
   transition: transform 0.5s cubic-bezier(0.645, 0.045, 0.355, 1);
+  position: absolute;
+  width: 100%;
 }
