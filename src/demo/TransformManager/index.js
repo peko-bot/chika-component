@@ -8,21 +8,40 @@ export default class TransformManagerDemo extends Component {
 
     this.state = {
       currentOrder: 0,
+      currentGroup: 'group1',
     };
   }
-  handleCurrentPosition = () => {
-    let { currentOrder } = this.state;
-    this.setState({ currentOrder: ++currentOrder });
-  };
 
   render = () => {
-    const { currentOrder } = this.state;
+    const { currentOrder, currentGroup } = this.state;
     return (
       <div className="TransformManagerDemo">
-        <Button type="primary" onClick={this.handleCurrentPosition}>
-          click
+        <Button
+          type="primary"
+          onClick={() =>
+            this.setState({ currentOrder: ++this.state.currentOrder })
+          }
+        >
+          next order
         </Button>
-        <TransformManager currentGroup="group1" currentOrder={currentOrder}>
+        <Button
+          onClick={() =>
+            this.setState({ currentOrder: 0, currentGroup: 'group1' })
+          }
+        >
+          reset
+        </Button>
+        <Button
+          onClick={() =>
+            this.setState({ currentOrder: 0, currentGroup: 'group2' })
+          }
+        >
+          group2-0
+        </Button>
+        <TransformManager
+          currentGroup={currentGroup}
+          currentOrder={currentOrder}
+        >
           <Item group="group1" order={0} key="group1-0">
             group1-0
           </Item>
