@@ -11,6 +11,7 @@ const Progress = lazy(() => import('../demo/Progress'));
 const EasyLeaflet = lazy(() => import('../demo/EasyLeaflet'));
 const Upload = lazy(() => import('../demo/Upload'));
 const Drawer = lazy(() => import('../demo/Drawer'));
+const TransformManager = lazy(() => import('../demo/TransformManager'));
 
 export default class Entry extends Component {
   render = () => (
@@ -39,6 +40,10 @@ export default class Entry extends Component {
           />
           <Route path="/upload" component={props => <Upload {...props} />} />
           <Route path="/drawer" component={props => <Drawer {...props} />} />
+          <Route
+            path="/transform"
+            component={props => <TransformManager {...props} />}
+          />
         </Switch>
       </Suspense>
     </HashRouter>
