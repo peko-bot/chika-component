@@ -124,7 +124,9 @@ export default class TransformManager extends PureComponent {
     // 4. after translation, render real B
     if (!this.state.shouldRender && this.state.shouldTransform) {
       setTimeout(() => {
-        this.setState({ shouldRender: true });
+        this.setState({ shouldRender: true }, () => {
+          this.setState({ shouldRender: false, shouldTransform: false });
+        });
       }, 500);
     }
   };
