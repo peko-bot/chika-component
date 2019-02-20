@@ -60,26 +60,42 @@ export default class TransformManager extends PureComponent {
     // when group name is different, animation of next group item
     // will disappear. The effect of the following code is to solve this.
     //
-    // 1. find the index in state where order is 0,
-    //    and get subarray from state that slice with the index.
-    // 2. add target group item from props in the subarray
-    // 3. return display
-    // 4. update state in componentDidUpdate
+    // 1. get the last element of previous group called A,
+    //    get target element of next group called B,
+    //    create a new array, [A, B]
+    // 2. render it, but not changing order, for pre-translation
+    // 3. there is only two element, it's safe to translate now
+    //    change display to re-render => transform
+    // 4. after translation, render real B
     if (nextProps.currentGroup !== nextState.currentGroup) {
       const prevGroupIndex = groups[nextState.currentGroup].findIndex(
-        current => current.order === 0,
+        current => current.order - nextState.currentOrder === 0,
       );
-      const prevGroup = groups[nextState.currentGroup].slice(
-        0,
-        prevGroupIndex + 1,
-      );
+      let prevGroup = [];
+      if (prevGroupIndex !== -1) {
+        prevGroup = groups[nextState.currentGroup][prevGroupIndex];
+      }
       const nextDisplayItem =
         groups[nextProps.currentGroup][nextProps.currentOrder];
-      nextDisplayItem.order = prevGroup.length;
-      nextState.display = [...prevGroup, nextDisplayItem];
-      nextState.currentOrder = 1;
-      nextState.currentGroup = nextProps.currentGroup;
-      return nextState;
+      nextDisplayItem.order = 1;
+
+      if (!nextState.shouldTransform && !nextState.shouldRender) {
+        nextState.display = [prevGroup, nextDisplayItem];
+        return nextState;
+      }
+      if (nextState.currentOrder === 0 && !nextState.shouldRender) {
+        return { currentOrder: 1 };
+      }
+      if (nextState.shouldRender) {
+        let display = [];
+        groups[nextProps.currentGroup].map((item, i) => {
+          display.push({
+            ...item,
+            order: i + 1,
+          });
+        });
+        return { display };
+      }
     }
   }
 
@@ -91,12 +107,23 @@ export default class TransformManager extends PureComponent {
       currentOrder: 0,
       display: [],
       history: [],
+      shouldTransform: false,
+      shouldRender: false,
     };
   }
 
-  componentDidUpdate = (prevProps, prevState) => {
-    if (prevProps.currentGroup !== prevState.currentGroup) {
-      this.setState({ display: groups[prevState.currentGroup] });
+  componentDidUpdate = prevProps => {
+    // 2. render it, but not changing order, for pre-translation
+    if (this.props.currentGroup !== prevProps.currentGroup) {
+      setTimeout(() => {
+        this.setState({ shouldTransform: true });
+      }, 0);
+    }
+    // 4. after translation, render real B
+    if (!this.state.shouldRender) {
+      setTimeout(() => {
+        this.setState({ shouldRender: true });
+      }, 500);
     }
   };
 
