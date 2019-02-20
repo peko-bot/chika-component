@@ -62,11 +62,11 @@ export default class TransformManager extends PureComponent {
     //
     // 1. get the last element of previous group called A,
     //    get target element of next group called B,
-    //    create a new array, [A, B]
-    // 2. render it, but not changing order, for pre-translation
-    // 3. there is only two element, it's safe to translate now
+    //    create a new array, [A, B].
+    // 2. render it, but not changing order, for pre-translation.
+    // 3. there is only two element, it's safe to translate now.
     //    change display to re-render => transform
-    // 4. after translation, render real B
+    // 4. after translation, render real B.
     if (nextProps.currentGroup !== nextState.currentGroup) {
       const prevGroupIndex = groups[nextState.currentGroup].findIndex(
         current => current.order - nextState.currentOrder === 0,
@@ -74,16 +74,17 @@ export default class TransformManager extends PureComponent {
       let prevGroup = [];
       if (prevGroupIndex !== -1) {
         prevGroup = groups[nextState.currentGroup][prevGroupIndex];
+        prevGroup.order = nextState.currentOrder;
       }
       const nextDisplayItem =
         groups[nextProps.currentGroup][nextProps.currentOrder];
-      nextDisplayItem.order = 1;
+      nextDisplayItem.order = nextState.currentOrder + 1;
 
       if (!nextState.shouldTransform && !nextState.shouldRender) {
         nextState.display = [prevGroup, nextDisplayItem];
         return nextState;
       }
-      if (nextState.currentOrder === 0 && !nextState.shouldRender) {
+      if (!nextState.shouldRender) {
         return { currentOrder: 1 };
       }
       if (nextState.shouldRender) {
@@ -94,9 +95,10 @@ export default class TransformManager extends PureComponent {
             order: i + 1,
           });
         });
-        return { display };
+        return { display, currentGroup: nextProps.currentGroup };
       }
     }
+    return null;
   }
 
   constructor(props) {
@@ -120,7 +122,7 @@ export default class TransformManager extends PureComponent {
       }, 0);
     }
     // 4. after translation, render real B
-    if (!this.state.shouldRender) {
+    if (!this.state.shouldRender && this.state.shouldTransform) {
       setTimeout(() => {
         this.setState({ shouldRender: true });
       }, 500);
