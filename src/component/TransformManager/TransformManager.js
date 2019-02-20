@@ -101,9 +101,6 @@ export default class TransformManager extends PureComponent {
   };
 
   renderChildren = () => {
-    if (Object.keys(this.state).length < 2) {
-      return null;
-    }
     const { display, currentOrder } = this.state;
     let result = [];
     for (let item of display) {
