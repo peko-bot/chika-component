@@ -19,8 +19,9 @@ import {
 const { alert, operation } = Modal;
 const CheckboxItem = Checkbox.CheckboxItem;
 import Upload from './UploadWrapper';
-import { createForm } from 'rc-form';
+// import { createForm } from 'rc-form';
 import Template from './Template';
+import TransformManager, { Item } from '../TransformManager';
 import DetailArrow from './DetailArrow';
 import FunctionalButton from './FunctionalButton';
 import MapBox from './MaxBox';
@@ -82,6 +83,8 @@ class ContainerCore extends React.Component {
       pullLoad: false, // 滑动分页是否加载中
       pageType: 'list', // 当前页面状态，列表页为list，编辑页为edit,详情页为detail,新增页为add
       mapBoxUrl: '', // 地图url，同时控制iframe显隐
+      currentOrder: 0,
+      currentGroup: 'list-page',
     };
 
     // 用作debug
@@ -113,44 +116,44 @@ class ContainerCore extends React.Component {
     const { showSearch = true } = this.props.config;
     // 绑定搜索面板滑动事件
 
-    showSearch
-      ? bindTouchDirection(this.content, direction => {
-          switch (direction) {
-            case 'toLeft':
-              this.handleSearchChange();
-              break;
+    // showSearch
+    //   ? bindTouchDirection(this.content, direction => {
+    //       switch (direction) {
+    //         case 'toLeft':
+    //           this.handleSearchChange();
+    //           break;
 
-            default:
-              break;
-          }
-        })
-      : null;
+    //         default:
+    //           break;
+    //       }
+    //     })
+    //   : null;
 
     // 绑定详情页点击及滑动事件
-    bindTouchDirection(this.editWrapper, direction => {
-      const { pageType } = this.state;
+    // bindTouchDirection(this.editWrapper, direction => {
+    //   const { pageType } = this.state;
 
-      if (pageType == 'detail') {
-        let { detailNext, detailLast } = this.handleDetailNext();
+    //   if (pageType == 'detail') {
+    //     let { detailNext, detailLast } = this.handleDetailNext();
 
-        switch (direction) {
-          case 'toLeft':
-            if (detailNext) {
-              this.handleDetailPagination('next', detailNext);
-            }
-            break;
+    //     switch (direction) {
+    //       case 'toLeft':
+    //         if (detailNext) {
+    //           this.handleDetailPagination('next', detailNext);
+    //         }
+    //         break;
 
-          case 'toRight':
-            if (detailLast) {
-              this.handleDetailPagination('last', detailLast);
-            }
-            break;
+    //       case 'toRight':
+    //         if (detailLast) {
+    //           this.handleDetailPagination('last', detailLast);
+    //         }
+    //         break;
 
-          default:
-            break;
-        }
-      }
-    });
+    //       default:
+    //         break;
+    //     }
+    //   }
+    // });
 
     // start
     // this.getConfig();
@@ -507,12 +510,12 @@ class ContainerCore extends React.Component {
         // 刷新列表
         this.search('refresh');
         // 过渡动画，重置数据
-        this.reset();
+        this.backToList();
       });
   };
 
-  // 详情返回列表，顺带重置各种
-  reset = () => {
+  // 返回列表
+  backToList = () => {
     // this.setState({ pageType: 'list' }, () => {
     //     this.setState({ currentState: 0 }, () => {
     //         /* 清空新增/编辑数据 */
@@ -520,10 +523,11 @@ class ContainerCore extends React.Component {
     //     });
     // });
 
-    this.setState({ currentState: 0 });
-    setTimeout(() => {
-      this.setState({ editConfig: [], detailConfig: [], pageType: 'list' });
-    }, 500);
+    // this.setState({ currentState: 0 });
+    // setTimeout(() => {
+    //   this.setState({ editConfig: [], detailConfig: [], pageType: 'list' });
+    // }, 500);
+    this.setState({ currentGroup: 'list-page', currentOrder: 0 });
   };
 
   handleDelete = primaryValue => {
@@ -1135,7 +1139,8 @@ class ContainerCore extends React.Component {
 
   handleTemplateClick = dataItem => {
     // eslint-disable-next-line
-    console.log('core');
+    console.log(dataItem);
+    this.setState({ currentOrder: 0, currentGroup: 'detail-page' });
   };
 
   // show Modal for operation
@@ -1159,7 +1164,9 @@ class ContainerCore extends React.Component {
     if (update) {
       param.push({
         text: '修改',
-        // onPress: () => console.log(dataItem, primaryKey),
+        onPress: () => {
+          this.setState({ currentGroup: 'update-page', currentOrder: 0 });
+        },
       });
     }
 
@@ -1208,6 +1215,8 @@ class ContainerCore extends React.Component {
       pullLoad,
       pageType,
       mapBoxUrl,
+      currentOrder,
+      currentGroup,
     } = this.state;
     let { style, bindKey, detailArrow, sortBy = [] } = props;
     const { showSearch = true, showButton = true } = props.config;
@@ -1246,7 +1255,7 @@ class ContainerCore extends React.Component {
           >
             保存
           </Button>
-          <Button inline onClick={this.reset} style={{ width: '50%' }}>
+          <Button inline onClick={this.backToList} style={{ width: '50%' }}>
             返回
           </Button>
         </List.Item>
@@ -1256,7 +1265,7 @@ class ContainerCore extends React.Component {
     /* 详情页 */
     let detailContent = (
       <div style={{ overflowX: 'hidden', position: 'relative' }}>
-        {this.listDatas.map((jtem, j) => (
+        {props.dataSource.map((jtem, j) => (
           <List
             key={`listDatas_${j}`}
             className="sc-detail-content"
@@ -1270,7 +1279,7 @@ class ContainerCore extends React.Component {
             )}
 
             <List.Item>
-              <Button onClick={this.reset}>返回上一级</Button>
+              <Button onClick={this.backToList}>返回上级</Button>
             </List.Item>
           </List>
         ))}
@@ -1340,51 +1349,56 @@ class ContainerCore extends React.Component {
           <span />
         </Drawer>
 
-        {/* 模板渲染 */}
-        <PullToRefresh
-          direction="up"
-          style={{ height: style.height, overflow: 'auto' }}
-          onRefresh={this.handlePullLoad}
-          refreshing={pullLoad}
-        >
-          <div
-            className="sc-content"
-            style={{
-              transform: `translate3d(${currentState * 100}%, 0, 0)`,
-              display: pageType == 'list' ? '' : 'none',
-            }}
-            ref={ref => (this.content = ref)}
-          >
-            <Template
-              template={props.children}
-              dataSource={props.dataSource}
-              loading={props.loading}
-              onDataFormat={this.handleChildDataFormat}
-              onClick={this.handleTemplateClick}
-              onLongPress={this.handleTemplatePress}
-              // display={pageType == 'list' ? '' : 'none'}
-              // mainKey={this.mainKey}
-              // mainValue={this.getMainValue}
-              // onDetail={this.handleItemEdit}
-              // power={this.power}
-              // onDelete={this.delete}
-              // onSort: sortBy => this.sortBy = sortBy,
-              // bindKey={bindKey}
-            />
-          </div>
-        </PullToRefresh>
-
         {/* 新增/修改/详情 */}
-        <div
+        {/* <div
           className="sc-edit-content"
-          style={{
-            transform: `translate3d(${(currentState + 1) * 100}%, 0, 0)`,
-          }}
+          style={
+            {
+              transform: `translate3d(${(currentState + 1) * 100}%, 0, 0)`,
+            }
+          }
           ref={ref => (this.editWrapper = ref)}
         >
           {pageType == 'detail' ? detailContent : editContent}
           <DetailArrow {...detailArrowConfig} />
-        </div>
+        </div> */}
+        <TransformManager
+          currentGroup={currentGroup}
+          currentOrder={currentOrder}
+        >
+          <Item group="list-page" order={0} key="list-page-0">
+            <PullToRefresh
+              direction="up"
+              style={{ height: style.height, overflow: 'auto' }}
+              onRefresh={this.handlePullLoad}
+              refreshing={pullLoad}
+            >
+              <div
+                className="sc-content"
+                style={{
+                  transform: `translate3d(${currentState * 100}%, 0, 0)`,
+                  display: pageType == 'list' ? '' : 'none',
+                }}
+                ref={ref => (this.content = ref)}
+              >
+                <Template
+                  template={props.children}
+                  dataSource={props.dataSource}
+                  loading={props.loading}
+                  onDataFormat={this.handleChildDataFormat}
+                  onClick={this.handleTemplateClick}
+                  onLongPress={this.handleTemplatePress}
+                />
+              </div>
+            </PullToRefresh>
+          </Item>
+          <Item group="detail-page" order={0} key="detail-page-0">
+            {detailContent}
+          </Item>
+          <Item group="update-page" order={0} key="update-page-0">
+            {editContent}
+          </Item>
+        </TransformManager>
 
         <Calendar
           visible={calendarVisible}
@@ -1411,4 +1425,5 @@ class ContainerCore extends React.Component {
 const ClientHeight =
   document.documentElement.clientHeight || document.body.clientHeight;
 
-export default createForm()(ContainerCore);
+// export default createForm()(ContainerCore);
+export default ContainerCore;
