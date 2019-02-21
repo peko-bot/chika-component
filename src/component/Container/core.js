@@ -25,12 +25,13 @@ import DetailArrow from './DetailArrow';
 import FunctionalButton from './FunctionalButton';
 import MapBox from './MaxBox';
 import { bindTouchDirection } from '../../util/Touch';
-import './css/List_Container.css';
+import './css/Container-core.css';
 import Serialize from '../../util/Serialize';
 import { format as fnsFormat } from 'date-fns/esm';
 import { zhCN } from 'date-fns/locale';
 
 function noop() {}
+
 class ContainerCore extends React.Component {
   static propTypes = {
     power: PropTypes.object.isRequired,
@@ -174,6 +175,10 @@ class ContainerCore extends React.Component {
     param.length !== 0 && operation(param);
   };
 
+  handleChildDataFormat = (value, childProps) => {
+    return value;
+  };
+
   render = () => {
     const { state, props } = this;
     const { currentState, currentOrder, currentGroup } = state;
@@ -190,13 +195,10 @@ class ContainerCore extends React.Component {
       </List>
     );
 
-    let param = this.handleDetailNext();
-    let [detailLast, detailNext] = [param.detailLast, param.detailNext];
-
     /* 新增/修改都是这个 */
     let editContent = (
       <List>
-        {editConfig.map((item, i) =>
+        {[].map((item, i) =>
           this.handleControlType(item, 'edit', undefined, i),
         )}
 
@@ -228,7 +230,7 @@ class ContainerCore extends React.Component {
                 -100}%, 0)`,
             }}
           >
-            {detailConfig.map((item, i) =>
+            {[].map((item, i) =>
               this.handleControlType(item, 'detail', jtem, i),
             )}
 
@@ -241,47 +243,34 @@ class ContainerCore extends React.Component {
     );
 
     /* 触发搜索的方块 */
-    let extendDrawer = showSearch ? (
+    let extendDrawer = (
       <div
         className="sc-extend-drawer sc-right"
         onClick={this.handleSearchChange}
         style={{
-          display: searchFieldOpen || pageType != 'list' ? 'none' : '',
-          top: (ClientHeight - 100) / 2,
+          top: (document.body.clientHeight - 100) / 2,
         }}
       >
         <img src="../../assets/List_Container/arrow-left.png" />
       </div>
-    ) : null;
+    );
 
     const drawerConfig = {
-      open: searchFieldOpen,
+      open: false,
       onOpenChange: this.handleSearchChange,
       className: 'sc-search-drawer',
       sidebar,
       position: 'right',
       sidebarStyle: { width: '77%', background: 'rgba(50, 50, 50, .35)' },
       overlayStyle: { backgroundColor: 'rgba(50, 50, 50, 0)' },
-      style: { display: pageType == 'list' ? '' : 'none' },
-    };
-
-    const detailArrowConfig = {
-      visible: detailArrow,
-      displayLast: pageType == 'detail' && detailLast ? '' : 'none',
-      displayNext: pageType == 'detail' && detailNext ? '' : 'none',
-      height: style.height,
-      onClick: type => {
-        type == 'next'
-          ? this.handleDetailPagination(type, detailNext)
-          : this.handleDetailPagination(type, detailLast);
-      },
+      // style: { display: pageType == 'list' ? '' : 'none' },
     };
 
     const functionalButtonConfig = {
-      visible: showButton && !searchFieldOpen && pageType == 'list',
+      // visible: showButton && pageType == 'list',
       onAdd: type => this.handleItemEdit(this.mainValue, type),
       dataSource: this.listDatas,
-      sortBy,
+      // sortBy,
       power: this.power,
       onSort: datas => {
         this.listDatas = datas;
@@ -291,12 +280,12 @@ class ContainerCore extends React.Component {
     };
 
     return (
-      <div className="List_Container" style={style}>
+      <div className="Container-core">
         {/* 触发搜索的方块 */}
         {extendDrawer}
 
         {/* 触发添加的图标 */}
-        <FunctionalButton {...functionalButtonConfig} />
+        {/* <FunctionalButton {...functionalButtonConfig} /> */}
 
         {/* 搜索面板 */}
         <Drawer {...drawerConfig}>
@@ -323,15 +312,15 @@ class ContainerCore extends React.Component {
           <Item group="list-page" order={0} key="list-page-0">
             <PullToRefresh
               direction="up"
-              style={{ height: style.height, overflow: 'auto' }}
+              // style={{ height: style.height, overflow: 'auto' }}
               onRefresh={this.handlePullLoad}
-              refreshing={pullLoad}
+              // refreshing={pullLoad}
             >
               <div
                 className="sc-content"
                 style={{
                   transform: `translate3d(${currentState * 100}%, 0, 0)`,
-                  display: pageType == 'list' ? '' : 'none',
+                  // display: pageType == 'list' ? '' : 'none',
                 }}
                 ref={ref => (this.content = ref)}
               >
@@ -355,7 +344,7 @@ class ContainerCore extends React.Component {
         </TransformManager>
 
         <Calendar
-          visible={calendarVisible}
+          // visible={calendarVisible}
           onCancel={() => {
             this.setState({ calendarVisible: false });
           }}
@@ -363,10 +352,10 @@ class ContainerCore extends React.Component {
           onConfirm={this.handleCalendarSubmit}
         />
 
-        <MapBox url={mapBoxUrl} onClose={this.handleOnMapClose} />
+        {/* <MapBox url={mapBoxUrl} onClose={this.handleOnMapClose} /> */}
 
         <ActivityIndicator
-          animating={loading}
+          animating={props.loading}
           text="正在加载..."
           toast
           size="large"

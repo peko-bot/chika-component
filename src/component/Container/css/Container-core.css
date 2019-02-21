@@ -1,9 +1,10 @@
-.List_Container {
+.Container-core {
   position: relative;
   overflow-x: hidden;
+  height: 100vh;
 }
 
-.List_Container .sc-content {
+.Container-core .sc-content {
   /* position: relative;
     top: 0; */
   transition: all .5s cubic-bezier(.645, .045, .355, 1);
@@ -11,11 +12,11 @@
   width: 100%;
 }
 
-.List_Container .sc-content img {
+.Container-core .sc-content img {
   width: 100%;
 }
 
-.List_Container .sc-edit-content {
+.Container-core .sc-edit-content {
   position: absolute;
   top: 0;
   transition: all .5s cubic-bezier(.645, .045, .355, 1);
@@ -23,14 +24,14 @@
   min-height: 100%;
 }
 
-.List_Container .sc-detail-content {
+.Container-core .sc-detail-content {
   position: relative;
   top: 0;
   transition: all .5s cubic-bezier(.645, .045, .355, 1);
   width: 100%;
 }
 
-.List_Container .sc-extend-drawer {
+.Container-core .sc-extend-drawer {
   position: fixed;
   z-index: 1;
   width: 40px;
@@ -45,7 +46,7 @@
   cursor: pointer;
 }
 
-.List_Container .sc-extend-add {
+.Container-core .sc-extend-add {
   position: fixed;
   bottom: 20px;
   z-index: 1;
@@ -59,7 +60,7 @@
   border-radius: 50%;
 }
 
-.List_Container .sc-extend-add .sc-extend-add-icon {
+.Container-core .sc-extend-add .sc-extend-add-icon {
   font-weight: 400 !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -74,79 +75,79 @@
   font-style: normal;
 }
 
-.List_Container .sc-left {
+.Container-core .sc-left {
   left: 0;
 }
 
-.List_Container .sc-right {
+.Container-core .sc-right {
   right: 0;
 }
 
-.List_Container .sc-extend-drawer img {
+.Container-core .sc-extend-drawer img {
   width: 40px;
   height: 40px;
 }
 
-.List_Container .sc-search-drawer {
+.Container-core .sc-search-drawer {
   /* position: absolute;
     overflow: auto;
     -webkit-overflow-scrolling: touch; */
 }
 
-.List_Container .sc-search-drawer .am-drawer-sidebar {
+.Container-core .sc-search-drawer .am-drawer-sidebar {
   background-color: #fff;
   overflow: auto;
   -webkit-overflow-scrolling: touch;
 }
 
-.List_Container .sc-search-drawer .am-drawer-sidebar .am-list {
+.Container-core .sc-search-drawer .am-drawer-sidebar .am-list {
   padding: 0;
 }
 
-.List_Container .am-list .am-list-extra {
+.Container-core .am-list .am-list-extra {
   flex-basis: 50%;
 }
 
 /* 针对搜索面板的样式调整 */
 
-.List_Container .sc-search-drawer .am-list-item-middle {
+.Container-core .sc-search-drawer .am-list-item-middle {
   background-color: rgba(0, 0, 0, .4);
 }
 
-.List_Container .sc-search-drawer .am-list-extra {
+.Container-core .sc-search-drawer .am-list-extra {
   color: #FFF;
 }
 
-.List_Container .sc-search-drawer .am-list-arrow-horizontal {
+.Container-core .sc-search-drawer .am-list-arrow-horizontal {
   background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='16' height='26' viewBox='0 0 16 26' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2 0L0 2l11.5 11L0 24l2 2 14-13z' fill='%23FFF' fill-rule='evenodd'/%3E%3C/svg%3E");
 }
 
-.List_Container .sc-search-drawer .am-list-content {
+.Container-core .sc-search-drawer .am-list-content {
   color: #FFF;
 }
 
-.List_Container .sc-search-drawer .am-button {
+.Container-core .sc-search-drawer .am-button {
   background-color: rgba(255, 255, 255, 0);
   color: #FFF;
 }
 
-.List_Container .sc-search-drawer .am-input-control input {
+.Container-core .sc-search-drawer .am-input-control input {
   color: #FFF;
   text-align: right;
 }
 
-.List_Container .sc-search-drawer .am-input-label {
+.Container-core .sc-search-drawer .am-input-label {
   color: #FFF;
 }
 
-.List_Container .sc-search-drawer .am-accordion-header {
+.Container-core .sc-search-drawer .am-accordion-header {
   background-color: rgba(0, 0, 0, .4);
   color: #FFF;
 }
 
 /* 修改文本框灰字颜色 */
 
-.List_Container .sc-search-drawer input::-webkit-input-placeholder,
+.Container-core .sc-search-drawer input::-webkit-input-placeholder,
 textarea::-webkit-input-placeholder {
   /* WebKit*/
   color: #FFF;
@@ -154,7 +155,7 @@ textarea::-webkit-input-placeholder {
   font-size: 16px;
 }
 
-.List_Container .sc-search-drawer input:-moz-placeholder,
+.Container-core .sc-search-drawer input:-moz-placeholder,
 textarea:-moz-placeholder {
   /* Mozilla Firefox 4 to 18 */
   color: #FFF;
@@ -162,7 +163,7 @@ textarea:-moz-placeholder {
   text-align: right;
 }
 
-.List_Container .sc-search-drawer input::-moz-placeholder,
+.Container-core .sc-search-drawer input::-moz-placeholder,
 textarea::-moz-placeholder {
   /* Mozilla Firefox 19+ */
   color: #FFF;
@@ -170,7 +171,7 @@ textarea::-moz-placeholder {
   font-size: 16px;
 }
 
-.List_Container .sc-search-drawer input:-ms-input-placeholder,
+.Container-core .sc-search-drawer input:-ms-input-placeholder,
 textarea:-ms-input-placeholder {
   /* IE 10+ */
   color: #FFF;
@@ -178,7 +179,7 @@ textarea:-ms-input-placeholder {
   text-align: right;
 }
 
-.List_Container .sc-edit-content .title {
+.Container-core .sc-edit-content .title {
   font-family: MicrosoftYaHei;
   font-size: 20px;
   color: #0067bc;
@@ -186,12 +187,12 @@ textarea:-ms-input-placeholder {
   display: inline;
 }
 
-.List_Container .sc-edit-content .title-border {
+.Container-core .sc-edit-content .title-border {
   border: 2px solid #024e97;
   margin-right: 10px;
   display: inline;
 }
 
-.List_Container .sc-edit-content .am-input-control input {
+.Container-core .sc-edit-content .am-input-control input {
   text-align: right;
 }
