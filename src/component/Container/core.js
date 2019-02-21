@@ -61,9 +61,6 @@ class ContainerCore extends React.Component {
   constructor(props) {
     super(props);
 
-    let { domain, config } = props;
-    let { tcid, pageSize = 10 } = config;
-
     this.state = {
       currentOrder: 0,
       currentGroup: 'list-page',
@@ -105,8 +102,6 @@ class ContainerCore extends React.Component {
     //     }
     //   }
     // });
-    // start
-    // this.getConfig();
   };
 
   moment = (date, formatStr) => {
@@ -153,7 +148,8 @@ class ContainerCore extends React.Component {
     if (add) {
       param.push({
         text: '新增',
-        // onPress: () => console.log('add'),
+        onPress: () =>
+          this.setState({ currentGroup: 'update-page', currentOrder: 0 }),
       });
     }
 
@@ -182,18 +178,18 @@ class ContainerCore extends React.Component {
   render = () => {
     const { state, props } = this;
     const { currentState, currentOrder, currentGroup } = state;
-    let sidebar = (
-      <List>
-        <List.Item>
-          <Button onClick={this.handleSearch} loading={props.loading}>
-            确定
-          </Button>
-        </List.Item>
-        {/* {config.map((item, i) =>
-          this.handleControlType(item, 'search', undefined, i),
-        )} */}
-      </List>
-    );
+    // let sidebar = (
+    //   <List>
+    //     <List.Item>
+    //       <Button onClick={this.handleSearch} loading={props.loading}>
+    //         确定
+    //       </Button>
+    //     </List.Item>
+    //     {config.map((item, i) =>
+    //       this.handleControlType(item, 'search', undefined, i),
+    //     )}
+    //   </List>
+    // );
 
     /* 新增/修改都是这个 */
     let editContent = (
@@ -243,54 +239,54 @@ class ContainerCore extends React.Component {
     );
 
     /* 触发搜索的方块 */
-    let extendDrawer = (
-      <div
-        className="sc-extend-drawer sc-right"
-        onClick={this.handleSearchChange}
-        style={{
-          top: (document.body.clientHeight - 100) / 2,
-        }}
-      >
-        <img src="../../assets/List_Container/arrow-left.png" />
-      </div>
-    );
+    // let extendDrawer = (
+    //   <div
+    //     className="sc-extend-drawer sc-right"
+    //     onClick={this.handleSearchChange}
+    //     style={{
+    //       top: (document.body.clientHeight - 100) / 2,
+    //     }}
+    //   >
+    //     <img src="../../assets/List_Container/arrow-left.png" />
+    //   </div>
+    // );
 
-    const drawerConfig = {
-      open: false,
-      onOpenChange: this.handleSearchChange,
-      className: 'sc-search-drawer',
-      sidebar,
-      position: 'right',
-      sidebarStyle: { width: '77%', background: 'rgba(50, 50, 50, .35)' },
-      overlayStyle: { backgroundColor: 'rgba(50, 50, 50, 0)' },
-      // style: { display: pageType == 'list' ? '' : 'none' },
-    };
+    // const drawerConfig = {
+    //   open: false,
+    //   onOpenChange: this.handleSearchChange,
+    //   className: 'sc-search-drawer',
+    //   sidebar,
+    //   position: 'right',
+    //   sidebarStyle: { width: '77%', background: 'rgba(50, 50, 50, .35)' },
+    //   overlayStyle: { backgroundColor: 'rgba(50, 50, 50, 0)' },
+    //   style: { display: pageType == 'list' ? '' : 'none' },
+    // };
 
-    const functionalButtonConfig = {
-      // visible: showButton && pageType == 'list',
-      onAdd: type => this.handleItemEdit(this.mainValue, type),
-      dataSource: this.listDatas,
-      // sortBy,
-      power: this.power,
-      onSort: datas => {
-        this.listDatas = datas;
+    // const functionalButtonConfig = {
+    //   visible: showButton && pageType == 'list',
+    //   onAdd: type => this.handleItemEdit(this.mainValue, type),
+    //   dataSource: this.listDatas,
+    //   sortBy,
+    //   power: this.power,
+    //   onSort: datas => {
+    //     this.listDatas = datas;
 
-        this.setState({});
-      },
-    };
+    //     this.setState({});
+    //   },
+    // };
 
     return (
       <div className="Container-core">
         {/* 触发搜索的方块 */}
-        {extendDrawer}
+        {/* {extendDrawer} */}
 
         {/* 触发添加的图标 */}
         {/* <FunctionalButton {...functionalButtonConfig} /> */}
 
         {/* 搜索面板 */}
-        <Drawer {...drawerConfig}>
+        {/* <Drawer {...drawerConfig}>
           <span />
-        </Drawer>
+        </Drawer> */}
 
         {/* 新增/修改/详情 */}
         {/* <div
@@ -343,14 +339,14 @@ class ContainerCore extends React.Component {
           </Item>
         </TransformManager>
 
-        <Calendar
-          // visible={calendarVisible}
+        {/* <Calendar
+          visible={calendarVisible}
           onCancel={() => {
             this.setState({ calendarVisible: false });
           }}
           pickTime
           onConfirm={this.handleCalendarSubmit}
-        />
+        /> */}
 
         {/* <MapBox url={mapBoxUrl} onClose={this.handleOnMapClose} /> */}
 
@@ -365,4 +361,4 @@ class ContainerCore extends React.Component {
   };
 }
 
-export default createForm()(ContainerCore);
+export default ContainerCore;
