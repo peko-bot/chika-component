@@ -131,6 +131,7 @@ class ContainerCore extends React.Component {
   handlePullLoad = () => {};
 
   handleTemplateClick = dataItem => {
+    // console.log(dataItem, this.props.config);
     this.setState({ currentOrder: 0, currentGroup: 'detail-page' });
   };
 
@@ -172,6 +173,19 @@ class ContainerCore extends React.Component {
   };
 
   handleChildDataFormat = (value, childProps) => {
+    const { format, decimalCount, unit } = childProps;
+
+    if (format) {
+      return fnsFormat(new Date(value), format, {
+        locale: zhCN,
+      });
+    }
+    if (decimalCount) {
+      return +parseFloat(value.toFixed(decimalCount).toPrecision(12));
+    }
+    if (unit) {
+      return `${value} ${unit}`;
+    }
     return value;
   };
 
