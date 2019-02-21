@@ -20,7 +20,9 @@ export default class Template extends Component {
     loading: false,
     template: null,
     bindKey: 'data-key',
-    onDataFormat: noop,
+    onDataFormat: function(value) {
+      return value;
+    },
     onClick: noop,
     onLongPress: noop,
     timeForTriggerLongPress: 700,
