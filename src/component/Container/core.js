@@ -24,7 +24,6 @@ import TransformManager, { Item } from '../TransformManager';
 import DetailFactory from './DetailFactory';
 import DetailArrow from './DetailArrow';
 import FunctionalButton from './FunctionalButton';
-import MapBox from './MaxBox';
 import { bindTouchDirection } from '../../util/Touch';
 import './css/Container-core.css';
 import Serialize from '../../util/Serialize';
@@ -359,8 +358,6 @@ class ContainerCore extends React.Component {
           pickTime
           onConfirm={this.handleCalendarSubmit}
         /> */}
-
-        {/* <MapBox url={mapBoxUrl} onClose={this.handleOnMapClose} /> */}
 
         <ActivityIndicator
           animating={props.loading}

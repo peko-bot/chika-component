@@ -3,14 +3,6 @@ import React, { Component } from 'react';
 import { Modal, Button } from 'antd-mobile';
 
 export default class MaxBox extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {};
-  }
-
-  componentDidMount = () => {};
-
   handleOnClose = () => {
     const { onClose } = this.props;
 
