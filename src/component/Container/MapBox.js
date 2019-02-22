@@ -6,10 +6,10 @@ import leaflet from '../EasyLeaflet';
 import Popup from '../EasyLeaflet/Custom/Popup';
 
 function noop() {}
-export default class MaxBox extends Component {
+export default class MapBox extends Component {
   static propTypes = {
-    lng: PropTypes.number,
-    lat: PropTypes.number,
+    lng: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    lat: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     address: PropTypes.string,
     onBack: PropTypes.func,
   };
@@ -24,7 +24,11 @@ export default class MaxBox extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = {
+      lng: -1,
+      lat: -1,
+      address: '',
+    };
 
     this.mapContainer = React.createRef();
     this.map = null;
@@ -38,11 +42,8 @@ export default class MaxBox extends Component {
       this.map = this.initMap();
       // get default coordinate
       leaflet.e.zoomIn();
-      this.map.on('moveend', e => {
-        let { lat, lng, address = '暂不支持地址显示' } = this.map.getCenter();
-
-        // eslint-disable-next-line
-        console.log(lat, lng, address);
+      this.map.on('move', e => {
+        this.setState({ ...this.map.getCenter() });
       });
     }, 0);
   };

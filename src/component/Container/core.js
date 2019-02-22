@@ -67,6 +67,10 @@ class ContainerCore extends React.Component {
     this.state = {
       currentOrder: 0,
       currentGroup: 'list-page',
+      // for mapPicker
+      lng: -1,
+      lat: -1,
+      address: '',
     };
   }
 
@@ -213,13 +217,26 @@ class ContainerCore extends React.Component {
     return result;
   };
 
-  handleGoToMapBox = dataItem => {
-    this.setState({ currentGroup: 'map-box', currentOrder: 0 });
+  handleGoToMapBox = ({ lat, lng, address }) => {
+    this.setState({
+      currentGroup: 'map-box',
+      currentOrder: 0,
+      lat,
+      lng,
+      address,
+    });
   };
 
   render = () => {
     const { state, props } = this;
-    const { currentState, currentOrder, currentGroup } = state;
+    const {
+      currentState,
+      currentOrder,
+      currentGroup,
+      lat,
+      lng,
+      address,
+    } = state;
     // let sidebar = (
     //   <List>
     //     <List.Item>
@@ -354,7 +371,12 @@ class ContainerCore extends React.Component {
             {editContent}
           </Item>
           <Item group="map-box" order={0} key="map-box-0">
-            <MapBox onBack={this.backToList} />
+            <MapBox
+              onBack={this.backToList}
+              lat={lat}
+              lng={lng}
+              address={address}
+            />
           </Item>
         </TransformManager>
 
