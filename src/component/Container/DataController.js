@@ -151,18 +151,32 @@ export default class DataController extends Component {
           isvisiable,
           decimalcount,
         } = targetItem[0];
-
         if (!isvisiable) continue;
 
-        result.push({
-          type: controlTypeEnums[controltype],
+        let type = controlTypeEnums[controltype];
+        let value = dataItem[fname];
+        const item = {
+          type,
           key: fname,
           name: fvalue,
-          value: dataItem[fname],
+          value,
           dateFormat: dateformat,
           decimalCount: decimalcount,
           unit,
-        });
+        };
+
+        // handle with mapPicker
+        if (controltype === 14) {
+          const latng = value.split('|');
+          result.push({
+            ...item,
+            lng: latng[0],
+            lat: latng[1],
+            address: latng[2],
+          });
+        } else {
+          result.push(item);
+        }
       }
     }
     return result;

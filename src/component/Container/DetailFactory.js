@@ -33,10 +33,20 @@ class DetailFactory extends Component {
     const { onDataFormat } = this.props;
     const { type, value, name } = item;
 
-    if (type !== 'upload' && type !== 'mapPicker') {
+    if (type === 'mapPicker') {
+      return (
+        <React.Fragment key={`detail-page-map-picker-${index}`}>
+          <List.Item extra={item.lng}>经度</List.Item>
+          <List.Item extra={item.lat}>纬度</List.Item>
+          <List.Item extra={item.address}>地址</List.Item>
+        </React.Fragment>
+      );
+    }
+
+    if (type !== 'mapPicker' && type !== 'upload') {
       return (
         <List.Item
-          key={`detail-page-item-${index}`}
+          key={`detail-page-label-${index}`}
           extra={onDataFormat(value, item)}
         >
           {name}
