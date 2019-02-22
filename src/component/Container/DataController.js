@@ -109,8 +109,15 @@ export default class DataController extends Component {
       //   mode: 'cors',
       // },
       success: ({ data }) => {
+        let dataSource = [];
+        data.list.map((item, i) => {
+          dataSource.push({
+            ...item,
+            templateOrder: i,
+          });
+        });
         this.setState({
-          dataSource: data.list,
+          dataSource,
           total: data.recordcount,
           loading: false,
         });

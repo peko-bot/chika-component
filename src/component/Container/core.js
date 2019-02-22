@@ -132,9 +132,8 @@ class ContainerCore extends React.Component {
   // 滑动加载
   handlePullLoad = () => {};
 
-  handleTemplateClick = dataItem => {
-    // console.log(dataItem, this.props.config);
-    this.setState({ currentOrder: 0, currentGroup: 'detail-page' });
+  handleTemplateClick = ({ templateOrder }) => {
+    this.setState({ currentOrder: templateOrder, currentGroup: 'detail-page' });
   };
 
   // show Modal for operation
