@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { createForm } from 'rc-form';
 import { List, Button } from 'antd-mobile';
 
 function noop() {}
@@ -22,12 +21,6 @@ class DetailFactory extends Component {
       return value;
     },
   };
-
-  constructor(props) {
-    super(props);
-
-    this.state = {};
-  }
 
   handleControls = (item, index) => {
     const { onDataFormat } = this.props;
@@ -71,4 +64,4 @@ class DetailFactory extends Component {
   };
 }
 
-export default createForm()(DetailFactory);
+export default DetailFactory;
