@@ -136,6 +136,34 @@ export default class DataController extends Component {
     });
   };
 
+  formatControls = (dataItem, configs) => {
+    let result = [];
+    const keys = Object.keys(dataItem);
+    for (let item of keys) {
+      const targetItem = configs.filter(target => target.fname === item);
+      if (targetItem.length) {
+        const {
+          fname,
+          controltype,
+          dateformat,
+          unit,
+          isvisiable,
+        } = targetItem[0];
+
+        if (!isvisiable) continue;
+
+        result.push({
+          type: controlTypeEnums[controltype],
+          key: fname,
+          value: dataItem[fname],
+          dateFormat: dateformat,
+          unit,
+        });
+      }
+    }
+    return result;
+  };
+
   render = () => {
     const {
       power,
@@ -156,8 +184,20 @@ export default class DataController extends Component {
           primaryKey={primaryKey}
           loading={loading}
           onDelete={this.handleDelete}
+          formatControls={this.formatControls}
         />
       </div>
     );
   };
 }
+
+const controlTypeEnums = {
+  1: 'input',
+  2: 'timePicker',
+  3: 'select',
+  5: 'checkbox',
+  9: 'datePicker',
+  12: 'upload',
+  14: 'mapPicker',
+  99: 'label',
+};
