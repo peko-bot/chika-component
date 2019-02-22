@@ -1,0 +1,10 @@
+.MapBox img {
+  position: absolute;
+}
+
+.MapBox .back-to-list {
+  bottom: 3%;
+  left: 10%;
+  width: 80%;
+  z-index: 9998;
+}

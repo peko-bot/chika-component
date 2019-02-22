@@ -248,7 +248,11 @@ const init = (dom, type, params) => {
   let popupDom = document.createElement('div');
 
   popupDom.id = HOVERPOPUPID;
-  document.getElementById(dom).appendChild(popupDom);
+
+  if (typeof dom === 'string') {
+    dom = document.getElementById(dom);
+  }
+  dom.appendChild(popupDom);
   return map;
 };
 /**打点

@@ -1,48 +1,90 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import './css/MapBox.css';
+import { Button } from 'antd-mobile';
+import leaflet from '../EasyLeaflet';
+import Popup from '../EasyLeaflet/Custom/Popup';
 
-import { Modal, Button } from 'antd-mobile';
-
+function noop() {}
 export default class MaxBox extends Component {
-  handleOnClose = () => {
-    const { onClose } = this.props;
+  static propTypes = {
+    lng: PropTypes.number,
+    lat: PropTypes.number,
+    address: PropTypes.string,
+    onBack: PropTypes.func,
+  };
 
-    const [lng, lat, address] = window.leafletLatng.split('|');
+  static defaultProps = {
+    lng: -1,
+    lat: -1,
+    address: '',
+    onBack: noop,
+  };
 
-    onClose && onClose({ lng, lat, address });
+  constructor(props) {
+    super(props);
+
+    this.state = {};
+
+    this.mapContainer = React.createRef();
+    this.map = null;
+  }
+
+  componentDidMount = () => {
+    this.map = this.initMap();
+    // hack: avoid show gray tiles if loading twice
+    setTimeout(() => {
+      this.map.remove();
+      this.map = this.initMap();
+      // get default coordinate
+      leaflet.e.zoomIn();
+      this.map.on('moveend', e => {
+        let { lat, lng, address = '暂不支持地址显示' } = this.map.getCenter();
+
+        // eslint-disable-next-line
+        console.log(lat, lng, address);
+      });
+    }, 0);
+  };
+
+  initMap = () => {
+    const { lng, lat } = this.props;
+    return leaflet.init(this.mapContainer.current, 'dxt', {
+      center: [lat, lng],
+      crs: L.CRS.EPSG3857,
+      zoom: 15,
+      dragging: true,
+      zoomControl: false,
+      attributionControl: false,
+      latlngControl: false,
+      zoomSnap: 0,
+    });
   };
 
   render = () => {
-    const { url } = this.props;
-
+    const { onBack } = this.props;
     return (
-      <div className="MaxBox">
-        <Modal visible={!!url}>
-          <iframe
-            src={url}
+      <div
+        className="MapBox"
+        ref={this.mapContainer}
+        style={{ height: document.body.clientHeight }}
+      >
+        <Popup>
+          <img
+            src="../../assets/easyLeaflet/defaultIcon.png"
             style={{
-              border: 'none',
-              width: '100%',
-              height: '90%',
-              display: url ? '' : 'none',
-              position: 'absolute',
-              left: 0,
-              top: 0,
+              top: document.body.clientHeight / 2 - 48,
+              left: document.body.clientWidth / 2 - 24,
             }}
           />
-
-          <div
-            style={{
-              position: 'absolute',
-              bottom: '1%',
-              left: '10%',
-              width: '80%',
-            }}
-          >
-            <Button type="primary" onClick={this.handleOnClose}>
-              返回
-            </Button>
-          </div>
-        </Modal>
+        </Popup>
+        <Button
+          onClick={onBack}
+          className="back-to-list"
+          style={{ position: 'absolute' }}
+        >
+          返回
+        </Button>
       </div>
     );
   };
