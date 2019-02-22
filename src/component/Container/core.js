@@ -21,6 +21,7 @@ import Upload from './UploadWrapper';
 import { createForm } from 'rc-form';
 import Template from './Template';
 import TransformManager, { Item } from '../TransformManager';
+import DetailFactory from './DetailFactory';
 import DetailArrow from './DetailArrow';
 import FunctionalButton from './FunctionalButton';
 import MapBox from './MaxBox';
@@ -41,6 +42,7 @@ class ContainerCore extends React.Component {
     loading: PropTypes.bool,
     primaryKey: PropTypes.string,
     onDelete: PropTypes.func,
+    formatControls: PropTypes.func,
   };
 
   static defaultProps = {
@@ -56,6 +58,7 @@ class ContainerCore extends React.Component {
     loading: false,
     primaryKey: '',
     onDelete: noop,
+    formatControls: noop,
   };
 
   constructor(props) {
@@ -189,6 +192,28 @@ class ContainerCore extends React.Component {
     return value;
   };
 
+  onDetailPageChange = () => {};
+
+  renderDetailPage = dataSource => {
+    const { config, formatControls } = this.props;
+    dataSource.map((item, i) => {
+      const dataItem = formatControls(item, config);
+      return (
+        <Item group="detail-page" order={i} key={`detail-page-${i}`}>
+          <DetailFactory
+            onBack={this.backToList}
+            onPageChange={this.onDetailPageChange}
+          />
+        </Item>
+      );
+    });
+    return (
+      <Item group="detail-page" order={0} key="detail-page-0">
+        <DetailFactory onBack={this.backToList} />
+      </Item>
+    );
+  };
+
   render = () => {
     const { state, props } = this;
     const { currentState, currentOrder, currentGroup } = state;
@@ -226,30 +251,6 @@ class ContainerCore extends React.Component {
           </Button>
         </List.Item>
       </List>
-    );
-
-    /* 详情页 */
-    let detailContent = (
-      <div style={{ overflowX: 'hidden', position: 'relative' }}>
-        {props.dataSource.map((jtem, j) => (
-          <List
-            key={`listDatas_${j}`}
-            className="sc-detail-content"
-            style={{
-              transform: `translate3d(${jtem.detailOrder * 100}%, ${j *
-                -100}%, 0)`,
-            }}
-          >
-            {[].map((item, i) =>
-              this.handleControlType(item, 'detail', jtem, i),
-            )}
-
-            <List.Item>
-              <Button onClick={this.backToList}>返回上级</Button>
-            </List.Item>
-          </List>
-        ))}
-      </div>
     );
 
     /* 触发搜索的方块 */
@@ -345,9 +346,10 @@ class ContainerCore extends React.Component {
               </div>
             </PullToRefresh>
           </Item>
-          <Item group="detail-page" order={0} key="detail-page-0">
-            {detailContent}
-          </Item>
+          {this.renderDetailPage(props.dataSource)}
+          {/* <Item group="detail-page" order={0} key="detail-page-0">
+            <DetailFactory onBack={this.backToList} />
+          </Item> */}
           <Item group="update-page" order={0} key="update-page-0">
             {editContent}
           </Item>
