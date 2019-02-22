@@ -147,7 +147,9 @@ export default class DataController extends Component {
           controltype,
           dateformat,
           unit,
+          fvalue,
           isvisiable,
+          decimalcount,
         } = targetItem[0];
 
         if (!isvisiable) continue;
@@ -155,8 +157,10 @@ export default class DataController extends Component {
         result.push({
           type: controlTypeEnums[controltype],
           key: fname,
+          name: fvalue,
           value: dataItem[fname],
           dateFormat: dateformat,
+          decimalCount: decimalcount,
           unit,
         });
       }
