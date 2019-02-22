@@ -10,6 +10,7 @@ class DetailFactory extends Component {
     onBack: PropTypes.func,
     dataItem: PropTypes.array,
     onDataFormat: PropTypes.func,
+    goToMapBox: PropTypes.func,
   };
 
   static defaultProps = {
@@ -20,10 +21,11 @@ class DetailFactory extends Component {
     onDataFormat: function(value) {
       return value;
     },
+    goToMapBox: noop,
   };
 
   handleControls = (item, index) => {
-    const { onDataFormat } = this.props;
+    const { onDataFormat, goToMapBox } = this.props;
     const { type, value, name } = item;
 
     if (type === 'mapPicker') {
@@ -31,7 +33,13 @@ class DetailFactory extends Component {
         <React.Fragment key={`detail-page-map-picker-${index}`}>
           <List.Item extra={item.lng}>经度</List.Item>
           <List.Item extra={item.lat}>纬度</List.Item>
-          <List.Item extra={item.address}>地址</List.Item>
+          <List.Item
+            extra={item.address}
+            arrow="horizontal"
+            onClick={e => goToMapBox(item)}
+          >
+            地址
+          </List.Item>
         </React.Fragment>
       );
     }

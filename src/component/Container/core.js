@@ -22,6 +22,7 @@ import { createForm } from 'rc-form';
 import Template from './Template';
 import TransformManager, { Item } from '../TransformManager';
 import DetailFactory from './DetailFactory';
+import MapBox from './MapBox';
 import DetailArrow from './DetailArrow';
 import FunctionalButton from './FunctionalButton';
 import { bindTouchDirection } from '../../util/Touch';
@@ -204,11 +205,16 @@ class ContainerCore extends React.Component {
             onPageChange={this.onDetailPageChange}
             dataItem={dataItem}
             onDataFormat={this.handleChildDataFormat}
+            goToMapBox={this.handleGoToMapBox}
           />
         </Item>,
       );
     });
     return result;
+  };
+
+  handleGoToMapBox = dataItem => {
+    this.setState({ currentGroup: 'map-box', currentOrder: 0 });
   };
 
   render = () => {
@@ -346,6 +352,9 @@ class ContainerCore extends React.Component {
           {this.renderDetailPage(props.dataSource)}
           <Item group="update-page" order={0} key="update-page-0">
             {editContent}
+          </Item>
+          <Item group="map-box" order={0} key="map-box-0">
+            <MapBox onBack={this.backToList} />
           </Item>
         </TransformManager>
 
