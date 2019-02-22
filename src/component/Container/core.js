@@ -176,18 +176,18 @@ class ContainerCore extends React.Component {
   };
 
   handleChildDataFormat = (value, childProps) => {
-    const { format, decimalCount, unit } = childProps;
+    const { dateFormat, decimalCount, unit } = childProps;
 
-    if (format) {
-      return fnsFormat(new Date(value), format, {
+    if (dateFormat) {
+      return fnsFormat(new Date(value), dateFormat, {
         locale: zhCN,
       });
     }
     if (decimalCount) {
-      return +parseFloat(value.toFixed(decimalCount).toPrecision(12));
+      value = +parseFloat(value.toFixed(decimalCount)).toPrecision(12);
     }
     if (unit) {
-      return `${value} ${unit}`;
+      value = `${value} ${unit}`;
     }
     return value;
   };
@@ -196,22 +196,21 @@ class ContainerCore extends React.Component {
 
   renderDetailPage = dataSource => {
     const { config, formatControls } = this.props;
+    let result = [];
     dataSource.map((item, i) => {
       const dataItem = formatControls(item, config);
-      return (
+      result.push(
         <Item group="detail-page" order={i} key={`detail-page-${i}`}>
           <DetailFactory
             onBack={this.backToList}
             onPageChange={this.onDetailPageChange}
+            dataItem={dataItem}
+            onDataFormat={this.handleChildDataFormat}
           />
-        </Item>
+        </Item>,
       );
     });
-    return (
-      <Item group="detail-page" order={0} key="detail-page-0">
-        <DetailFactory onBack={this.backToList} />
-      </Item>
-    );
+    return result;
   };
 
   render = () => {
@@ -347,9 +346,6 @@ class ContainerCore extends React.Component {
             </PullToRefresh>
           </Item>
           {this.renderDetailPage(props.dataSource)}
-          {/* <Item group="detail-page" order={0} key="detail-page-0">
-            <DetailFactory onBack={this.backToList} />
-          </Item> */}
           <Item group="update-page" order={0} key="update-page-0">
             {editContent}
           </Item>
