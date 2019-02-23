@@ -170,6 +170,10 @@ export default class DataController extends Component {
           dateFormat: dateformat,
           decimalCount: decimalcount,
           unit,
+          templateOrder: dataItem.templateOrder,
+          // when mapPicker change, dataSource will change target
+          // item by this.
+          primaryValue: dataItem[this.state.primaryKey],
         };
 
         // handle with mapPicker
@@ -187,6 +191,11 @@ export default class DataController extends Component {
       }
     }
     return result;
+  };
+
+  handeMapPickerChange = dataItem => {
+    // eslint-disable-next-line
+    console.log(dataItem);
   };
 
   render = () => {
@@ -210,6 +219,7 @@ export default class DataController extends Component {
           loading={loading}
           onDelete={this.handleDelete}
           formatControls={this.formatControls}
+          onMapPickerChange={this.handeMapPickerChange}
         />
       </div>
     );

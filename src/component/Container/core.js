@@ -43,6 +43,7 @@ class ContainerCore extends React.Component {
     primaryKey: PropTypes.string,
     onDelete: PropTypes.func,
     formatControls: PropTypes.func,
+    onMapPickerChange: PropTypes.func,
   };
 
   static defaultProps = {
@@ -59,6 +60,7 @@ class ContainerCore extends React.Component {
     primaryKey: '',
     onDelete: noop,
     formatControls: noop,
+    onMapPickerChange: noop,
   };
 
   constructor(props) {
@@ -71,6 +73,7 @@ class ContainerCore extends React.Component {
       lng: -1,
       lat: -1,
       address: '',
+      primaryValue: '',
     };
 
     this.history = {
@@ -116,18 +119,13 @@ class ContainerCore extends React.Component {
     // });
   };
 
-  moment = (date, formatStr) => {
-    return fnsFormat(new Date(date), formatStr, {
-      locale: zhCN,
-    });
-  };
-
   backToList = () => {
     this.setState({ currentGroup: 'list-page', currentOrder: 0 });
   };
 
-  backToLast = () => {
+  backToLast = item => {
     const { group, order } = this.history;
+    this.props.onMapPickerChange(item);
     this.setState({ currentGroup: group, currentOrder: order });
   };
 
@@ -226,7 +224,7 @@ class ContainerCore extends React.Component {
     return result;
   };
 
-  handleGoToMapBox = ({ lat, lng, address }) => {
+  handleGoToMapBox = ({ lat, lng, address, primaryValue }) => {
     const { currentGroup, currentOrder } = this.state;
     // record position, for going back
     this.history = {
@@ -240,6 +238,7 @@ class ContainerCore extends React.Component {
       lat,
       lng,
       address,
+      primaryValue,
     });
   };
 
@@ -252,6 +251,7 @@ class ContainerCore extends React.Component {
       lat,
       lng,
       address,
+      primaryValue,
     } = state;
     // let sidebar = (
     //   <List>
@@ -392,6 +392,7 @@ class ContainerCore extends React.Component {
               lat={lat}
               lng={lng}
               address={address}
+              primaryValue={primaryValue}
             />
           </Item>
         </TransformManager>
