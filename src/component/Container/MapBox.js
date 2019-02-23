@@ -8,10 +8,11 @@ import Popup from '../EasyLeaflet/Custom/Popup';
 function noop() {}
 export default class MapBox extends Component {
   static propTypes = {
-    lng: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    lat: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    lng: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+    lat: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
     address: PropTypes.string,
-    onBack: PropTypes.func,
+    onBack: PropTypes.func.isRequired,
+    primaryValue: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   };
 
   static defaultProps = {
@@ -19,6 +20,7 @@ export default class MapBox extends Component {
     lat: -1,
     address: '',
     onBack: noop,
+    primaryValue: '',
   };
 
   static getDerivedStateFromProps(nextProps, nextState) {
@@ -74,7 +76,7 @@ export default class MapBox extends Component {
   };
 
   render = () => {
-    const { onBack } = this.props;
+    const { onBack, primaryValue } = this.props;
     const { lng, lat, address } = this.state;
     return (
       <div
@@ -96,7 +98,13 @@ export default class MapBox extends Component {
           <List.Item extra={lat}>纬度</List.Item>
           <List.Item extra={address}>地址</List.Item>
           <List.Item>
-            <Button onClick={() => onBack(this.state)}>返回</Button>
+            <Button
+              onClick={() =>
+                onBack(Object.assign(this.state, { primaryValue }))
+              }
+            >
+              返回
+            </Button>
           </List.Item>
         </List>
       </div>
