@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import './css/MapBox.css';
-import { Button } from 'antd-mobile';
+import { Button, List } from 'antd-mobile';
 import leaflet from '../EasyLeaflet';
 import Popup from '../EasyLeaflet/Custom/Popup';
 
@@ -64,6 +64,7 @@ export default class MapBox extends Component {
 
   render = () => {
     const { onBack } = this.props;
+    const { lng, lat, address } = this.state;
     return (
       <div
         className="MapBox"
@@ -79,13 +80,14 @@ export default class MapBox extends Component {
             }}
           />
         </Popup>
-        <Button
-          onClick={onBack}
-          className="back-to-list"
-          style={{ position: 'absolute' }}
-        >
-          返回
-        </Button>
+        <List key="map-box-0" className="picker-info">
+          <List.Item extra={lng}>经度</List.Item>
+          <List.Item extra={lat}>纬度</List.Item>
+          <List.Item extra={address}>地址</List.Item>
+          <List.Item>
+            <Button onClick={onBack}>返回</Button>
+          </List.Item>
+        </List>
       </div>
     );
   };
