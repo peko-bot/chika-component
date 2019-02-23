@@ -21,6 +21,17 @@ export default class MapBox extends Component {
     onBack: noop,
   };
 
+  static getDerivedStateFromProps(nextProps, nextState) {
+    if (nextState.lng === -1 && nextState.lat === -1) {
+      return {
+        lng: nextProps.lng,
+        lat: nextProps.lat,
+        address: nextProps.address,
+      };
+    }
+    return null;
+  }
+
   constructor(props) {
     super(props);
 
@@ -85,7 +96,7 @@ export default class MapBox extends Component {
           <List.Item extra={lat}>纬度</List.Item>
           <List.Item extra={address}>地址</List.Item>
           <List.Item>
-            <Button onClick={onBack}>返回</Button>
+            <Button onClick={() => onBack(this.state)}>返回</Button>
           </List.Item>
         </List>
       </div>
