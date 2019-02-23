@@ -21,9 +21,10 @@ import Upload from './UploadWrapper';
 import { createForm } from 'rc-form';
 import Template from './Template';
 import TransformManager, { Item } from '../TransformManager';
+import DetailFactory from './DetailFactory';
+import MapBox from './MapBox';
 import DetailArrow from './DetailArrow';
 import FunctionalButton from './FunctionalButton';
-import MapBox from './MaxBox';
 import { bindTouchDirection } from '../../util/Touch';
 import './css/Container-core.css';
 import Serialize from '../../util/Serialize';
@@ -41,6 +42,8 @@ class ContainerCore extends React.Component {
     loading: PropTypes.bool,
     primaryKey: PropTypes.string,
     onDelete: PropTypes.func,
+    formatControls: PropTypes.func,
+    onMapPickerChange: PropTypes.func,
   };
 
   static defaultProps = {
@@ -56,17 +59,26 @@ class ContainerCore extends React.Component {
     loading: false,
     primaryKey: '',
     onDelete: noop,
+    formatControls: noop,
+    onMapPickerChange: noop,
   };
 
   constructor(props) {
     super(props);
 
-    let { domain, config } = props;
-    let { tcid, pageSize = 10 } = config;
-
     this.state = {
       currentOrder: 0,
       currentGroup: 'list-page',
+      // for mapPicker
+      lng: -1,
+      lat: -1,
+      address: '',
+      primaryValue: '',
+    };
+
+    this.history = {
+      group: '',
+      order: '',
     };
   }
 
@@ -105,19 +117,16 @@ class ContainerCore extends React.Component {
     //     }
     //   }
     // });
-    // start
-    // this.getConfig();
   };
 
-  moment = (date, formatStr) => {
-    return fnsFormat(new Date(date), formatStr, {
-      locale: zhCN,
-    });
-  };
-
-  // 返回列表
   backToList = () => {
     this.setState({ currentGroup: 'list-page', currentOrder: 0 });
+  };
+
+  backToLast = item => {
+    const { group, order } = this.history;
+    this.props.onMapPickerChange(item);
+    this.setState({ currentGroup: group, currentOrder: order });
   };
 
   handleDelete = primaryValue => {
@@ -135,8 +144,8 @@ class ContainerCore extends React.Component {
   // 滑动加载
   handlePullLoad = () => {};
 
-  handleTemplateClick = dataItem => {
-    this.setState({ currentOrder: 0, currentGroup: 'detail-page' });
+  handleTemplateClick = ({ templateOrder }) => {
+    this.setState({ currentOrder: templateOrder, currentGroup: 'detail-page' });
   };
 
   // show Modal for operation
@@ -153,7 +162,8 @@ class ContainerCore extends React.Component {
     if (add) {
       param.push({
         text: '新增',
-        // onPress: () => console.log('add'),
+        onPress: () =>
+          this.setState({ currentGroup: 'update-page', currentOrder: 0 }),
       });
     }
 
@@ -176,24 +186,85 @@ class ContainerCore extends React.Component {
   };
 
   handleChildDataFormat = (value, childProps) => {
+    const { dateFormat, decimalCount, unit } = childProps;
+
+    if (dateFormat) {
+      return fnsFormat(new Date(value), dateFormat, {
+        locale: zhCN,
+      });
+    }
+    if (decimalCount) {
+      value = +parseFloat(value.toFixed(decimalCount)).toPrecision(12);
+    }
+    if (unit) {
+      value = `${value} ${unit}`;
+    }
     return value;
+  };
+
+  onDetailPageChange = () => {};
+
+  renderDetailPage = dataSource => {
+    const { config, formatControls } = this.props;
+    let result = [];
+    dataSource.map((item, i) => {
+      const dataItem = formatControls(item, config);
+      result.push(
+        <Item group="detail-page" order={i} key={`detail-page-${i}`}>
+          <DetailFactory
+            onBack={this.backToList}
+            onPageChange={this.onDetailPageChange}
+            dataItem={dataItem}
+            onDataFormat={this.handleChildDataFormat}
+            goToMapBox={this.handleGoToMapBox}
+          />
+        </Item>,
+      );
+    });
+    return result;
+  };
+
+  handleGoToMapBox = ({ lat, lng, address, primaryValue }) => {
+    const { currentGroup, currentOrder } = this.state;
+    // record position, for going back
+    this.history = {
+      group: currentGroup,
+      order: currentOrder,
+    };
+
+    this.setState({
+      currentGroup: 'map-box',
+      currentOrder: 0,
+      lat,
+      lng,
+      address,
+      primaryValue,
+    });
   };
 
   render = () => {
     const { state, props } = this;
-    const { currentState, currentOrder, currentGroup } = state;
-    let sidebar = (
-      <List>
-        <List.Item>
-          <Button onClick={this.handleSearch} loading={props.loading}>
-            确定
-          </Button>
-        </List.Item>
-        {/* {config.map((item, i) =>
-          this.handleControlType(item, 'search', undefined, i),
-        )} */}
-      </List>
-    );
+    const {
+      currentState,
+      currentOrder,
+      currentGroup,
+      lat,
+      lng,
+      address,
+      primaryValue,
+    } = state;
+    // let sidebar = (
+    //   <List>
+    //     <List.Item>
+    //       <Button onClick={this.handleSearch} loading={props.loading}>
+    //         确定
+    //       </Button>
+    //     </List.Item>
+    //     {config.map((item, i) =>
+    //       this.handleControlType(item, 'search', undefined, i),
+    //     )}
+    //   </List>
+    // );
 
     /* 新增/修改都是这个 */
     let editContent = (
@@ -218,79 +289,55 @@ class ContainerCore extends React.Component {
       </List>
     );
 
-    /* 详情页 */
-    let detailContent = (
-      <div style={{ overflowX: 'hidden', position: 'relative' }}>
-        {props.dataSource.map((jtem, j) => (
-          <List
-            key={`listDatas_${j}`}
-            className="sc-detail-content"
-            style={{
-              transform: `translate3d(${jtem.detailOrder * 100}%, ${j *
-                -100}%, 0)`,
-            }}
-          >
-            {[].map((item, i) =>
-              this.handleControlType(item, 'detail', jtem, i),
-            )}
-
-            <List.Item>
-              <Button onClick={this.backToList}>返回上级</Button>
-            </List.Item>
-          </List>
-        ))}
-      </div>
-    );
-
     /* 触发搜索的方块 */
-    let extendDrawer = (
-      <div
-        className="sc-extend-drawer sc-right"
-        onClick={this.handleSearchChange}
-        style={{
-          top: (document.body.clientHeight - 100) / 2,
-        }}
-      >
-        <img src="../../assets/List_Container/arrow-left.png" />
-      </div>
-    );
+    // let extendDrawer = (
+    //   <div
+    //     className="sc-extend-drawer sc-right"
+    //     onClick={this.handleSearchChange}
+    //     style={{
+    //       top: (document.body.clientHeight - 100) / 2,
+    //     }}
+    //   >
+    //     <img src="../../assets/List_Container/arrow-left.png" />
+    //   </div>
+    // );
 
-    const drawerConfig = {
-      open: false,
-      onOpenChange: this.handleSearchChange,
-      className: 'sc-search-drawer',
-      sidebar,
-      position: 'right',
-      sidebarStyle: { width: '77%', background: 'rgba(50, 50, 50, .35)' },
-      overlayStyle: { backgroundColor: 'rgba(50, 50, 50, 0)' },
-      // style: { display: pageType == 'list' ? '' : 'none' },
-    };
+    // const drawerConfig = {
+    //   open: false,
+    //   onOpenChange: this.handleSearchChange,
+    //   className: 'sc-search-drawer',
+    //   sidebar,
+    //   position: 'right',
+    //   sidebarStyle: { width: '77%', background: 'rgba(50, 50, 50, .35)' },
+    //   overlayStyle: { backgroundColor: 'rgba(50, 50, 50, 0)' },
+    //   style: { display: pageType == 'list' ? '' : 'none' },
+    // };
 
-    const functionalButtonConfig = {
-      // visible: showButton && pageType == 'list',
-      onAdd: type => this.handleItemEdit(this.mainValue, type),
-      dataSource: this.listDatas,
-      // sortBy,
-      power: this.power,
-      onSort: datas => {
-        this.listDatas = datas;
+    // const functionalButtonConfig = {
+    //   visible: showButton && pageType == 'list',
+    //   onAdd: type => this.handleItemEdit(this.mainValue, type),
+    //   dataSource: this.listDatas,
+    //   sortBy,
+    //   power: this.power,
+    //   onSort: datas => {
+    //     this.listDatas = datas;
 
-        this.setState({});
-      },
-    };
+    //     this.setState({});
+    //   },
+    // };
 
     return (
       <div className="Container-core">
         {/* 触发搜索的方块 */}
-        {extendDrawer}
+        {/* {extendDrawer} */}
 
         {/* 触发添加的图标 */}
         {/* <FunctionalButton {...functionalButtonConfig} /> */}
 
         {/* 搜索面板 */}
-        <Drawer {...drawerConfig}>
+        {/* <Drawer {...drawerConfig}>
           <span />
-        </Drawer>
+        </Drawer> */}
 
         {/* 新增/修改/详情 */}
         {/* <div
@@ -335,24 +382,29 @@ class ContainerCore extends React.Component {
               </div>
             </PullToRefresh>
           </Item>
-          <Item group="detail-page" order={0} key="detail-page-0">
-            {detailContent}
-          </Item>
+          {this.renderDetailPage(props.dataSource)}
           <Item group="update-page" order={0} key="update-page-0">
             {editContent}
           </Item>
+          <Item group="map-box" order={0} key="map-box-0">
+            <MapBox
+              onBack={this.backToLast}
+              lat={lat}
+              lng={lng}
+              address={address}
+              primaryValue={primaryValue}
+            />
+          </Item>
         </TransformManager>
 
-        <Calendar
-          // visible={calendarVisible}
+        {/* <Calendar
+          visible={calendarVisible}
           onCancel={() => {
             this.setState({ calendarVisible: false });
           }}
           pickTime
           onConfirm={this.handleCalendarSubmit}
-        />
-
-        {/* <MapBox url={mapBoxUrl} onClose={this.handleOnMapClose} /> */}
+        /> */}
 
         <ActivityIndicator
           animating={props.loading}
@@ -365,4 +417,4 @@ class ContainerCore extends React.Component {
   };
 }
 
-export default createForm()(ContainerCore);
+export default ContainerCore;

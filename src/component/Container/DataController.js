@@ -109,8 +109,15 @@ export default class DataController extends Component {
       //   mode: 'cors',
       // },
       success: ({ data }) => {
+        let dataSource = [];
+        data.list.map((item, i) => {
+          dataSource.push({
+            ...item,
+            templateOrder: i,
+          });
+        });
         this.setState({
-          dataSource: data.list,
+          dataSource,
           total: data.recordcount,
           loading: false,
         });
@@ -136,6 +143,61 @@ export default class DataController extends Component {
     });
   };
 
+  formatControls = (dataItem, configs) => {
+    let result = [];
+    const keys = Object.keys(dataItem);
+    for (let item of keys) {
+      const targetItem = configs.filter(target => target.fname === item);
+      if (targetItem.length) {
+        const {
+          fname,
+          controltype,
+          dateformat,
+          unit,
+          fvalue,
+          isvisiable,
+          decimalcount,
+        } = targetItem[0];
+        if (!isvisiable) continue;
+
+        let type = controlTypeEnums[controltype];
+        let value = dataItem[fname];
+        const item = {
+          type,
+          key: fname,
+          name: fvalue,
+          value,
+          dateFormat: dateformat,
+          decimalCount: decimalcount,
+          unit,
+          templateOrder: dataItem.templateOrder,
+          // when mapPicker change, dataSource will change target
+          // item by this.
+          primaryValue: dataItem[this.state.primaryKey],
+        };
+
+        // handle with mapPicker
+        if (controltype === 14) {
+          const latng = value.split('|');
+          result.push({
+            ...item,
+            lng: latng[0],
+            lat: latng[1],
+            address: latng[2],
+          });
+        } else {
+          result.push(item);
+        }
+      }
+    }
+    return result;
+  };
+
+  handeMapPickerChange = dataItem => {
+    // eslint-disable-next-line
+    console.log(dataItem);
+  };
+
   render = () => {
     const {
       power,
@@ -156,8 +218,21 @@ export default class DataController extends Component {
           primaryKey={primaryKey}
           loading={loading}
           onDelete={this.handleDelete}
+          formatControls={this.formatControls}
+          onMapPickerChange={this.handeMapPickerChange}
         />
       </div>
     );
   };
 }
+
+const controlTypeEnums = {
+  1: 'input',
+  2: 'timePicker',
+  3: 'select',
+  5: 'checkbox',
+  9: 'datePicker',
+  12: 'upload',
+  14: 'mapPicker',
+  99: 'label',
+};

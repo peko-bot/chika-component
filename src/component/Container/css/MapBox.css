@@ -1,0 +1,10 @@
+.MapBox img {
+  position: absolute;
+}
+
+.MapBox .picker-info {
+  bottom: 15px;
+  z-index: 9998;
+  position: absolute;
+  width: 100%;
+}
