@@ -72,6 +72,11 @@ class ContainerCore extends React.Component {
       lat: -1,
       address: '',
     };
+
+    this.history = {
+      group: '',
+      order: '',
+    };
   }
 
   componentDidMount = () => {
@@ -117,9 +122,13 @@ class ContainerCore extends React.Component {
     });
   };
 
-  // 返回列表
   backToList = () => {
     this.setState({ currentGroup: 'list-page', currentOrder: 0 });
+  };
+
+  backToLast = () => {
+    const { group, order } = this.history;
+    this.setState({ currentGroup: group, currentOrder: order });
   };
 
   handleDelete = primaryValue => {
@@ -218,6 +227,13 @@ class ContainerCore extends React.Component {
   };
 
   handleGoToMapBox = ({ lat, lng, address }) => {
+    const { currentGroup, currentOrder } = this.state;
+    // record position, for going back
+    this.history = {
+      group: currentGroup,
+      order: currentOrder,
+    };
+
     this.setState({
       currentGroup: 'map-box',
       currentOrder: 0,
@@ -372,7 +388,7 @@ class ContainerCore extends React.Component {
           </Item>
           <Item group="map-box" order={0} key="map-box-0">
             <MapBox
-              onBack={this.backToList}
+              onBack={this.backToLast}
               lat={lat}
               lng={lng}
               address={address}
