@@ -1,7 +1,6 @@
-![](https://img.shields.io/circleci/project/github/zy410419243/chika-component.svg?style=flat)
-
 # chika-component
 
+![](https://img.shields.io/circleci/project/github/zy410419243/chika-component.svg?style=flat)
 [![Greenkeeper badge](https://badges.greenkeeper.io/zy410419243/chika-component.svg)](https://greenkeeper.io/)
 
 
