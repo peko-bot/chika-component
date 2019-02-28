@@ -2,6 +2,9 @@
 
 # chika-component
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/zy410419243/chika-component.svg)](https://greenkeeper.io/)
+
+
 ![chika-component](./docs/chika-component.png)
 
 暴露作者目前为资浅水准 FE 的一系列山寨组件，你会发现里面有各种组件库的影子，就好像作者的人生一样
