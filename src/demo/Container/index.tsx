@@ -46,14 +46,18 @@ export default class ContainerDemo extends React.Component {
               </div>
               <div className="right">
                 <label>坝高：</label>
-                <label data-key="dam_width" unit="m" decimalcount={2} />
+                <label
+                  data-key="dam_width"
+                  data-unit="m"
+                  data-decimalcount={2}
+                />
               </div>
             </li>
 
             <li>
               <div className="left">
                 <label>坝长：</label>
-                <label data-key="crest_length" unit="m" />
+                <label data-key="crest_length" data-unit="m" />
               </div>
               <div className="right">
                 <label>主坝类型：</label>
