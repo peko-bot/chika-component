@@ -3,13 +3,17 @@ import React, { Component } from 'react';
 import Uploader from './Uploader';
 import UploadView from './UploadView';
 
-export default class Upload extends Component {
-  constructor(props) {
-    super(props);
+export interface UploadProps {
+  fileList?: Array<any>;
+  onChange?: (file: any) => void;
+  loading?: boolean;
+  style?: any;
+  isShowPlus?: boolean;
+  plusText?: string;
+  longPress?: (item: any, e: any) => void;
+}
 
-    this.state = {};
-  }
-
+export default class Upload extends Component<UploadProps> {
   render = () => {
     const {
       fileList,
@@ -20,7 +24,6 @@ export default class Upload extends Component {
       plusText,
       longPress,
     } = this.props;
-
     return (
       <div className="Upload" style={Object.assign({}, style)}>
         <UploadView

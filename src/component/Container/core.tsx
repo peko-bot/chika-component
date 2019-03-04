@@ -1,49 +1,64 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {
   Modal,
-  DatePicker,
   List,
-  InputItem,
-  Drawer,
-  Picker,
-  Toast,
   Button,
   ActivityIndicator,
-  PullToRefresh,
-  Checkbox,
-  Accordion,
-  Calendar,
+  // PullToRefresh,
 } from 'antd-mobile';
 const { alert, operation } = Modal;
-const CheckboxItem = Checkbox.CheckboxItem;
-import Upload from './UploadWrapper';
-import { createForm } from 'rc-form';
 import Template from './Template';
-import TransformManager, { Item } from '../TransformManager';
+import TransformManager, {
+  TransformManagerItem as Item,
+} from '../TransformManager';
 import DetailFactory from './DetailFactory';
 import MapBox from './MapBox';
-import DetailArrow from './DetailArrow';
-import FunctionalButton from './FunctionalButton';
-import { bindTouchDirection } from '../../util/Touch';
 import './css/Container-core.css';
-import Serialize from '../../util/Serialize';
 import { format as fnsFormat } from 'date-fns/esm';
 import { zhCN } from 'date-fns/locale';
 
 function noop() {}
 
-class ContainerCore extends React.Component {
-  static propTypes = {
-    power: PropTypes.object.isRequired,
-    config: PropTypes.array.isRequired,
-    dataSource: PropTypes.array.isRequired,
-    total: PropTypes.number,
-    loading: PropTypes.bool,
-    primaryKey: PropTypes.string,
-    onDelete: PropTypes.func,
-    formatControls: PropTypes.func,
-    onMapPickerChange: PropTypes.func,
+export interface ContainerCoreProps {
+  power: any;
+  config: Array<any>;
+  dataSource: Array<any>;
+  total?: number;
+  loading?: boolean;
+  primaryKey?: string;
+  onDelete?: (primaryValue: string | number) => void;
+  formatControls: (item: any, config: any) => void;
+  onMapPickerChange?: (item: any) => void;
+}
+export interface ContainerCoreState {
+  currentOrder: number | string;
+  currentGroup: string;
+  lng: number | string;
+  lat: number | string;
+  address: string;
+  primaryValue: string | number;
+  currentState: number;
+}
+
+export default class ContainerCore extends React.Component<
+  ContainerCoreProps,
+  ContainerCoreState
+> {
+  content: any;
+  state: ContainerCoreState = {
+    currentOrder: 0,
+    currentGroup: 'list-page',
+    // for mapPicker
+    lng: -1,
+    lat: -1,
+    address: '',
+    primaryValue: '',
+    currentState: 0,
+  };
+
+  history: { group: string; order: string | number } = {
+    group: '',
+    order: '',
   };
 
   static defaultProps = {
@@ -62,25 +77,6 @@ class ContainerCore extends React.Component {
     formatControls: noop,
     onMapPickerChange: noop,
   };
-
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      currentOrder: 0,
-      currentGroup: 'list-page',
-      // for mapPicker
-      lng: -1,
-      lat: -1,
-      address: '',
-      primaryValue: '',
-    };
-
-    this.history = {
-      group: '',
-      order: '',
-    };
-  }
 
   componentDidMount = () => {
     // const { showSearch = true } = this.props.config;
@@ -123,19 +119,23 @@ class ContainerCore extends React.Component {
     this.setState({ currentGroup: 'list-page', currentOrder: 0 });
   };
 
-  backToLast = item => {
+  backToLast = (item: any) => {
     const { group, order } = this.history;
-    this.props.onMapPickerChange(item);
+    if (this.props.onMapPickerChange) {
+      this.props.onMapPickerChange(item);
+    }
     this.setState({ currentGroup: group, currentOrder: order });
   };
 
-  handleDelete = primaryValue => {
+  handleDelete = (primaryValue: string | number) => {
     alert('长痛不如短痛，删tm的', '真删了啊？', [
       { text: '容朕三思' },
       {
         text: '真的',
         onPress: () => {
-          this.props.onDelete(primaryValue);
+          if (this.props.onDelete) {
+            this.props.onDelete(primaryValue);
+          }
         },
       },
     ]);
@@ -144,15 +144,21 @@ class ContainerCore extends React.Component {
   // 滑动加载
   handlePullLoad = () => {};
 
-  handleTemplateClick = ({ templateOrder }) => {
+  handleTemplateClick = ({
+    templateOrder,
+  }: {
+    templateOrder: string | number;
+    childProps?: any;
+    event?: any;
+  }) => {
     this.setState({ currentOrder: templateOrder, currentGroup: 'detail-page' });
   };
 
   // show Modal for operation
-  handleTemplatePress = dataItem => {
+  handleTemplatePress = (dataItem: any) => {
     const { primaryKey, power } = this.props;
     const { add, delete: del, update, select } = power;
-    const primaryValue = dataItem[primaryKey];
+    const primaryValue = dataItem[primaryKey || ''];
     let param = [];
 
     if (!select) {
@@ -185,7 +191,7 @@ class ContainerCore extends React.Component {
     param.length !== 0 && operation(param);
   };
 
-  handleChildDataFormat = (value, childProps) => {
+  handleChildDataFormat = (value: any, childProps: any) => {
     const { dateFormat, decimalCount, unit } = childProps;
 
     if (dateFormat) {
@@ -204,9 +210,9 @@ class ContainerCore extends React.Component {
 
   onDetailPageChange = () => {};
 
-  renderDetailPage = dataSource => {
+  renderDetailPage = (dataSource: Array<any>) => {
     const { config, formatControls } = this.props;
-    let result = [];
+    let result: Array<any> = [];
     dataSource.map((item, i) => {
       const dataItem = formatControls(item, config);
       result.push(
@@ -214,7 +220,7 @@ class ContainerCore extends React.Component {
           <DetailFactory
             onBack={this.backToList}
             onPageChange={this.onDetailPageChange}
-            dataItem={dataItem}
+            dataItem={dataItem as any}
             onDataFormat={this.handleChildDataFormat}
             goToMapBox={this.handleGoToMapBox}
           />
@@ -224,7 +230,17 @@ class ContainerCore extends React.Component {
     return result;
   };
 
-  handleGoToMapBox = ({ lat, lng, address, primaryValue }) => {
+  handleGoToMapBox = ({
+    lat,
+    lng,
+    address,
+    primaryValue,
+  }: {
+    lat: number | string;
+    lng: number | string;
+    address: string;
+    primaryValue: string;
+  }) => {
     const { currentGroup, currentOrder } = this.state;
     // record position, for going back
     this.history = {
@@ -269,14 +285,13 @@ class ContainerCore extends React.Component {
     /* 新增/修改都是这个 */
     let editContent = (
       <List>
-        {[].map((item, i) =>
+        {/* {[].map((item, i) =>
           this.handleControlType(item, 'edit', undefined, i),
-        )}
-
+        )} */}
         <List.Item>
           <Button
             type="primary"
-            onClick={this.save}
+            // onClick={this.save}
             inline
             style={{ marginRight: 4, width: 'calc(50% - 4px)' }}
           >
@@ -357,30 +372,30 @@ class ContainerCore extends React.Component {
           currentOrder={currentOrder}
         >
           <Item group="list-page" order={0} key="list-page-0">
-            <PullToRefresh
+            {/* <PullToRefresh
               direction="up"
-              // style={{ height: style.height, overflow: 'auto' }}
+              style={{ height: style.height, overflow: 'auto' }}
               onRefresh={this.handlePullLoad}
-              // refreshing={pullLoad}
+              refreshing={pullLoad}
+            > */}
+            <div
+              className="sc-content"
+              style={{
+                transform: `translate3d(${currentState * 100}%, 0, 0)`,
+                // display: pageType == 'list' ? '' : 'none',
+              }}
+              ref={(ref: any) => (this.content = ref)}
             >
-              <div
-                className="sc-content"
-                style={{
-                  transform: `translate3d(${currentState * 100}%, 0, 0)`,
-                  // display: pageType == 'list' ? '' : 'none',
-                }}
-                ref={ref => (this.content = ref)}
-              >
-                <Template
-                  template={props.children}
-                  dataSource={props.dataSource}
-                  loading={props.loading}
-                  onDataFormat={this.handleChildDataFormat}
-                  onClick={this.handleTemplateClick}
-                  onLongPress={this.handleTemplatePress}
-                />
-              </div>
-            </PullToRefresh>
+              <Template
+                template={props.children}
+                dataSource={props.dataSource}
+                loading={props.loading}
+                onDataFormat={this.handleChildDataFormat}
+                onClick={this.handleTemplateClick}
+                onLongPress={this.handleTemplatePress}
+              />
+            </div>
+            {/* </PullToRefresh> */}
           </Item>
           {this.renderDetailPage(props.dataSource)}
           <Item group="update-page" order={0} key="update-page-0">
@@ -416,5 +431,3 @@ class ContainerCore extends React.Component {
     );
   };
 }
-
-export default ContainerCore;

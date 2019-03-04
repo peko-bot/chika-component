@@ -3,15 +3,12 @@ import React from 'react';
 import Tabs from '../../component/Tabs';
 
 export default class TabsDemo extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      result: [],
-      currentSelect: 1,
-      labelText1: 9,
-      labelText2: 8,
-    };
-  }
+  state = {
+    result: [],
+    currentSelect: 1,
+    labelText1: 9,
+    labelText2: 8,
+  };
 
   componentDidMount = () => {
     setTimeout(() => {
@@ -22,7 +19,7 @@ export default class TabsDemo extends React.Component {
     }, 1000);
   };
 
-  onClick = (item, currentSelect) => {
+  onClick = (_: any, currentSelect: number) => {
     this.setState({ currentSelect });
   };
 
@@ -31,7 +28,7 @@ export default class TabsDemo extends React.Component {
   };
 
   render() {
-    const { result, currentSelect, labelText1, labelText2 } = this.state;
+    const { currentSelect, labelText1, labelText2 } = this.state;
 
     return (
       <div className="Tabs_demo">

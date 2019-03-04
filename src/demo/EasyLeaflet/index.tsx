@@ -1,14 +1,24 @@
 import React from 'react';
-
 import k from '../../component/EasyLeaflet';
-
-import Popup from '../../component/EasyLeaflet/Custom/Popup';
 import Detail from './popup';
-
 import { GetParams } from '../../util/GetParams';
+import L from 'leaflet';
 
-export default class maptest extends React.Component {
-  constructor(props) {
+export interface EasyLeafletDemoState {
+  layoutState: boolean;
+  layoutIndex: number;
+  info: { lat: string; lng: string; address: string };
+}
+
+export default class EasyLeafletDemo extends React.Component<
+  any,
+  EasyLeafletDemoState
+> {
+  map: any = null;
+  pageH = document.documentElement.clientHeight || document.body.clientHeight;
+  pageW = document.documentElement.clientWidth || document.body.clientWidth;
+
+  constructor(props: any) {
     super(props);
     this.state = {
       layoutState: false,
@@ -16,11 +26,6 @@ export default class maptest extends React.Component {
       info: { lat: '', lng: '', address: '' },
     };
   }
-
-  map = null;
-  pageH = document.documentElement.clientHeight || document.body.clientHeight;
-  pageW = document.documentElement.clientWidth || document.body.clientWidth;
-
   componentDidMount = () => {
     const center = [GetParams('lat') || 29.9502, GetParams('lng') || 121.4839];
 
@@ -49,10 +54,10 @@ export default class maptest extends React.Component {
       // 获得默认坐标
       k.e.zoomIn();
 
-      this.map.on('moveend', e => {
+      this.map.on('moveend', () => {
         let { lat, lng, address = '暂不支持地址显示' } = this.map.getCenter();
 
-        window.parent.leafletLatng = `${lng}|${lat}|${address}`;
+        (window as any).parent.leafletLatng = `${lng}|${lat}|${address}`;
 
         this.setState({ info: { lat, lng, address } });
       });
@@ -64,18 +69,16 @@ export default class maptest extends React.Component {
 
     return (
       <div id="mapBox" style={{ height: this.pageH }}>
-        <Popup>
-          <img
-            src="../../assets/easyLeaflet/defaultIcon.png"
-            style={{
-              position: 'absolute',
-              top: this.pageH / 2 - 48,
-              left: this.pageW / 2 - 24,
-            }}
-          />
-
-          <Detail info={info} />
-        </Popup>
+        <img
+          src="../../assets/easyLeaflet/defaultIcon.png"
+          style={{
+            position: 'absolute',
+            top: this.pageH / 2 - 48,
+            left: this.pageW / 2 - 24,
+            zIndex: 9997,
+          }}
+        />
+        <Detail info={info} />
       </div>
     );
   };

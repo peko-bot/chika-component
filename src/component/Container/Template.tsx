@@ -1,34 +1,33 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import extend from '../../util/DeepClone';
 
 function noop() {}
-export default class Template extends Component {
-  static propTypes = {
-    dataSource: PropTypes.array,
-    loading: PropTypes.bool,
-    template: PropTypes.element,
-    bindKey: PropTypes.string,
-    onDataFormat: PropTypes.func,
-    onClick: PropTypes.func,
-    onLongPress: PropTypes.func,
-    timeForTriggerLongPress: PropTypes.number,
-  };
 
+export interface TemplateProps {
+  dataSource?: Array<any>;
+  loading?: boolean;
+  template?: any;
+  bindKey?: string;
+  onDataFormat?: (dataItem: any, childProps: any, e?: any) => void;
+  onClick?: (dataItem: any, childProps: any, e?: any) => void;
+  onLongPress?: (dataItem: any, childProps: any, e?: any) => void;
+  timeForTriggerLongPress?: number;
+}
+export interface TemplateState {}
+
+export default class Template extends Component<TemplateProps, TemplateState> {
   static defaultProps = {
     dataSource: [],
     loading: false,
     template: null,
     bindKey: 'data-key',
-    onDataFormat: function(value) {
-      return value;
-    },
+    onDataFormat: (value: string) => value,
     onClick: noop,
     onLongPress: noop,
     timeForTriggerLongPress: 700,
   };
 
-  handleChildEvent = (childNode, dataItem) => {
+  handleChildEvent = (childNode: any, dataItem: any) => {
     if (!childNode || !childNode.props) {
       return childNode;
     }
@@ -41,19 +40,19 @@ export default class Template extends Component {
     const { onClick, onLongPress, stopPropagation } = childProps;
     childNode.key = `template-child-${Math.random() * 10000}`;
 
-    childProps.onClick = e => {
+    childProps.onClick = (e: any) => {
       // if stop bubble, click event on the parent dom will not be called,
       // but if not, callback in core will be called many times
       // TODO: find a way to avoid this dilemma, but now, stop it
       e.stopPropagation();
       onClick && onClick(dataItem, childProps, e);
       if (!stopPropagation) {
-        parentOnClick(dataItem, childProps, e);
+        parentOnClick && parentOnClick(dataItem, childProps, e);
       }
     };
 
-    let timer;
-    childProps.onTouchStart = e => {
+    let timer: any;
+    childProps.onTouchStart = (e: any) => {
       // if stop bubble, click event on the parent dom will not be called,
       // but if not, callback in core will be called many times
       // TODO: find a way to avoid this dilemma, but now, stop it
@@ -61,7 +60,7 @@ export default class Template extends Component {
       timer = setTimeout(() => {
         onLongPress && onLongPress(dataItem, childProps, e);
         if (!stopPropagation) {
-          parentOnLongPress(dataItem, childProps, e);
+          parentOnLongPress && parentOnLongPress(dataItem, childProps, e);
         }
       }, timeForTriggerLongPress);
     };
@@ -81,21 +80,21 @@ export default class Template extends Component {
     return childNode;
   };
 
-  handleChildData = (childNode, dataItem) => {
+  handleChildData = (childNode: any, dataItem: any) => {
     if (!childNode || !childNode.props) {
       return childNode;
     }
-    const { bindKey, onDataFormat } = this.props;
+    const { bindKey = 'data-key', onDataFormat } = this.props;
     const childProps = childNode.props;
-    if ([bindKey] in childProps) {
+    if (childProps[bindKey]) {
       const key = childProps[bindKey];
       const value = dataItem[key];
-      childProps.children = onDataFormat(value, childProps);
+      childProps.children = onDataFormat && onDataFormat(value, childProps);
     }
     return childNode;
   };
 
-  travelChildren = (children, item) => {
+  travelChildren = (children: any, item: any) => {
     React.Children.map(children, child => {
       let childNode = this.handleChildEvent(child, item);
       childNode = this.handleChildData(childNode, item);
@@ -110,14 +109,14 @@ export default class Template extends Component {
   };
 
   renderTemplate = () => {
-    const { dataSource, mainKey, template } = this.props;
+    const { dataSource = [], template } = this.props;
     let children = [];
     for (let i = 0; i < dataSource.length; i++) {
       const item = dataSource[i];
       // copy template
       const singleTemplate = extend({}, template);
       // render it
-      this.travelChildren(singleTemplate, item, item[mainKey]);
+      this.travelChildren(singleTemplate, item);
       children.push(singleTemplate);
     }
     return children;
@@ -135,7 +134,7 @@ export default class Template extends Component {
   };
 
   render = () => {
-    const { dataSource, loading } = this.props;
+    const { dataSource = [], loading } = this.props;
 
     if (!dataSource.length && !loading) {
       return this.renderEmpty();

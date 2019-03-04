@@ -1,31 +1,33 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { List, Button } from 'antd-mobile';
 
 function noop() {}
 
-export default class DetailFactory extends Component {
-  static propTypes = {
-    controlType: PropTypes.string,
-    onPageChange: PropTypes.func,
-    onBack: PropTypes.func,
-    dataItem: PropTypes.array,
-    onDataFormat: PropTypes.func,
-    goToMapBox: PropTypes.func,
-  };
+export interface DetailFactoryProps {
+  controlType: string;
+  onPageChange: () => void;
+  onBack: () => void;
+  dataItem?: Array<any>;
+  onDataFormat: (value: string | number, item: any) => void;
+  goToMapBox: (item: {
+    lat: number | string;
+    lng: number | string;
+    address: string;
+    primaryValue: string;
+  }) => void;
+}
 
+export default class DetailFactory extends Component<DetailFactoryProps> {
   static defaultProps = {
     controlType: '',
     onPageChange: noop,
     onBack: noop,
     dataItem: [],
-    onDataFormat: function(value) {
-      return value;
-    },
+    onDataFormat: (value: any) => value,
     goToMapBox: noop,
   };
 
-  handleControls = (item, index) => {
+  handleControls = (item: any, index: number) => {
     const { onDataFormat, goToMapBox } = this.props;
     const { type, value, name } = item;
 
@@ -37,7 +39,7 @@ export default class DetailFactory extends Component {
           <List.Item
             extra={item.address}
             arrow="horizontal"
-            onClick={e => goToMapBox(item)}
+            onClick={() => goToMapBox(item)}
           >
             地址
           </List.Item>
@@ -49,7 +51,7 @@ export default class DetailFactory extends Component {
       return (
         <List.Item
           key={`detail-page-label-${index}`}
-          extra={onDataFormat(value, item)}
+          extra={onDataFormat(value, item) as any}
         >
           {name}
         </List.Item>
@@ -59,11 +61,13 @@ export default class DetailFactory extends Component {
   };
 
   render = () => {
-    const { onBack, dataItem } = this.props;
+    const { onBack, dataItem = [] } = this.props;
     return (
       <div className="DetailFactory">
         <List>
-          {dataItem.map((item, i) => this.handleControls(item, i))}
+          <List.Item>
+            {dataItem.map((item, i) => this.handleControls(item, i))}
+          </List.Item>
           <List.Item>
             <Button onClick={onBack}>返回上级</Button>
           </List.Item>

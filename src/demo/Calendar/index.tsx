@@ -1,20 +1,25 @@
 import React from 'react';
-
 import Calendar from '../../component/Calendar';
 import './css/Calendar_demo.css';
-
 import moment from 'moment';
-
 const dataSourceUrl = '/mock/calendar_demo.json';
 
-export default class CalendarDemo extends React.Component {
-  constructor(props) {
+export interface CalendarDemoState {
+  select: Array<any>;
+  start: string;
+  end: string;
+  position: string;
+}
+
+export default class CalendarDemo extends React.Component<
+  any,
+  CalendarDemoState
+> {
+  format: string = 'YYYY/MM/DD';
+  constructor(props: any) {
     super(props);
 
-    this.format = 'YYYY/MM/DD';
-
     let date = new Date();
-
     let endTime = new Date(
       new Date(date.getFullYear(), date.getMonth() + 1, 1).getTime() - 86400,
     );
@@ -39,7 +44,7 @@ export default class CalendarDemo extends React.Component {
       .then(select => this.setState({ select }));
   };
 
-  handleDateChange = type => {
+  handleDateChange = (type: string) => {
     let { start, end, position } = this.state;
     let startTime = new Date(start);
     let endTime = new Date(end);
@@ -72,11 +77,11 @@ export default class CalendarDemo extends React.Component {
     return { start, end, position };
   };
 
-  dateOnChange = type => {
+  dateOnChange = (type: string) => {
     this.setState(this.handleDateChange(type));
   };
 
-  onChange = item => {
+  onChange = (item: any) => {
     let { select } = this.state;
     let { dateStr, changeable } = item;
 
@@ -95,7 +100,7 @@ export default class CalendarDemo extends React.Component {
     this.setState({ select, position: '' });
   };
 
-  handleTouch = position => {
+  handleTouch = (position: string) => {
     const { start, end } = this.handleDateChange(position);
 
     this.setState({ position, start, end });

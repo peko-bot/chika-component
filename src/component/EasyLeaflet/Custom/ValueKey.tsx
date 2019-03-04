@@ -1,11 +1,12 @@
 import React from 'react';
 
-/**键值对绑定 */
-export class ValueKey extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
+export interface ValueKeyProps {
+  config: any;
+  dataSource: Array<any>;
+}
+
+/** 键值对绑定 */
+export class ValueKey extends React.Component<ValueKeyProps> {
   render() {
     const { config, dataSource } = this.props;
 
@@ -21,7 +22,7 @@ export class ValueKey extends React.Component {
         >
           {dataSource[config.title]}
         </div>
-        {config.rows.map((item, i) => {
+        {config.rows.map((item: any) => {
           return (
             <div className="keyValue_row">
               <div

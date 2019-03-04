@@ -1,76 +1,38 @@
 import React from 'react';
-
 import { bindTouchDirection } from '../../util/Touch';
-
 import './css/Calendar.css';
 
-export default class Calendar extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      calendarBody: [],
-      calendarList: [-4, -3, -2, -1, 0, 1], // 翻页用 mark
-    };
-  }
+export interface CalendarProps {
+  touch?: (direction: string) => void;
+  start: string;
+  end: string;
+  position?: string;
+  onChange?: (item: any) => void;
+  select?: Array<any>;
+}
+export interface CalendarState {
+  calendarBody: Array<any>;
+  calendarList: Array<number>;
+}
+
+export default class Calendar extends React.Component<
+  CalendarProps,
+  CalendarState
+> {
+  state: CalendarState = {
+    calendarBody: [],
+    calendarList: [-4, -3, -2, -1, 0, 1], // 翻页用
+  };
+  content: any;
 
   componentDidMount = () => {
-    // 绑定搜索面板滑动事件
     bindTouchDirection(this.content, direction => {
       this.props.touch && this.props.touch(direction);
     });
-
     this.refresh();
   };
 
-  // 绑定 判断滑动方向 事件
-  bindTouchDirection = (ref, callback) => {
-    let startX, startY, endX, endY;
-
-    ref.addEventListener('touchstart', e => {
-      startX = e.touches[0].pageX;
-      startY = e.touches[0].pageY;
-    });
-
-    ref.addEventListener('touchend', e => {
-      endX = e.changedTouches[0].pageX;
-      endY = e.changedTouches[0].pageY;
-
-      let direction = this.getDirection(startX, startY, endX, endY);
-
-      callback(direction);
-    });
-  };
-
-  //根据起点终点返回方向
-  getDirection(startX, startY, endX, endY) {
-    let angx = endX - startX;
-    let angy = endY - startY;
-    let result = '我一直站在此处没有动，等你买橘回来给我付车费';
-
-    // 如果滑动距离太短
-    if (Math.abs(angx) < 25 && Math.abs(angy) < 25) {
-      return result;
-    }
-
-    let angle = (Math.atan2(angy, angx) * 180) / Math.PI;
-
-    if (angle >= -135 && angle <= -45) {
-      result = 'down'; // toTop
-    } else if (angle > 45 && angle < 135) {
-      result = 'top'; // toDown
-    } else if (
-      (angle >= 135 && angle <= 180) ||
-      (angle >= -180 && angle < -135)
-    ) {
-      result = 'right'; // toLeft
-    } else if (angle >= -45 && angle <= 45) {
-      result = 'left'; // toRight
-    }
-
-    return result;
-  }
-
-  refresh = (select = []) => {
+  refresh = (select?: Array<any>) => {
     let { calendarBody, calendarList } = this.state;
     const { start, end, position } = this.props;
 
@@ -109,15 +71,14 @@ export default class Calendar extends React.Component {
       default:
         break;
     }
-
     return { calendarBody, calendarList };
   };
 
   /* 设置选中项样式
-        这里就是简单遍历，性能会有问题
-        优化的话应该是直接确定日期在二维数组中的位置 mark
-    */
-  handleSelectDate = (select, calendarBody) => {
+    这里就是简单遍历，性能会有问题
+    优化的话应该是直接确定日期在二维数组中的位置
+  */
+  handleSelectDate = (select: Array<any> = [], calendarBody: Array<any>) => {
     for (let row of calendarBody) {
       for (let col of row) {
         let dateCol = new Date(col.dateStr).getTime();
@@ -137,8 +98,8 @@ export default class Calendar extends React.Component {
   };
 
   /* 将起止日期转化成二维数组 */
-  transCalendarDatas = (start, end) => {
-    let calendarDatas = [];
+  transCalendarDatas = (start: string, end: string) => {
+    let calendarDatas: Array<Array<any>> = [];
     const startTimeStamp = new Date(start);
     const endTimeStamp = new Date(end);
     const diffDays = this.getDaysByDateString(start, end);
@@ -155,10 +116,10 @@ export default class Calendar extends React.Component {
     }
 
     /*
-            获得第一行的第一个日期和最后一行的最后一个日期
-            然后求两时间中间的所有日期
-            然后把这些日期填到二维数组里
-        */
+      获得第一行的第一个日期和最后一行的最后一个日期
+      然后求两时间中间的所有日期
+      然后把这些日期填到二维数组里
+    */
     // 开始、结束日期的毫秒数
     // 填满首尾两行
     let startTime = startTimeStamp.getTime() - indexStart * 24 * 3600 * 1000;
@@ -175,11 +136,11 @@ export default class Calendar extends React.Component {
         1}/${dateObj.getDate()}`; // /是为了ios new Date时不出错
       const date = dateObj.getDate();
 
-      let param = { date, dateStr };
+      let param = { date, dateStr, disabled: false };
       /*
-                根据传进来的时段设置可点击日期的颜色，
-                颜色是在这里设置，点击事件在render的body里
-            */
+        根据传进来的时段设置可点击日期的颜色，
+        颜色是在这里设置，点击事件在render的body里
+      */
 
       param.disabled = !(
         startTimeStamp.getTime() <= startTime &&
@@ -196,7 +157,7 @@ export default class Calendar extends React.Component {
   };
 
   // 获得两个日期间隔天数
-  getDaysByDateString = (start, end) => {
+  getDaysByDateString = (start: string, end: string) => {
     if (start === undefined || end === undefined) return 1;
     let startDate = Date.parse(start.replace('/-/g', '/'));
     let endDate = Date.parse(end.replace('/-/g', '/'));
@@ -206,16 +167,15 @@ export default class Calendar extends React.Component {
     return days;
   };
 
-  handleTdClick = item => this.props.onChange && this.props.onChange(item);
+  handleTdClick = (item: any) =>
+    this.props.onChange && this.props.onChange(item);
 
   render = () => {
     let { select = [] } = this.props;
-    let { currentSelect } = this.state;
 
     let { calendarBody, calendarList } = this.refresh(select);
 
-    let head = [];
-
+    let head: any = [];
     head.push(
       <tbody key="body_tbody_-1">
         <tr>
@@ -230,13 +190,12 @@ export default class Calendar extends React.Component {
       </tbody>,
     );
 
-    let body = [];
-
+    let body: any = [];
     calendarBody.map((item, i) => {
       body.push(
         <tbody key={`body_tbody_${i}`}>
           <tr>
-            {item.map((jtem, j) => {
+            {item.map((jtem: any, j: number) => {
               const {
                 style = {},
                 date,
@@ -274,7 +233,7 @@ export default class Calendar extends React.Component {
     });
 
     return (
-      <div className="Calendar" ref={ref => (this.content = ref)}>
+      <div className="Calendar" ref={(ref: any) => (this.content = ref)}>
         {calendarList.map((item, i) => {
           return (
             <div

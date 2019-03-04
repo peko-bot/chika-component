@@ -1,5 +1,5 @@
-export default (target, options) => {
-  var copyIsArray,
+export default (target: any, options: any) => {
+  var copyIsArray: any,
     toString = Object.prototype.toString,
     hasOwn = Object.prototype.hasOwnProperty;
 
@@ -13,12 +13,12 @@ export default (target, options) => {
       '[object RegExp]': 'regExp',
       '[object Object]': 'object',
     },
-    type = function(obj) {
+    type = function(obj: any) {
       return obj == null
         ? String(obj)
-        : class2type[toString.call(obj)] || 'object';
+        : (class2type as any)[toString.call(obj)] || 'object';
     },
-    isWindow = function(obj) {
+    isWindow = function(obj: any) {
       return obj && typeof obj === 'object' && 'setInterval' in obj;
     },
     isArray =
@@ -26,7 +26,7 @@ export default (target, options) => {
       function(obj) {
         return type(obj) === 'array';
       },
-    isPlainObject = function(obj) {
+    isPlainObject = function(obj: any) {
       if (!obj || type(obj) !== 'object' || obj.nodeType || isWindow(obj)) {
         return false;
       }
@@ -46,7 +46,7 @@ export default (target, options) => {
 
       return key === undefined || hasOwn.call(obj, key);
     },
-    extend = function(target, options) {
+    extend = function(target: any, options: any) {
       for (var name in options) {
         var src = target[name];
         var copy = options[name];

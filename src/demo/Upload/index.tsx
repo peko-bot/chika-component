@@ -1,20 +1,13 @@
 import React, { Component } from 'react';
-
 import Upload from '../../component/Upload';
 
-export default class index extends Component {
-  constructor(props) {
-    super(props);
+export default class UploadDemo extends Component {
+  state: { fileList: Array<any>; loading: boolean } = {
+    fileList: [],
+    loading: false,
+  };
 
-    this.state = {
-      fileList: [],
-      loading: false,
-    };
-  }
-
-  componentDidMount = () => {};
-
-  onChange = file => {
+  onChange = (file: any) => {
     const { name } = file;
 
     let formData = new FormData();
@@ -36,9 +29,9 @@ export default class index extends Component {
     fetch('../../mock/uploadFiles.json')
       .then(result => result.text())
       .then(url => {
-        let { fileList } = this.state;
-
-        fileList.push({ id: ~~(Math.random() * 10000), url });
+        const { fileList } = this.state;
+        const file = { id: ~~(Math.random() * 10000), url };
+        fileList.push(file);
 
         this.setState({ fileList, loading: false });
       });
@@ -49,7 +42,7 @@ export default class index extends Component {
   onPress = () => {};
 
   render = () => {
-    const { fileList, loading } = this.state;
+    const { fileList } = this.state;
     const config = {
       fileList,
       onChange: this.onChange,

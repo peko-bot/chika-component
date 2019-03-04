@@ -1,18 +1,23 @@
 import React, { Component } from 'react';
 
 import './css/UploadView.css';
-
 const imageTypes = ['image', 'webp', 'png', 'svg', 'gif', 'jpg', 'jpeg', 'bmp'];
 
-export default class UploadView extends Component {
-  constructor(props) {
-    super(props);
+export interface UploadViewProps {
+  fileList?: Array<any>;
+  loading?: boolean;
+  longPress?: (item: any, e: any) => void;
+  style?: any;
+}
 
-    this.state = {};
-    this.timer = null;
-  }
+export default class UploadView extends Component<UploadViewProps> {
+  timer: any;
 
-  extname = url => {
+  componentWillUnmount = () => {
+    clearTimeout(this.timer);
+  };
+
+  extname = (url?: string) => {
     if (!url) {
       return '';
     }
@@ -23,7 +28,7 @@ export default class UploadView extends Component {
     return (/\.[^./\\]*$/.exec(filenameWithoutSuffix) || [''])[0];
   };
 
-  isImageUrl = file => {
+  isImageUrl = (file: any) => {
     if (imageTypes.includes(file.type)) {
       return true;
     }
@@ -47,27 +52,27 @@ export default class UploadView extends Component {
     return true;
   };
 
-  previewFile = (file, callback) => {
+  previewFile = (file: any, callback: (result: any) => void) => {
     const reader = new FileReader();
-
     reader.onloadend = () => callback(reader.result);
-
     reader.readAsDataURL(file);
   };
 
-  handleViewTouchStart = (item, e) => {
+  handleViewTouchStart = (item: any, e: any) => {
     this.timer = setTimeout(() => {
-      this.props.longPress(item, e);
+      if (this.props.longPress) {
+        this.props.longPress(item, e);
+      }
     }, 800);
   };
 
-  handleTouchEnd = e => {
+  handleTouchEnd = () => {
     clearTimeout(this.timer);
   };
 
   render = () => {
     const { fileList = [], style, loading } = this.props;
-    let view = [];
+    let view: any = [];
     const loadingView = (
       <div className="img-list" key={'loadingView'}>
         <div className="img-wrapper">loading</div>
@@ -81,7 +86,7 @@ export default class UploadView extends Component {
           <div
             className="img-list"
             key={'imgList' + i}
-            onTouchStart={e => this.handleViewTouchStart(item, e)}
+            onTouchStart={(e: any) => this.handleViewTouchStart(item, e)}
             onTouchMove={this.handleTouchEnd}
             onTouchEnd={this.handleTouchEnd}
           >
@@ -96,7 +101,7 @@ export default class UploadView extends Component {
     });
 
     return (
-      <div className="UploadView" style={Object.assign({}, style)}>
+      <div className="UploadView" style={style}>
         {loading ? loadingView : view}
       </div>
     );

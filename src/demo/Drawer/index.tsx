@@ -2,16 +2,10 @@ import React, { Component } from 'react';
 
 import Drawer from '../../component/Drawer';
 
-const defaultWidth = 400;
-
 export default class DrawerDemo extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      visible: false,
-    };
-  }
+  state: { visible: boolean } = {
+    visible: false,
+  };
 
   componentDidMount = () => {
     setTimeout(() => {
@@ -19,7 +13,7 @@ export default class DrawerDemo extends Component {
     }, 500);
   };
 
-  onChange = visible => this.setState({ visible });
+  onChange = (visible: boolean) => this.setState({ visible });
 
   render = () => {
     const { visible } = this.state;

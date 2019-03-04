@@ -138,7 +138,7 @@ export const serialize = (data: any, fixStr?: string) => {
 export const getRealUrl = (
   key: string,
   path: any,
-  proxy?: string,
+  proxy?: string | null,
   isProxy?: boolean,
 ) => {
   let realUrl;

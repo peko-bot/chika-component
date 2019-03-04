@@ -14,9 +14,7 @@ switch (process.env.LIB_DIR) {
 describe('Drawer', () => {
   it('render correctly', () => {
     const wrapperShow = mount(<Drawer visible={true}>test</Drawer>);
-
     const wrapperHide = mount(<Drawer visible={false}>test</Drawer>);
-
     expect(wrapperShow).toMatchSnapshot();
     expect(wrapperHide).toMatchSnapshot();
   });
@@ -28,9 +26,7 @@ describe('Drawer', () => {
         test
       </Drawer>,
     );
-
     wrapper.find('.operate-drawer').simulate('click');
-
     expect(onChange).toBeCalled();
   });
 });
