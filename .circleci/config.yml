@@ -4,11 +4,11 @@ references:
   container_config: &container_config
     docker:
       - image: circleci/node:10.0.0
-    working_directory: ~/react-component
+    working_directory: ~/chika-component
 
   attach_workspace: &attach_workspace
     attach_workspace:
-      at: ~/react-component
+      at: ~/chika-component
 
 jobs:
   setup:
@@ -24,7 +24,7 @@ jobs:
             npm ls
             true
       - persist_to_workspace:
-          root: ~/react-component
+          root: ~/chika-component
           paths:
             - node_modules
   lint:
@@ -38,18 +38,8 @@ jobs:
     steps:
       - checkout
       - *attach_workspace
-      - run: npm test
-  dist:
-    <<: *container_config
-    steps:
-      - checkout
-      - *attach_workspace
-      - run: npm run build
-      - run: node ./scripts/dekko-dist.js
-      - persist_to_workspace:
-          root: ~/react-component
-          paths:
-            - dist
+      - run: npm run codecov
+      - run: bash <(curl -s https://codecov.io/bash) -t 23446e71-0065-4582-b354-266b384f3625
   compile:
     <<: *container_config
     steps:
@@ -58,18 +48,9 @@ jobs:
       - run: npm run compile
       - run: node ./scripts/dekko-lib.js
       - persist_to_workspace:
-          root: ~/react-component
+          root: ~/chika-component
           paths:
             - lib
-  test_dist:
-    <<: *container_config
-    steps:
-      - checkout
-      - *attach_workspace
-      - run:
-          command: npm test -- -u
-          environment:
-            LIB_DIR: dist
   test_lib:
     <<: *container_config
     steps:
@@ -85,15 +66,9 @@ workflows:
   build:
     jobs:
       - setup
-      - dist:
-          requires:
-            - setup
       - compile:
           requires:
             - setup
-      - test_dist:
-          requires:
-            - dist
       - test_lib:
           requires:
             - compile
