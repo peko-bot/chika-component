@@ -4,7 +4,7 @@ import {
   serialize,
   getRealUrl,
   checkMethod,
-} from '../urlHelper';
+} from '..';
 
 const error = console.error;
 
@@ -20,32 +20,34 @@ describe('fetchUtil', () => {
 
   it('checkType should work', () => {
     const types = [
-      { type: 'test', result: undefined },
+      { type: 'test', result: false },
       { type: 'Json', result: 'json' },
       { type: 'TExT', result: 'text' },
       { type: 'HTML', result: 'html' },
     ];
-
     console.error = jest.fn();
-
     for (let item of types) {
       const { type, result } = item;
-
       expect(checkType(type)).toBe(result);
     }
+  });
+
+  it('fetch type shouldn\'t be null', () => {
+    console.error = jest.fn();
+    expect(checkType(undefined)).toBe(false);
+    expect(checkType(null)).toBe(false);
+    expect(checkType('')).toBe(false);
   });
 
   it('checkMethod should work', () => {
     const methods = [
       { type: 'post', result: 'POST' },
-      { type: 'TEST', result: undefined },
+      { type: 'TEST', result: false },
+      { type: '', result: false },
     ];
-
     console.error = jest.fn();
-
     for (let item of methods) {
       const { type, result } = item;
-
       expect(checkMethod(type)).toBe(result);
     }
   });
@@ -53,11 +55,9 @@ describe('fetchUtil', () => {
   it('serialize should work', () => {
     expect(serialize(data, '&')).toBe(dataStr);
     expect(serialize(data, '%26')).toBe('apple=1%26orange=2');
-
-    data = dataStr;
-    expect(serialize(data, '&')).toBe(data);
     expect(serialize([])).toBe('');
     expect(serialize({})).toBe('');
+    expect(serialize('test')).toBe('test');
   });
 
   it('getRealParams should work', () => {
@@ -69,10 +69,12 @@ describe('fetchUtil', () => {
 
   it('getRealUrl should work without proxy', () => {
     expect(getRealUrl('test', { test: url })).toBe(url);
+    expect(getRealUrl('test', { test1: url }, proxy, false)).toBe(false);
   });
 
   it('getRealUrl should work with proxy', () => {
     expect(getRealUrl('test', { test: url }, proxy, true)).toBe(proxy + url);
     expect(getRealUrl('test', { test: url }, proxy, false)).toBe(url);
+    expect(getRealUrl('test', { test1: url }, proxy, false)).toBe(false);
   });
 });
