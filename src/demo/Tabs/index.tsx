@@ -37,8 +37,8 @@ export default class TabsDemo extends React.Component {
           onClick={this.onClick}
           config={this.config}
         >
-          <div label={`test1${labelText1}`}>test1</div>
-          <div label={`test2${labelText2}`}>test2</div>
+          <div data-label={`test1${labelText1}`}>test1</div>
+          <div data-label={`test2${labelText2}`}>test2</div>
         </Tabs>
       </div>
     );
