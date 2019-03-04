@@ -18,7 +18,6 @@ describe('Drawer', () => {
     expect(wrapperShow).toMatchSnapshot();
     expect(wrapperHide).toMatchSnapshot();
   });
-
   it('when operate drawer is clicked, onChange should to be called', () => {
     const onChange = jest.fn();
     const wrapper = mount(
