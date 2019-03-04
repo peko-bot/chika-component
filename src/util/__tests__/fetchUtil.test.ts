@@ -4,7 +4,7 @@ import {
   serialize,
   getRealUrl,
   checkMethod,
-} from '..';
+} from '../urlHelper';
 
 const error = console.error;
 
@@ -32,7 +32,7 @@ describe('fetchUtil', () => {
     }
   });
 
-  it('fetch type shouldn\'t be null', () => {
+  it("fetch type shouldn't be null", () => {
     console.error = jest.fn();
     expect(checkType(undefined)).toBe(false);
     expect(checkType(null)).toBe(false);
