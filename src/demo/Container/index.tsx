@@ -4,12 +4,7 @@ import Container from '../../component/Container';
 import './css/List_Container_demo.css';
 
 export default class ContainerDemo extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
-  handleOnChange = (item, childProps, e) => {
+  handleOnChange = () => {
     // eslint-disable-next-line
     console.log('parent');
   };

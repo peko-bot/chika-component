@@ -3,14 +3,14 @@
  * @param {*} 根据字段排序，默认从小到达
  * @param {*} isDesc 是否倒序
  */
-const compare = (property, isDesc = false) => {
+const compare = (property: any, isDesc = false) => {
   let ins = null;
 
   ins = isDesc
-    ? (b, a) => a[property] - b[property]
-    : (a, b) => a[property] - b[property];
+    ? (b: any, a: any) => a[property] - b[property]
+    : (a: any, b: any) => a[property] - b[property];
 
   return ins;
 };
 
-module.exports = { compare };
+export { compare };

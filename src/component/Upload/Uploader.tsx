@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
-
 import './css/Uploader.css';
 
-export default class Upload extends Component {
-  constructor(props) {
-    super(props);
+export interface UploaderProps {
+  onChange?: (file: any) => void;
+  visible?: boolean;
+  plusText?: string;
+}
 
-    this.state = {};
-  }
+export default class Uploader extends Component<UploaderProps> {
+  uploadInput: any;
 
   wrapperOnClick = () => {
     let el = this.uploadInput;
-
     if (!el) {
       return;
     }
@@ -20,7 +20,7 @@ export default class Upload extends Component {
     el.value = '';
   };
 
-  onChange = e => {
+  onChange = (e: any) => {
     let files = e.target.files;
 
     if (files.length > 0) {
@@ -30,17 +30,16 @@ export default class Upload extends Component {
     }
   };
 
-  upload = file => {
+  upload = (file: File) => {
     const { onChange } = this.props;
-
     onChange && onChange(file);
   };
 
   render = () => {
-    const { isShowPlus = true, plusText } = this.props;
+    const { visible = true, plusText } = this.props;
 
     return (
-      <div className="Uploader" style={{ display: isShowPlus ? '' : 'none' }}>
+      <div className="Uploader" style={{ display: visible ? '' : 'none' }}>
         <div onClick={this.wrapperOnClick} className="wrapper">
           <span className="upload-button">
             <input

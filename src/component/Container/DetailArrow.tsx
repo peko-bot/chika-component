@@ -1,6 +1,14 @@
 import React, { Component } from 'react';
 
-export default class DetailArrow extends Component {
+export interface DetailArrowProps {
+  displayLast?: boolean;
+  displayNext?: boolean;
+  height: number;
+  onClick?: (status: string) => void;
+  visible?: boolean;
+}
+
+export default class DetailArrow extends Component<DetailArrowProps> {
   render = () => {
     let {
       displayLast,
@@ -14,8 +22,8 @@ export default class DetailArrow extends Component {
     const last = (
       <div
         className="sc-extend-drawer sc-left"
-        onClick={() => onClick('last')}
-        style={{ display: displayLast, top: (height - 100) / 2 }}
+        onClick={() => onClick && onClick('last')}
+        style={{ display: displayLast ? '' : 'none', top: (height - 100) / 2 }}
       >
         <img src="../../assets/List_Container/arrow-left.png" />
       </div>
@@ -25,8 +33,8 @@ export default class DetailArrow extends Component {
     const next = (
       <div
         className="sc-extend-drawer sc-right"
-        onClick={() => onClick('next')}
-        style={{ display: displayNext, top: (height - 100) / 2 }}
+        onClick={() => onClick && onClick('next')}
+        style={{ display: displayNext ? '' : 'none', top: (height - 100) / 2 }}
       >
         <img src="../../assets/List_Container/arrow-right.png" />
       </div>

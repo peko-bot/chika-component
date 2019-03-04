@@ -1,19 +1,38 @@
 import React from 'react';
-
 import './css/Tabs.css';
 
-export default class Tabs extends React.Component {
-  constructor(props) {
+export interface TabsProps {
+  currentSelect: number;
+  children: any;
+  config?: any;
+  onClick?: (item: any, currentSelect: number) => void;
+}
+export interface TabsState {
+  currentSelect: number;
+  underlineItem: { width: number; underlineWidth: number; left: number };
+  dataSource: Array<any>;
+  rippleConfig: {
+    scale: number;
+    offsetLeft: number;
+    offsetTop: number;
+    opacity: number;
+    displayFlag: boolean;
+  };
+}
+
+export default class Tabs extends React.Component<TabsProps, TabsState> {
+  constructor(props: TabsProps) {
     super(props);
     this.state = {
       currentSelect: 0,
       underlineItem: {
         // 下划线参数
         width: 0,
+        underlineWidth: 0,
+        left: 0,
       },
       dataSource: [], // 页签项数据，比如除了字符串还传了其他东西
       rippleConfig: {
-        //
         scale: 0, // 点击波纹缩放
         offsetLeft: 0, // 偏移量
         offsetTop: 0,
@@ -28,7 +47,7 @@ export default class Tabs extends React.Component {
   };
 
   // 用于label动态更新
-  componentWillReceiveProps = nextProps => {
+  componentWillReceiveProps = (nextProps: TabsProps) => {
     let { children } = nextProps;
 
     this.handleChildrenDatas(children);
@@ -39,24 +58,24 @@ export default class Tabs extends React.Component {
   };
 
   /*
-        预处理页签项数据
-        一种情况是传入字符串，这直接显示出来就好
-        另一种是除了字符串还传了其他东西，也就是一个对象。
-            这种在里面加上label字段，其他参数在点击页签项的时候抛出
-        除了这两种情况，其他传入都是报错
-    */
+    预处理页签项数据
+    一种情况是传入字符串，这直接显示出来就好
+    另一种是除了字符串还传了其他东西，也就是一个对象。
+    这种在里面加上label字段，其他参数在点击页签项的时候抛出
+    除了这两种情况，其他传入都是报错
+  */
   handleChildrenDatas = (children = this.props.children) => {
-    this.state.dataSource = [];
+    let dataSource: Array<any> = [];
     React.Children.map(children, child => {
-      let obj = {};
-
+      let obj: any = {};
       if (typeof child.props.label === 'string') {
         obj.label = child.props.label;
       } else {
         obj = child.props.label;
       }
-      this.state.dataSource.push(obj);
+      dataSource.push(obj);
     });
+    this.setState({ dataSource });
   };
 
   /*
@@ -71,15 +90,17 @@ export default class Tabs extends React.Component {
       let coefficient = [];
 
       for (let i = 0; i < this.state.dataSource.length; i++) {
-        let spanWidth = this[`panel_span_${i}`].offsetWidth;
-        let itemWidth = this[`panel_item_${i}`].offsetWidth;
-        let itemHeight = this[`panel_item_${i}`].offsetHeight;
+        let spanWidth = (this as any)[`panel_span_${i}`].offsetWidth;
+        let itemWidth = (this as any)[`panel_item_${i}`].offsetWidth;
+        let itemHeight = (this as any)[`panel_item_${i}`].offsetHeight;
 
-        this[`panel_item_${i}`].addEventListener('transitionend', e => {
-          this.state.rippleConfig.displayFlag = false;
-          this.setState();
-        });
-        // 这里的-12，我也忘了是为什么了
+        (this as any)[`panel_item_${i}`].addEventListener(
+          'transitionend',
+          () => {
+            this.state.rippleConfig.displayFlag = false;
+            this.setState({});
+          },
+        );
         coefficient.push({
           underlineWidth: spanWidth + 20,
           left: (itemWidth - spanWidth) / 2 - 12 + currentSelect * itemWidth,
@@ -91,24 +112,25 @@ export default class Tabs extends React.Component {
     }, 0);
   };
 
-  handleClick = (item, currentSelect, event) => {
+  handleClick = (item: any, currentSelect: number, event: any) => {
     let { rippleConfig, underlineItem } = this.state;
     const { pageX, pageY } = event;
-
     this.resetUnderline();
-
-    let config = {
-      scale: +underlineItem.width,
-      offsetLeft: pageX,
-      offsetTop: pageY,
-      opacity: 1,
-      displayFlag: true,
-    };
-
-    this.setState(Object.assign(rippleConfig, config), () => {
-      rippleConfig.opacity = 0;
-      this.setState({ rippleConfig });
-    });
+    this.setState(
+      {
+        rippleConfig: {
+          scale: +underlineItem.width,
+          offsetLeft: pageX as number,
+          offsetTop: pageY as number,
+          opacity: 1,
+          displayFlag: true,
+        },
+      },
+      () => {
+        rippleConfig.opacity = 0;
+        this.setState({ rippleConfig });
+      },
+    );
 
     if (this.props.onClick) this.props.onClick(item, currentSelect);
   };
@@ -116,10 +138,10 @@ export default class Tabs extends React.Component {
   render() {
     const { config = {}, currentSelect, children } = this.props;
     /* 当传width时，页签项定宽，
-            超出宽度时可滑动，惯性弹回，
-            未超出屏幕时就当没传 plan
-            不传时按页签项数量平分父容器的宽度 暂 */
-    let { width, containerStyle, undelineStyle, fontStyle } = config;
+    超出宽度时可滑动，惯性弹回，
+    未超出屏幕时就当没传 plan
+    不传时按页签项数量平分父容器的宽度 */
+    let { containerStyle, undelineStyle, fontStyle } = config;
     const { dataSource, underlineItem, rippleConfig } = this.state;
     const { scale, offsetLeft, offsetTop, opacity, displayFlag } = rippleConfig;
 
@@ -157,16 +179,16 @@ export default class Tabs extends React.Component {
                 fontStyle,
               )}
               onClick={e => this.handleClick(item, i, e)}
-              ref={ref => (this[`panel_item_${i}`] = ref)}
+              ref={ref => ((this as any)[`panel_item_${i}`] = ref)}
             >
               <span
-                className={currentSelect == i ? 'active' : null}
-                ref={ref => (this[`panel_span_${i}`] = ref)}
+                className={currentSelect == i ? 'active' : ''}
+                ref={ref => ((this as any)[`panel_span_${i}`] = ref)}
               >
                 {item.label}
               </span>
               <div
-                style={currentSelect == i && displayFlag ? rippleStyle : null}
+                style={currentSelect == i && displayFlag ? rippleStyle : {}}
               />
             </li>
           );

@@ -1,17 +1,13 @@
 import React from 'react';
-
 import Swiper from '../../component/Swiper';
 import './css/Swiper_demo.css';
-
 const secRecordPath = '/mock/s_problem_record_hy.json';
 
 export default class SwiperDemo extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      datas: [],
-    };
-  }
+  swiper: any;
+  state: { datas: Array<any> } = {
+    datas: [],
+  };
 
   dataSource = [];
   componentDidMount = () => {
@@ -38,20 +34,11 @@ export default class SwiperDemo extends React.Component {
 
   load = () => {
     setTimeout(() => {
-      // eslint-disable-next-line
-      console.log('load');
-      let { datas } = this.state;
-      let start = datas.length;
-      // for(let i = start + 1;i - start <= 10;i++){
-      //     datas.push({describe: `test${i}`});
-      // }
-      // this.setState({datas});
-
       this.swiper.cancelLoad();
     }, 1000);
   };
 
-  onClick = i => {
+  onClick = (i: number) => {
     // eslint-disable-next-line
     console.log(i);
   };

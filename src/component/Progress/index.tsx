@@ -1,8 +1,17 @@
 import React, { Component } from 'react';
-
 import './css/index.css';
 
-export default class index extends Component {
+export interface ProgressProps {
+  percent?: number;
+  height?: number | string;
+  start?: string;
+  end?: string;
+  active?: boolean;
+  customImage?: string;
+  innerStyle?: any;
+}
+
+export default class Progress extends Component<ProgressProps> {
   render = () => {
     const {
       percent = 50,

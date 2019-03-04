@@ -1,54 +1,33 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import L from 'leaflet';
+// import React from 'react';
+// import ReactDOM from 'react-dom';
+import * as L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import MarkerClusterGroup from 'leaflet.markercluster';
 import 'leaflet.markercluster/dist/MarkerCluster.css';
 import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
 import './css/easyLeaflet.css';
-
-import {
-  defaultIconStyle,
-  measureRangePoint,
-  measureAreaPoint,
-  markerControlPoint,
-  defaultLineStyle,
-  defaultAreaStyle,
-  moveAreaStyle,
-  defaultPopupStyle,
-  defaultDivStyle,
-  controlLinePoint,
-} from './css/style';
-
-// import { eHelper } from './helper';
-
-import MeasureRange from './Tool/MeasureRange';
-import MeasureArea from './Tool/MeasureArea';
-import ControlLine from './Tool/ControlLine';
-import ControlPoint from './Tool/ControlPoint';
-import ControlCircle from './Tool/ControlCircle';
+// import MeasureRange from './Tool/MeasureRange';
+// import MeasureArea from './Tool/MeasureArea';
+// import ControlLine from './Tool/ControlLine';
+// import ControlPoint from './Tool/ControlPoint';
+// import ControlCircle from './Tool/ControlCircle';
 
 /**地图对象 */
-let map = null,
+let map: any = null,
   layerObject = {},
-  event = {},
-  range = {},
-  area = {},
-  controlPoint = {},
-  controlCircle = {},
-  controlLine = {};
+  event = {};
+// range = {},
+// area = {},
+// controlPoint = {},
+// controlCircle = {},
+// controlLine = {};
 /**全局参数 */
-const MOVE = 'MAP_MOVE';
 const MOUSEMOVE = 'MAP_MOUSEMOVE';
 const CLICK = 'MAP_CLICK';
-const MOUSEDOWN = 'MAP_MOUSEDOWN';
-const MOUSEUP = 'MAP_MOUSEUP';
-const ZOOMEND = 'MAP_ZOOMEND';
 const HOVERPOPUPID = 'leaflet_popup_hover_wrap';
-const earthRadiusMeters = 6371000.0;
-const metersPerDegree = (2.0 * Math.PI * earthRadiusMeters) / 360.0;
-const radiansPerDegree = Math.PI / 180.0;
-const degreesPerRadian = 180.0 / Math.PI;
+// const earthRadiusMeters = 6371000.0;
+// const metersPerDegree = (2.0 * Math.PI * earthRadiusMeters) / 360.0;
+// const radiansPerDegree = Math.PI / 180.0;
+// const degreesPerRadian = 180.0 / Math.PI;
 /**默认地图参数 */
 let defaultMapArgument = {
   center: [31.8, 121.66], // 中心点
@@ -140,7 +119,7 @@ const tile = {
  * _Tjtt : 天地图交通图4326
  * _Tygt : 天地图遥感图4326
  */
-const init = (dom, type, params) => {
+const init = (dom: any, type: string, params: any) => {
   let mapArgument = params
     ? Object.assign({}, defaultMapArgument, params)
     : defaultMapArgument;
@@ -169,65 +148,65 @@ const init = (dom, type, params) => {
     case 'dxt':
       tile.googleTile.addTo(map);
       break;
-    case 'ygt':
-      tile.googleRsTile.addTo(map);
-      break;
-    case 'jtt':
-      tile.googleTrafficTile.addTo(map);
-      break;
-    case '_Tjtt':
-      eHelper.init_4326();
-      eHelper.addTDT(tile.TDTurl, 'vec');
-      eHelper.addTDT(tile.NameUrl, 'cva');
-      break;
-    case '_Tygt':
-      eHelper.init_4326();
-      eHelper.addTDT(tile.imgUrl, 'img');
-      eHelper.addTDT(tile.imgNameUrl, 'cia');
-      break;
-    case 'Gdxt':
-      tile.Gjtt.addTo(map);
-      break;
-    case 'Gygt':
-      tile.Gygt.addTo(map);
-      tile.GygtName.addTo(map);
-      break;
-    case 'Tdxt':
-      tile.Tdxt.addTo(map);
-      tile.TdxtName.addTo(map);
-      break;
-    case 'Tygt':
-      tile.Tygt.addTo(map);
-      tile.TygtName.addTo(map);
-      break;
-    case 'Tjtt':
-      tile.Tjtt.addTo(map);
-      tile.TjttName.addTo(map);
-      break;
-    case 'map_4490':
-      eHelper.init_4490();
-      eHelper.addSpecialLayer(tile.map_4490, 3);
-      eHelper.addSpecialLayer(tile.map_4490_name, 2);
-      eHelper.init_4326();
-      break;
+    // case 'ygt':
+    //   tile.googleRsTile.addTo(map);
+    //   break;
+    // case 'jtt':
+    //   tile.googleTrafficTile.addTo(map);
+    //   break;
+    // case '_Tjtt':
+    //   eHelper.init_4326();
+    //   eHelper.addTDT(tile.TDTurl, 'vec');
+    //   eHelper.addTDT(tile.NameUrl, 'cva');
+    //   break;
+    // case '_Tygt':
+    //   eHelper.init_4326();
+    //   eHelper.addTDT(tile.imgUrl, 'img');
+    //   eHelper.addTDT(tile.imgNameUrl, 'cia');
+    //   break;
+    // case 'Gdxt':
+    //   tile.Gjtt.addTo(map);
+    //   break;
+    // case 'Gygt':
+    //   tile.Gygt.addTo(map);
+    //   tile.GygtName.addTo(map);
+    //   break;
+    // case 'Tdxt':
+    //   tile.Tdxt.addTo(map);
+    //   tile.TdxtName.addTo(map);
+    //   break;
+    // case 'Tygt':
+    //   tile.Tygt.addTo(map);
+    //   tile.TygtName.addTo(map);
+    //   break;
+    // case 'Tjtt':
+    //   tile.Tjtt.addTo(map);
+    //   tile.TjttName.addTo(map);
+    //   break;
+    // case 'map_4490':
+    //   eHelper.init_4490();
+    //   eHelper.addSpecialLayer(tile.map_4490, 3);
+    //   eHelper.addSpecialLayer(tile.map_4490_name, 2);
+    //   eHelper.init_4326();
+    //   break;
     default:
       break;
   }
   if (mapArgument.latlngControl) {
-    L.Control.LatLng = L.Control.extend({
+    (L.Control as any).LatLng = (L.Control as any).extend({
       options: {
         position: 'bottomleft',
       },
-      initialize: function(options) {
+      initialize: function(options: any) {
         L.Util.extend(this.options, options);
         eHelper.on(event, MOUSEMOVE, this.moveFun);
         eHelper.on(event, CLICK, this.moveFun);
       },
-      onAdd: function(map) {
+      onAdd: function() {
         this.container = L.DomUtil.create('div', 'leaflet-control-latlng');
         return this.container;
       },
-      moveFun: function(e) {
+      moveFun: function(e: any) {
         let lat = eHelper.latlngFormat(e.latlng.lat),
           lng = eHelper.latlngFormat(e.latlng.lng);
 
@@ -241,7 +220,7 @@ const init = (dom, type, params) => {
           ['S', 'N'][lat.key];
       },
     });
-    let LatLng = new L.Control.LatLng({});
+    let LatLng = new (L.Control as any).LatLng({});
 
     LatLng.addTo(map);
   }
@@ -265,170 +244,183 @@ const init = (dom, type, params) => {
  * popupSetting.rows {name : '名称',key : '绑定字段',nWidth : '名称宽度 百分比',vWidth : '值宽度 百分比',bgColor : '背景颜色'}
  * groupName 点对象分组
  */
-const addPoints = (
-  points,
-  event,
-  {
-    iconSetting = defaultIconStyle,
-    tooltipSetting,
-    popupSetting,
-    hoverBoxSetting,
-    groupName,
-  },
-) => {
-  let markerGroup = new L.MarkerClusterGroup(),
-    markers = [];
+// const addPoints = (
+//   points: any,
+//   event: any,
+//   {
+//     tooltipSetting,
+//     popupSetting,
+//     hoverBoxSetting,
+//     groupName,
+//   }: {
+//     tooltipSetting: any;
+//     popupSetting: any;
+//     hoverBoxSetting: any;
+//     groupName: any;
+//   },
+// ) => {
+//   let markerGroup = new L.MarkerClusterGroup(),
+//     markers: Array<any> = [];
 
-  points.map((point, i) => {
-    let marker = L.marker([point.lat, point.lng], {
-      icon: L.icon(iconSetting),
-      data: point,
-    });
+//   points.map((point: any) => {
+//     let marker = (L.marker as any)([point.lat, point.lng], {
+//       data: point,
+//     });
 
-    if (tooltipSetting) {
-      let tooltip = L.tooltip(tooltipSetting.options).setContent(
-        eHelper.templateValue(tooltipSetting.content, point),
-      );
+//     if (tooltipSetting) {
+//       let tooltip = L.tooltip(tooltipSetting.options).setContent(
+//         eHelper.templateValue(tooltipSetting.content, point),
+//       );
 
-      marker.bindTooltip(tooltip).openTooltip();
-    }
-    if (popupSetting) {
-      let popup = L.popup().setContent(
-        eHelper.popupTemplate(popupSetting, point),
-      );
+//       marker.bindTooltip(tooltip).openTooltip();
+//     }
+//     if (popupSetting) {
+//       let popup = L.popup().setContent(
+//         eHelper.popupTemplate(popupSetting, point),
+//       );
 
-      marker.bindPopup(popup, popupSetting.options || {});
-    }
-    if (event) {
-      if (eHelper.isFunction(event)) {
-        marker.on('click', e => event(e, e.target.options.data));
-      } else if (eHelper.isObject(event)) {
-        for (let p in event) {
-          marker.on(p, e => event[p](e, e.target.options.data));
-        }
-      }
-    }
-    !!hoverBoxSetting &&
-      marker.on('mouseover', e => mouseoverEvent(e, e.target.options.data));
-    !!hoverBoxSetting &&
-      marker.on('mouseout', e => mouseoutEvent(e, e.target.options.data));
-    markers.push(marker);
-  });
-  markerGroup.addLayers(markers);
-  map.addLayer(markerGroup);
-  if (groupName) {
-    layerObject[groupName] = markerGroup;
-  }
-  let mouseoverEvent = (e, data) => {
-    let PopupConfig = {
-      lat: e.latlng.lat,
-      lng: e.latlng.lng,
-      direction: hoverBoxSetting.direction || 'top',
-      height: hoverBoxSetting.rows.length * 36 + 40,
-      width: hoverBoxSetting.width || 100,
-      x: [0, 0, -15, 15][
-        ['top', 'bottom', 'left', 'right'].indexOf(
-          hoverBoxSetting.direction || 'top',
-        )
-      ],
-      y: [-15, 15, 0, 0][
-        ['top', 'bottom', 'left', 'right'].indexOf(
-          hoverBoxSetting.direction || 'top',
-        )
-      ],
-    };
-    let Dom = document.getElementById(HOVERPOPUPID);
+//       marker.bindPopup(popup, popupSetting.options || {});
+//     }
+//     if (event) {
+//       if (eHelper.isFunction(event)) {
+//         marker.on('click', (e: any) => event(e, e.target.options.data));
+//       } else if (eHelper.isObject(event)) {
+//         for (let p in event) {
+//           marker.on(p, (e: any) => event[p](e, e.target.options.data));
+//         }
+//       }
+//     }
+//     !!hoverBoxSetting &&
+//       marker.on('mouseover', (e: any) =>
+//         mouseoverEvent(e, e.target.options.data),
+//       );
+//     !!hoverBoxSetting && marker.on('mouseout', (e: any) => mouseoutEvent(e));
+//     markers.push(marker);
+//   });
+//   markerGroup.addLayers(markers);
+//   map.addLayer(markerGroup);
+//   if (groupName) {
+//     (layerObject as any)[groupName] = markerGroup;
+//   }
+//   let mouseoverEvent = (e: any, data: any) => {
+//     let PopupConfig = {
+//       lat: e.latlng.lat,
+//       lng: e.latlng.lng,
+//       direction: hoverBoxSetting.direction || 'top',
+//       height: hoverBoxSetting.rows.length * 36 + 40,
+//       width: hoverBoxSetting.width || 100,
+//       x: [0, 0, -15, 15][
+//         ['top', 'bottom', 'left', 'right'].indexOf(
+//           hoverBoxSetting.direction || 'top',
+//         )
+//       ],
+//       y: [-15, 15, 0, 0][
+//         ['top', 'bottom', 'left', 'right'].indexOf(
+//           hoverBoxSetting.direction || 'top',
+//         )
+//       ],
+//     };
+//     let Dom = document.getElementById(HOVERPOPUPID);
 
-    !!Dom &&
-      ReactDOM.render(
-        <Popup config={PopupConfig}>
-          <ValueKey config={hoverBoxSetting} dataSource={data} />
-        </Popup>,
-        Dom,
-      );
-  };
-  let mouseoutEvent = e => {
-    let Dom = document.getElementById(HOVERPOPUPID);
+//     !!Dom &&
+//       ReactDOM.render(
+//         <Popup config={PopupConfig}>
+//           <ValueKey config={hoverBoxSetting} dataSource={data} />
+//         </Popup>,
+//         Dom,
+//       );
+//   };
+//   let mouseoutEvent = (e: any) => {
+//     let Dom = document.getElementById(HOVERPOPUPID);
 
-    !!Dom && ReactDOM.render(<div />, Dom);
-  };
-};
+//     !!Dom && ReactDOM.render(<div />, Dom);
+//   };
+// };
 /**画线
  * lines 线数据
  * event 事件绑定
  * lineSetting 线样式 参照 defaultLineStyle
  * groupName 线对象分组
  */
-const addLines = (lines, event, { lineSetting, groupName }) => {
-  let style = Object.assign({}, defaultLineStyle, lineSetting),
-    polyline = L.polyline(lines, style).addTo(map);
-  //eHelper.addLatLng(polyline,lines);
+// const addLines = (
+//   lines: Array<any>,
+//   event: any,
+//   { lineSetting, groupName }: { lineSetting: any; groupName: string },
+// ) => {
+//   let style = Object.assign({}, lineSetting),
+//     polyline = L.polyline(lines, style).addTo(map);
+//   //eHelper.addLatLng(polyline,lines);
 
-  if (event) {
-    if (eHelper.isFunction(event)) {
-      polyline.on('click', e => event(e, e.target.options.data));
-    } else if (eHelper.isObject(event)) {
-      for (let p in event) {
-        polyline.on(p, e => event[p](e, e.target.options.data));
-      }
-    }
-  }
-  if (groupName) {
-    if (layerObject[groupName]) {
-      layerObject[groupName].push(polyline);
-    } else {
-      layerObject[groupName] = [polyline];
-    }
-  }
-};
+//   if (event) {
+//     if (eHelper.isFunction(event)) {
+//       polyline.on('click', e => event(e, e.target.options.data));
+//     } else if (eHelper.isObject(event)) {
+//       for (let p in event) {
+//         polyline.on(p, e => event[p](e, e.target.options.data));
+//       }
+//     }
+//   }
+//   if (groupName) {
+//     if ((layerObject as any)[groupName]) {
+//       (layerObject as any)[groupName].push(polyline);
+//     } else {
+//       (layerObject as any)[groupName] = [polyline];
+//     }
+//   }
+// };
 /**画面
  * areas 面数据
  * event 事件绑定
  * areaSetting 面样式 参照 defaultAreaStyle
  * groupName 面对象分组
  */
-const addAreas = (areas, event, { areaSetting, groupName }) => {
-  let style = Object.assign({}, defaultAreaStyle, areaSetting),
-    polygon = L.polygon(areas, style).addTo(map);
-  //eHelper.addLatLng(polygon,areas);
+// const addAreas = (
+//   areas: Array<any>,
+//   event: any,
+//   { areaSetting, groupName }: { areaSetting: any; groupName: string },
+// ) => {
+//   let style = Object.assign({}, areaSetting),
+//     polygon = L.polygon(areas, style).addTo(map);
+//   //eHelper.addLatLng(polygon,areas);
 
-  if (event) {
-    if (eHelper.isFunction(event)) {
-      polygon.on('click', e => event(e, e.target.options.data));
-    } else if (eHelper.isObject(event)) {
-      for (let p in event) {
-        polygon.on(p, e => event[p](e, e.target.options.data));
-      }
-    }
-  }
-  if (groupName) {
-    if (layerObject[groupName]) {
-      layerObject[groupName].push(polygon);
-    } else {
-      layerObject[groupName] = [polygon];
-    }
-  }
-};
+//   if (event) {
+//     if (eHelper.isFunction(event)) {
+//       polygon.on('click', e => event(e, e.target.options.data));
+//     } else if (eHelper.isObject(event)) {
+//       for (let p in event) {
+//         polygon.on(p, e => event[p](e, e.target.options.data));
+//       }
+//     }
+//   }
+//   if (groupName) {
+//     if ((layerObject as any)[groupName]) {
+//       (layerObject as any)[groupName].push(polygon);
+//     } else {
+//       (layerObject as any)[groupName] = [polygon];
+//     }
+//   }
+// };
 /**移除
  * groupName 绘制点线面时的groupName值 不传清空所有的要素
  */
-const remove = groupName => {
+const remove = (groupName: string) => {
   if (groupName) {
-    if (layerObject[groupName]) {
-      if (eHelper.isArray(layerObject[groupName])) {
-        layerObject[groupName].map(item => item.remove());
-        delete layerObject[groupName];
+    if ((layerObject as any)[groupName]) {
+      if (eHelper.isArray((layerObject as any)[groupName])) {
+        (layerObject as any)[groupName].map((item: any) => item.remove());
+        delete (layerObject as any)[groupName];
       } else {
-        layerObject[groupName].remove() && delete layerObject[groupName];
+        (layerObject as any)[groupName].remove() &&
+          delete (layerObject as any)[groupName];
       }
     }
   } else {
     for (let p in layerObject) {
-      if (eHelper.isArray(layerObject[p])) {
-        layerObject[p].map(item => item.remove());
-        delete layerObject[p];
+      if (eHelper.isArray((layerObject as any)[p])) {
+        (layerObject as any)[p].map((item: any) => item.remove());
+        delete (layerObject as any)[p];
       } else {
-        layerObject[p].remove() && delete layerObject[p];
+        (layerObject as any)[p].remove() && delete (layerObject as any)[p];
       }
     }
   }
@@ -443,12 +435,12 @@ const remove = groupName => {
 const e = {
   zoomOut: () => eHelper.zoom(-1),
   zoomIn: () => eHelper.zoom(1),
-  setZoom: z => map.setZoom(z),
-  panto: (latlng, animate, z = 11) => {
+  setZoom: (z: number) => map.setZoom(z),
+  panto: (latlng: any, animate: any, z = 11) => {
     map.setView(latlng, z);
     !!animate && eHelper.circleAnimate(latlng);
   },
-  pantoArea: arr => {
+  pantoArea: (arr: Array<any>) => {
     let p = eHelper.calcAreaExtent(arr);
 
     !!p && map.fitBounds([p.min, p.max]);
@@ -460,19 +452,19 @@ const e = {
  * controlPoint 可控点
  * controlCircle 可控圆
  */
-const tool = {
-  measureRange: () => new MeasureRange(),
-  measureArea: () => new MeasureArea(),
-  controlPoint: () => new ControlPoint(),
-  controlCircle: () => new ControlCircle(),
-  controlLine: () => new ControlLine(),
-};
+// const tool = {
+//   measureRange: () => new MeasureRange(),
+//   measureArea: () => new MeasureArea(),
+//   controlPoint: () => new ControlPoint(),
+//   controlCircle: () => new ControlCircle(),
+//   controlLine: () => new ControlLine(),
+// };
 
-const eHelper = {
+const eHelper: any = {
   // eslint-disable-next-line
-  init_4490: function(url) {
-    L.TileLayer.WebDogTileLayer = L.TileLayer.extend({
-      getTileUrl: function(tilePoint) {
+  init_4490: function() {
+    (L.TileLayer as any).WebDogTileLayer = L.TileLayer.extend({
+      getTileUrl: function(tilePoint: any) {
         let urlArgs,
           getUrlArgs = this.options.getUrlArgs;
 
@@ -497,211 +489,211 @@ const eHelper = {
       },
     });
 
-    L.tileLayer.webdogTileLayer = function(url, options) {
-      return new L.TileLayer.WebDogTileLayer(url, options);
+    (L.tileLayer as any).webdogTileLayer = function(url: string, options: any) {
+      return new (L.TileLayer as any).WebDogTileLayer(url, options);
     };
   },
-  addSpecialLayer: function(url, i) {
-    let options = {
-      getUrlArgs: function(tilePoint) {
-        let z = tilePoint.z - i;
-        let x = tilePoint.y;
-        let y = tilePoint.x;
+  // addSpecialLayer: function(url: string, i: any) {
+  //   let options = {
+  //     getUrlArgs: function(tilePoint: any) {
+  //       let z = tilePoint.z - i;
+  //       let x = tilePoint.y;
+  //       let y = tilePoint.x;
 
-        return {
-          z: z,
-          x: x,
-          y: y,
-        };
-      },
-    };
+  //       return {
+  //         z: z,
+  //         x: x,
+  //         y: y,
+  //       };
+  //     },
+  //   };
 
-    let lay = L.tileLayer.webdogTileLayer(url, options);
+  //   let lay = L.tileLayer.webdogTileLayer(url, options);
 
-    lay.addTo(map);
-  },
+  //   lay.addTo(map);
+  // },
   // eslint-disable-next-line
-  init_4326: () => {
-    L.TileLayer.WMTS = L.TileLayer.extend({
-      defaultWmtsParams: {
-        service: 'WMTS',
-        request: 'GetTile',
-        version: '1.0.0',
-        layer: '',
-        style: '',
-        tilematrixSet: '',
-        format: 'image/jpeg',
-      },
-      initialize: function(e, t) {
-        this['_url'] = e;
-        let n = L.extend({}, this.defaultWmtsParams),
-          r = t.tileSize || this.options.tileSize;
+  // init_4326: () => {
+  //   L.TileLayer.WMTS = L.TileLayer.extend({
+  //     defaultWmtsParams: {
+  //       service: 'WMTS',
+  //       request: 'GetTile',
+  //       version: '1.0.0',
+  //       layer: '',
+  //       style: '',
+  //       tilematrixSet: '',
+  //       format: 'image/jpeg',
+  //     },
+  //     initialize: function(e, t) {
+  //       this['_url'] = e;
+  //       let n = L.extend({}, this.defaultWmtsParams),
+  //         r = t.tileSize || this.options.tileSize;
 
-        if (t.detectRetina && L.Browser.retina) {
-          n.width = n.height = r * 2;
-        } else {
-          n.width = n.height = r;
-        }
-        for (let i in t) {
-          if (!this.options.hasOwnProperty(i) && i != 'matrixIds') {
-            n[i] = t[i];
-          }
-        }
-        this.wmtsParams = n;
-        this.matrixIds = t.matrixIds || this.getDefaultMatrix();
-        L.setOptions(this, t);
-      },
-      onAdd: function(e) {
-        L.TileLayer.prototype.onAdd.call(this, e);
-      },
-      getTileUrl: function(e, t) {
-        let n = this['_map'];
-        let crs = n.options.crs;
-        let tileSize = this.options.tileSize;
-        let nwPoint = e.multiplyBy(tileSize);
+  //       if (t.detectRetina && L.Browser.retina) {
+  //         n.width = n.height = r * 2;
+  //       } else {
+  //         n.width = n.height = r;
+  //       }
+  //       for (let i in t) {
+  //         if (!this.options.hasOwnProperty(i) && i != 'matrixIds') {
+  //           n[i] = t[i];
+  //         }
+  //       }
+  //       this.wmtsParams = n;
+  //       this.matrixIds = t.matrixIds || this.getDefaultMatrix();
+  //       L.setOptions(this, t);
+  //     },
+  //     onAdd: function(e) {
+  //       L.TileLayer.prototype.onAdd.call(this, e);
+  //     },
+  //     getTileUrl: function(e, t) {
+  //       let n = this['_map'];
+  //       let crs = n.options.crs;
+  //       let tileSize = this.options.tileSize;
+  //       let nwPoint = e.multiplyBy(tileSize);
 
-        nwPoint.x += 1;
-        nwPoint.y -= 1;
-        let sePoint = nwPoint.add(new L.Point(tileSize, tileSize));
+  //       nwPoint.x += 1;
+  //       nwPoint.y -= 1;
+  //       let sePoint = nwPoint.add(new L.Point(tileSize, tileSize));
 
-        t = n.getZoom();
-        let nw = crs.project(n.unproject(nwPoint, t));
-        let se = crs.project(n.unproject(sePoint, t));
-        let tilewidth = se.x - nw.x;
-        let ident = e.z + 1;
-        let X0 = this.matrixIds[t].topLeftCorner.lng;
-        let Y0 = this.matrixIds[t].topLeftCorner.lat;
-        let tilecol = Math.floor((nw.x - X0) / tilewidth);
-        let tilerow = -Math.floor((nw.y - Y0) / tilewidth);
-        let url = L.Util.template(this['_url'], {
-          s: Math.floor(
-            Math.abs(
-              parseInt(ident) +
-                parseInt(tilerow) +
-                parseInt(tilecol) +
-                Math.random() * 7,
-            ) % 7,
-          ).toString(),
-        });
+  //       t = n.getZoom();
+  //       let nw = crs.project(n.unproject(nwPoint, t));
+  //       let se = crs.project(n.unproject(sePoint, t));
+  //       let tilewidth = se.x - nw.x;
+  //       let ident = e.z + 1;
+  //       let X0 = this.matrixIds[t].topLeftCorner.lng;
+  //       let Y0 = this.matrixIds[t].topLeftCorner.lat;
+  //       let tilecol = Math.floor((nw.x - X0) / tilewidth);
+  //       let tilerow = -Math.floor((nw.y - Y0) / tilewidth);
+  //       let url = L.Util.template(this['_url'], {
+  //         s: Math.floor(
+  //           Math.abs(
+  //             parseInt(ident) +
+  //               parseInt(tilerow) +
+  //               parseInt(tilecol) +
+  //               Math.random() * 7,
+  //           ) % 7,
+  //         ).toString(),
+  //       });
 
-        return (
-          url +
-          L.Util.getParamString(this.wmtsParams, url) +
-          '&tilematrix=' +
-          ident +
-          '&tilerow=' +
-          tilerow +
-          '&tilecol=' +
-          tilecol
-        );
-      },
-      setParams: function(e, t) {
-        L.extend(this.wmtsParams, e);
-        if (!t) {
-          this.redraw();
-        }
-        return this;
-      },
-      getDefaultMatrix: function() {
-        let e = new Array(22);
+  //       return (
+  //         url +
+  //         L.Util.getParamString(this.wmtsParams, url) +
+  //         '&tilematrix=' +
+  //         ident +
+  //         '&tilerow=' +
+  //         tilerow +
+  //         '&tilecol=' +
+  //         tilecol
+  //       );
+  //     },
+  //     setParams: function(e, t) {
+  //       L.extend(this.wmtsParams, e);
+  //       if (!t) {
+  //         this.redraw();
+  //       }
+  //       return this;
+  //     },
+  //     getDefaultMatrix: function() {
+  //       let e = new Array(22);
 
-        for (let t = 0; t < 22; t++) {
-          e[t] = {
-            identifier: '' + t,
-            topLeftCorner: new L.LatLng(90, -180),
-          };
-        }
-        return e;
-      },
-    });
-  },
-  addTDT: (url, layer) => {
-    let Targument = {
-      tileSize: 256,
-      layer: layer,
-      style: 'default',
-      tilematrixSet: 'c',
-      format: 'tile',
-    };
-    let lay = new L.TileLayer.WMTS(url, Targument);
+  //       for (let t = 0; t < 22; t++) {
+  //         e[t] = {
+  //           identifier: '' + t,
+  //           topLeftCorner: new L.LatLng(90, -180),
+  //         };
+  //       }
+  //       return e;
+  //     },
+  //   });
+  // },
+  // addTDT: (url, layer) => {
+  //   let Targument = {
+  //     tileSize: 256,
+  //     layer: layer,
+  //     style: 'default',
+  //     tilematrixSet: 'c',
+  //     format: 'tile',
+  //   };
+  //   let lay = new L.TileLayer.WMTS(url, Targument);
 
-    lay.addTo(map);
-  },
-  zoom: z => {
+  //   lay.addTo(map);
+  // },
+  zoom: (z: number) => {
     let zoom = map.getZoom();
 
     zoom += z;
     map.setZoom(zoom);
   },
-  isArray: v => {
-    return Object.prototype.toString.call(v) === '[object Array]';
-  },
-  isFunction: v => {
-    return Object.prototype.toString.call(v) === '[object Function]';
-  },
-  isObject: v => {
-    return Object.prototype.toString.call(v) === '[object Object]';
-  },
-  templateValue: (str, data) => {
-    let targetStr = '',
-      targetKey = '';
+  // isArray: v => {
+  //   return Object.prototype.toString.call(v) === '[object Array]';
+  // },
+  // isFunction: v => {
+  //   return Object.prototype.toString.call(v) === '[object Function]';
+  // },
+  // isObject: v => {
+  //   return Object.prototype.toString.call(v) === '[object Object]';
+  // },
+  // templateValue: (str, data) => {
+  //   let targetStr = '',
+  //     targetKey = '';
 
-    while (str.indexOf('@{') >= 0) {
-      let fIndex = str.indexOf('@{'),
-        lIndex = str.indexOf('}');
+  //   while (str.indexOf('@{') >= 0) {
+  //     let fIndex = str.indexOf('@{'),
+  //       lIndex = str.indexOf('}');
 
-      targetStr = str.substring(fIndex, lIndex + 1);
-      targetKey = str.substring(fIndex + 2, lIndex);
-      str = str.replace(targetStr, data[targetKey]);
-    }
-    return str;
-  },
-  popupTemplate: (popupConfig, data) => {
-    let bindDatas = Object.assign({}, defaultPopupStyle, popupConfig),
-      lineTrs = [];
+  //     targetStr = str.substring(fIndex, lIndex + 1);
+  //     targetKey = str.substring(fIndex + 2, lIndex);
+  //     str = str.replace(targetStr, data[targetKey]);
+  //   }
+  //   return str;
+  // },
+  // popupTemplate: (popupConfig, data) => {
+  //   let bindDatas = Object.assign({}, popupConfig),
+  //     lineTrs = [];
 
-    bindDatas.rows.map((item, i) => {
-      let name = item.name,
-        value = data[item.key] || '-';
+  //   bindDatas.rows.map((item, i) => {
+  //     let name = item.name,
+  //       value = data[item.key] || '-';
 
-      lineTrs.push(`<tr class = "item">
-                            <td class = "label-name" style = "width:${item.nWidth ||
-                              ''}">${name}</td>
-                            <td class = "label-value" style = "width:${item.vWidth ||
-                              ''}">${value}</td>
-                        </tr>`);
-    });
-    let lineTrsStr = lineTrs.join(' ');
-    let title = data[bindDatas.title] || '';
-    let popPanle = `<div class = "leafletTempContent" style = "text-align:center;width:${bindDatas.width ||
-      ''}">
-                            <div class = "title"
-                                style = "display:${
-                                  !title ? 'none' : 'block'
-                                };background-color:${
-      bindDatas.tBgColor
-    };color:${bindDatas.tColor}">
-                                ${title}
-                            </div>
-                            <table style = "width : 100%">
-                                ${lineTrsStr}
-                            </table>
-                        </div>`;
+  //     lineTrs.push(`<tr class = "item">
+  //                           <td class = "label-name" style = "width:${item.nWidth ||
+  //                             ''}">${name}</td>
+  //                           <td class = "label-value" style = "width:${item.vWidth ||
+  //                             ''}">${value}</td>
+  //                       </tr>`);
+  //   });
+  //   let lineTrsStr = lineTrs.join(' ');
+  //   let title = data[bindDatas.title] || '';
+  //   let popPanle = `<div class = "leafletTempContent" style = "text-align:center;width:${bindDatas.width ||
+  //     ''}">
+  //                           <div class = "title"
+  //                               style = "display:${
+  //                                 !title ? 'none' : 'block'
+  //                               };background-color:${
+  //     bindDatas.tBgColor
+  //   };color:${bindDatas.tColor}">
+  //                               ${title}
+  //                           </div>
+  //                           <table style = "width : 100%">
+  //                               ${lineTrsStr}
+  //                           </table>
+  //                       </div>`;
 
-    return popPanle;
-  },
-  addLatLng: (obj, data) => {
-    data.map((point, i) => {
-      if (eHelper.isArray(point)) {
-        obj.addLatLng(L.latLng(point[0], point[1]));
-      } else {
-        obj.addLatLng(L.latLng(point.lat, point.lng));
-      }
-    });
-  },
+  //   return popPanle;
+  // },
+  // addLatLng: (obj, data) => {
+  //   data.map((point, i) => {
+  //     if (eHelper.isArray(point)) {
+  //       obj.addLatLng(L.latLng(point[0], point[1]));
+  //     } else {
+  //       obj.addLatLng(L.latLng(point.lat, point.lng));
+  //     }
+  //   });
+  // },
   circleAnimateTimer: null,
   circleAnimateMarker: null,
-  circleAnimate: latlng => {
+  circleAnimate: (latlng: any) => {
     clearTimeout(eHelper.circleAnimateTimer);
     !!eHelper.circleAnimateMarker && eHelper.circleAnimateMarker.remove();
     let icon = L.divIcon({
@@ -711,211 +703,210 @@ const eHelper = {
       // eslint-disable-next-line
       html: "<div class = 'animateWrap'><div class = 'animate'></div></div>",
     });
-
     eHelper.circleAnimateMarker = L.marker(latlng, { icon: icon }).addTo(map);
     eHelper.circleAnimateTimer = setTimeout(() => {
       eHelper.circleAnimateMarker.remove();
       eHelper.circleAnimateMarker = null;
     }, 1500);
   },
-  latlngFormat: n => {
-    let d = n < 0 ? 0 : 1;
-    let v = Math.abs(n);
-    let v1 = Math.floor(v);
-    let v2 = Math.floor((v - v1) * 60);
-    let v3 = Math.round(((v - v1) * 3600) % 60);
+  // latlngFormat: n => {
+  //   let d = n < 0 ? 0 : 1;
+  //   let v = Math.abs(n);
+  //   let v1 = Math.floor(v);
+  //   let v2 = Math.floor((v - v1) * 60);
+  //   let v3 = Math.round(((v - v1) * 3600) % 60);
 
-    // eslint-disable-next-line
-    return { value: v1 + '°' + v2 + "'" + v3 + '"', key: d };
-  },
-  calcAreaExtent: arr => {
-    if (!!arr && eHelper.isArray(arr) && arr.length > 1) {
-      let min = { lat: 180, lng: 180 },
-        max = { lat: -180, lng: -180 };
+  //   // eslint-disable-next-line
+  //   return { value: v1 + '°' + v2 + "'" + v3 + '"', key: d };
+  // },
+  // calcAreaExtent: arr => {
+  //   if (!!arr && eHelper.isArray(arr) && arr.length > 1) {
+  //     let min = { lat: 180, lng: 180 },
+  //       max = { lat: -180, lng: -180 };
 
-      arr.map(item => {
-        let p = eHelper.isArray(item) ? { lat: item[0], lng: item[1] } : item;
+  //     arr.map(item => {
+  //       let p = eHelper.isArray(item) ? { lat: item[0], lng: item[1] } : item;
 
-        min.lat = Math.min(p.lat, min.lat);
-        min.lng = Math.min(p.lng, min.lng);
-        max.lat = Math.max(p.lat, max.lat);
-        max.lng = Math.max(p.lng, max.lng);
-      });
-      return { min: min, max: max };
-    }
-    return false;
-  },
-  on: (key, event, e) => {
-    if (key[event]) {
-      key[event].push(e);
-    } else {
-      key[event] = [e];
-    }
-  },
-  do: (eventKey, e) => {
-    [event, range, area, controlPoint, controlCircle, controlLine].map(
-      key =>
-        !!key[eventKey] &&
-        key[eventKey].map(item => eHelper.isFunction(item) && item(e)),
-    );
-  },
-  calcLength: points => {
-    let length = 0;
+  //       min.lat = Math.min(p.lat, min.lat);
+  //       min.lng = Math.min(p.lng, min.lng);
+  //       max.lat = Math.max(p.lat, max.lat);
+  //       max.lng = Math.max(p.lng, max.lng);
+  //     });
+  //     return { min: min, max: max };
+  //   }
+  //   return false;
+  // },
+  // on: (key, event, e) => {
+  //   if (key[event]) {
+  //     key[event].push(e);
+  //   } else {
+  //     key[event] = [e];
+  //   }
+  // },
+  // do: (eventKey, e) => {
+  //   [event, range, area, controlPoint, controlCircle, controlLine].map(
+  //     key =>
+  //       !!key[eventKey] &&
+  //       key[eventKey].map(item => eHelper.isFunction(item) && item(e)),
+  //   );
+  // },
+  // calcLength: points => {
+  //   let length = 0;
 
-    if (points.length < 2) {
-      return 0;
-    }
+  //   if (points.length < 2) {
+  //     return 0;
+  //   }
 
-    points.map((item, i) => {
-      if (i < points.length - 1) {
-        let partLength = eHelper.getFlatternDistance(
-          item['_latlng'].lat,
-          item['_latlng'].lng,
-          points[i + 1]['_latlng'].lat,
-          points[i + 1]['_latlng'].lng,
-        );
+  //   points.map((item, i) => {
+  //     if (i < points.length - 1) {
+  //       let partLength = eHelper.getFlatternDistance(
+  //         item['_latlng'].lat,
+  //         item['_latlng'].lng,
+  //         points[i + 1]['_latlng'].lat,
+  //         points[i + 1]['_latlng'].lng,
+  //       );
 
-        length += partLength;
-      }
-    });
+  //       length += partLength;
+  //     }
+  //   });
 
-    return length;
-  },
-  getFlatternDistance: function(lat1, lng1, lat2, lng2) {
-    var EARTH_RADIUS = 6378137.0;
-    var PI = Math.PI;
-    var f = (((lat1 + lat2) / 2) * PI) / 180.0;
-    var g = (((lat1 - lat2) / 2) * PI) / 180.0;
-    var l = (((lng1 - lng2) / 2) * PI) / 180.0;
+  //   return length;
+  // },
+  // getFlatternDistance: function(lat1, lng1, lat2, lng2) {
+  //   var EARTH_RADIUS = 6378137.0;
+  //   var PI = Math.PI;
+  //   var f = (((lat1 + lat2) / 2) * PI) / 180.0;
+  //   var g = (((lat1 - lat2) / 2) * PI) / 180.0;
+  //   var l = (((lng1 - lng2) / 2) * PI) / 180.0;
 
-    var sg = Math.sin(g);
-    var sl = Math.sin(l);
-    var sf = Math.sin(f);
+  //   var sg = Math.sin(g);
+  //   var sl = Math.sin(l);
+  //   var sf = Math.sin(f);
 
-    var s, c, w, r, d, h1, h2;
-    var a = EARTH_RADIUS;
-    var fl = 1 / 298.257;
+  //   var s, c, w, r, d, h1, h2;
+  //   var a = EARTH_RADIUS;
+  //   var fl = 1 / 298.257;
 
-    sg = sg * sg;
-    sl = sl * sl;
-    sf = sf * sf;
+  //   sg = sg * sg;
+  //   sl = sl * sl;
+  //   sf = sf * sf;
 
-    s = sg * (1 - sl) + (1 - sf) * sl;
-    c = (1 - sg) * (1 - sl) + sf * sl;
+  //   s = sg * (1 - sl) + (1 - sf) * sl;
+  //   c = (1 - sg) * (1 - sl) + sf * sl;
 
-    w = Math.atan(Math.sqrt(s / c));
-    r = Math.sqrt(s * c) / w;
-    d = 2 * w * a;
-    h1 = (3 * r - 1) / 2 / c;
-    h2 = (3 * r + 1) / 2 / s;
+  //   w = Math.atan(Math.sqrt(s / c));
+  //   r = Math.sqrt(s * c) / w;
+  //   d = 2 * w * a;
+  //   h1 = (3 * r - 1) / 2 / c;
+  //   h2 = (3 * r + 1) / 2 / s;
 
-    var atk = d * (1 + fl * (h1 * sf * (1 - sg) - h2 * (1 - sf) * sg));
+  //   var atk = d * (1 + fl * (h1 * sf * (1 - sg) - h2 * (1 - sf) * sg));
 
-    if (lat1 == lat2 && lng1 == lng2) {
-      atk = 0;
-    }
-    return atk;
-  },
-  lengthFormat: n => {
-    let l = n > 1000 ? { num: n / 1000, unit: '公里' } : { num: n, unit: '米' };
+  //   if (lat1 == lat2 && lng1 == lng2) {
+  //     atk = 0;
+  //   }
+  //   return atk;
+  // },
+  // lengthFormat: n => {
+  //   let l = n > 1000 ? { num: n / 1000, unit: '公里' } : { num: n, unit: '米' };
 
-    l.num = l.num.toFixed(2);
-    return l;
-  },
-  areaFormat: n => {
-    let l =
-      n > 1000000
-        ? { num: n / 1000000, unit: '平方公里' }
-        : { num: n, unit: '平方米' };
+  //   l.num = l.num.toFixed(2);
+  //   return l;
+  // },
+  // areaFormat: n => {
+  //   let l =
+  //     n > 1000000
+  //       ? { num: n / 1000000, unit: '平方公里' }
+  //       : { num: n, unit: '平方米' };
 
-    l.num = l.num.toFixed(2);
-    return l;
-  },
-  calcArea: points => {
-    if (points.length > 2) {
-      let areaMeters = eHelper.PlanarPolygonAreaMeters(points);
+  //   l.num = l.num.toFixed(2);
+  //   return l;
+  // },
+  // calcArea: points => {
+  //   if (points.length > 2) {
+  //     let areaMeters = eHelper.PlanarPolygonAreaMeters(points);
 
-      if (areaMeters > 1000000.0) {
-        areaMeters = eHelper.SphericalPolygonAreaMeters(points);
-      }
-      return areaMeters;
-    }
-  },
-  PlanarPolygonAreaMeters: points => {
-    let a = 0;
+  //     if (areaMeters > 1000000.0) {
+  //       areaMeters = eHelper.SphericalPolygonAreaMeters(points);
+  //     }
+  //     return areaMeters;
+  //   }
+  // },
+  // PlanarPolygonAreaMeters: points => {
+  //   let a = 0;
 
-    for (let i = 0; i < points.length; ++i) {
-      let j = (i + 1) % points.length,
-        xi =
-          points[i]['_latlng'].lng *
-          metersPerDegree *
-          Math.cos(points[i]['_latlng'].lat * radiansPerDegree),
-        yi = points[i]['_latlng'].lat * metersPerDegree,
-        xj =
-          points[j]['_latlng'].lng *
-          metersPerDegree *
-          Math.cos(points[j]['_latlng'].lat * radiansPerDegree),
-        yj = points[j]['_latlng'].lat * metersPerDegree;
+  //   for (let i = 0; i < points.length; ++i) {
+  //     let j = (i + 1) % points.length,
+  //       xi =
+  //         points[i]['_latlng'].lng *
+  //         metersPerDegree *
+  //         Math.cos(points[i]['_latlng'].lat * radiansPerDegree),
+  //       yi = points[i]['_latlng'].lat * metersPerDegree,
+  //       xj =
+  //         points[j]['_latlng'].lng *
+  //         metersPerDegree *
+  //         Math.cos(points[j]['_latlng'].lat * radiansPerDegree),
+  //       yj = points[j]['_latlng'].lat * metersPerDegree;
 
-      a += xi * yj - xj * yi;
-    }
-    return Math.abs(a / 2);
-  },
-  SphericalPolygonAreaMeters: points => {
-    let totalAngle = 0;
+  //     a += xi * yj - xj * yi;
+  //   }
+  //   return Math.abs(a / 2);
+  // },
+  // SphericalPolygonAreaMeters: points => {
+  //   let totalAngle = 0;
 
-    for (let i = 0; i < points.length; i++) {
-      let j = (i + 1) % points.length;
-      let k = (i + 2) % points.length;
+  //   for (let i = 0; i < points.length; i++) {
+  //     let j = (i + 1) % points.length;
+  //     let k = (i + 2) % points.length;
 
-      totalAngle += eHelper.Angle(points[i], points[j], points[k]);
-    }
-    let planarTotalAngle = (points.length - 2) * 180.0;
-    let sphericalExcess = totalAngle - planarTotalAngle;
+  //     totalAngle += eHelper.Angle(points[i], points[j], points[k]);
+  //   }
+  //   let planarTotalAngle = (points.length - 2) * 180.0;
+  //   let sphericalExcess = totalAngle - planarTotalAngle;
 
-    if (sphericalExcess > 420.0) {
-      totalAngle = points.length * 360.0 - totalAngle;
-      sphericalExcess = totalAngle - planarTotalAngle;
-    } else if (sphericalExcess > 300.0 && sphericalExcess < 420.0) {
-      sphericalExcess = Math.abs(360.0 - sphericalExcess);
-    }
-    while (sphericalExcess < 0) {
-      sphericalExcess += 180.0;
-    }
-    return (
-      sphericalExcess * radiansPerDegree * earthRadiusMeters * earthRadiusMeters
-    );
-  },
-  Angle: (p1, p2, p3) => {
-    let bearing21 = eHelper.Bearing(p2, p1),
-      bearing23 = eHelper.Bearing(p2, p3),
-      angle = bearing21 - bearing23;
+  //   if (sphericalExcess > 420.0) {
+  //     totalAngle = points.length * 360.0 - totalAngle;
+  //     sphericalExcess = totalAngle - planarTotalAngle;
+  //   } else if (sphericalExcess > 300.0 && sphericalExcess < 420.0) {
+  //     sphericalExcess = Math.abs(360.0 - sphericalExcess);
+  //   }
+  //   while (sphericalExcess < 0) {
+  //     sphericalExcess += 180.0;
+  //   }
+  //   return (
+  //     sphericalExcess * radiansPerDegree * earthRadiusMeters * earthRadiusMeters
+  //   );
+  // },
+  // Angle: (p1, p2, p3) => {
+  //   let bearing21 = eHelper.Bearing(p2, p1),
+  //     bearing23 = eHelper.Bearing(p2, p3),
+  //     angle = bearing21 - bearing23;
 
-    if (angle < 0) {
-      angle += 360;
-    }
-    return angle;
-  },
-  Bearing: (from, to) => {
-    let lat1 = from['_latlng'].lat * radiansPerDegree,
-      lon1 = from['_latlng'].lng * radiansPerDegree,
-      lat2 = to['_latlng'].lat * radiansPerDegree,
-      lon2 = to['_latlng'].lng * radiansPerDegree,
-      angle = -Math.atan2(
-        Math.sin(lon1 - lon2) * Math.cos(lat2),
-        Math.cos(lat1) * Math.sin(lat2) -
-          Math.sin(lat1) * Math.cos(lat2) * Math.cos(lon1 - lon2),
-      );
+  //   if (angle < 0) {
+  //     angle += 360;
+  //   }
+  //   return angle;
+  // },
+  // Bearing: (from, to) => {
+  //   let lat1 = from['_latlng'].lat * radiansPerDegree,
+  //     lon1 = from['_latlng'].lng * radiansPerDegree,
+  //     lat2 = to['_latlng'].lat * radiansPerDegree,
+  //     lon2 = to['_latlng'].lng * radiansPerDegree,
+  //     angle = -Math.atan2(
+  //       Math.sin(lon1 - lon2) * Math.cos(lat2),
+  //       Math.cos(lat1) * Math.sin(lat2) -
+  //         Math.sin(lat1) * Math.cos(lat2) * Math.cos(lon1 - lon2),
+  //     );
 
-    if (angle < 0) {
-      angle += Math.PI * 2.0;
-    }
-    angle = angle * degreesPerRadian;
-    return angle;
-  },
-  setCursor: type => {
-    document.getElementsByClassName('leaflet-container')[0].style.cursor = type;
-  },
+  //   if (angle < 0) {
+  //     angle += Math.PI * 2.0;
+  //   }
+  //   angle = angle * degreesPerRadian;
+  //   return angle;
+  // },
+  // setCursor: type => {
+  //   document.getElementsByClassName('leaflet-container')[0].style.cursor = type;
+  // },
 };
 
 /**
@@ -931,9 +922,9 @@ const eHelper = {
 export default {
   init,
   e,
-  tool,
-  addPoints,
-  addLines,
-  addAreas,
+  // tool,
+  // addPoints,
+  // addLines,
+  // addAreas,
   remove,
 };

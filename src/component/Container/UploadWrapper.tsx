@@ -1,47 +1,43 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import Upload from '../Upload';
 import { ajax, isDev } from '../../util/urlHelper';
 
 function noop() {}
 
-export default class UploadWrapper extends Component {
-  static propTypes = {
-    onChange: PropTypes.func,
-  };
+export interface UploadWrapperProps {
+  onChange?: (uploadIds: string) => void;
+}
+export interface UploadWrapperState {
+  fileList: Array<any>;
+}
+
+export default class UploadWrapper extends Component<
+  UploadWrapperProps,
+  UploadWrapperState
+> {
+  uploadIds: Array<any> = [];
 
   static defaultProps = {
     onChange: noop,
   };
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      fileList: [],
-    };
-    this.uploadIds = [];
-  }
-
-  componentDidMount = () => {};
-
-  getObjectURL = file => {
+  getObjectURL = (file: any) => {
     let url = null;
-    if (window.createObjectURL != undefined) {
+    if ((window as any).createObjectURL != undefined) {
       // basic
-      url = window.createObjectURL(file);
+      url = (window as any).createObjectURL(file);
     } else if (window.URL != undefined) {
       // mozilla(firefox)
       url = window.URL.createObjectURL(file);
-    } else if (window.webkitURL != undefined) {
+    } else if ((window as any).webkitURL != undefined) {
       // webkit or chrome
-      url = window.webkitURL.createObjectURL(file);
+      url = (window as any).webkitURL.createObjectURL(file);
     }
     return url;
   };
 
-  handleChange = file => {
-    const update = (file, result) => {
+  handleChange = (file: any) => {
+    const update = (file: any, result: string) => {
       const { onChange } = this.props;
       let { fileList } = this.state;
       const fileId = result.split('|')[0];
@@ -53,7 +49,7 @@ export default class UploadWrapper extends Component {
       this.setState({ fileList }, () => {
         this.uploadIds.push(fileId);
         this.uploadIds = Array.from(new Set(this.uploadIds));
-        onChange(this.uploadIds.toString());
+        onChange && onChange(this.uploadIds.toString());
       });
     };
 
@@ -75,7 +71,7 @@ export default class UploadWrapper extends Component {
     }
   };
 
-  getUploadParam = file => {
+  getUploadParam = (file: any) => {
     let param = new FormData();
 
     param.append('Filedata', file);
@@ -95,14 +91,14 @@ export default class UploadWrapper extends Component {
     return param;
   };
 
-  handleLongPress = ({ name, id }, e) => {
+  handleLongPress = ({ name, id }: { name: string; id: string | number }) => {
     const { onChange } = this.props;
     let { fileList } = this.state;
 
     fileList = fileList.filter(item => item.name != name);
 
     this.uploadIds = this.uploadIds.filter(fileId => fileId != id);
-    onChange(this.uploadIds.toString());
+    onChange && onChange(this.uploadIds.toString());
 
     this.setState({ fileList });
   };

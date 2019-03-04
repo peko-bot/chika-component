@@ -1,18 +1,8 @@
 import React, { Component } from 'react';
-
 import Progress from '../../component/Progress';
-
 import './css/index.css';
 
 export default class ProgressDemo extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {};
-  }
-
-  componentDidMount = () => {};
-
   render = () => {
     const customImage = `linear-gradient(90deg,
             #feda3d 0%,

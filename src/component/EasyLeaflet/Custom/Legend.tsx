@@ -7,8 +7,15 @@
  */
 import React from 'react';
 
-export class Legend extends React.Component {
-  constructor(props) {
+export interface LegendProps {
+  config: any;
+}
+export interface LegendState {
+  atk: boolean;
+}
+
+export class Legend extends React.Component<LegendProps, LegendState> {
+  constructor(props: LegendProps) {
     super(props);
 
     this.state = {
@@ -33,7 +40,7 @@ export class Legend extends React.Component {
           className="legend_body"
           style={{ display: this.state.atk ? 'block' : 'none' }}
         >
-          {config.row.map((item, i) => {
+          {config.row.map((item: any, i: number) => {
             let icon;
             let type = item.iconType || config.iconType;
 

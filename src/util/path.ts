@@ -1,4 +1,3 @@
-/*eslint-disable */
 const proxy = null;
 const isDev = process.env.NODE_ENV === 'development';
 

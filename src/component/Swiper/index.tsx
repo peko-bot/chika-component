@@ -1,12 +1,45 @@
 import React from 'react';
-
 import './css/Swiper.css';
+
+export interface SwiperProps {
+  config: {
+    wrapperHeight: number;
+    sensibility: number;
+    duration: number;
+    refresh?: any;
+    load?: any;
+  };
+  refresh?: () => void;
+  load?: () => void;
+}
+export interface SwiperState {
+  distance: number;
+  iconDeg: number;
+  refreshEnd: boolean;
+  loadEnd: boolean;
+  duration: number | string;
+  refreshText: string;
+  refreshImg: string;
+  loadText: string;
+  loadImg: string;
+}
 
 /* 基于translate3d的滑动分页组件
     尚未实现惯性缓动
 */
-export default class Swiper extends React.Component {
-  constructor(props) {
+export default class Swiper extends React.Component<SwiperProps, SwiperState> {
+  startY = 0;
+  endY = 0;
+  down = '../../assets/Swiper/down.png';
+  loading = '../../assets/Swiper/loading.gif';
+  complete = '../../assets/Swiper/complete.png';
+  scrollerHeight = 1000;
+  bottomHeight = 0;
+  wrapper: any;
+  scroller: any;
+  timer: any;
+
+  constructor(props: SwiperProps) {
     super(props);
     this.state = {
       distance: 0, // 从touchstart记，到touchend结束，容器滑过的距离
@@ -21,14 +54,6 @@ export default class Swiper extends React.Component {
     };
   }
 
-  startY = 0;
-  endY = 0;
-  timer = null;
-  down = '../../assets/Swiper/down.png';
-  loading = '../../assets/Swiper/loading.gif';
-  complete = '../../assets/Swiper/complete.png';
-  scrollerHeight = 1000;
-  bottomHeight = 0;
   componentDidMount = () => {
     this.eventBind(this.wrapper);
   };
@@ -55,47 +80,46 @@ export default class Swiper extends React.Component {
   };
 
   // 上下两div行为相似，于是放到一块去绑定事件了
-  eventBind = refs => {
+  eventBind = (refs: any) => {
     const { config } = this.props;
 
-    refs.addEventListener('touchstart', e => {
+    refs.addEventListener('touchstart', (e: any) => {
       // 计时
       this.timer = new Date().getTime();
       // 记录开始滑动时的坐标
       this.startY = e.touches[0].pageY;
 
-      this.state.refreshEnd = false;
-      this.state.loadEnd = false;
+      this.setState({ refreshEnd: false, loadEnd: false });
     });
 
-    refs.addEventListener('touchmove', e => {
+    refs.addEventListener('touchmove', (e: any) => {
       // 放在touchstart里会覆盖children里的click事件
       e.preventDefault();
 
       // 计算容器滑过的距离
       let distance =
         (e.touches[0].pageY - this.startY) / config.sensibility + this.endY;
-
+      let iconDeg;
       if (distance > 44) {
         // 44是刷新、加载div的高度，超过时箭头向上
-        this.state.iconDeg = 180;
+        iconDeg = 180;
       } else if (distance >= 0 && distance <= 44) {
         // 刷新没超过上方div高度时，根据比例变换箭头方向
-        this.state.iconDeg = (distance / 44) * 180;
+        iconDeg = (distance / 44) * 180;
       } else {
         // 下方的加载偷懒没写箭头变换以及未超过44的行为，mark
-        this.state.iconDeg = 180;
+        iconDeg = 180;
       }
 
-      this.setState({ distance });
+      this.setState({ distance, iconDeg });
     });
 
-    refs.addEventListener('touchend', e => {
+    refs.addEventListener('touchend', () => {
       /*
-                配置里有duration的话就用配置里的
-                默认的duration是从touchstart到end的时间
-                也就是说滑动时间越长，弹回的越慢
-            */
+        配置里有duration的话就用配置里的
+        默认的duration是从touchstart到end的时间
+        也就是说滑动时间越长，弹回的越慢
+      */
       let duration = config.duration
         ? config.duration
         : (new Date().getTime() - this.timer) / 1000;
@@ -104,15 +128,16 @@ export default class Swiper extends React.Component {
       if (distance > 44) {
         // 拖到顶部的情况
         if (this.props.refresh) {
-          this.state.refreshImg = this.loading;
-          this.state.refreshText = '刷新中...';
-          this.state.distance = 44;
-
+          this.setState({
+            refreshImg: this.loading,
+            refreshText: '刷新中...',
+            distance: 44,
+          });
           this.props.refresh();
         }
       } else if (distance > 0 && distance <= 44) {
         // 上方div未超过44的情况
-        this.state.distance = 0;
+        this.setState({ distance: 0 });
       } else if (distance < 0) {
         // 拖动到底部的情况
         const { offsetHeight, scrollHeight } = this.scroller;
@@ -121,16 +146,17 @@ export default class Swiper extends React.Component {
         // 超出边界回弹
         if (Math.abs(distance) > differHeight) {
           // 这里不能写等于，不然容器拖到底部时，touchstart会触发加载事件
-          this.state.distance = -differHeight;
           this.endY = -differHeight;
-
           // 下拉加载
           if (this.props.load) {
-            this.state.loadText = '加载中...';
-            this.state.loadImg = this.loading;
-            this.state.distance = -this.bottomHeight;
-
             this.props.load();
+            this.setState({
+              loadText: '加载中...',
+              loadImg: this.loading,
+              distance: -this.bottomHeight,
+            });
+          } else {
+            this.setState({ distance: -differHeight });
           }
         } else {
           // 未超出边界就停在那儿
@@ -204,7 +230,6 @@ export default class Swiper extends React.Component {
       refreshEnd,
       duration,
       refreshText,
-      loading,
       refreshImg,
       loadEnd,
       loadText,
@@ -212,8 +237,6 @@ export default class Swiper extends React.Component {
     } = this.state;
     const defaultHeight =
       document.documentElement.clientHeight || document.body.clientHeight;
-    const defaultWidth =
-      document.documentElement.clientWidth || document.body.clientWidth;
 
     let refreshStyle = {
       transform: `translate3d(0px, ${distance}px, 0)`,
@@ -241,7 +264,7 @@ export default class Swiper extends React.Component {
       refreshStyle,
     );
 
-    let refresh = [];
+    let refresh: Array<any> = [];
 
     if (config.refresh === true || config.refresh === undefined) {
       refresh.push(
@@ -261,7 +284,7 @@ export default class Swiper extends React.Component {
       );
     }
 
-    let load = [];
+    let load: Array<any> = [];
 
     if (config.load === true || config.load === undefined) {
       load.push(
@@ -283,13 +306,16 @@ export default class Swiper extends React.Component {
 
     return (
       <div className="Swiper">
-        <div ref={ref => (this.wrapper = ref)} className="wrapper">
-          {React.Children.map(this.props.children, child => {
+        <div ref={(ref: any) => (this.wrapper = ref)} className="wrapper">
+          {React.Children.map(this.props.children, (child: any) => {
             child = React.cloneElement(child, { className: 'child-z-index-8' });
 
             return (
               <div>
-                <div style={wrapStyle} ref={ref => (this.scroller = ref)}>
+                <div
+                  style={wrapStyle}
+                  ref={(ref: any) => (this.scroller = ref)}
+                >
                   {child}
                 </div>
 

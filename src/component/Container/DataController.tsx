@@ -1,14 +1,43 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import Container from './core';
 import { ajax } from '../../util/urlHelper';
 import { Toast } from 'antd-mobile';
 
-export default class DataController extends Component {
-  static propTypes = {
-    children: PropTypes.element.isRequired,
-    tableId: PropTypes.number.isRequired,
-    menuId: PropTypes.number,
+export interface DataControllerProps {
+  children: any;
+  tableId: number;
+  menuId: number;
+}
+export interface DataControllerState {
+  config: Array<any>;
+  dataSource: Array<any>;
+  total: number;
+  primaryKey: string;
+  loading: boolean;
+  power: {
+    select: boolean;
+    delete: boolean;
+    update: boolean;
+    add: boolean;
+  };
+}
+
+export default class DataController extends Component<
+  DataControllerProps,
+  DataControllerState
+> {
+  state: DataControllerState = {
+    config: [],
+    dataSource: [],
+    total: 0,
+    power: {
+      select: false,
+      delete: false,
+      update: false,
+      add: false,
+    },
+    primaryKey: '',
+    loading: false,
   };
 
   static defaultProps = {
@@ -17,30 +46,17 @@ export default class DataController extends Component {
     menuId: -1,
   };
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      config: [],
-      dataSource: [],
-      total: 0,
-      power: {
-        select: false,
-        delete: false,
-        update: false,
-        add: false,
-      },
-      primaryKey: '',
-      loading: false,
-    };
-  }
-
   componentDidMount = () => {
     this.getConfig();
   };
 
-  handlePowerStr = power => {
-    let result = {};
+  handlePowerStr = (power: string) => {
+    let result = {
+      select: false,
+      delete: false,
+      update: false,
+      add: false,
+    };
     for (let item of Array.from(power.split(','))) {
       switch (item) {
         case 'Select':
@@ -87,8 +103,8 @@ export default class DataController extends Component {
     });
   };
 
-  getPrimaryKey = data => {
-    const keyItem = data.filter(item => item.iskey);
+  getPrimaryKey = (data: any) => {
+    const keyItem = data.filter((item: any) => item.iskey);
     if (!keyItem.length) {
       console.error('where is the primary key? please check.');
       return;
@@ -109,8 +125,8 @@ export default class DataController extends Component {
       //   mode: 'cors',
       // },
       success: ({ data }) => {
-        let dataSource = [];
-        data.list.map((item, i) => {
+        let dataSource: Array<any> = [];
+        data.list.map((item: any, i: number) => {
           dataSource.push({
             ...item,
             templateOrder: i,
@@ -125,7 +141,7 @@ export default class DataController extends Component {
     });
   };
 
-  handleDelete = primaryValue => {
+  handleDelete = (primaryValue: string | number) => {
     if (!this.state.loading) {
       this.setState({ loading: true });
     }
@@ -143,7 +159,7 @@ export default class DataController extends Component {
     });
   };
 
-  formatControls = (dataItem, configs) => {
+  formatControls = (dataItem: any, configs: Array<any>) => {
     let result = [];
     const keys = Object.keys(dataItem);
     for (let item of keys) {
@@ -160,7 +176,7 @@ export default class DataController extends Component {
         } = targetItem[0];
         if (!isvisiable) continue;
 
-        let type = controlTypeEnums[controltype];
+        let type = (controlTypeEnums as any)[controltype];
         let value = dataItem[fname];
         const item = {
           type,
@@ -193,7 +209,7 @@ export default class DataController extends Component {
     return result;
   };
 
-  handeMapPickerChange = dataItem => {
+  handeMapPickerChange = (dataItem: any) => {
     // eslint-disable-next-line
     console.log(dataItem);
   };

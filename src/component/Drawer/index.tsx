@@ -1,9 +1,26 @@
 import React, { Component } from 'react';
-
 import './css/Drawer.css';
 
-export default class Drawer extends Component {
-  handlePosition = (direction, clientView, visible, width, type) => {
+export interface DrawerProps {
+  onChange?: (visible: boolean) => void;
+  visible?: boolean;
+  width?: number;
+  operaNode?: string;
+  direction?: string;
+  isOperateShow?: boolean;
+  clientView?: number;
+  style?: any;
+}
+export interface DrawerState {}
+
+export default class Drawer extends Component<DrawerProps, DrawerState> {
+  handlePosition = (
+    direction: string,
+    clientView: number,
+    visible: boolean,
+    width: number,
+    type?: string,
+  ) => {
     const transform = this.handleTransform(direction);
     const { view } = this.handleClientView(
       direction,
@@ -16,7 +33,7 @@ export default class Drawer extends Component {
     return `${transform}(${view}px)`;
   };
 
-  handleTransform = direction => {
+  handleTransform = (direction: string) => {
     if (direction == 'left' || direction == 'right') {
       return 'translateX';
     } else if (direction == 'top' || direction == 'bottom') {
@@ -27,7 +44,13 @@ export default class Drawer extends Component {
   };
 
   // 返回箭头方向值跟抽屉位置
-  handleClientView = (direction, clientView, visible, width, type) => {
+  handleClientView = (
+    direction: string,
+    clientView: number,
+    visible: boolean,
+    width: number,
+    type?: string,
+  ) => {
     let view, iconDeg;
 
     if (direction == 'left' || direction == 'right') {
@@ -77,9 +100,9 @@ export default class Drawer extends Component {
         document.documentElement.clientWidth) * 0.7,
       operaNode,
       direction = 'left',
-      visible,
+      visible = false,
       isOperateShow = true,
-      clientView,
+      clientView = 0,
       style,
     } = this.props;
     const { iconDeg } = this.handleClientView(

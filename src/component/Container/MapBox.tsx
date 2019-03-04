@@ -1,19 +1,28 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import './css/MapBox.css';
 import { Button, List } from 'antd-mobile';
 import leaflet from '../EasyLeaflet';
 import Popup from '../EasyLeaflet/Custom/Popup';
+import L from 'leaflet';
 
 function noop() {}
-export default class MapBox extends Component {
-  static propTypes = {
-    lng: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-    lat: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-    address: PropTypes.string,
-    onBack: PropTypes.func.isRequired,
-    primaryValue: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  };
+
+export interface MapBoxProps {
+  lng: number | string;
+  lat: number | string;
+  address?: string;
+  onBack: (item: any) => void;
+  primaryValue?: number | string;
+}
+export interface MapBoxState {
+  lng: number;
+  lat: number;
+  address: string;
+}
+
+export default class MapBox extends Component<MapBoxProps, MapBoxState> {
+  mapContainer: any;
+  map: any;
 
   static defaultProps = {
     lng: -1,
@@ -23,7 +32,10 @@ export default class MapBox extends Component {
     primaryValue: '',
   };
 
-  static getDerivedStateFromProps(nextProps, nextState) {
+  static getDerivedStateFromProps(
+    nextProps: MapBoxProps,
+    nextState: MapBoxState,
+  ) {
     if (nextState.lng === -1 && nextState.lat === -1) {
       return {
         lng: nextProps.lng,
@@ -34,14 +46,14 @@ export default class MapBox extends Component {
     return null;
   }
 
-  constructor(props) {
+  constructor(props: MapBoxProps) {
     super(props);
 
     this.state = {
       lng: -1,
       lat: -1,
       address: '',
-    };
+    } as MapBoxState;
 
     this.mapContainer = React.createRef();
     this.map = null;
@@ -55,7 +67,7 @@ export default class MapBox extends Component {
       this.map = this.initMap();
       // get default coordinate
       leaflet.e.zoomIn();
-      this.map.on('move', e => {
+      this.map.on('move', () => {
         this.setState({ ...this.map.getCenter() });
       });
     }, 0);

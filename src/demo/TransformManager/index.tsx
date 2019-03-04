@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
-import TransformManager, { Item } from '../../component/TransformManager';
+import TransformManager, {
+  TransformManagerItem as Item,
+} from '../../component/TransformManager';
 import { Button } from 'antd-mobile';
 
 export default class TransformManagerDemo extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      currentOrder: 0,
-      currentGroup: 'group1',
-    };
-  }
+  state = {
+    currentOrder: 0,
+    currentGroup: 'group1',
+  };
 
   render = () => {
     const { currentOrder, currentGroup } = this.state;
