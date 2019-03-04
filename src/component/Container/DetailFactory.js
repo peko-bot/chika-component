@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { List, Button } from 'antd-mobile';
 
 function noop() {}
-class DetailFactory extends Component {
+
+export default class DetailFactory extends Component {
   static propTypes = {
     controlType: PropTypes.string,
     onPageChange: PropTypes.func,
@@ -71,5 +72,3 @@ class DetailFactory extends Component {
     );
   };
 }
-
-export default DetailFactory;
