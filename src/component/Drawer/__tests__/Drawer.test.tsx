@@ -4,7 +4,7 @@ import 'nino-cli/scripts/setup';
 let Drawer;
 switch (process.env.LIB_DIR) {
   case 'lib':
-    Drawer = require('../../../../lib/component/Drawer/index.js').default;
+    Drawer = require('../../../../lib/component/Drawer').default;
     break;
   default:
     Drawer = require('..').default;
