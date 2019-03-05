@@ -3,9 +3,9 @@ import { mount } from 'enzyme';
 import 'nino-cli/scripts/setup';
 let Drawer;
 switch (process.env.LIB_DIR) {
-  // case 'lib':
-  //   Drawer = require('../../../../lib/component/Drawer').default;
-  //   break;
+  case 'lib':
+    Drawer = require('../../../../lib/component/Drawer').default;
+    break;
   default:
     Drawer = require('..').default;
     break;
