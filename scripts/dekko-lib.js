@@ -1,5 +1,4 @@
 const $ = require('dekko');
-const chalk = require('chalk');
 
 $('lib')
   .isDirectory()
