@@ -66,15 +66,15 @@ workflows:
   build:
     jobs:
       - setup
-      - compile:
-          requires:
-            - setup
-      - test_lib:
-          requires:
-            - compile
       - test:
           requires:
             - setup
       - lint:
           requires:
             - setup
+      - compile:
+          requires:
+            - setup
+      - test_lib:
+          requires:
+            - compile
