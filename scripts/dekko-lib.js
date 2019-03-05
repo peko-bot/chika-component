@@ -23,4 +23,5 @@ try {
 } catch (error) {
   // eslint-disable-next-line
   console.log(chalk.red('✨ ' + error));
+  throw Error(error);
 }
