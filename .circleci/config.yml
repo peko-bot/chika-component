@@ -50,6 +50,7 @@ jobs:
       - run: ls -l lib
       - run: ls -l lib/component
       - run: ls -l lib/component/Drawer
+      - run: ls -l src
       - run: node ./scripts/dekko-lib.js
       - persist_to_workspace:
           root: ~/chika-component
