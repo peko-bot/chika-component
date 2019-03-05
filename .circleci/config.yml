@@ -48,7 +48,7 @@ jobs:
       - run: npm run compile
       - run: node ./scripts/dekko-lib.js
       - persist_to_workspace:
-          root: ~/chika-component
+          root: ./chika-component
           paths:
             - lib
   test_lib:
