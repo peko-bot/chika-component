@@ -18,5 +18,3 @@ $('lib/component')
   .hasDirectory('Swiper')
   .hasDirectory('Tabs')
   .hasDirectory('Upload');
-// eslint-disable-next-line
-console.log(chalk.red('✨ ' + error));
