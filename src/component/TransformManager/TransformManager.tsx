@@ -100,7 +100,7 @@ export default class TransformManager extends PureComponent<
           return compare === 0;
         },
       );
-      let prevGroup = [];
+      let prevGroup: any = {};
       if (prevGroupIndex !== -1) {
         prevGroup = groups[nextState.currentGroup][prevGroupIndex];
         prevGroup.order = nextState.currentOrder;
