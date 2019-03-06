@@ -9,7 +9,6 @@
  * y : y轴偏移
  */
 import React from 'react';
-import '../css/style';
 
 export interface PopupProps {
   config?: any;
