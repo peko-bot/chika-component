@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Container from './core';
 import { ajax } from '../../util/urlHelper';
 import { Toast } from 'antd-mobile';
+import { format as fnsFormat } from 'date-fns/esm';
+import { zhCN } from 'date-fns/locale';
 
 export interface DataControllerProps {
   children: any;
@@ -236,6 +238,7 @@ export default class DataController extends Component<
           onDelete={this.handleDelete}
           formatControls={this.formatControls}
           onMapPickerChange={this.handeMapPickerChange}
+          defaultDataFormatEnum={defaultDataFormatEnum}
         />
       </div>
     );
@@ -252,3 +255,22 @@ const controlTypeEnums = {
   14: 'mapPicker',
   99: 'label',
 };
+
+const defaultDataFormatEnum = [
+  {
+    key: 'data-date-format',
+    method: (value: number | string, format: string) =>
+      fnsFormat(new Date(value), format, {
+        locale: zhCN,
+      }),
+  },
+  {
+    key: 'data-decimal-count',
+    method: (value: number, decimalCount: number) =>
+      +parseFloat(value.toFixed(decimalCount)).toPrecision(12),
+  },
+  {
+    key: 'data-unit',
+    method: (value: number | string, unit: string) => `${value} ${unit}`,
+  },
+];
