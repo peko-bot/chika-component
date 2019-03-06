@@ -71,13 +71,10 @@ export default class TransformManager extends PureComponent<
     groupTypes = getGroupTypes(childProps);
     groups = generateGroups(groupTypes, childProps);
 
-    if (nextState.currentGroup === '' && nextProps.currentGroup) {
+    if (nextState.currentGroup === '') {
       nextState.currentGroup = nextProps.currentGroup;
     }
-    if (
-      nextProps.currentOrder &&
-      nextProps.currentGroup === nextState.currentGroup
-    ) {
+    if (nextProps.currentGroup === nextState.currentGroup) {
       nextState.display = groups[nextProps.currentGroup];
       nextState.currentOrder = nextProps.currentOrder;
       return nextState;
