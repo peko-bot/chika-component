@@ -49,7 +49,7 @@ export default class ContainerDemo extends React.Component {
                 <label
                   data-key="dam_width"
                   data-unit="m"
-                  data-decimalcount={2}
+                  data-decimal-count={2}
                 />
               </div>
             </li>

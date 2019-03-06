@@ -14,8 +14,6 @@ import TransformManager, {
 import DetailFactory from './DetailFactory';
 import MapBox from './MapBox';
 import './css/Container-core.css';
-import { format as fnsFormat } from 'date-fns/esm';
-import { zhCN } from 'date-fns/locale';
 
 function noop() {}
 
@@ -29,6 +27,10 @@ export interface ContainerCoreProps {
   onDelete?: (primaryValue: string | number) => void;
   formatControls: (item: any, config: any) => void;
   onMapPickerChange?: (item: any) => void;
+  defaultDataFormatEnum: Array<{
+    key: string;
+    method: (value: any, method: any) => void;
+  }>;
 }
 export interface ContainerCoreState {
   currentOrder: number | string;
@@ -191,19 +193,14 @@ export default class ContainerCore extends React.Component<
     param.length !== 0 && operation(param);
   };
 
-  handleChildDataFormat = (value: any, childProps: any) => {
-    const { dateFormat, decimalCount, unit } = childProps;
-
-    if (dateFormat) {
-      return fnsFormat(new Date(value), dateFormat, {
-        locale: zhCN,
-      });
-    }
-    if (decimalCount) {
-      value = +parseFloat(value.toFixed(decimalCount)).toPrecision(12);
-    }
-    if (unit) {
-      value = `${value} ${unit}`;
+  handleChildDataFormat = (value: string | number, childProps: any) => {
+    for (let item of this.props.defaultDataFormatEnum) {
+      const { key: itemKey, method } = item;
+      for (let key in childProps) {
+        if (key === itemKey) {
+          return method(value, childProps[key]);
+        }
+      }
     }
     return value;
   };
