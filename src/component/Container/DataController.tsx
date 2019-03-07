@@ -96,7 +96,7 @@ export default class DataController extends Component<
       success: ({ data }) => {
         const primaryKey = this.getPrimaryKey(data.tablefieldconfig);
         this.setState({
-          config: data.tablefieldconfig,
+          config: this.formatConfig(data.tablefieldconfig),
           power: this.handlePowerStr(data.power),
           primaryKey,
         });
@@ -105,13 +105,42 @@ export default class DataController extends Component<
     });
   };
 
+  formatConfig = (config: Array<any>) => {
+    let result: any = [];
+    for (let item of config) {
+      const {
+        fname,
+        controltype,
+        fvalue,
+        isvisiable,
+        isadd,
+        defaultvalue,
+        editpageorderid,
+        isnull,
+        issearchfield,
+      } = item;
+      result.push({
+        type: (controlTypeEnums as any)[controltype],
+        key: fname,
+        name: fvalue,
+        showInEdit: isadd,
+        showInDetail: isvisiable,
+        defaultValue: defaultvalue,
+        orderInEdit: editpageorderid,
+        orderInDetail: editpageorderid,
+        isNull: isnull,
+        isSearchItem: issearchfield,
+      });
+    }
+    return result;
+  };
+
   getPrimaryKey = (data: any) => {
     const keyItem = data.filter((item: any) => item.iskey);
     if (!keyItem.length) {
       console.error('where is the primary key? please check.');
       return;
     }
-
     return keyItem[0]['fname'];
   };
 
@@ -161,41 +190,25 @@ export default class DataController extends Component<
     });
   };
 
-  formatControls = (dataItem: any, configs: Array<any>) => {
+  formatControls = (dataItem: any, config: Array<any>) => {
     let result = [];
     const keys = Object.keys(dataItem);
     for (let item of keys) {
-      const targetItem = configs.filter(target => target.fname === item);
+      const targetItem = config.filter(target => target.key === item);
       if (targetItem.length) {
-        const {
-          fname,
-          controltype,
-          dateformat,
-          unit,
-          fvalue,
-          isvisiable,
-          decimalcount,
-        } = targetItem[0];
-        if (!isvisiable) continue;
-
-        let type = (controlTypeEnums as any)[controltype];
-        let value = dataItem[fname];
+        const { key, showInDetail, type } = targetItem[0];
+        if (!showInDetail) continue;
+        const value = dataItem[key];
         const item = {
-          type,
-          key: fname,
-          name: fvalue,
-          value,
-          dateFormat: dateformat,
-          decimalCount: decimalcount,
-          unit,
+          ...targetItem[0],
+          value: dataItem[key],
           templateOrder: dataItem.templateOrder,
-          // when mapPicker change, dataSource will change target
-          // item by this.
+          // when mapPicker change, dataSource will change target item by this.
           primaryValue: dataItem[this.state.primaryKey],
         };
 
         // handle with mapPicker
-        if (controltype === 14) {
+        if (type === 'mapPicker') {
           const latng = value.split('|');
           result.push({
             ...item,

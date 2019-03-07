@@ -4,8 +4,8 @@ import { createForm } from 'rc-form';
 
 export interface UpdatePageProps {
   backToList?: () => void;
-  config?: Array<any>;
-  dataItem?: any;
+  config: Array<any>;
+  dataItem: any;
   type?: string;
 }
 export interface UpdatePageState {}
@@ -20,10 +20,16 @@ class UpdatePage extends Component<UpdatePageProps, UpdatePageState> {
     type: 'add',
   };
 
+  // dataItem: any, config: Array<any>
+  handleType = () => {
+    return null;
+  };
+
   render = () => {
     const { backToList } = this.props;
     return (
       <List>
+        <List.Item>{this.handleType()}</List.Item>
         <List.Item>
           <Button
             type="primary"
