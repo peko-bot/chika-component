@@ -118,6 +118,8 @@ export default class DataController extends Component<
         editpageorderid,
         isnull,
         issearchfield,
+        maxlen,
+        minlen,
       } = item;
       result.push({
         type: (controlTypeEnums as any)[controltype],
@@ -130,6 +132,8 @@ export default class DataController extends Component<
         orderInDetail: editpageorderid,
         isNull: isnull,
         isSearchItem: issearchfield,
+        maxLength: maxlen,
+        minLength: minlen,
       });
     }
     return result;

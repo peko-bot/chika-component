@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import { List, Button } from 'antd-mobile';
+import { List, Button, InputItem } from 'antd-mobile';
 import { createForm } from 'rc-form';
 
 export interface UpdatePageProps {
-  backToList?: () => void;
+  onBack?: () => void;
   config: Array<any>;
   dataItem: any;
-  type?: string;
+  status: string;
+  form: any;
 }
 export interface UpdatePageState {}
 
@@ -14,22 +15,65 @@ function noop() {}
 
 class UpdatePage extends Component<UpdatePageProps, UpdatePageState> {
   static defaultProps = {
-    backToList: noop,
+    onBack: noop,
     config: [],
     dataItem: {},
-    type: 'add',
+    status: 'add',
   };
 
-  // dataItem: any, config: Array<any>
-  handleType = () => {
-    return null;
+  renderEditItem = (dataItem: any, config: Array<any>) => {
+    const { form, status } = this.props;
+    const { getFieldProps, getFieldError } = form;
+    let element = [];
+    for (let i = 0; i < config.length - 1; i++) {
+      const { key, type, name, maxLength, minLength, isNull } = config[i];
+      const value = dataItem[key];
+      switch (type) {
+        case 'input':
+          element.push(
+            <List.Item
+              key={`update-page-input-item-${i}`}
+              extra={
+                <InputItem
+                  {...getFieldProps(name, {
+                    initialValue: status === 'add' ? '' : value,
+                    rules: [
+                      { required: isNull, message: '该值不能为空' },
+                      {
+                        max: maxLength,
+                        message: `长度太长，最多为${maxLength}个字符`,
+                      },
+                      {
+                        min: minLength,
+                        message: `长度太短，最少为${minLength}个字符`,
+                      },
+                    ],
+                  })}
+                  clear
+                  placeholder="请输入"
+                  error={getFieldError(name)}
+                  onErrorClick={() => console.log(name)}
+                  style={{ textAlign: 'right' }}
+                />
+              }
+            >
+              {name}
+            </List.Item>,
+          );
+          break;
+
+        default:
+          break;
+      }
+    }
+    return element;
   };
 
   render = () => {
-    const { backToList } = this.props;
+    const { onBack, dataItem, config } = this.props;
     return (
       <List>
-        <List.Item>{this.handleType()}</List.Item>
+        {this.renderEditItem(dataItem, config) as any}
         <List.Item>
           <Button
             type="primary"
@@ -39,7 +83,7 @@ class UpdatePage extends Component<UpdatePageProps, UpdatePageState> {
           >
             保存
           </Button>
-          <Button inline onClick={backToList} style={{ width: '50%' }}>
+          <Button inline onClick={onBack} style={{ width: '50%' }}>
             返回
           </Button>
         </List.Item>

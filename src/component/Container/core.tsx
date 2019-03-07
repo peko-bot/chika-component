@@ -39,6 +39,7 @@ export interface ContainerCoreState {
   address: string;
   primaryValue: string | number;
   currentState: number;
+  updatePageStatus: 'add' | 'edit' | string;
 }
 
 export default class ContainerCore extends Component<
@@ -55,6 +56,7 @@ export default class ContainerCore extends Component<
     address: '',
     primaryValue: '',
     currentState: 0,
+    updatePageStatus: 'add',
   };
 
   history: { group: string; order: string | number } = {
@@ -174,6 +176,7 @@ export default class ContainerCore extends Component<
             currentGroup: 'update-page',
             currentOrder: 0,
             primaryValue,
+            updatePageStatus: 'add',
           }),
       });
     }
@@ -186,6 +189,7 @@ export default class ContainerCore extends Component<
             currentGroup: 'update-page',
             currentOrder: 0,
             primaryValue,
+            updatePageStatus: 'edit',
           });
         },
       });
@@ -264,16 +268,17 @@ export default class ContainerCore extends Component<
 
   renderUpdatePage = () => {
     const { config, dataSource, primaryKey } = this.props;
-    const { primaryValue } = this.state;
+    const { primaryValue, updatePageStatus } = this.state;
     const dataItemIndex = dataSource.findIndex(
       item => item[primaryKey] === primaryValue,
     );
     const dataItem = dataSource[dataItemIndex];
     return (
       <UpdatePage
-        backToList={this.backToList}
+        onBack={this.backToList}
         config={config}
         dataItem={dataItem}
+        status={updatePageStatus}
       />
     );
   };
