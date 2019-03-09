@@ -264,10 +264,10 @@ export default class DataController extends Component<
 
 const controlTypeEnums = {
   1: 'input',
-  2: 'timePicker',
+  2: 'datePicker',
   3: 'select',
   5: 'checkbox',
-  9: 'datePicker',
+  9: 'calendar',
   12: 'upload',
   14: 'mapPicker',
   99: 'label',

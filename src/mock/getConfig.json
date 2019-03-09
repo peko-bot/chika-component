@@ -173,7 +173,7 @@
       {
         "id": 113442,
         "fname": "attachment",
-        "fvalue": "附件上传",
+        "fvalue": "日期",
         "physicalcolname": "attachment",
         "iskey": false,
         "isnull": false,
@@ -188,7 +188,7 @@
         "isvisiable": true,
         "defaultvalue": "",
         "unit": "",
-        "controltype": 12,
+        "controltype": 2,
         "editpageorderid": 16,
         "controlheight": "",
         "controlwidth": "",
