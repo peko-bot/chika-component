@@ -125,6 +125,28 @@ class UpdatePage extends Component<UpdatePageProps, UpdatePageState> {
           );
           break;
 
+        // foreigndata
+        case 'checkbox':
+          element.push(
+            <Accordion key={`${preClass}-checkbox-${i}`}>
+              <Accordion.Panel header={name}>
+                <List>
+                  {[].map((item: { value: string | number; label: string }) => (
+                    <CheckboxItem
+                      // onChange={value =>
+                      //   this.handleCheckbox(item.value, 'searchParam', fname)
+                      // }
+                      key={item.value}
+                    >
+                      {item.label}
+                    </CheckboxItem>
+                  ))}
+                </List>
+              </Accordion.Panel>
+            </Accordion>,
+          );
+          break;
+
         default:
           break;
       }
