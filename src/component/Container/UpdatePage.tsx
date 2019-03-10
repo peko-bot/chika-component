@@ -147,6 +147,22 @@ class UpdatePage extends Component<UpdatePageProps, UpdatePageState> {
           );
           break;
 
+        case 'calendar':
+          element.push(
+            <div key={`${preClass}-calendar-${i}`}>
+              <List.Item
+                extra="请选择"
+                arrow="horizontal"
+                onClick={() => this.setState({ calendarVisible: true })}
+              >
+                {name}
+              </List.Item>
+              <List.Item extra="起始时间">{name}起始时间</List.Item>
+              <List.Item extra="结束时间">{name}结束时间</List.Item>
+            </div>,
+          );
+          break;
+
         default:
           break;
       }
