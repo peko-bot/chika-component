@@ -49,7 +49,7 @@ export default class ContainerCore extends Component<
   content: any;
   state: ContainerCoreState = {
     currentOrder: 0,
-    currentGroup: 'list-page',
+    currentGroup: 'update-page',
     // for mapPicker
     lng: -1,
     lat: -1,

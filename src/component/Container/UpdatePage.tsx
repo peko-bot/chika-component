@@ -10,6 +10,7 @@ import {
 } from 'antd-mobile';
 const { CheckboxItem } = Checkbox;
 import { createForm } from 'rc-form';
+import Upload from './UploadWrapper';
 
 export interface UpdatePageProps {
   onBack?: () => void;
@@ -160,6 +161,16 @@ class UpdatePage extends Component<UpdatePageProps, UpdatePageState> {
               <List.Item extra="起始时间">{name}起始时间</List.Item>
               <List.Item extra="结束时间">{name}结束时间</List.Item>
             </div>,
+          );
+          break;
+
+        case 'upload':
+          element.push(
+            <Accordion key={`${preClass}-upload-${i}`}>
+              <Accordion.Panel header={name}>
+                <Upload />
+              </Accordion.Panel>
+            </Accordion>,
           );
           break;
 
