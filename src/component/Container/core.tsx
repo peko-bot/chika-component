@@ -11,11 +11,12 @@ import TransformManager, {
 } from '../TransformManager';
 import DetailFactory from './DetailFactory';
 import MapBox from './MapBox';
-import UpdatePage from './UpdatePage';
+import UpdatePage, { UpdatePageStatus } from './UpdatePage';
 import './css/Container-core.css';
 
 function noop() {}
 
+type GroupType = 'list-page' | 'update-page' | 'detail-page' | 'map-box';
 export interface ContainerCoreProps {
   power: any;
   config: Array<any>;
@@ -33,13 +34,13 @@ export interface ContainerCoreProps {
 }
 export interface ContainerCoreState {
   currentOrder: number | string;
-  currentGroup: 'list-page' | 'update-page' | 'detail-page' | 'map-box';
+  currentGroup: GroupType;
   lng: number | string;
   lat: number | string;
   address: string;
   primaryValue: string | number;
   currentState: number;
-  updatePageStatus: 'add' | 'update';
+  updatePageStatus: UpdatePageStatus;
 }
 
 export default class ContainerCore extends Component<
@@ -60,7 +61,7 @@ export default class ContainerCore extends Component<
   };
 
   history: {
-    group: 'list-page' | 'update-page' | 'detail-page' | 'map-box';
+    group: GroupType;
     order: string | number;
   } = {
     group: 'list-page',

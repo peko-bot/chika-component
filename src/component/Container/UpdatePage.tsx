@@ -11,11 +11,12 @@ import {
 const { CheckboxItem } = Checkbox;
 import Upload from './UploadWrapper';
 
+export type UpdatePageStatus = 'add' | 'update';
 export interface UpdatePageProps {
   onBack?: () => void;
   config: Array<any>;
   dataItem: any;
-  status: 'add' | 'update';
+  status: UpdatePageStatus;
 }
 export interface UpdatePageState {}
 
