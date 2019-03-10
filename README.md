@@ -1,6 +1,7 @@
 # chika-component
 
 ![](https://img.shields.io/circleci/project/github/zy410419243/chika-component.svg?style=flat)
+[![codecov](https://codecov.io/gh/zy410419243/chika-component/branch/master/graph/badge.svg)](https://codecov.io/gh/zy410419243/chika-component)
 [![Greenkeeper badge](https://badges.greenkeeper.io/zy410419243/chika-component.svg)](https://greenkeeper.io/)
 
 暴露作者资浅水准的一系列山寨组件，你会发现里面有各种组件库的影子，就好像作者的人生一样
