@@ -9,7 +9,6 @@ import {
   Checkbox,
 } from 'antd-mobile';
 const { CheckboxItem } = Checkbox;
-import { createForm } from 'rc-form';
 import Upload from './UploadWrapper';
 
 export interface UpdatePageProps {
@@ -17,13 +16,15 @@ export interface UpdatePageProps {
   config: Array<any>;
   dataItem: any;
   status: 'add' | 'update';
-  form: any;
 }
 export interface UpdatePageState {}
 
 function noop() {}
 
-class UpdatePage extends Component<UpdatePageProps, UpdatePageState> {
+export default class UpdatePage extends Component<
+  UpdatePageProps,
+  UpdatePageState
+> {
   static defaultProps = {
     onBack: noop,
     config: [],
@@ -32,16 +33,17 @@ class UpdatePage extends Component<UpdatePageProps, UpdatePageState> {
   };
 
   renderEditItem = (dataItem: any, config: Array<any>) => {
-    const { form, status } = this.props;
-    const { getFieldProps, getFieldError } = form;
+    const { status } = this.props;
     const preClass = `update-page-${status}`;
-    const commonFormChecker = {
-      error: getFieldError(name),
-      onErrorClick: () => console.log(name),
-    };
     let element = [];
     for (let i = 0; i < config.length; i++) {
-      const { key, type, name, maxLength, minLength, isNull } = config[i];
+      // status === 'add' ? '' : value,
+      const {
+        type,
+        name,
+        key,
+        //  maxLength, minLength, isNull
+      } = config[i];
       const value = dataItem[key];
       switch (type) {
         case 'input':
@@ -50,24 +52,11 @@ class UpdatePage extends Component<UpdatePageProps, UpdatePageState> {
               key={`${preClass}-input-item-${i}`}
               extra={
                 <InputItem
-                  {...getFieldProps(key, {
-                    initialValue: status === 'add' ? '' : value,
-                    rules: [
-                      { required: isNull, message: '该值不能为空' },
-                      {
-                        max: maxLength,
-                        message: `长度太长，最多为${maxLength}个字符`,
-                      },
-                      {
-                        min: minLength,
-                        message: `长度太短，最少为${minLength}个字符`,
-                      },
-                    ],
-                  })}
                   clear
                   placeholder="请输入"
                   style={{ textAlign: 'right' }}
-                  {...commonFormChecker}
+                  onErrorClick={() => console.log(name)}
+                  value={value}
                 />
               }
             >
@@ -78,24 +67,7 @@ class UpdatePage extends Component<UpdatePageProps, UpdatePageState> {
 
         case 'datePicker':
           element.push(
-            <DatePicker
-              key={`${preClass}-data-picker-${i}`}
-              {...getFieldProps(key, {
-                initialValue: status === 'add' ? '' : value,
-                rules: [
-                  { required: isNull, message: '该值不能为空' },
-                  {
-                    max: maxLength,
-                    message: `长度太长，最多为${maxLength}个字符`,
-                  },
-                  {
-                    min: minLength,
-                    message: `长度太短，最少为${minLength}个字符`,
-                  },
-                ],
-              })}
-              {...commonFormChecker}
-            >
+            <DatePicker key={`${preClass}-data-picker-${i}`}>
               <List.Item arrow="horizontal">{name}</List.Item>
             </DatePicker>,
           );
@@ -103,24 +75,7 @@ class UpdatePage extends Component<UpdatePageProps, UpdatePageState> {
 
         case 'select':
           element.push(
-            <Picker
-              key={`${preClass}-select-${i}`}
-              {...getFieldProps(key, {
-                initialValue: status === 'add' ? '' : value,
-                rules: [
-                  { required: isNull, message: '该值不能为空' },
-                  {
-                    max: maxLength,
-                    message: `长度太长，最多为${maxLength}个字符`,
-                  },
-                  {
-                    min: minLength,
-                    message: `长度太短，最少为${minLength}个字符`,
-                  },
-                ],
-              })}
-              {...commonFormChecker}
-            >
+            <Picker key={`${preClass}-select-${i}`} data={[]}>
               <List.Item arrow="horizontal">{name}</List.Item>
             </Picker>,
           );
@@ -245,5 +200,3 @@ class UpdatePage extends Component<UpdatePageProps, UpdatePageState> {
     );
   };
 }
-
-export default createForm()(UpdatePage);
