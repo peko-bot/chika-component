@@ -1,5 +1,14 @@
 import React, { Component } from 'react';
-import { List, Button, InputItem, DatePicker } from 'antd-mobile';
+import {
+  List,
+  Button,
+  InputItem,
+  DatePicker,
+  Picker,
+  Accordion,
+  Checkbox,
+} from 'antd-mobile';
+const { CheckboxItem } = Checkbox;
 import { createForm } from 'rc-form';
 
 export interface UpdatePageProps {
@@ -24,7 +33,7 @@ class UpdatePage extends Component<UpdatePageProps, UpdatePageState> {
   renderEditItem = (dataItem: any, config: Array<any>) => {
     const { form, status } = this.props;
     const { getFieldProps, getFieldError } = form;
-    const prefix = `update-page-${status}`;
+    const preClass = `update-page-${status}`;
     const commonFormChecker = {
       error: getFieldError(name),
       onErrorClick: () => console.log(name),
@@ -37,7 +46,7 @@ class UpdatePage extends Component<UpdatePageProps, UpdatePageState> {
         case 'input':
           element.push(
             <List.Item
-              key={`${prefix}-input-item-${i}`}
+              key={`${preClass}-input-item-${i}`}
               extra={
                 <InputItem
                   {...getFieldProps(key, {
@@ -69,7 +78,7 @@ class UpdatePage extends Component<UpdatePageProps, UpdatePageState> {
         case 'datePicker':
           element.push(
             <DatePicker
-              key={`${prefix}-data-picker-${i}`}
+              key={`${preClass}-data-picker-${i}`}
               {...getFieldProps(key, {
                 initialValue: status === 'add' ? '' : value,
                 rules: [
@@ -88,6 +97,31 @@ class UpdatePage extends Component<UpdatePageProps, UpdatePageState> {
             >
               <List.Item arrow="horizontal">{name}</List.Item>
             </DatePicker>,
+          );
+          break;
+
+        case 'select':
+          element.push(
+            <Picker
+              key={`${preClass}-select-${i}`}
+              {...getFieldProps(key, {
+                initialValue: status === 'add' ? '' : value,
+                rules: [
+                  { required: isNull, message: '该值不能为空' },
+                  {
+                    max: maxLength,
+                    message: `长度太长，最多为${maxLength}个字符`,
+                  },
+                  {
+                    min: minLength,
+                    message: `长度太短，最少为${minLength}个字符`,
+                  },
+                ],
+              })}
+              {...commonFormChecker}
+            >
+              <List.Item arrow="horizontal">{name}</List.Item>
+            </Picker>,
           );
           break;
 
