@@ -33,7 +33,7 @@ export interface ContainerCoreProps {
 }
 export interface ContainerCoreState {
   currentOrder: number | string;
-  currentGroup: string;
+  currentGroup: 'list-page' | 'update-page' | 'detail-page' | 'map-box';
   lng: number | string;
   lat: number | string;
   address: string;
@@ -49,7 +49,7 @@ export default class ContainerCore extends Component<
   content: any;
   state: ContainerCoreState = {
     currentOrder: 0,
-    currentGroup: 'update-page',
+    currentGroup: 'list-page',
     // for mapPicker
     lng: -1,
     lat: -1,
@@ -59,8 +59,11 @@ export default class ContainerCore extends Component<
     updatePageStatus: 'add',
   };
 
-  history: { group: string; order: string | number } = {
-    group: '',
+  history: {
+    group: 'list-page' | 'update-page' | 'detail-page' | 'map-box';
+    order: string | number;
+  } = {
+    group: 'list-page',
     order: '',
   };
 

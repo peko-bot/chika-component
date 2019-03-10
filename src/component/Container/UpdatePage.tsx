@@ -16,7 +16,7 @@ export interface UpdatePageProps {
   onBack?: () => void;
   config: Array<any>;
   dataItem: any;
-  status: string;
+  status: 'add' | 'update';
   form: any;
 }
 export interface UpdatePageState {}
@@ -150,7 +150,7 @@ class UpdatePage extends Component<UpdatePageProps, UpdatePageState> {
 
         case 'calendar':
           element.push(
-            <div key={`${preClass}-calendar-${i}`}>
+            <React.Fragment key={`${preClass}-calendar-${i}`}>
               <List.Item
                 extra="请选择"
                 arrow="horizontal"
@@ -160,7 +160,7 @@ class UpdatePage extends Component<UpdatePageProps, UpdatePageState> {
               </List.Item>
               <List.Item extra="起始时间">{name}起始时间</List.Item>
               <List.Item extra="结束时间">{name}结束时间</List.Item>
-            </div>,
+            </React.Fragment>,
           );
           break;
 
@@ -172,6 +172,48 @@ class UpdatePage extends Component<UpdatePageProps, UpdatePageState> {
               </Accordion.Panel>
             </Accordion>,
           );
+          break;
+
+        case 'mapPicker':
+          if (status === 'add') {
+            element.push(
+              <List.Item
+                extra="请选择"
+                key={`${preClass}-map-picker-add-${i}`}
+                arrow="horizontal"
+                onClick={() => this.setState({ calendarVisible: true })}
+              >
+                {name}
+              </List.Item>,
+            );
+          } else if (status === 'update') {
+            element.push(
+              <List.Item
+                key={`${preClass}-map-picker-address-${i}`}
+                arrow="horizontal"
+                onClick={() => console.log('test')}
+                extra="测试地址"
+              >
+                地址
+              </List.Item>,
+            );
+            element.push(
+              <List.Item
+                key={`${preClass}-map-picker-lng-${i}`}
+                extra={parseFloat('11').toFixed(6)}
+              >
+                经度
+              </List.Item>,
+            );
+            element.push(
+              <List.Item
+                key={`${preClass}-map-picker-lat-${i}`}
+                extra={parseFloat('22').toFixed(6)}
+              >
+                纬度
+              </List.Item>,
+            );
+          }
           break;
 
         default:
