@@ -39,7 +39,7 @@ export interface ContainerCoreState {
   address: string;
   primaryValue: string | number;
   currentState: number;
-  updatePageStatus: 'add' | 'edit' | string;
+  updatePageStatus: 'add' | 'update';
 }
 
 export default class ContainerCore extends Component<
@@ -192,7 +192,7 @@ export default class ContainerCore extends Component<
             currentGroup: 'update-page',
             currentOrder: 0,
             primaryValue,
-            updatePageStatus: 'edit',
+            updatePageStatus: 'update',
           });
         },
       });
