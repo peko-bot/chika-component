@@ -1,8 +1,6 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
   Modal,
-  List,
-  Button,
   ActivityIndicator,
   // PullToRefresh,
 } from 'antd-mobile';
@@ -13,6 +11,7 @@ import TransformManager, {
 } from '../TransformManager';
 import DetailFactory from './DetailFactory';
 import MapBox from './MapBox';
+import UpdatePage from './UpdatePage';
 import './css/Container-core.css';
 
 function noop() {}
@@ -23,7 +22,7 @@ export interface ContainerCoreProps {
   dataSource: Array<any>;
   total?: number;
   loading?: boolean;
-  primaryKey?: string;
+  primaryKey: string;
   onDelete?: (primaryValue: string | number) => void;
   formatControls: (item: any, config: any) => void;
   onMapPickerChange?: (item: any) => void;
@@ -40,9 +39,10 @@ export interface ContainerCoreState {
   address: string;
   primaryValue: string | number;
   currentState: number;
+  updatePageStatus: 'add' | 'edit' | string;
 }
 
-export default class ContainerCore extends React.Component<
+export default class ContainerCore extends Component<
   ContainerCoreProps,
   ContainerCoreState
 > {
@@ -56,6 +56,7 @@ export default class ContainerCore extends React.Component<
     address: '',
     primaryValue: '',
     currentState: 0,
+    updatePageStatus: 'add',
   };
 
   history: { group: string; order: string | number } = {
@@ -171,7 +172,12 @@ export default class ContainerCore extends React.Component<
       param.push({
         text: '新增',
         onPress: () =>
-          this.setState({ currentGroup: 'update-page', currentOrder: 0 }),
+          this.setState({
+            currentGroup: 'update-page',
+            currentOrder: 0,
+            primaryValue,
+            updatePageStatus: 'add',
+          }),
       });
     }
 
@@ -179,7 +185,12 @@ export default class ContainerCore extends React.Component<
       param.push({
         text: '修改',
         onPress: () => {
-          this.setState({ currentGroup: 'update-page', currentOrder: 0 });
+          this.setState({
+            currentGroup: 'update-page',
+            currentOrder: 0,
+            primaryValue,
+            updatePageStatus: 'edit',
+          });
         },
       });
     }
@@ -255,6 +266,23 @@ export default class ContainerCore extends React.Component<
     });
   };
 
+  renderUpdatePage = () => {
+    const { config, dataSource, primaryKey } = this.props;
+    const { primaryValue, updatePageStatus } = this.state;
+    const dataItemIndex = dataSource.findIndex(
+      item => item[primaryKey] === primaryValue,
+    );
+    const dataItem = dataSource[dataItemIndex];
+    return (
+      <UpdatePage
+        onBack={this.backToList}
+        config={config}
+        dataItem={dataItem}
+        status={updatePageStatus}
+      />
+    );
+  };
+
   render = () => {
     const { state, props } = this;
     const {
@@ -278,28 +306,6 @@ export default class ContainerCore extends React.Component<
     //     )}
     //   </List>
     // );
-
-    /* 新增/修改都是这个 */
-    let editContent = (
-      <List>
-        {/* {[].map((item, i) =>
-          this.handleControlType(item, 'edit', undefined, i),
-        )} */}
-        <List.Item>
-          <Button
-            type="primary"
-            // onClick={this.save}
-            inline
-            style={{ marginRight: 4, width: 'calc(50% - 4px)' }}
-          >
-            保存
-          </Button>
-          <Button inline onClick={this.backToList} style={{ width: '50%' }}>
-            返回
-          </Button>
-        </List.Item>
-      </List>
-    );
 
     /* 触发搜索的方块 */
     // let extendDrawer = (
@@ -396,7 +402,7 @@ export default class ContainerCore extends React.Component<
           </Item>
           {this.renderDetailPage(props.dataSource)}
           <Item group="update-page" order={0} key="update-page-0">
-            {editContent}
+            {this.renderUpdatePage()}
           </Item>
           <Item group="map-box" order={0} key="map-box-0">
             <MapBox
