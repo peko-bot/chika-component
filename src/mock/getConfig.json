@@ -12,8 +12,8 @@
         "issearchfield": true,
         "searchtype": -1,
         "searchorder": null,
-        "minlen": null,
-        "maxlen": null,
+        "minlen": 0,
+        "maxlen": 5,
         "decimalcount": null,
         "regular": "",
         "orderid": 26,
@@ -41,7 +41,7 @@
         "searchtype": 8,
         "searchorder": null,
         "minlen": null,
-        "maxlen": 12,
+        "maxlen": 8,
         "decimalcount": null,
         "regular": "",
         "orderid": 1,
@@ -172,7 +172,7 @@
       },
       {
         "id": 113442,
-        "fname": "attachment",
+        "fname": "datePicker",
         "fvalue": "时间选择",
         "physicalcolname": "attachment",
         "iskey": false,
@@ -199,7 +199,7 @@
       },
       {
         "id": 113442,
-        "fname": "attachment",
+        "fname": "select",
         "fvalue": "选择框",
         "physicalcolname": "attachment",
         "iskey": false,
@@ -226,7 +226,7 @@
       },
       {
         "id": 113442,
-        "fname": "attachment",
+        "fname": "checkbox",
         "fvalue": "多选框",
         "physicalcolname": "attachment",
         "iskey": false,
@@ -253,7 +253,7 @@
       },
       {
         "id": 113442,
-        "fname": "attachment",
+        "fname": "calendar",
         "fvalue": "时段选择",
         "physicalcolname": "attachment",
         "iskey": false,
@@ -280,7 +280,7 @@
       },
       {
         "id": 113442,
-        "fname": "attachment",
+        "fname": "upload",
         "fvalue": "附件上传",
         "physicalcolname": "attachment",
         "iskey": false,
@@ -307,7 +307,7 @@
       },
       {
         "id": 113442,
-        "fname": "attachment",
+        "fname": "mapPicker",
         "fvalue": "坐标选取",
         "physicalcolname": "attachment",
         "iskey": false,
