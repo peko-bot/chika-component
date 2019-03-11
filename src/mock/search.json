@@ -1,6 +1,5 @@
 {
   "data": {
-    "colname": "\"RowNum\",\"dam_cd\",\"dam_width\",\"crest_length\",\"retain_dam_type\",\"pjnm\",\"describe\"",
     "list": [
       {
         "rownum": 1,
@@ -9,7 +8,13 @@
         "crest_length": 63,
         "retain_dam_type": "堆石坝    ",
         "pjnm": "德江坞",
-        "latng": "116.30038976669313|39.89520118467971|杭州1"
+        "latng": "116.30038976669313|39.89520118467971|杭州1",
+        "datePicker": "2019-03-11",
+        "select": "select",
+        "checkbox": "checkbox",
+        "calendar": "calendar",
+        "upload": "upload",
+        "mapPicker": "mapPicker"
       },
       {
         "rownum": 2,
@@ -18,7 +23,13 @@
         "crest_length": 13.8,
         "retain_dam_type": "堆石坝    ",
         "pjnm": "六谷地村混凝土堰坝1",
-        "latng": "116.30038976669313|39.89520118467971|杭州"
+        "latng": "116.30038976669313|39.89520118467971|杭州",
+        "datePicker": "2019-03-11",
+        "select": "select",
+        "checkbox": "checkbox",
+        "calendar": "calendar",
+        "upload": "upload",
+        "mapPicker": "mapPicker"
       },
       {
         "rownum": 3,
@@ -27,7 +38,13 @@
         "crest_length": 42.4,
         "retain_dam_type": "混凝土坝  ",
         "pjnm": "赤龙坝",
-        "latng": "116.30038976669313|39.89520118467971|杭州"
+        "latng": "116.30038976669313|39.89520118467971|杭州",
+        "datePicker": "2019-03-11",
+        "select": "select",
+        "checkbox": "checkbox",
+        "calendar": "calendar",
+        "upload": "upload",
+        "mapPicker": "mapPicker"
       },
       {
         "rownum": 4,
@@ -36,7 +53,13 @@
         "crest_length": 45,
         "retain_dam_type": "混凝土坝  ",
         "pjnm": "湖家埭坝2",
-        "latng": "116.30038976669313|39.89520118467971|杭州"
+        "latng": "116.30038976669313|39.89520118467971|杭州",
+        "datePicker": "2019-03-11",
+        "select": "select",
+        "checkbox": "checkbox",
+        "calendar": "calendar",
+        "upload": "upload",
+        "mapPicker": "mapPicker"
       },
       {
         "rownum": 5,
@@ -45,7 +68,13 @@
         "crest_length": 34,
         "retain_dam_type": "混凝土坝  ",
         "pjnm": "家猫坞山塘",
-        "latng": "116.30038976669313|39.89520118467971|杭州"
+        "latng": "116.30038976669313|39.89520118467971|杭州",
+        "datePicker": "2019-03-11",
+        "select": "select",
+        "checkbox": "checkbox",
+        "calendar": "calendar",
+        "upload": "upload",
+        "mapPicker": "mapPicker"
       },
       {
         "rownum": 6,
@@ -54,7 +83,13 @@
         "crest_length": 66,
         "retain_dam_type": "混凝土坝  ",
         "pjnm": "南塘坞山塘",
-        "latng": "116.30038976669313|39.89520118467971|杭州"
+        "latng": "116.30038976669313|39.89520118467971|杭州",
+        "datePicker": "2019-03-11",
+        "select": "select",
+        "checkbox": "checkbox",
+        "calendar": "calendar",
+        "upload": "upload",
+        "mapPicker": "mapPicker"
       },
       {
         "rownum": 7,
@@ -63,7 +98,13 @@
         "crest_length": 38,
         "retain_dam_type": "混凝土坝  ",
         "pjnm": "西步坞山塘",
-        "latng": "116.30038976669313|39.89520118467971|杭州"
+        "latng": "116.30038976669313|39.89520118467971|杭州",
+        "datePicker": "2019-03-11",
+        "select": "select",
+        "checkbox": "checkbox",
+        "calendar": "calendar",
+        "upload": "upload",
+        "mapPicker": "mapPicker"
       },
       {
         "rownum": 8,
@@ -72,7 +113,13 @@
         "crest_length": 22,
         "retain_dam_type": "混凝土坝  ",
         "pjnm": "东沈村混凝土堰坝1",
-        "latng": "116.30038976669313|39.89520118467971|杭州"
+        "latng": "116.30038976669313|39.89520118467971|杭州",
+        "datePicker": "2019-03-11",
+        "select": "select",
+        "checkbox": "checkbox",
+        "calendar": "calendar",
+        "upload": "upload",
+        "mapPicker": "mapPicker"
       },
       {
         "rownum": 9,
@@ -81,7 +128,13 @@
         "crest_length": 17.3,
         "retain_dam_type": "混凝土坝  ",
         "pjnm": "东沈村混凝土堰坝2",
-        "latng": "116.30038976669313|39.89520118467971|杭州"
+        "latng": "116.30038976669313|39.89520118467971|杭州",
+        "datePicker": "2019-03-11",
+        "select": "select",
+        "checkbox": "checkbox",
+        "calendar": "calendar",
+        "upload": "upload",
+        "mapPicker": "mapPicker"
       },
       {
         "rownum": 10,
@@ -90,7 +143,13 @@
         "crest_length": 15,
         "retain_dam_type": "混凝土坝  ",
         "pjnm": "东沈村混凝土堰坝3",
-        "latng": "116.30038976669313|39.89520118467971|杭州"
+        "latng": "116.30038976669313|39.89520118467971|杭州",
+        "datePicker": "2019-03-11",
+        "select": "select",
+        "checkbox": "checkbox",
+        "calendar": "calendar",
+        "upload": "upload",
+        "mapPicker": "mapPicker"
       }
     ],
     "recordcount": 21

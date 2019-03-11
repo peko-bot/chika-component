@@ -16,6 +16,9 @@ export default class UploadWrapper extends Component<
   UploadWrapperState
 > {
   uploadIds: Array<any> = [];
+  state: UploadWrapperState = {
+    fileList: [],
+  };
 
   static defaultProps = {
     onChange: noop,
