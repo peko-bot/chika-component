@@ -73,11 +73,7 @@ export default class UpdatePage extends Component<
     return result;
   };
 
-  validValue = (
-    value: string | number,
-    fieldName: string,
-    rule: ValidTypes,
-  ) => {
+  validValue = (value: any, fieldName: string, rule: ValidTypes) => {
     // isNull = false => it shouldn't be null
     const { maxLength, minLength, isNull } = rule;
     if (!isNull && !value) {
@@ -97,10 +93,16 @@ export default class UpdatePage extends Component<
         },
       };
     }
+    return {
+      [fieldName]: {
+        error: false,
+        message: '',
+      },
+    };
   };
 
   checkValue = (
-    value: string,
+    value: any,
     type: ControlTypes,
     fieldName: string,
     rule: ValidTypes,
@@ -108,6 +110,10 @@ export default class UpdatePage extends Component<
     let tip;
     switch (type) {
       case 'input':
+        tip = this.validValue(value, fieldName, rule);
+        break;
+
+      case 'datePicker':
         tip = this.validValue(value, fieldName, rule);
         break;
 
@@ -126,13 +132,6 @@ export default class UpdatePage extends Component<
       const { type, name, key } = config[i];
       const item = state[key];
       const value = status === 'add' ? '' : item.value;
-      const commonProps = {
-        onErrorClick: () => Toast.fail(item.message),
-        onChange: (value: string) =>
-          this.checkValue(value, type, key, config[i]),
-        value,
-        error: item.error,
-      };
       switch (type) {
         case 'input':
           element.push(
@@ -143,7 +142,12 @@ export default class UpdatePage extends Component<
                   clear
                   placeholder="请输入"
                   style={{ textAlign: 'right' }}
-                  {...commonProps}
+                  onErrorClick={() => Toast.fail(item.message)}
+                  onChange={(value: string) =>
+                    this.checkValue(value, type, key, config[i])
+                  }
+                  value={value}
+                  error={item.error}
                 />
               }
             >
@@ -154,7 +158,13 @@ export default class UpdatePage extends Component<
 
         case 'datePicker':
           element.push(
-            <DatePicker key={`${preClass}-data-picker-${i}`}>
+            <DatePicker
+              key={`${preClass}-data-picker-${i}`}
+              onChange={(value: Date) =>
+                this.checkValue(value, type, key, config[i])
+              }
+              value={typeof value === 'string' ? new Date(value) : value}
+            >
               <List.Item arrow="horizontal">{name}</List.Item>
             </DatePicker>,
           );
