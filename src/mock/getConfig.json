@@ -181,7 +181,7 @@
         "searchtype": 5,
         "searchorder": null,
         "minlen": null,
-        "maxlen": 8,
+        "maxlen": 50,
         "decimalcount": 2,
         "regular": "",
         "orderid": 21,
