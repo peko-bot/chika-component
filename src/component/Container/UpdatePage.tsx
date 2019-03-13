@@ -117,6 +117,10 @@ export default class UpdatePage extends Component<
         tip = this.validValue(value, fieldName, rule);
         break;
 
+      case 'select':
+        tip = this.validValue(value, fieldName, rule);
+        break;
+
       default:
         break;
     }
@@ -129,7 +133,7 @@ export default class UpdatePage extends Component<
     const preClass = `update-page-${status}`;
     let element = [];
     for (let i = 0; i < config.length; i++) {
-      const { type, name, key } = config[i];
+      const { type, name, key, foreignData } = config[i];
       const item = state[key];
       const value = status === 'add' ? '' : item.value;
       switch (type) {
@@ -172,7 +176,15 @@ export default class UpdatePage extends Component<
 
         case 'select':
           element.push(
-            <Picker key={`${preClass}-select-${i}`} data={[]}>
+            <Picker
+              key={`${preClass}-select-${i}`}
+              data={foreignData}
+              cols={1}
+              onChange={(value: any) =>
+                this.checkValue(value[0], type, key, config[i])
+              }
+              value={value ? [value] : []}
+            >
               <List.Item arrow="horizontal">{name}</List.Item>
             </Picker>,
           );
