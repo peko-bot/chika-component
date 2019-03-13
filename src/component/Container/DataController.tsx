@@ -120,6 +120,7 @@ export default class DataController extends Component<
         issearchfield,
         maxlen,
         minlen,
+        foreigndata,
       } = item;
       result.push({
         type: (controlTypeEnums as any)[controltype],
@@ -134,6 +135,7 @@ export default class DataController extends Component<
         isSearchItem: issearchfield,
         maxLength: maxlen,
         minLength: minlen,
+        foreignData: foreigndata,
       });
     }
     return result;
