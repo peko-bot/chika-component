@@ -121,6 +121,10 @@ export default class UpdatePage extends Component<
         tip = this.validValue(value, fieldName, rule);
         break;
 
+      case 'checkbox':
+        tip = this.validValue(value, fieldName, rule);
+        break;
+
       default:
         break;
     }
@@ -130,7 +134,7 @@ export default class UpdatePage extends Component<
   renderEditItem = () => {
     const { props, state } = this;
     const { status, config } = props;
-    const preClass = `update-page-${status}`;
+    const prefixCls = `update-page-${status}`;
     let element = [];
     for (let i = 0; i < config.length; i++) {
       const { type, name, key, foreignData } = config[i];
@@ -140,7 +144,7 @@ export default class UpdatePage extends Component<
         case 'input':
           element.push(
             <List.Item
-              key={`${preClass}-input-item-${i}`}
+              key={`${prefixCls}-input-item-${i}`}
               extra={
                 <InputItem
                   clear
@@ -163,7 +167,7 @@ export default class UpdatePage extends Component<
         case 'datePicker':
           element.push(
             <DatePicker
-              key={`${preClass}-data-picker-${i}`}
+              key={`${prefixCls}-data-picker-${i}`}
               onChange={(value: Date) =>
                 this.checkValue(value, type, key, config[i])
               }
@@ -177,7 +181,7 @@ export default class UpdatePage extends Component<
         case 'select':
           element.push(
             <Picker
-              key={`${preClass}-select-${i}`}
+              key={`${prefixCls}-select-${i}`}
               data={foreignData}
               cols={1}
               onChange={(value: any) =>
@@ -190,22 +194,27 @@ export default class UpdatePage extends Component<
           );
           break;
 
-        // foreigndata
         case 'checkbox':
           element.push(
-            <Accordion key={`${preClass}-checkbox-${i}`}>
+            <Accordion key={`${prefixCls}-checkbox-${i}`}>
               <Accordion.Panel header={name}>
                 <List>
-                  {[].map((item: { value: string | number; label: string }) => (
-                    <CheckboxItem
-                      // onChange={value =>
-                      //   this.handleCheckbox(item.value, 'searchParam', fname)
-                      // }
-                      key={item.value}
-                    >
-                      {item.label}
-                    </CheckboxItem>
-                  ))}
+                  {foreignData.map(
+                    (
+                      item: { value: string | number; label: string },
+                      i: number,
+                    ) => (
+                      <CheckboxItem
+                        key={`${prefixCls}-checkbox-item-${i}`}
+                        checked={value === item.value}
+                        onChange={() =>
+                          this.checkValue(item.value, type, key, config[i])
+                        }
+                      >
+                        {item.label}
+                      </CheckboxItem>
+                    ),
+                  )}
                 </List>
               </Accordion.Panel>
             </Accordion>,
@@ -214,7 +223,7 @@ export default class UpdatePage extends Component<
 
         case 'calendar':
           element.push(
-            <React.Fragment key={`${preClass}-calendar-${i}`}>
+            <React.Fragment key={`${prefixCls}-calendar-${i}`}>
               <List.Item
                 extra="请选择"
                 arrow="horizontal"
@@ -230,7 +239,7 @@ export default class UpdatePage extends Component<
 
         case 'upload':
           element.push(
-            <Accordion key={`${preClass}-upload-${i}`}>
+            <Accordion key={`${prefixCls}-upload-${i}`}>
               <Accordion.Panel header={name}>
                 <Upload />
               </Accordion.Panel>
@@ -243,7 +252,7 @@ export default class UpdatePage extends Component<
             element.push(
               <List.Item
                 extra="请选择"
-                key={`${preClass}-map-picker-add-${i}`}
+                key={`${prefixCls}-map-picker-add-${i}`}
                 arrow="horizontal"
                 // onClick={() => this.setState({ calendarVisible: true })}
               >
@@ -253,7 +262,7 @@ export default class UpdatePage extends Component<
           } else if (status === 'update') {
             element.push(
               <List.Item
-                key={`${preClass}-map-picker-address-${i}`}
+                key={`${prefixCls}-map-picker-address-${i}`}
                 arrow="horizontal"
                 onClick={() => console.log('test')}
                 extra="测试地址"
@@ -263,7 +272,7 @@ export default class UpdatePage extends Component<
             );
             element.push(
               <List.Item
-                key={`${preClass}-map-picker-lng-${i}`}
+                key={`${prefixCls}-map-picker-lng-${i}`}
                 extra={parseFloat('11').toFixed(6)}
               >
                 经度
@@ -271,7 +280,7 @@ export default class UpdatePage extends Component<
             );
             element.push(
               <List.Item
-                key={`${preClass}-map-picker-lat-${i}`}
+                key={`${prefixCls}-map-picker-lat-${i}`}
                 extra={parseFloat('22').toFixed(6)}
               >
                 纬度

@@ -11,7 +11,7 @@
         "latng": "116.30038976669313|39.89520118467971|杭州1",
         "datePicker": "2019-03-11",
         "select": "value1",
-        "checkbox": "checkbox",
+        "checkbox": "checkbox1",
         "calendar": "calendar",
         "upload": "upload",
         "mapPicker": "mapPicker"
@@ -26,7 +26,7 @@
         "latng": "116.30038976669313|39.89520118467971|杭州",
         "datePicker": "2019-03-11",
         "select": "value1",
-        "checkbox": "checkbox",
+        "checkbox": "checkbox3",
         "calendar": "calendar",
         "upload": "upload",
         "mapPicker": "mapPicker"
@@ -41,7 +41,7 @@
         "latng": "116.30038976669313|39.89520118467971|杭州",
         "datePicker": "2019-03-11",
         "select": "value1",
-        "checkbox": "checkbox",
+        "checkbox": "checkbox3",
         "calendar": "calendar",
         "upload": "upload",
         "mapPicker": "mapPicker"
@@ -56,7 +56,7 @@
         "latng": "116.30038976669313|39.89520118467971|杭州",
         "datePicker": "2019-03-11",
         "select": "value1",
-        "checkbox": "checkbox",
+        "checkbox": "checkbox2",
         "calendar": "calendar",
         "upload": "upload",
         "mapPicker": "mapPicker"
@@ -71,7 +71,7 @@
         "latng": "116.30038976669313|39.89520118467971|杭州",
         "datePicker": "2019-03-11",
         "select": "value1",
-        "checkbox": "checkbox",
+        "checkbox": "checkbox2",
         "calendar": "calendar",
         "upload": "upload",
         "mapPicker": "mapPicker"
@@ -86,7 +86,7 @@
         "latng": "116.30038976669313|39.89520118467971|杭州",
         "datePicker": "2019-03-11",
         "select": "value1",
-        "checkbox": "checkbox",
+        "checkbox": "checkbox1",
         "calendar": "calendar",
         "upload": "upload",
         "mapPicker": "mapPicker"
@@ -101,7 +101,7 @@
         "latng": "116.30038976669313|39.89520118467971|杭州",
         "datePicker": "2019-03-11",
         "select": "value1",
-        "checkbox": "checkbox",
+        "checkbox": "checkbox1",
         "calendar": "calendar",
         "upload": "upload",
         "mapPicker": "mapPicker"
@@ -116,7 +116,7 @@
         "latng": "116.30038976669313|39.89520118467971|杭州",
         "datePicker": "2019-03-11",
         "select": "value1",
-        "checkbox": "checkbox",
+        "checkbox": "checkbox1",
         "calendar": "calendar",
         "upload": "upload",
         "mapPicker": "mapPicker"
@@ -131,7 +131,7 @@
         "latng": "116.30038976669313|39.89520118467971|杭州",
         "datePicker": "2019-03-11",
         "select": "value1",
-        "checkbox": "checkbox",
+        "checkbox": "checkbox1",
         "calendar": "calendar",
         "upload": "upload",
         "mapPicker": "mapPicker"
@@ -146,7 +146,7 @@
         "latng": "116.30038976669313|39.89520118467971|杭州",
         "datePicker": "2019-03-11",
         "select": "value1",
-        "checkbox": "checkbox",
+        "checkbox": "checkbox1",
         "calendar": "calendar",
         "upload": "upload",
         "mapPicker": "mapPicker"
