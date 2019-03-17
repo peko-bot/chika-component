@@ -419,15 +419,6 @@ export default class ContainerCore extends Component<
           </Item>
         </TransformManager>
 
-        {/* <Calendar
-          visible={calendarVisible}
-          onCancel={() => {
-            this.setState({ calendarVisible: false });
-          }}
-          pickTime
-          onConfirm={this.handleCalendarSubmit}
-        /> */}
-
         <ActivityIndicator
           animating={props.loading}
           text="正在加载..."

@@ -8,6 +8,7 @@ import {
   Accordion,
   Checkbox,
   Toast,
+  Calendar,
 } from 'antd-mobile';
 const { CheckboxItem } = Checkbox;
 import Upload from './UploadWrapper';
@@ -32,6 +33,9 @@ export type CheckItem = {
   value?: string;
   message?: string;
 };
+export type Form = {
+  [fieldName: string]: CheckItem;
+};
 export interface UpdatePageProps {
   onBack?: () => void;
   config: Array<any>;
@@ -39,7 +43,8 @@ export interface UpdatePageProps {
   status: UpdatePageStatus;
 }
 export interface UpdatePageState {
-  [fieldName: string]: CheckItem;
+  calendarVisible: boolean;
+  form: Form;
 }
 
 function noop() {}
@@ -58,11 +63,14 @@ export default class UpdatePage extends Component<
   constructor(props: UpdatePageProps) {
     super(props);
 
-    this.state = this.initDefaultValue(props.dataItem);
+    this.state = {
+      calendarVisible: false,
+      form: this.initDefaultValue(props.dataItem),
+    };
   }
 
   initDefaultValue = (dataItem: any) => {
-    const result: UpdatePageState = {};
+    const result: Form = {};
     for (let key in dataItem) {
       result[key] = {
         value: dataItem[key],
@@ -108,7 +116,7 @@ export default class UpdatePage extends Component<
     rule: ValidTypes,
   ) => {
     let tip;
-    let stateValue = this.state[fieldName].value;
+    let stateValue = this.state.form[fieldName].value;
     switch (type) {
       case 'input':
         tip = this.validValue(value, fieldName, rule);
@@ -139,7 +147,7 @@ export default class UpdatePage extends Component<
       default:
         break;
     }
-    this.setState({ [fieldName]: { value, ...tip } });
+    this.setState({ form: { [fieldName]: { value, ...tip } } });
   };
 
   renderEditItem = () => {
@@ -149,7 +157,7 @@ export default class UpdatePage extends Component<
     let element = [];
     for (let i = 0; i < config.length; i++) {
       const { type, name, key, foreignData } = config[i];
-      const item = state[key];
+      const item = state.form[key];
       const value = status === 'add' ? '' : item.value;
       switch (type) {
         case 'input':
@@ -310,22 +318,32 @@ export default class UpdatePage extends Component<
   render = () => {
     const { onBack } = this.props;
     return (
-      <List>
-        {this.renderEditItem() as any}
-        <List.Item>
-          <Button
-            type="primary"
-            // onClick={this.save}
-            inline
-            style={{ marginRight: 4, width: 'calc(50% - 4px)' }}
-          >
-            保存
-          </Button>
-          <Button inline onClick={onBack} style={{ width: '50%' }}>
-            返回
-          </Button>
-        </List.Item>
-      </List>
+      <>
+        <List>
+          {this.renderEditItem() as any}
+          <List.Item>
+            <Button
+              type="primary"
+              // onClick={this.save}
+              inline
+              style={{ marginRight: 4, width: 'calc(50% - 4px)' }}
+            >
+              保存
+            </Button>
+            <Button inline onClick={onBack} style={{ width: '50%' }}>
+              返回
+            </Button>
+          </List.Item>
+        </List>
+        <Calendar
+          // visible={calendarVisible}
+          onCancel={() => {
+            this.setState({ calendarVisible: false });
+          }}
+          pickTime
+          // onConfirm={this.handleCalendarSubmit}
+        />
+      </>
     );
   };
 }
