@@ -13,11 +13,11 @@ export interface MapBoxState {}
 const defaultMapOptions = {
   center: [31.8, 121.66] as [number, number],
   crs: leaflet.CRS.EPSG3857,
-  zoom: 7,
+  zoom: 15,
   maxZoom: 18,
   minZoom: 1,
   dragging: true,
-  zoomControl: false,
+  zoomControl: true,
   attributionControl: false,
   latlngControl: false,
 };

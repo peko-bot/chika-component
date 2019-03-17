@@ -1,5 +1,5 @@
 import React from 'react';
-import { bindTouchDirection } from '../../util/Touch';
+import { bindTouchDirection } from '../../util';
 import './css/Calendar.css';
 
 export interface CalendarProps {
