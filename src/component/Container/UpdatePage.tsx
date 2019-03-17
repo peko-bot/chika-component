@@ -12,6 +12,7 @@ import {
 } from 'antd-mobile';
 const { CheckboxItem } = Checkbox;
 import Upload from './UploadWrapper';
+import { formatDate } from '../../util';
 
 export type UpdatePageStatus = 'add' | 'update';
 export type ValidTypes = {
@@ -42,12 +43,25 @@ export interface UpdatePageProps {
   dataItem: any;
   status: UpdatePageStatus;
 }
-export interface UpdatePageState {
+export type CalendarItem = {
   calendarVisible: boolean;
+  currentCalendarItem: {
+    key: string;
+    config: any;
+  };
+};
+export type UpdatePageState = {
   form: Form;
-}
+} & CalendarItem;
 
 function noop() {}
+const CalendarDefaultValue: CalendarItem = {
+  calendarVisible: false,
+  currentCalendarItem: {
+    key: '',
+    config: {},
+  },
+};
 
 export default class UpdatePage extends Component<
   UpdatePageProps,
@@ -64,7 +78,7 @@ export default class UpdatePage extends Component<
     super(props);
 
     this.state = {
-      calendarVisible: false,
+      ...CalendarDefaultValue,
       form: this.initDefaultValue(props.dataItem),
     };
   }
@@ -115,21 +129,10 @@ export default class UpdatePage extends Component<
     fieldName: string,
     rule: ValidTypes,
   ) => {
-    let tip;
+    let tip = {};
+    let rest = {};
     let stateValue = this.state.form[fieldName].value;
     switch (type) {
-      case 'input':
-        tip = this.validValue(value, fieldName, rule);
-        break;
-
-      case 'datePicker':
-        tip = this.validValue(value, fieldName, rule);
-        break;
-
-      case 'select':
-        tip = this.validValue(value, fieldName, rule);
-        break;
-
       case 'checkbox':
         let checkboxSet = new Set();
         if (stateValue) {
@@ -141,13 +144,26 @@ export default class UpdatePage extends Component<
           checkboxSet.add(value);
         }
         value = [...checkboxSet].toString();
-        tip = this.validValue(value, fieldName, rule);
+        break;
+
+      case 'calendar':
+        const { startDateTime, endDateTime } = value;
+        value = `${formatDate(startDateTime)},${formatDate(endDateTime)}`;
+        rest = CalendarDefaultValue;
         break;
 
       default:
+        tip = this.validValue(value, fieldName, rule);
         break;
     }
-    this.setState({ form: { [fieldName]: { value, ...tip } } });
+
+    const form = Object.assign(this.state.form, {
+      [fieldName]: { value, ...tip },
+    });
+    this.setState({
+      form,
+      ...rest,
+    });
   };
 
   renderEditItem = () => {
@@ -241,17 +257,23 @@ export default class UpdatePage extends Component<
           break;
 
         case 'calendar':
+          const dateArr = (value && value.split(',')) || ['', ''];
           element.push(
             <React.Fragment key={`${prefixCls}-calendar-${i}`}>
               <List.Item
-                extra="请选择"
+                extra={dateArr[0] ? '' : '请选择'}
                 arrow="horizontal"
-                // onClick={() => this.setState({ calendarVisible: true })}
+                onClick={() =>
+                  this.setState({
+                    calendarVisible: true,
+                    currentCalendarItem: { type, key, config: config[i] },
+                  })
+                }
               >
                 {name}
               </List.Item>
-              <List.Item extra="起始时间">{name}起始时间</List.Item>
-              <List.Item extra="结束时间">{name}结束时间</List.Item>
+              <List.Item extra={dateArr[0]}>起始时间</List.Item>
+              <List.Item extra={dateArr[1]}>结束时间</List.Item>
             </React.Fragment>,
           );
           break;
@@ -317,6 +339,7 @@ export default class UpdatePage extends Component<
 
   render = () => {
     const { onBack } = this.props;
+    const { calendarVisible, currentCalendarItem } = this.state;
     return (
       <>
         <List>
@@ -336,12 +359,19 @@ export default class UpdatePage extends Component<
           </List.Item>
         </List>
         <Calendar
-          // visible={calendarVisible}
+          visible={calendarVisible}
           onCancel={() => {
             this.setState({ calendarVisible: false });
           }}
           pickTime
-          // onConfirm={this.handleCalendarSubmit}
+          onConfirm={(startDateTime: Date, endDateTime: Date) =>
+            this.checkValue(
+              { startDateTime, endDateTime },
+              'calendar',
+              currentCalendarItem.key,
+              currentCalendarItem.config,
+            )
+          }
         />
       </>
     );

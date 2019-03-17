@@ -12,7 +12,7 @@
         "datePicker": "2019-03-11",
         "select": "value1",
         "checkbox": "checkbox1",
-        "calendar": "calendar",
+        "calendar": "2018-04-03 00:00:00,2018-04-04 00:00:00",
         "upload": "upload",
         "mapPicker": "mapPicker"
       },
@@ -27,7 +27,7 @@
         "datePicker": "2019-03-11",
         "select": "value1",
         "checkbox": "checkbox3",
-        "calendar": "calendar",
+        "calendar": "2018-04-03 00:00:00,2018-04-04 00:00:00",
         "upload": "upload",
         "mapPicker": "mapPicker"
       },
@@ -42,7 +42,7 @@
         "datePicker": "2019-03-11",
         "select": "value1",
         "checkbox": "checkbox3",
-        "calendar": "calendar",
+        "calendar": "2018-04-03 00:00:00,2018-04-04 00:00:00",
         "upload": "upload",
         "mapPicker": "mapPicker"
       },
@@ -57,7 +57,7 @@
         "datePicker": "2019-03-11",
         "select": "value1",
         "checkbox": "checkbox2",
-        "calendar": "calendar",
+        "calendar": "2018-04-03 00:00:00,2018-04-04 00:00:00",
         "upload": "upload",
         "mapPicker": "mapPicker"
       },
@@ -72,7 +72,7 @@
         "datePicker": "2019-03-11",
         "select": "value1",
         "checkbox": "checkbox2",
-        "calendar": "calendar",
+        "calendar": "2018-04-03 00:00:00,2018-04-04 00:00:00",
         "upload": "upload",
         "mapPicker": "mapPicker"
       },
@@ -87,7 +87,7 @@
         "datePicker": "2019-03-11",
         "select": "value1",
         "checkbox": "checkbox1",
-        "calendar": "calendar",
+        "calendar": "2018-04-03 00:00:00,2018-04-04 00:00:00",
         "upload": "upload",
         "mapPicker": "mapPicker"
       },
@@ -102,7 +102,7 @@
         "datePicker": "2019-03-11",
         "select": "value1",
         "checkbox": "checkbox1",
-        "calendar": "calendar",
+        "calendar": "2018-04-03 00:00:00,2018-04-04 00:00:00",
         "upload": "upload",
         "mapPicker": "mapPicker"
       },
@@ -117,7 +117,7 @@
         "datePicker": "2019-03-11",
         "select": "value1",
         "checkbox": "checkbox1",
-        "calendar": "calendar",
+        "calendar": "2018-04-03 00:00:00,2018-04-04 00:00:00",
         "upload": "upload",
         "mapPicker": "mapPicker"
       },
@@ -132,7 +132,7 @@
         "datePicker": "2019-03-11",
         "select": "value1",
         "checkbox": "checkbox1",
-        "calendar": "calendar",
+        "calendar": "2018-04-03 00:00:00,2018-04-04 00:00:00",
         "upload": "upload",
         "mapPicker": "mapPicker"
       },
@@ -147,7 +147,7 @@
         "datePicker": "2019-03-11",
         "select": "value1",
         "checkbox": "checkbox1",
-        "calendar": "calendar",
+        "calendar": "2018-04-03 00:00:00,2018-04-04 00:00:00",
         "upload": "upload",
         "mapPicker": "mapPicker"
       }
