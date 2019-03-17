@@ -5,7 +5,6 @@ module.exports = {
   mode: 'development',
   devtool: 'source-map',
   entry: {
-    'lib/Button/index': path.join(cwd + '/src/component/Button'),
     'lib/Calendar/index': path.join(cwd + '/src/component/Calendar'),
     'lib/Container/index': path.join(cwd + '/src/component/Container'),
     'lib/Drawer/index': path.join(cwd + '/src/component/Drawer'),
@@ -13,6 +12,9 @@ module.exports = {
     'lib/Ripple/index': path.join(cwd + '/src/component/Ripple'),
     'lib/Swiper/index': path.join(cwd + '/src/component/Swiper'),
     'lib/Tabs/index': path.join(cwd + '/src/component/Tabs'),
+    'lib/TransformManager/index': path.join(
+      cwd + '/src/component/TransformManager',
+    ),
     'lib/Upload/index': path.join(cwd + '/src/component/Upload'),
   },
   output: {
