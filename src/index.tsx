@@ -2,8 +2,6 @@ export { default as Calendar } from './component/Calendar';
 
 export { default as Drawer } from './component/Drawer';
 
-export { default as EasyLeaflet } from './component/EasyLeaflet';
-
 export { default as Container } from './component/Container';
 
 export { default as Progress } from './component/Progress';

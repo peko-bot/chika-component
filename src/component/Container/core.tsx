@@ -10,7 +10,6 @@ import TransformManager, {
   TransformManagerItem as Item,
 } from '../TransformManager';
 import DetailFactory from './DetailFactory';
-import MapBox from './MapBox';
 import UpdatePage, { UpdatePageStatus } from './UpdatePage';
 import './css/Container-core.css';
 
@@ -293,10 +292,10 @@ export default class ContainerCore extends Component<
       currentState,
       currentOrder,
       currentGroup,
-      lat,
-      lng,
-      address,
-      primaryValue,
+      // lat,
+      // lng,
+      // address,
+      // primaryValue,
     } = state;
     // let sidebar = (
     //   <List>
@@ -409,13 +408,13 @@ export default class ContainerCore extends Component<
             {this.renderUpdatePage()}
           </Item>
           <Item group="map-box" order={0} key="map-box-0">
-            <MapBox
+            {/* <MapBox
               onBack={this.backToLast}
               lat={lat}
               lng={lng}
               address={address}
               primaryValue={primaryValue}
-            />
+            /> */}
           </Item>
         </TransformManager>
 
