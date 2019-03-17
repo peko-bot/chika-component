@@ -4,3 +4,4 @@
 *.css
 /lib/
 /es/
+/src/**/*.jsx
