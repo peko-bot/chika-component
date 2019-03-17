@@ -8,9 +8,11 @@ import {
   Accordion,
   Checkbox,
   Toast,
+  Calendar,
 } from 'antd-mobile';
 const { CheckboxItem } = Checkbox;
 import Upload from './UploadWrapper';
+import { formatDate } from '../../util';
 
 export type UpdatePageStatus = 'add' | 'update';
 export type ValidTypes = {
@@ -32,17 +34,34 @@ export type CheckItem = {
   value?: string;
   message?: string;
 };
+export type Form = {
+  [fieldName: string]: CheckItem;
+};
 export interface UpdatePageProps {
   onBack?: () => void;
   config: Array<any>;
   dataItem: any;
   status: UpdatePageStatus;
 }
-export interface UpdatePageState {
-  [fieldName: string]: CheckItem;
-}
+export type CalendarItem = {
+  calendarVisible: boolean;
+  currentCalendarItem: {
+    key: string;
+    config: any;
+  };
+};
+export type UpdatePageState = {
+  form: Form;
+} & CalendarItem;
 
 function noop() {}
+const CalendarDefaultValue: CalendarItem = {
+  calendarVisible: false,
+  currentCalendarItem: {
+    key: '',
+    config: {},
+  },
+};
 
 export default class UpdatePage extends Component<
   UpdatePageProps,
@@ -58,11 +77,14 @@ export default class UpdatePage extends Component<
   constructor(props: UpdatePageProps) {
     super(props);
 
-    this.state = this.initDefaultValue(props.dataItem);
+    this.state = {
+      ...CalendarDefaultValue,
+      form: this.initDefaultValue(props.dataItem),
+    };
   }
 
   initDefaultValue = (dataItem: any) => {
-    const result: UpdatePageState = {};
+    const result: Form = {};
     for (let key in dataItem) {
       result[key] = {
         value: dataItem[key],
@@ -107,40 +129,57 @@ export default class UpdatePage extends Component<
     fieldName: string,
     rule: ValidTypes,
   ) => {
-    let tip;
+    let tip = {};
+    let rest = {};
+    let stateValue = this.state.form[fieldName].value;
     switch (type) {
-      case 'input':
-        tip = this.validValue(value, fieldName, rule);
+      case 'checkbox':
+        let checkboxSet = new Set();
+        if (stateValue) {
+          checkboxSet = new Set(stateValue.split(','));
+          checkboxSet.has(value)
+            ? checkboxSet.delete(value)
+            : checkboxSet.add(value);
+        } else {
+          checkboxSet.add(value);
+        }
+        value = [...checkboxSet].toString();
         break;
 
-      case 'datePicker':
-        tip = this.validValue(value, fieldName, rule);
-        break;
-
-      case 'select':
-        tip = this.validValue(value, fieldName, rule);
+      case 'calendar':
+        const { startDateTime, endDateTime } = value;
+        value = `${formatDate(startDateTime)},${formatDate(endDateTime)}`;
+        rest = CalendarDefaultValue;
         break;
 
       default:
+        tip = this.validValue(value, fieldName, rule);
         break;
     }
-    this.setState({ [fieldName]: { value, ...tip } });
+
+    const form = Object.assign(this.state.form, {
+      [fieldName]: { value, ...tip },
+    });
+    this.setState({
+      form,
+      ...rest,
+    });
   };
 
   renderEditItem = () => {
     const { props, state } = this;
     const { status, config } = props;
-    const preClass = `update-page-${status}`;
+    const prefixCls = `update-page-${status}`;
     let element = [];
     for (let i = 0; i < config.length; i++) {
       const { type, name, key, foreignData } = config[i];
-      const item = state[key];
+      const item = state.form[key];
       const value = status === 'add' ? '' : item.value;
       switch (type) {
         case 'input':
           element.push(
             <List.Item
-              key={`${preClass}-input-item-${i}`}
+              key={`${prefixCls}-input-item-${i}`}
               extra={
                 <InputItem
                   clear
@@ -163,7 +202,7 @@ export default class UpdatePage extends Component<
         case 'datePicker':
           element.push(
             <DatePicker
-              key={`${preClass}-data-picker-${i}`}
+              key={`${prefixCls}-data-picker-${i}`}
               onChange={(value: Date) =>
                 this.checkValue(value, type, key, config[i])
               }
@@ -177,7 +216,7 @@ export default class UpdatePage extends Component<
         case 'select':
           element.push(
             <Picker
-              key={`${preClass}-select-${i}`}
+              key={`${prefixCls}-select-${i}`}
               data={foreignData}
               cols={1}
               onChange={(value: any) =>
@@ -190,22 +229,27 @@ export default class UpdatePage extends Component<
           );
           break;
 
-        // foreigndata
         case 'checkbox':
           element.push(
-            <Accordion key={`${preClass}-checkbox-${i}`}>
+            <Accordion key={`${prefixCls}-checkbox-${i}`}>
               <Accordion.Panel header={name}>
                 <List>
-                  {[].map((item: { value: string | number; label: string }) => (
-                    <CheckboxItem
-                      // onChange={value =>
-                      //   this.handleCheckbox(item.value, 'searchParam', fname)
-                      // }
-                      key={item.value}
-                    >
-                      {item.label}
-                    </CheckboxItem>
-                  ))}
+                  {foreignData.map(
+                    (item: { value: string; label: string }, i: number) => {
+                      const stateValue = (value && value.split(',')) || [];
+                      return (
+                        <CheckboxItem
+                          key={`${prefixCls}-checkbox-item-${i}`}
+                          checked={stateValue.includes(item.value)}
+                          onChange={() =>
+                            this.checkValue(item.value, type, key, config[i])
+                          }
+                        >
+                          {item.label}
+                        </CheckboxItem>
+                      );
+                    },
+                  )}
                 </List>
               </Accordion.Panel>
             </Accordion>,
@@ -213,24 +257,30 @@ export default class UpdatePage extends Component<
           break;
 
         case 'calendar':
+          const dateArr = (value && value.split(',')) || ['', ''];
           element.push(
-            <React.Fragment key={`${preClass}-calendar-${i}`}>
+            <React.Fragment key={`${prefixCls}-calendar-${i}`}>
               <List.Item
-                extra="请选择"
+                extra={dateArr[0] ? '' : '请选择'}
                 arrow="horizontal"
-                // onClick={() => this.setState({ calendarVisible: true })}
+                onClick={() =>
+                  this.setState({
+                    calendarVisible: true,
+                    currentCalendarItem: { type, key, config: config[i] },
+                  })
+                }
               >
                 {name}
               </List.Item>
-              <List.Item extra="起始时间">{name}起始时间</List.Item>
-              <List.Item extra="结束时间">{name}结束时间</List.Item>
+              <List.Item extra={dateArr[0]}>起始时间</List.Item>
+              <List.Item extra={dateArr[1]}>结束时间</List.Item>
             </React.Fragment>,
           );
           break;
 
         case 'upload':
           element.push(
-            <Accordion key={`${preClass}-upload-${i}`}>
+            <Accordion key={`${prefixCls}-upload-${i}`}>
               <Accordion.Panel header={name}>
                 <Upload />
               </Accordion.Panel>
@@ -243,7 +293,7 @@ export default class UpdatePage extends Component<
             element.push(
               <List.Item
                 extra="请选择"
-                key={`${preClass}-map-picker-add-${i}`}
+                key={`${prefixCls}-map-picker-add-${i}`}
                 arrow="horizontal"
                 // onClick={() => this.setState({ calendarVisible: true })}
               >
@@ -253,7 +303,7 @@ export default class UpdatePage extends Component<
           } else if (status === 'update') {
             element.push(
               <List.Item
-                key={`${preClass}-map-picker-address-${i}`}
+                key={`${prefixCls}-map-picker-address-${i}`}
                 arrow="horizontal"
                 onClick={() => console.log('test')}
                 extra="测试地址"
@@ -263,7 +313,7 @@ export default class UpdatePage extends Component<
             );
             element.push(
               <List.Item
-                key={`${preClass}-map-picker-lng-${i}`}
+                key={`${prefixCls}-map-picker-lng-${i}`}
                 extra={parseFloat('11').toFixed(6)}
               >
                 经度
@@ -271,7 +321,7 @@ export default class UpdatePage extends Component<
             );
             element.push(
               <List.Item
-                key={`${preClass}-map-picker-lat-${i}`}
+                key={`${prefixCls}-map-picker-lat-${i}`}
                 extra={parseFloat('22').toFixed(6)}
               >
                 纬度
@@ -289,23 +339,41 @@ export default class UpdatePage extends Component<
 
   render = () => {
     const { onBack } = this.props;
+    const { calendarVisible, currentCalendarItem } = this.state;
     return (
-      <List>
-        {this.renderEditItem() as any}
-        <List.Item>
-          <Button
-            type="primary"
-            // onClick={this.save}
-            inline
-            style={{ marginRight: 4, width: 'calc(50% - 4px)' }}
-          >
-            保存
-          </Button>
-          <Button inline onClick={onBack} style={{ width: '50%' }}>
-            返回
-          </Button>
-        </List.Item>
-      </List>
+      <>
+        <List>
+          {this.renderEditItem() as any}
+          <List.Item>
+            <Button
+              type="primary"
+              // onClick={this.save}
+              inline
+              style={{ marginRight: 4, width: 'calc(50% - 4px)' }}
+            >
+              保存
+            </Button>
+            <Button inline onClick={onBack} style={{ width: '50%' }}>
+              返回
+            </Button>
+          </List.Item>
+        </List>
+        <Calendar
+          visible={calendarVisible}
+          onCancel={() => {
+            this.setState({ calendarVisible: false });
+          }}
+          pickTime
+          onConfirm={(startDateTime: Date, endDateTime: Date) =>
+            this.checkValue(
+              { startDateTime, endDateTime },
+              'calendar',
+              currentCalendarItem.key,
+              currentCalendarItem.config,
+            )
+          }
+        />
+      </>
     );
   };
 }

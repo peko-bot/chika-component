@@ -251,7 +251,11 @@
         "controlwidth": "",
         "isadd": true,
         "fieldtag": null,
-        "foreigndata": [],
+        "foreigndata": [
+          { "label": "label1", "value": "checkbox1" },
+          { "label": "label2", "value": "checkbox2" },
+          { "label": "label3", "value": "checkbox3" }
+        ],
         "dateformat": ""
       },
       {

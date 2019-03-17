@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import Container from './core';
 import { ajax } from '../../util/urlHelper';
 import { Toast } from 'antd-mobile';
-import { format as fnsFormat } from 'date-fns/esm';
-import { zhCN } from 'date-fns/locale';
+import { formatDate } from '../../util';
 
 export interface DataControllerProps {
   children: any;
@@ -278,10 +277,7 @@ const controlTypeEnums = {
 const defaultDataFormatEnum = [
   {
     key: 'data-date-format',
-    method: (value: number | string, format: string) =>
-      fnsFormat(new Date(value), format, {
-        locale: zhCN,
-      }),
+    method: (value: string, format: string) => formatDate(value, format),
   },
   {
     key: 'data-decimal-count',
