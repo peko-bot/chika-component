@@ -108,6 +108,7 @@ export default class UpdatePage extends Component<
     rule: ValidTypes,
   ) => {
     let tip;
+    let stateValue = this.state[fieldName].value;
     switch (type) {
       case 'input':
         tip = this.validValue(value, fieldName, rule);
@@ -122,6 +123,16 @@ export default class UpdatePage extends Component<
         break;
 
       case 'checkbox':
+        let checkboxSet = new Set();
+        if (stateValue) {
+          checkboxSet = new Set(stateValue.split(','));
+          checkboxSet.has(value)
+            ? checkboxSet.delete(value)
+            : checkboxSet.add(value);
+        } else {
+          checkboxSet.add(value);
+        }
+        value = [...checkboxSet].toString();
         tip = this.validValue(value, fieldName, rule);
         break;
 
@@ -200,20 +211,20 @@ export default class UpdatePage extends Component<
               <Accordion.Panel header={name}>
                 <List>
                   {foreignData.map(
-                    (
-                      item: { value: string | number; label: string },
-                      i: number,
-                    ) => (
-                      <CheckboxItem
-                        key={`${prefixCls}-checkbox-item-${i}`}
-                        checked={value === item.value}
-                        onChange={() =>
-                          this.checkValue(item.value, type, key, config[i])
-                        }
-                      >
-                        {item.label}
-                      </CheckboxItem>
-                    ),
+                    (item: { value: string; label: string }, i: number) => {
+                      const stateValue = (value && value.split(',')) || [];
+                      return (
+                        <CheckboxItem
+                          key={`${prefixCls}-checkbox-item-${i}`}
+                          checked={stateValue.includes(item.value)}
+                          onChange={() =>
+                            this.checkValue(item.value, type, key, config[i])
+                          }
+                        >
+                          {item.label}
+                        </CheckboxItem>
+                      );
+                    },
                   )}
                 </List>
               </Accordion.Panel>
