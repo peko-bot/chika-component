@@ -22,20 +22,38 @@ export interface MapBoxProps {
    * googleTile, googleRsTile, googleTrafficTile
    */
   type?: TileType;
-  /** when move start, it will pass { lat, lng } back */
+  /** pass { lat, lng } back */
   onMoveStart?: MoveEvent;
-  /** when moving, it will pass { lat, lng } back */
+  /** pass { lat, lng } back */
   onMove?: MoveEvent;
-  /** when move end, it will pass { lat, lng } back */
+  /** pass { lat, lng } back */
   onMoveEnd?: MoveEvent;
-  /** when drag start, it will pass { lat, lng } back */
+  /** pass { lat, lng } back */
   onDragStart?: MoveEvent;
-  /** when dragging, it will pass { lat, lng } back */
+  /** pass { lat, lng } back */
   onDrag?: MoveEvent;
-  /** when drag end, it will pass { lat, lng } back */
+  /** pass { lat, lng } back */
   onDragEnd?: MoveEvent;
+  /** whether to show Marker */
+  markerVisible?: boolean;
+  /** whether Marker can be dragged */
+  markerDraggable?: boolean;
+  /** pass { lat, lng } back */
+  onMarkerMove?: MoveEvent;
+  /** pass { lat, lng } back */
+  onMarkerMoveStart?: MoveEvent;
+  /** pass { lat, lng } back */
+  onMarkerMoveEnd?: MoveEvent;
+  /** pass { lat, lng } back */
+  onMarkerDragStart?: MoveEvent;
+  /** pass { lat, lng } back */
+  onMarkerDrag?: MoveEvent;
+  /** pass { lat, lng } back */
+  onMarkerDragEnd?: MoveEvent;
 }
-export interface MapBoxState {}
+export interface MapBoxState {
+  center: { lng: number; lat: number };
+}
 
 const defaultMapOptions: leaflet.MapOptions = {
   center: [31.8, 121.66],
@@ -51,11 +69,31 @@ const defaultMapOptions: leaflet.MapOptions = {
 export default class MapBox extends Component<MapBoxProps, MapBoxState> {
   container: React.RefObject<HTMLDivElement>;
   map: leaflet.Map;
+  marker: leaflet.Marker;
+
+  static getDerivedStateFromProps(
+    nextProps: MapBoxProps,
+    nextState: MapBoxState,
+  ) {
+    if (nextProps.center) {
+      if (
+        nextProps.center.lat !== nextState.center.lat ||
+        nextProps.center.lng !== nextState.center.lng
+      ) {
+        return {
+          center: nextProps.center,
+        };
+      }
+    }
+    return null;
+  }
 
   constructor(props: MapBoxProps) {
     super(props);
 
-    this.state = {};
+    this.state = {
+      center: props.center || { lng: 121.66, lat: 31.8 },
+    };
     this.container = createRef();
   }
 
@@ -69,13 +107,24 @@ export default class MapBox extends Component<MapBoxProps, MapBoxState> {
       .map(this.container.current || document.body, defaultMapOptions)
       .locate({ setView: true, maxZoom: 16 });
 
-    this.bindEvent(map);
+    this.bindMapEvent(map);
     (Tiles as any)[type].addTo(map);
 
+    const icon = leaflet.icon({
+      iconUrl: '../../assets/easyLeaflet/defaultIcon.png',
+    });
+    const marker = leaflet
+      .marker([31.8, 121.66], { icon, draggable: true, autoPan: true })
+      .addTo(map);
+    this.bindMarkerEvent(marker);
+
     this.map = map;
+    this.marker = marker;
   };
 
-  bindEvent = (map: leaflet.Map) => {
+  private getCenter = (e: leaflet.LeafletEvent) => e.target.getCenter();
+
+  bindMapEvent = (map: leaflet.Map) => {
     const {
       onDrag,
       onDragEnd,
@@ -85,25 +134,54 @@ export default class MapBox extends Component<MapBoxProps, MapBoxState> {
       onMoveStart,
     } = this.props;
 
-    const getCenter = (e: leaflet.LeafletEvent) => e.target.getCenter();
-
     if (onDrag) {
-      map.on('drag', e => onDrag(getCenter(e)));
+      map.on('drag', e => onDrag(this.getCenter(e)));
     }
     if (onDragStart) {
-      map.on('dragstart', e => onDragStart(getCenter(e)));
+      map.on('dragstart', e => onDragStart(this.getCenter(e)));
     }
     if (onDragEnd) {
-      map.on('dragend', e => onDragEnd(getCenter(e)));
+      map.on('dragend', e => onDragEnd(this.getCenter(e)));
     }
     if (onMove) {
-      map.on('move', e => onMove(getCenter(e)));
+      map.on('move', e => onMove(this.getCenter(e)));
     }
     if (onMoveEnd) {
-      map.on('moveend', e => onMoveEnd(getCenter(e)));
+      map.on('moveend', e => onMoveEnd(this.getCenter(e)));
     }
     if (onMoveStart) {
-      map.on('movestart', e => onMoveStart(getCenter(e)));
+      map.on('movestart', e => onMoveStart(this.getCenter(e)));
+    }
+  };
+
+  private getMarkCenter = (e: leaflet.LeafletEvent) => e.target.getLatLng();
+
+  bindMarkerEvent = (marker: leaflet.Marker) => {
+    const {
+      onMarkerDrag,
+      onMarkerDragEnd,
+      onMarkerDragStart,
+      onMarkerMove,
+      onMarkerMoveEnd,
+      onMarkerMoveStart,
+    } = this.props;
+    if (onMarkerDrag) {
+      marker.on('drag', e => onMarkerDrag(this.getMarkCenter(e)));
+    }
+    if (onMarkerDragEnd) {
+      marker.on('dragend', e => onMarkerDragEnd(this.getMarkCenter(e)));
+    }
+    if (onMarkerDragStart) {
+      marker.on('dragstart', e => onMarkerDragStart(this.getMarkCenter(e)));
+    }
+    if (onMarkerMove) {
+      marker.on('move', e => onMarkerMove(this.getMarkCenter(e)));
+    }
+    if (onMarkerMoveEnd) {
+      marker.on('moveend', e => onMarkerMoveEnd(this.getMarkCenter(e)));
+    }
+    if (onMarkerMoveStart) {
+      marker.on('movestart', e => onMarkerMoveStart(this.getMarkCenter(e)));
     }
   };
 

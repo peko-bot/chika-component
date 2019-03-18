@@ -5,7 +5,7 @@ export default class MapBoxDemo extends Component {
   render = () => {
     return (
       <div className="MapBoxDemo">
-        <MapBox onMove={({ lat, lng }) => console.log(lat, lng)} />
+        <MapBox onMarkerMove={({ lat, lng }) => console.log(lat, lng)} />
       </div>
     );
   };
