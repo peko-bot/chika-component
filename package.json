@@ -23,13 +23,11 @@
   "dependencies": {
     "antd-mobile": "^2.2.9",
     "leaflet": "^1.4.0",
-    "leaflet.markercluster": "^1.4.1",
     "nino-cli": "^0.6.5"
   },
   "devDependencies": {
     "@types/classnames": "^2.2.7",
     "@types/leaflet": "^1.4.3",
-    "@types/leaflet.markercluster": "^1.0.3",
     "@types/react": "^16.8.8",
     "@types/react-dom": "^16.8.2",
     "@types/react-router-dom": "^4.3.1",
