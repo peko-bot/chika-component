@@ -17,6 +17,11 @@ import './css/Container-core.css';
 function noop() {}
 
 type GroupType = 'list-page' | 'update-page' | 'detail-page' | 'map-box';
+export type PropsGoToMaxBox = {
+  lat: string;
+  lng: string;
+  primaryValue: string;
+};
 export interface ContainerCoreProps {
   power: any;
   config: Array<any>;
@@ -37,10 +42,8 @@ export interface ContainerCoreState {
   currentGroup: GroupType;
   lng: number | string;
   lat: number | string;
-  address: string;
   primaryValue: string | number;
   currentState: number;
-  mapBoxVisible: boolean;
   updatePageStatus: UpdatePageStatus;
 }
 
@@ -55,11 +58,9 @@ export default class ContainerCore extends Component<
     // for mapPicker
     lng: -1,
     lat: -1,
-    address: '',
     primaryValue: '',
     currentState: 0,
     updatePageStatus: 'add',
-    mapBoxVisible: false,
   };
 
   history: {
@@ -244,17 +245,7 @@ export default class ContainerCore extends Component<
     return result;
   };
 
-  handleGoToMapBox = ({
-    lat,
-    lng,
-    address,
-    primaryValue,
-  }: {
-    lat: number | string;
-    lng: number | string;
-    address: string;
-    primaryValue: string;
-  }) => {
+  handleGoToMapBox = ({ lat, lng, primaryValue }: PropsGoToMaxBox) => {
     const { currentGroup, currentOrder } = this.state;
     // record position, for going back
     this.history = {
@@ -267,7 +258,6 @@ export default class ContainerCore extends Component<
       currentOrder: 0,
       lat,
       lng,
-      address,
       primaryValue,
     });
   };
@@ -285,7 +275,7 @@ export default class ContainerCore extends Component<
         config={config}
         dataItem={dataItem}
         status={updatePageStatus}
-        onMapBoxChange={() => this.setState({ mapBoxVisible: true })}
+        onMapBoxChange={this.handleGoToMapBox}
       />
     );
   };
@@ -296,7 +286,6 @@ export default class ContainerCore extends Component<
       currentState,
       currentOrder,
       currentGroup,
-      mapBoxVisible,
       // lat,
       // lng,
       // address,
@@ -420,12 +409,10 @@ export default class ContainerCore extends Component<
               address={address}
               primaryValue={primaryValue}
             /> */}
+            <MapBox onMarkerDrag={({ lat, lng }) => console.log(lng, lat)} />
           </Item>
         </TransformManager>
 
-        {mapBoxVisible && (
-          <MapBox onMarkerDrag={({ lat, lng }) => console.log(lng, lat)} />
-        )}
         <ActivityIndicator
           animating={props.loading}
           text="正在加载..."

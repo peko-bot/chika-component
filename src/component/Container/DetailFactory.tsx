@@ -10,9 +10,8 @@ export interface DetailFactoryProps {
   dataItem?: Array<any>;
   onDataFormat: (value: string | number, item: any) => void;
   goToMapBox: (item: {
-    lat: number | string;
-    lng: number | string;
-    address: string;
+    lat: string;
+    lng: string;
     primaryValue: string;
   }) => void;
 }

@@ -13,6 +13,7 @@ import {
 const { CheckboxItem } = Checkbox;
 import Upload from './UploadWrapper';
 import { formatDate } from '../../util';
+import { PropsGoToMaxBox } from './core';
 
 export type UpdatePageStatus = 'add' | 'update';
 export type ValidTypes = {
@@ -42,7 +43,7 @@ export interface UpdatePageProps {
   config: Array<any>;
   dataItem: any;
   status: UpdatePageStatus;
-  onMapBoxChange?: (value: string) => void;
+  onMapBoxChange?: (item: PropsGoToMaxBox) => void;
 }
 export type CalendarItem = {
   calendarVisible: boolean;
@@ -309,8 +310,11 @@ export default class UpdatePage extends Component<
               <List.Item
                 key={`${prefixCls}-map-picker-address-${i}`}
                 arrow="horizontal"
-                onClick={() => onMapBoxChange && onMapBoxChange(value)}
-                extra="查看"
+                onClick={() =>
+                  onMapBoxChange &&
+                  onMapBoxChange({ lat, lng, primaryValue: '' })
+                }
+                extra={latlng.length > 2 ? latlng[2] : '查看'}
               >
                 地址
               </List.Item>,
