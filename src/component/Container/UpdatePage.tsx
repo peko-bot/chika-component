@@ -42,6 +42,7 @@ export interface UpdatePageProps {
   config: Array<any>;
   dataItem: any;
   status: UpdatePageStatus;
+  onMapBoxChange?: (value: string) => void;
 }
 export type CalendarItem = {
   calendarVisible: boolean;
@@ -168,13 +169,13 @@ export default class UpdatePage extends Component<
 
   renderEditItem = () => {
     const { props, state } = this;
-    const { status, config } = props;
+    const { status, config, onMapBoxChange } = props;
     const prefixCls = `update-page-${status}`;
     let element = [];
     for (let i = 0; i < config.length; i++) {
       const { type, name, key, foreignData } = config[i];
       const item = state.form[key];
-      const value = status === 'add' ? '' : item.value;
+      const value = status === 'add' ? '' : item.value || '';
       switch (type) {
         case 'input':
           element.push(
@@ -301,12 +302,15 @@ export default class UpdatePage extends Component<
               </List.Item>,
             );
           } else if (status === 'update') {
+            const latlng = value.split('|');
+            const lng = latlng[0];
+            const lat = latlng[1];
             element.push(
               <List.Item
                 key={`${prefixCls}-map-picker-address-${i}`}
                 arrow="horizontal"
-                onClick={() => console.log('test')}
-                extra="测试地址"
+                onClick={() => onMapBoxChange && onMapBoxChange(value)}
+                extra="查看"
               >
                 地址
               </List.Item>,
@@ -314,7 +318,7 @@ export default class UpdatePage extends Component<
             element.push(
               <List.Item
                 key={`${prefixCls}-map-picker-lng-${i}`}
-                extra={parseFloat('11').toFixed(6)}
+                extra={parseFloat(lng).toFixed(6)}
               >
                 经度
               </List.Item>,
@@ -322,7 +326,7 @@ export default class UpdatePage extends Component<
             element.push(
               <List.Item
                 key={`${prefixCls}-map-picker-lat-${i}`}
-                extra={parseFloat('22').toFixed(6)}
+                extra={parseFloat(lat).toFixed(6)}
               >
                 纬度
               </List.Item>,

@@ -11,6 +11,7 @@ import TransformManager, {
 } from '../TransformManager';
 import DetailFactory from './DetailFactory';
 import UpdatePage, { UpdatePageStatus } from './UpdatePage';
+import { MapBox } from '../MapBox';
 import './css/Container-core.css';
 
 function noop() {}
@@ -39,6 +40,7 @@ export interface ContainerCoreState {
   address: string;
   primaryValue: string | number;
   currentState: number;
+  mapBoxVisible: boolean;
   updatePageStatus: UpdatePageStatus;
 }
 
@@ -57,6 +59,7 @@ export default class ContainerCore extends Component<
     primaryValue: '',
     currentState: 0,
     updatePageStatus: 'add',
+    mapBoxVisible: false,
   };
 
   history: {
@@ -282,6 +285,7 @@ export default class ContainerCore extends Component<
         config={config}
         dataItem={dataItem}
         status={updatePageStatus}
+        onMapBoxChange={() => this.setState({ mapBoxVisible: true })}
       />
     );
   };
@@ -292,6 +296,7 @@ export default class ContainerCore extends Component<
       currentState,
       currentOrder,
       currentGroup,
+      mapBoxVisible,
       // lat,
       // lng,
       // address,
@@ -418,6 +423,9 @@ export default class ContainerCore extends Component<
           </Item>
         </TransformManager>
 
+        {mapBoxVisible && (
+          <MapBox onMarkerDrag={({ lat, lng }) => console.log(lng, lat)} />
+        )}
         <ActivityIndicator
           animating={props.loading}
           text="正在加载..."
