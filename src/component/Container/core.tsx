@@ -1,9 +1,5 @@
 import React, { Component } from 'react';
-import {
-  Modal,
-  ActivityIndicator,
-  // PullToRefresh,
-} from 'antd-mobile';
+import { Modal, ActivityIndicator } from 'antd-mobile';
 const { alert, operation } = Modal;
 import Template from './Template';
 import TransformManager, {
@@ -86,43 +82,6 @@ export default class ContainerCore extends Component<
     onDelete: noop,
     formatControls: noop,
     onMapPickerChange: noop,
-  };
-
-  componentDidMount = () => {
-    // const { showSearch = true } = this.props.config;
-    // 绑定搜索面板滑动事件
-    // showSearch
-    //   ? bindTouchDirection(this.content, direction => {
-    //       switch (direction) {
-    //         case 'toLeft':
-    //           this.handleSearchChange();
-    //           break;
-    //         default:
-    //           break;
-    //       }
-    //     })
-    //   : null;
-    // 绑定详情页点击及滑动事件
-    // bindTouchDirection(this.editWrapper, direction => {
-    //   const { pageType } = this.state;
-    //   if (pageType == 'detail') {
-    //     let { detailNext, detailLast } = this.handleDetailNext();
-    //     switch (direction) {
-    //       case 'toLeft':
-    //         if (detailNext) {
-    //           this.handleDetailPagination('next', detailNext);
-    //         }
-    //         break;
-    //       case 'toRight':
-    //         if (detailLast) {
-    //           this.handleDetailPagination('last', detailLast);
-    //         }
-    //         break;
-    //       default:
-    //         break;
-    //     }
-    //   }
-    // });
   };
 
   backToList = () => {
@@ -282,108 +241,17 @@ export default class ContainerCore extends Component<
 
   render = () => {
     const { state, props } = this;
-    const {
-      currentState,
-      currentOrder,
-      currentGroup,
-      // lat,
-      // lng,
-      // address,
-      // primaryValue,
-    } = state;
-    // let sidebar = (
-    //   <List>
-    //     <List.Item>
-    //       <Button onClick={this.handleSearch} loading={props.loading}>
-    //         确定
-    //       </Button>
-    //     </List.Item>
-    //     {config.map((item, i) =>
-    //       this.handleControlType(item, 'search', undefined, i),
-    //     )}
-    //   </List>
-    // );
-
-    /* 触发搜索的方块 */
-    // let extendDrawer = (
-    //   <div
-    //     className="sc-extend-drawer sc-right"
-    //     onClick={this.handleSearchChange}
-    //     style={{
-    //       top: (document.body.clientHeight - 100) / 2,
-    //     }}
-    //   >
-    //     <img src="../../assets/List_Container/arrow-left.png" />
-    //   </div>
-    // );
-
-    // const drawerConfig = {
-    //   open: false,
-    //   onOpenChange: this.handleSearchChange,
-    //   className: 'sc-search-drawer',
-    //   sidebar,
-    //   position: 'right',
-    //   sidebarStyle: { width: '77%', background: 'rgba(50, 50, 50, .35)' },
-    //   overlayStyle: { backgroundColor: 'rgba(50, 50, 50, 0)' },
-    //   style: { display: pageType == 'list' ? '' : 'none' },
-    // };
-
-    // const functionalButtonConfig = {
-    //   visible: showButton && pageType == 'list',
-    //   onAdd: type => this.handleItemEdit(this.mainValue, type),
-    //   dataSource: this.listDatas,
-    //   sortBy,
-    //   power: this.power,
-    //   onSort: datas => {
-    //     this.listDatas = datas;
-
-    //     this.setState({});
-    //   },
-    // };
+    const { currentOrder, currentGroup } = state;
 
     return (
       <div className="Container-core">
-        {/* 触发搜索的方块 */}
-        {/* {extendDrawer} */}
-
-        {/* 触发添加的图标 */}
-        {/* <FunctionalButton {...functionalButtonConfig} /> */}
-
-        {/* 搜索面板 */}
-        {/* <Drawer {...drawerConfig}>
-          <span />
-        </Drawer> */}
-
-        {/* 新增/修改/详情 */}
-        {/* <div
-          className="sc-edit-content"
-          style={
-            {
-              transform: `translate3d(${(currentState + 1) * 100}%, 0, 0)`,
-            }
-          }
-          ref={ref => (this.editWrapper = ref)}
-        >
-          {pageType == 'detail' ? detailContent : editContent}
-          <DetailArrow {...detailArrowConfig} />
-        </div> */}
         <TransformManager
           currentGroup={currentGroup}
           currentOrder={currentOrder}
         >
           <Item group="list-page" order={0} key="list-page-0">
-            {/* <PullToRefresh
-              direction="up"
-              style={{ height: style.height, overflow: 'auto' }}
-              onRefresh={this.handlePullLoad}
-              refreshing={pullLoad}
-            > */}
             <div
               className="sc-content"
-              style={{
-                transform: `translate3d(${currentState * 100}%, 0, 0)`,
-                // display: pageType == 'list' ? '' : 'none',
-              }}
               ref={(ref: any) => (this.content = ref)}
             >
               <Template
@@ -395,20 +263,12 @@ export default class ContainerCore extends Component<
                 onLongPress={this.handleTemplatePress}
               />
             </div>
-            {/* </PullToRefresh> */}
           </Item>
           {this.renderDetailPage(props.dataSource)}
           <Item group="update-page" order={0} key="update-page-0">
             {this.renderUpdatePage()}
           </Item>
           <Item group="map-box" order={0} key="map-box-0">
-            {/* <MapBox
-              onBack={this.backToLast}
-              lat={lat}
-              lng={lng}
-              address={address}
-              primaryValue={primaryValue}
-            /> */}
             <MapBox onMarkerDrag={({ lat, lng }) => console.log(lng, lat)} />
           </Item>
         </TransformManager>
