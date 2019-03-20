@@ -16,7 +16,6 @@ type GroupType = 'list-page' | 'update-page' | 'detail-page' | 'map-box';
 export type PropsGoToMaxBox = {
   lat: string;
   lng: string;
-  primaryValue: string;
 };
 export interface ContainerCoreProps {
   power: any;
@@ -193,7 +192,7 @@ export default class ContainerCore extends Component<
             onPageChange={this.onDetailPageChange}
             dataItem={dataItem as any}
             onDataFormat={this.handleChildDataFormat}
-            goToMapBox={this.handleGoToMapBox}
+            onMapBoxChange={this.handleMapBoxChange}
           />
         </Item>,
       );
@@ -201,7 +200,7 @@ export default class ContainerCore extends Component<
     return result;
   };
 
-  handleGoToMapBox = ({ lat, lng, primaryValue }: PropsGoToMaxBox) => {
+  handleMapBoxChange = ({ lat, lng }: PropsGoToMaxBox) => {
     const { currentGroup, currentOrder } = this.state;
     // record position, for going back
     this.history = {
@@ -214,8 +213,23 @@ export default class ContainerCore extends Component<
       currentOrder: 0,
       lat,
       lng,
-      primaryValue,
     });
+  };
+
+  handleBackFromMapBox = () => {
+    const { group, order } = this.history;
+    this.setState(
+      {
+        currentGroup: group,
+        currentOrder: order,
+      },
+      () => {
+        this.history = {
+          group: 'list-page',
+          order: '',
+        };
+      },
+    );
   };
 
   renderUpdatePage = () => {
@@ -231,7 +245,7 @@ export default class ContainerCore extends Component<
         config={config}
         dataItem={dataItem}
         status={updatePageStatus}
-        onMapBoxChange={this.handleGoToMapBox}
+        onMapBoxChange={this.handleMapBoxChange}
       />
     );
   };
@@ -272,15 +286,21 @@ export default class ContainerCore extends Component<
                 this.setState({ lat: lat.toString(), lng: lng.toString() })
               }
             />
-            <Modal popup animationType="slide-up" visible>
-              <List renderHeader="坐标信息">
-                <List.Item extra={lng}>经度</List.Item>
-                <List.Item extra={lat}>纬度</List.Item>
-                <List.Item>
-                  <Button>返回</Button>
-                </List.Item>
-              </List>
-            </Modal>
+            <List
+              renderHeader="坐标信息"
+              style={{
+                position: 'absolute',
+                bottom: 0,
+                width: '100%',
+                zIndex: 400,
+              }}
+            >
+              <List.Item extra={lng}>经度</List.Item>
+              <List.Item extra={lat}>纬度</List.Item>
+              <List.Item>
+                <Button onClick={this.handleBackFromMapBox}>返回</Button>
+              </List.Item>
+            </List>
           </Item>
         </TransformManager>
 

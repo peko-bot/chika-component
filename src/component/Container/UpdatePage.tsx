@@ -310,10 +310,7 @@ export default class UpdatePage extends Component<
               <List.Item
                 key={`${prefixCls}-map-picker-address-${i}`}
                 arrow="horizontal"
-                onClick={() =>
-                  onMapBoxChange &&
-                  onMapBoxChange({ lat, lng, primaryValue: '' })
-                }
+                onClick={() => onMapBoxChange && onMapBoxChange({ lat, lng })}
                 extra={latlng.length > 2 ? latlng[2] : '查看'}
               >
                 地址

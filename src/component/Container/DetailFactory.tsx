@@ -9,7 +9,7 @@ export interface DetailFactoryProps {
   onBack: () => void;
   dataItem?: Array<any>;
   onDataFormat: (value: string | number, item: any) => void;
-  goToMapBox: (item: {
+  onMapBoxChange: (item: {
     lat: string;
     lng: string;
     primaryValue: string;
@@ -23,11 +23,11 @@ export default class DetailFactory extends Component<DetailFactoryProps> {
     onBack: noop,
     dataItem: [],
     onDataFormat: (value: any) => value,
-    goToMapBox: noop,
+    onMapBoxChange: noop,
   };
 
   handleControls = (item: any, index: number) => {
-    const { onDataFormat, goToMapBox } = this.props;
+    const { onDataFormat, onMapBoxChange } = this.props;
     const { type, value, name } = item;
 
     if (type === 'mapPicker') {
@@ -38,7 +38,7 @@ export default class DetailFactory extends Component<DetailFactoryProps> {
           <List.Item
             extra={item.address}
             arrow="horizontal"
-            onClick={() => goToMapBox(item)}
+            onClick={() => onMapBoxChange(item)}
           >
             地址
           </List.Item>
@@ -68,7 +68,7 @@ export default class DetailFactory extends Component<DetailFactoryProps> {
             {dataItem.map((item, i) => this.handleControls(item, i))}
           </List.Item>
           <List.Item>
-            <Button onClick={onBack}>返回上级</Button>
+            <Button onClick={onBack}>返回</Button>
           </List.Item>
         </List>
       </div>
