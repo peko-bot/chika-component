@@ -14,9 +14,9 @@ export enum TileType {
 export type MoveEvent = (latlng: leaflet.LatLng) => void;
 export interface MapBoxProps {
   /** when init, set center to map
-   * { lng: number, lat: number }
+   * { lng: string, lat: string }
    */
-  center?: { lng: number; lat: number };
+  center?: { lng: string; lat: string };
   /** it's an enum, includes
    * gdTrafficTile, gdSatelliteTile,
    * googleTile, googleRsTile, googleTrafficTile
@@ -52,7 +52,7 @@ export interface MapBoxProps {
   onMarkerDragEnd?: MoveEvent;
 }
 export interface MapBoxState {
-  center: { lng: number; lat: number };
+  center: { lng: string; lat: string };
 }
 
 const defaultMapOptions: leaflet.MapOptions = {
@@ -92,7 +92,7 @@ export default class MapBox extends Component<MapBoxProps, MapBoxState> {
     super(props);
 
     this.state = {
-      center: props.center || { lng: 121.66, lat: 31.8 },
+      center: props.center || { lng: '121.66', lat: '31.8' },
     };
     this.container = createRef();
   }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Modal, ActivityIndicator } from 'antd-mobile';
+import { Modal, ActivityIndicator, List, Button } from 'antd-mobile';
 const { alert, operation } = Modal;
 import Template from './Template';
 import TransformManager, {
@@ -36,8 +36,8 @@ export interface ContainerCoreProps {
 export interface ContainerCoreState {
   currentOrder: number | string;
   currentGroup: GroupType;
-  lng: number | string;
-  lat: number | string;
+  lng: string;
+  lat: string;
   primaryValue: string | number;
   currentState: number;
   updatePageStatus: UpdatePageStatus;
@@ -52,8 +52,8 @@ export default class ContainerCore extends Component<
     currentOrder: 0,
     currentGroup: 'list-page',
     // for mapPicker
-    lng: -1,
-    lat: -1,
+    lng: '-1',
+    lat: '-1',
     primaryValue: '',
     currentState: 0,
     updatePageStatus: 'add',
@@ -109,9 +109,6 @@ export default class ContainerCore extends Component<
       },
     ]);
   };
-
-  // 滑动加载
-  handlePullLoad = () => {};
 
   handleTemplateClick = ({
     templateOrder,
@@ -241,7 +238,7 @@ export default class ContainerCore extends Component<
 
   render = () => {
     const { state, props } = this;
-    const { currentOrder, currentGroup } = state;
+    const { currentOrder, currentGroup, lat, lng } = state;
 
     return (
       <div className="Container-core">
@@ -269,7 +266,21 @@ export default class ContainerCore extends Component<
             {this.renderUpdatePage()}
           </Item>
           <Item group="map-box" order={0} key="map-box-0">
-            <MapBox onMarkerDrag={({ lat, lng }) => console.log(lng, lat)} />
+            <MapBox
+              center={{ lat, lng }}
+              onMarkerDrag={({ lat, lng }) =>
+                this.setState({ lat: lat.toString(), lng: lng.toString() })
+              }
+            />
+            <Modal popup animationType="slide-up" visible>
+              <List renderHeader="坐标信息">
+                <List.Item extra={lng}>经度</List.Item>
+                <List.Item extra={lat}>纬度</List.Item>
+                <List.Item>
+                  <Button>返回</Button>
+                </List.Item>
+              </List>
+            </Modal>
           </Item>
         </TransformManager>
 
