@@ -228,7 +228,8 @@ export default class ContainerCore extends Component<
     const dataItemIndex = dataSource.findIndex(
       item => item[primaryKey] === primaryValue,
     );
-    const dataItem = dataSource[dataItemIndex];
+    const dataItem =
+      updatePageStatus === 'add' ? {} : dataSource[dataItemIndex];
     return (
       <UpdatePage
         onBack={this.backToList}
