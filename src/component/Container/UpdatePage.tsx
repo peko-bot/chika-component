@@ -73,8 +73,7 @@ export default class UpdatePage extends Component<
 
     this.state = {
       ...CalendarDefaultValue,
-      // form: this.initDefaultValue(props.dataItem),
-      form: {},
+      form: this.initDefaultValue(props.dataItem),
     };
   }
 
@@ -124,7 +123,11 @@ export default class UpdatePage extends Component<
     let rest = {};
     switch (type) {
       case 'checkbox':
-        let stateValue = this.state.form[fieldName].value;
+        let stateValue;
+        if (!Object.keys(this.state.form).length) {
+          this.state.form[fieldName] = {};
+        }
+        stateValue = this.state.form[fieldName].value || '';
         let checkboxSet = new Set();
         if (stateValue) {
           checkboxSet = new Set(stateValue.split(','));
@@ -228,18 +231,26 @@ export default class UpdatePage extends Component<
               <Accordion.Panel header={name}>
                 <List>
                   {foreignData.map(
-                    (item: { value: string; label: string }, i: number) => {
+                    (
+                      checkboxItem: { value: string; label: string },
+                      i: number,
+                    ) => {
                       const stateValue =
                         (item.value && item.value.split(',')) || [];
                       return (
                         <CheckboxItem
                           key={`${prefixCls}-checkbox-item-${i}`}
-                          checked={stateValue.includes(item.value)}
+                          checked={stateValue.includes(checkboxItem.value)}
                           onChange={() =>
-                            this.checkValue(item.value, type, key, config[i])
+                            this.checkValue(
+                              checkboxItem.value,
+                              type,
+                              key,
+                              config[i],
+                            )
                           }
                         >
-                          {item.label}
+                          {checkboxItem.label}
                         </CheckboxItem>
                       );
                     },
