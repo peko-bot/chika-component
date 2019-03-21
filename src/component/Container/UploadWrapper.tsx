@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Upload from '../Upload';
+import { Upload } from '../Upload';
 import { ajax, isDev } from '../../util/urlHelper';
 
 function noop() {}
@@ -113,7 +113,7 @@ export default class UploadWrapper extends Component<
         <Upload
           fileList={fileList}
           onChange={this.handleChange}
-          longPress={this.handleLongPress}
+          // onPress={this.handleLongPress}
         />
       </div>
     );

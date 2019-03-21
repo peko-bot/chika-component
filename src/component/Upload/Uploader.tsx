@@ -1,23 +1,27 @@
-import React, { Component } from 'react';
+import React, { Component, createRef } from 'react';
 import './css/Uploader.css';
 
 export interface UploaderProps {
-  onChange?: (file: any) => void;
-  visible?: boolean;
-  plusText?: string;
+  onChange?: (file: File) => void;
+  accept?: string;
+  multiple?: boolean;
 }
 
 export default class Uploader extends Component<UploaderProps> {
-  uploadInput: any;
+  uploadInput: React.RefObject<HTMLInputElement>;
 
-  wrapperOnClick = () => {
-    let el = this.uploadInput;
-    if (!el) {
+  constructor(props: UploaderProps) {
+    super(props);
+    this.uploadInput = createRef();
+  }
+
+  handleInputWrapperClick = () => {
+    const element = this.uploadInput.current;
+    if (!element) {
       return;
     }
-
-    el.click();
-    el.value = '';
+    element.click();
+    element.value = '';
   };
 
   onChange = (e: any) => {
@@ -36,22 +40,24 @@ export default class Uploader extends Component<UploaderProps> {
   };
 
   render = () => {
-    const { visible = true, plusText } = this.props;
-
     return (
-      <div className="Uploader" style={{ display: visible ? '' : 'none' }}>
-        <div onClick={this.wrapperOnClick} className="wrapper">
+      <div className="Uploader">
+        <div
+          onClick={this.handleInputWrapperClick}
+          className="uploader-wrapper"
+        >
           <span className="upload-button">
             <input
               type="file"
-              ref={ref => (this.uploadInput = ref)}
+              ref={this.uploadInput}
               style={{ display: 'none' }}
               onChange={this.onChange}
+              multiple
             />
 
             <div>
               <i className="plus-icon">+</i>
-              <div>{plusText}</div>
+              <div>plus</div>
             </div>
           </span>
         </div>

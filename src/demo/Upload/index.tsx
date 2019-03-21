@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Upload from '../../component/Upload';
+import { Upload } from '../../component/Upload';
 
 export default class UploadDemo extends Component {
   state: { fileList: Array<any>; loading: boolean } = {
