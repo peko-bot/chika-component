@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { List, Button } from 'antd-mobile';
+import { PropsGoToMaxBox } from './core';
 
 function noop() {}
 
@@ -9,11 +10,7 @@ export interface DetailFactoryProps {
   onBack: () => void;
   dataItem?: Array<any>;
   onDataFormat: (value: string | number, item: any) => void;
-  onMapBoxChange: (item: {
-    lat: string;
-    lng: string;
-    primaryValue: string;
-  }) => void;
+  onMapBoxChange?: (item: PropsGoToMaxBox) => void;
 }
 
 export default class DetailFactory extends Component<DetailFactoryProps> {
@@ -38,7 +35,7 @@ export default class DetailFactory extends Component<DetailFactoryProps> {
           <List.Item
             extra={item.address}
             arrow="horizontal"
-            onClick={() => onMapBoxChange(item)}
+            onClick={() => onMapBoxChange && onMapBoxChange(item)}
           >
             地址
           </List.Item>
@@ -50,7 +47,7 @@ export default class DetailFactory extends Component<DetailFactoryProps> {
       return (
         <List.Item
           key={`detail-page-label-${index}`}
-          extra={onDataFormat(value, item) as any}
+          extra={onDataFormat && (onDataFormat(value, item) as any)}
         >
           {name}
         </List.Item>

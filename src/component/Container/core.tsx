@@ -2,20 +2,24 @@ import React, { Component } from 'react';
 import { Modal, ActivityIndicator, List, Button } from 'antd-mobile';
 const { alert, operation } = Modal;
 import Template from './Template';
-import TransformManager, {
-  TransformManagerItem as Item,
-} from '../TransformManager';
+import TransformManager, { TransformManagerItem } from '../TransformManager';
 import DetailFactory from './DetailFactory';
 import UpdatePage, { UpdatePageStatus } from './UpdatePage';
 import { MapBox } from '../MapBox';
 import './css/Container-core.css';
 
-function noop() {}
-
 type GroupType = 'list-page' | 'update-page' | 'detail-page' | 'map-box';
 export type PropsGoToMaxBox = {
   lat: string;
   lng: string;
+  primaryValue?: string;
+  key?: string;
+};
+export type MapPickerChangeProps = {
+  lat: string;
+  lng: string;
+  primaryValue: string | number;
+  targetKey: string;
 };
 export interface ContainerCoreProps {
   power: any;
@@ -25,8 +29,9 @@ export interface ContainerCoreProps {
   loading?: boolean;
   primaryKey: string;
   onDelete?: (primaryValue: string | number) => void;
+  onSearch?: () => void;
   formatControls: (item: any, config: any) => void;
-  onMapPickerChange?: (item: any) => void;
+  onMapPickerChange?: (item: MapPickerChangeProps) => void;
   defaultDataFormatEnum: Array<{
     key: string;
     method: (value: any, method: any) => void;
@@ -40,6 +45,7 @@ export interface ContainerCoreState {
   primaryValue: string | number;
   currentState: number;
   updatePageStatus: UpdatePageStatus;
+  mapBoxTargetKey: string;
 }
 
 export default class ContainerCore extends Component<
@@ -56,6 +62,7 @@ export default class ContainerCore extends Component<
     primaryValue: '',
     currentState: 0,
     updatePageStatus: 'add',
+    mapBoxTargetKey: '',
   };
 
   history: {
@@ -66,33 +73,11 @@ export default class ContainerCore extends Component<
     order: '',
   };
 
-  static defaultProps = {
-    power: {
-      select: false,
-      delete: false,
-      update: false,
-      add: false,
-    },
-    config: [],
-    dataSource: [],
-    total: 0,
-    loading: false,
-    primaryKey: '',
-    onDelete: noop,
-    formatControls: noop,
-    onMapPickerChange: noop,
-  };
-
   backToList = () => {
-    this.setState({ currentGroup: 'list-page', currentOrder: 0 });
-  };
-
-  backToLast = (item: any) => {
-    const { group, order } = this.history;
-    if (this.props.onMapPickerChange) {
-      this.props.onMapPickerChange(item);
+    if (this.props.onSearch) {
+      this.props.onSearch();
     }
-    this.setState({ currentGroup: group, currentOrder: order });
+    this.setState({ currentGroup: 'list-page', currentOrder: 0 });
   };
 
   handleDelete = (primaryValue: string | number) => {
@@ -186,7 +171,11 @@ export default class ContainerCore extends Component<
     dataSource.map((item, i) => {
       const dataItem = formatControls(item, config);
       result.push(
-        <Item group="detail-page" order={i} key={`detail-page-${i}`}>
+        <TransformManagerItem
+          group="detail-page"
+          order={i}
+          key={`detail-page-${i}`}
+        >
           <DetailFactory
             onBack={this.backToList}
             onPageChange={this.onDetailPageChange}
@@ -194,13 +183,13 @@ export default class ContainerCore extends Component<
             onDataFormat={this.handleChildDataFormat}
             onMapBoxChange={this.handleMapBoxChange}
           />
-        </Item>,
+        </TransformManagerItem>,
       );
     });
     return result;
   };
 
-  handleMapBoxChange = ({ lat, lng }: PropsGoToMaxBox) => {
+  handleMapBoxChange = ({ lat, lng, key }: PropsGoToMaxBox) => {
     const { currentGroup, currentOrder } = this.state;
     // record position, for going back
     this.history = {
@@ -213,6 +202,7 @@ export default class ContainerCore extends Component<
       currentOrder: 0,
       lat,
       lng,
+      mapBoxTargetKey: key || '',
     });
   };
 
@@ -252,7 +242,14 @@ export default class ContainerCore extends Component<
 
   render = () => {
     const { state, props } = this;
-    const { currentOrder, currentGroup, lat, lng } = state;
+    const {
+      currentOrder,
+      currentGroup,
+      lat,
+      lng,
+      primaryValue,
+      mapBoxTargetKey,
+    } = state;
 
     return (
       <div className="Container-core">
@@ -260,7 +257,7 @@ export default class ContainerCore extends Component<
           currentGroup={currentGroup}
           currentOrder={currentOrder}
         >
-          <Item group="list-page" order={0} key="list-page-0">
+          <TransformManagerItem group="list-page" order={0} key="list-page-0">
             <div
               className="sc-content"
               ref={(ref: any) => (this.content = ref)}
@@ -274,17 +271,28 @@ export default class ContainerCore extends Component<
                 onLongPress={this.handleTemplatePress}
               />
             </div>
-          </Item>
+          </TransformManagerItem>
           {this.renderDetailPage(props.dataSource)}
-          <Item group="update-page" order={0} key="update-page-0">
+          <TransformManagerItem
+            group="update-page"
+            order={0}
+            key="update-page-0"
+          >
             {this.renderUpdatePage()}
-          </Item>
-          <Item group="map-box" order={0} key="map-box-0">
+          </TransformManagerItem>
+          <TransformManagerItem group="map-box" order={0} key="map-box-0">
             <MapBox
               center={{ lat, lng }}
-              onMarkerDrag={({ lat, lng }) =>
-                this.setState({ lat: lat.toString(), lng: lng.toString() })
-              }
+              onMarkerDrag={({ lat, lng }) => {
+                this.setState({ lat: lat.toString(), lng: lng.toString() });
+                props.onMapPickerChange &&
+                  props.onMapPickerChange({
+                    lat: lat.toString(),
+                    lng: lng.toString(),
+                    primaryValue,
+                    targetKey: mapBoxTargetKey,
+                  });
+              }}
             />
             <List
               renderHeader="坐标信息"
@@ -301,7 +309,7 @@ export default class ContainerCore extends Component<
                 <Button onClick={this.handleBackFromMapBox}>返回</Button>
               </List.Item>
             </List>
-          </Item>
+          </TransformManagerItem>
         </TransformManager>
 
         <ActivityIndicator
