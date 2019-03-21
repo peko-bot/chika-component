@@ -196,3 +196,7 @@ textarea:-ms-input-placeholder {
 .Container-core .sc-edit-content .am-input-control input {
   text-align: right;
 }
+
+.Container-core .am-list-header {
+  background: #fff;
+}

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Container from './core';
+import Container, { MapPickerChangeProps } from './core';
 import { ajax } from '../../util/urlHelper';
 import { Toast } from 'antd-mobile';
 import { formatDate } from '../../util';
@@ -155,11 +155,6 @@ export default class DataController extends Component<
     }
     ajax({
       url: '../../mock/search.json',
-      // params: {
-      //   method: 'POST',
-      //   body: JSON.stringify(data),
-      //   mode: 'cors',
-      // },
       success: ({ data }) => {
         let dataSource: Array<any> = [];
         data.list.map((item: any, i: number) => {
@@ -229,9 +224,18 @@ export default class DataController extends Component<
     return result;
   };
 
-  handeMapPickerChange = (dataItem: any) => {
-    // eslint-disable-next-line
-    console.log(dataItem);
+  handeMapPickerChange = ({
+    primaryValue,
+    targetKey,
+    lng,
+    lat,
+  }: MapPickerChangeProps) => {
+    const { dataSource, primaryKey } = this.state;
+    const itemIndex = dataSource.findIndex(
+      item => item[primaryKey] === primaryValue,
+    );
+    dataSource[itemIndex][targetKey] = `${lng}|${lat}|`;
+    this.setState({ dataSource });
   };
 
   render = () => {
@@ -253,6 +257,7 @@ export default class DataController extends Component<
           total={total}
           primaryKey={primaryKey}
           loading={loading}
+          onSearch={this.search}
           onDelete={this.handleDelete}
           formatControls={this.formatControls}
           onMapPickerChange={this.handeMapPickerChange}

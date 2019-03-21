@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { List, Button } from 'antd-mobile';
+import { PropsGoToMaxBox } from './core';
 
 function noop() {}
 
@@ -9,12 +10,7 @@ export interface DetailFactoryProps {
   onBack: () => void;
   dataItem?: Array<any>;
   onDataFormat: (value: string | number, item: any) => void;
-  goToMapBox: (item: {
-    lat: number | string;
-    lng: number | string;
-    address: string;
-    primaryValue: string;
-  }) => void;
+  onMapBoxChange?: (item: PropsGoToMaxBox) => void;
 }
 
 export default class DetailFactory extends Component<DetailFactoryProps> {
@@ -24,11 +20,11 @@ export default class DetailFactory extends Component<DetailFactoryProps> {
     onBack: noop,
     dataItem: [],
     onDataFormat: (value: any) => value,
-    goToMapBox: noop,
+    onMapBoxChange: noop,
   };
 
   handleControls = (item: any, index: number) => {
-    const { onDataFormat, goToMapBox } = this.props;
+    const { onDataFormat, onMapBoxChange } = this.props;
     const { type, value, name } = item;
 
     if (type === 'mapPicker') {
@@ -39,7 +35,7 @@ export default class DetailFactory extends Component<DetailFactoryProps> {
           <List.Item
             extra={item.address}
             arrow="horizontal"
-            onClick={() => goToMapBox(item)}
+            onClick={() => onMapBoxChange && onMapBoxChange(item)}
           >
             地址
           </List.Item>
@@ -51,7 +47,7 @@ export default class DetailFactory extends Component<DetailFactoryProps> {
       return (
         <List.Item
           key={`detail-page-label-${index}`}
-          extra={onDataFormat(value, item) as any}
+          extra={onDataFormat && (onDataFormat(value, item) as any)}
         >
           {name}
         </List.Item>
@@ -69,7 +65,7 @@ export default class DetailFactory extends Component<DetailFactoryProps> {
             {dataItem.map((item, i) => this.handleControls(item, i))}
           </List.Item>
           <List.Item>
-            <Button onClick={onBack}>返回上级</Button>
+            <Button onClick={onBack}>返回</Button>
           </List.Item>
         </List>
       </div>

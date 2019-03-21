@@ -1,21 +1,26 @@
 import React, { Component } from 'react';
-import {
-  Modal,
-  ActivityIndicator,
-  // PullToRefresh,
-} from 'antd-mobile';
+import { Modal, ActivityIndicator, List, Button } from 'antd-mobile';
 const { alert, operation } = Modal;
 import Template from './Template';
-import TransformManager, {
-  TransformManagerItem as Item,
-} from '../TransformManager';
+import TransformManager, { TransformManagerItem } from '../TransformManager';
 import DetailFactory from './DetailFactory';
 import UpdatePage, { UpdatePageStatus } from './UpdatePage';
+import { MapBox } from '../MapBox';
 import './css/Container-core.css';
 
-function noop() {}
-
 type GroupType = 'list-page' | 'update-page' | 'detail-page' | 'map-box';
+export type PropsGoToMaxBox = {
+  lat: string;
+  lng: string;
+  primaryValue?: string;
+  key?: string;
+};
+export type MapPickerChangeProps = {
+  lat: string;
+  lng: string;
+  primaryValue: string | number;
+  targetKey: string;
+};
 export interface ContainerCoreProps {
   power: any;
   config: Array<any>;
@@ -24,8 +29,9 @@ export interface ContainerCoreProps {
   loading?: boolean;
   primaryKey: string;
   onDelete?: (primaryValue: string | number) => void;
+  onSearch?: () => void;
   formatControls: (item: any, config: any) => void;
-  onMapPickerChange?: (item: any) => void;
+  onMapPickerChange?: (item: MapPickerChangeProps) => void;
   defaultDataFormatEnum: Array<{
     key: string;
     method: (value: any, method: any) => void;
@@ -34,12 +40,12 @@ export interface ContainerCoreProps {
 export interface ContainerCoreState {
   currentOrder: number | string;
   currentGroup: GroupType;
-  lng: number | string;
-  lat: number | string;
-  address: string;
+  lng: string;
+  lat: string;
   primaryValue: string | number;
   currentState: number;
   updatePageStatus: UpdatePageStatus;
+  mapBoxTargetKey: string;
 }
 
 export default class ContainerCore extends Component<
@@ -51,12 +57,12 @@ export default class ContainerCore extends Component<
     currentOrder: 0,
     currentGroup: 'list-page',
     // for mapPicker
-    lng: -1,
-    lat: -1,
-    address: '',
+    lng: '-1',
+    lat: '-1',
     primaryValue: '',
     currentState: 0,
     updatePageStatus: 'add',
+    mapBoxTargetKey: '',
   };
 
   history: {
@@ -67,70 +73,11 @@ export default class ContainerCore extends Component<
     order: '',
   };
 
-  static defaultProps = {
-    power: {
-      select: false,
-      delete: false,
-      update: false,
-      add: false,
-    },
-    config: [],
-    dataSource: [],
-    total: 0,
-    loading: false,
-    primaryKey: '',
-    onDelete: noop,
-    formatControls: noop,
-    onMapPickerChange: noop,
-  };
-
-  componentDidMount = () => {
-    // const { showSearch = true } = this.props.config;
-    // 绑定搜索面板滑动事件
-    // showSearch
-    //   ? bindTouchDirection(this.content, direction => {
-    //       switch (direction) {
-    //         case 'toLeft':
-    //           this.handleSearchChange();
-    //           break;
-    //         default:
-    //           break;
-    //       }
-    //     })
-    //   : null;
-    // 绑定详情页点击及滑动事件
-    // bindTouchDirection(this.editWrapper, direction => {
-    //   const { pageType } = this.state;
-    //   if (pageType == 'detail') {
-    //     let { detailNext, detailLast } = this.handleDetailNext();
-    //     switch (direction) {
-    //       case 'toLeft':
-    //         if (detailNext) {
-    //           this.handleDetailPagination('next', detailNext);
-    //         }
-    //         break;
-    //       case 'toRight':
-    //         if (detailLast) {
-    //           this.handleDetailPagination('last', detailLast);
-    //         }
-    //         break;
-    //       default:
-    //         break;
-    //     }
-    //   }
-    // });
-  };
-
   backToList = () => {
-    this.setState({ currentGroup: 'list-page', currentOrder: 0 });
-  };
-
-  backToLast = (item: any) => {
-    const { group, order } = this.history;
-    if (this.props.onMapPickerChange) {
-      this.props.onMapPickerChange(item);
+    if (this.props.onSearch) {
+      this.props.onSearch();
     }
-    this.setState({ currentGroup: group, currentOrder: order });
+    this.setState({ currentGroup: 'list-page', currentOrder: 0 });
   };
 
   handleDelete = (primaryValue: string | number) => {
@@ -146,9 +93,6 @@ export default class ContainerCore extends Component<
       },
     ]);
   };
-
-  // 滑动加载
-  handlePullLoad = () => {};
 
   handleTemplateClick = ({
     templateOrder,
@@ -227,31 +171,25 @@ export default class ContainerCore extends Component<
     dataSource.map((item, i) => {
       const dataItem = formatControls(item, config);
       result.push(
-        <Item group="detail-page" order={i} key={`detail-page-${i}`}>
+        <TransformManagerItem
+          group="detail-page"
+          order={i}
+          key={`detail-page-${i}`}
+        >
           <DetailFactory
             onBack={this.backToList}
             onPageChange={this.onDetailPageChange}
             dataItem={dataItem as any}
             onDataFormat={this.handleChildDataFormat}
-            goToMapBox={this.handleGoToMapBox}
+            onMapBoxChange={this.handleMapBoxChange}
           />
-        </Item>,
+        </TransformManagerItem>,
       );
     });
     return result;
   };
 
-  handleGoToMapBox = ({
-    lat,
-    lng,
-    address,
-    primaryValue,
-  }: {
-    lat: number | string;
-    lng: number | string;
-    address: string;
-    primaryValue: string;
-  }) => {
+  handleMapBoxChange = ({ lat, lng, key }: PropsGoToMaxBox) => {
     const { currentGroup, currentOrder } = this.state;
     // record position, for going back
     this.history = {
@@ -264,9 +202,24 @@ export default class ContainerCore extends Component<
       currentOrder: 0,
       lat,
       lng,
-      address,
-      primaryValue,
+      mapBoxTargetKey: key || '',
     });
+  };
+
+  handleBackFromMapBox = () => {
+    const { group, order } = this.history;
+    this.setState(
+      {
+        currentGroup: group,
+        currentOrder: order,
+      },
+      () => {
+        this.history = {
+          group: 'list-page',
+          order: '',
+        };
+      },
+    );
   };
 
   renderUpdatePage = () => {
@@ -282,6 +235,7 @@ export default class ContainerCore extends Component<
         config={config}
         dataItem={dataItem}
         status={updatePageStatus}
+        onMapBoxChange={this.handleMapBoxChange}
       />
     );
   };
@@ -289,107 +243,23 @@ export default class ContainerCore extends Component<
   render = () => {
     const { state, props } = this;
     const {
-      currentState,
       currentOrder,
       currentGroup,
-      // lat,
-      // lng,
-      // address,
-      // primaryValue,
+      lat,
+      lng,
+      primaryValue,
+      mapBoxTargetKey,
     } = state;
-    // let sidebar = (
-    //   <List>
-    //     <List.Item>
-    //       <Button onClick={this.handleSearch} loading={props.loading}>
-    //         确定
-    //       </Button>
-    //     </List.Item>
-    //     {config.map((item, i) =>
-    //       this.handleControlType(item, 'search', undefined, i),
-    //     )}
-    //   </List>
-    // );
-
-    /* 触发搜索的方块 */
-    // let extendDrawer = (
-    //   <div
-    //     className="sc-extend-drawer sc-right"
-    //     onClick={this.handleSearchChange}
-    //     style={{
-    //       top: (document.body.clientHeight - 100) / 2,
-    //     }}
-    //   >
-    //     <img src="../../assets/List_Container/arrow-left.png" />
-    //   </div>
-    // );
-
-    // const drawerConfig = {
-    //   open: false,
-    //   onOpenChange: this.handleSearchChange,
-    //   className: 'sc-search-drawer',
-    //   sidebar,
-    //   position: 'right',
-    //   sidebarStyle: { width: '77%', background: 'rgba(50, 50, 50, .35)' },
-    //   overlayStyle: { backgroundColor: 'rgba(50, 50, 50, 0)' },
-    //   style: { display: pageType == 'list' ? '' : 'none' },
-    // };
-
-    // const functionalButtonConfig = {
-    //   visible: showButton && pageType == 'list',
-    //   onAdd: type => this.handleItemEdit(this.mainValue, type),
-    //   dataSource: this.listDatas,
-    //   sortBy,
-    //   power: this.power,
-    //   onSort: datas => {
-    //     this.listDatas = datas;
-
-    //     this.setState({});
-    //   },
-    // };
 
     return (
       <div className="Container-core">
-        {/* 触发搜索的方块 */}
-        {/* {extendDrawer} */}
-
-        {/* 触发添加的图标 */}
-        {/* <FunctionalButton {...functionalButtonConfig} /> */}
-
-        {/* 搜索面板 */}
-        {/* <Drawer {...drawerConfig}>
-          <span />
-        </Drawer> */}
-
-        {/* 新增/修改/详情 */}
-        {/* <div
-          className="sc-edit-content"
-          style={
-            {
-              transform: `translate3d(${(currentState + 1) * 100}%, 0, 0)`,
-            }
-          }
-          ref={ref => (this.editWrapper = ref)}
-        >
-          {pageType == 'detail' ? detailContent : editContent}
-          <DetailArrow {...detailArrowConfig} />
-        </div> */}
         <TransformManager
           currentGroup={currentGroup}
           currentOrder={currentOrder}
         >
-          <Item group="list-page" order={0} key="list-page-0">
-            {/* <PullToRefresh
-              direction="up"
-              style={{ height: style.height, overflow: 'auto' }}
-              onRefresh={this.handlePullLoad}
-              refreshing={pullLoad}
-            > */}
+          <TransformManagerItem group="list-page" order={0} key="list-page-0">
             <div
               className="sc-content"
-              style={{
-                transform: `translate3d(${currentState * 100}%, 0, 0)`,
-                // display: pageType == 'list' ? '' : 'none',
-              }}
               ref={(ref: any) => (this.content = ref)}
             >
               <Template
@@ -401,21 +271,45 @@ export default class ContainerCore extends Component<
                 onLongPress={this.handleTemplatePress}
               />
             </div>
-            {/* </PullToRefresh> */}
-          </Item>
+          </TransformManagerItem>
           {this.renderDetailPage(props.dataSource)}
-          <Item group="update-page" order={0} key="update-page-0">
+          <TransformManagerItem
+            group="update-page"
+            order={0}
+            key="update-page-0"
+          >
             {this.renderUpdatePage()}
-          </Item>
-          <Item group="map-box" order={0} key="map-box-0">
-            {/* <MapBox
-              onBack={this.backToLast}
-              lat={lat}
-              lng={lng}
-              address={address}
-              primaryValue={primaryValue}
-            /> */}
-          </Item>
+          </TransformManagerItem>
+          <TransformManagerItem group="map-box" order={0} key="map-box-0">
+            <MapBox
+              center={{ lat, lng }}
+              onMarkerDrag={({ lat, lng }) => {
+                this.setState({ lat: lat.toString(), lng: lng.toString() });
+                props.onMapPickerChange &&
+                  props.onMapPickerChange({
+                    lat: lat.toString(),
+                    lng: lng.toString(),
+                    primaryValue,
+                    targetKey: mapBoxTargetKey,
+                  });
+              }}
+            />
+            <List
+              renderHeader="坐标信息"
+              style={{
+                position: 'absolute',
+                bottom: 0,
+                width: '100%',
+                zIndex: 400,
+              }}
+            >
+              <List.Item extra={lng}>经度</List.Item>
+              <List.Item extra={lat}>纬度</List.Item>
+              <List.Item>
+                <Button onClick={this.handleBackFromMapBox}>返回</Button>
+              </List.Item>
+            </List>
+          </TransformManagerItem>
         </TransformManager>
 
         <ActivityIndicator
