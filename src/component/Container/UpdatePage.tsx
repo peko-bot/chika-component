@@ -56,7 +56,6 @@ export type UpdatePageState = {
   form: Form;
 } & CalendarItem;
 
-function noop() {}
 const CalendarDefaultValue: CalendarItem = {
   calendarVisible: false,
   currentCalendarItem: {
@@ -69,19 +68,13 @@ export default class UpdatePage extends Component<
   UpdatePageProps,
   UpdatePageState
 > {
-  static defaultProps = {
-    onBack: noop,
-    config: [],
-    dataItem: {},
-    status: 'add',
-  };
-
   constructor(props: UpdatePageProps) {
     super(props);
 
     this.state = {
       ...CalendarDefaultValue,
-      form: this.initDefaultValue(props.dataItem),
+      // form: this.initDefaultValue(props.dataItem),
+      form: {},
     };
   }
 
@@ -97,7 +90,7 @@ export default class UpdatePage extends Component<
     return result;
   };
 
-  validValue = (value: any, fieldName: string, rule: ValidTypes) => {
+  validValue = (value: any, rule: ValidTypes) => {
     // isNull = false => it shouldn't be null
     const { maxLength, minLength, isNull } = rule;
     if (!isNull && !value) {
@@ -111,17 +104,13 @@ export default class UpdatePage extends Component<
     }
     if (minLength && value.toString().length < minLength) {
       return {
-        [fieldName]: {
-          error: true,
-          message: `不能少于${minLength}个字符`,
-        },
+        error: true,
+        message: `不能少于${minLength}个字符`,
       };
     }
     return {
-      [fieldName]: {
-        error: false,
-        message: '',
-      },
+      error: false,
+      message: '',
     };
   };
 
@@ -133,9 +122,9 @@ export default class UpdatePage extends Component<
   ) => {
     let tip = {};
     let rest = {};
-    let stateValue = this.state.form[fieldName].value;
     switch (type) {
       case 'checkbox':
+        let stateValue = this.state.form[fieldName].value;
         let checkboxSet = new Set();
         if (stateValue) {
           checkboxSet = new Set(stateValue.split(','));
@@ -155,7 +144,7 @@ export default class UpdatePage extends Component<
         break;
 
       default:
-        tip = this.validValue(value, fieldName, rule);
+        tip = this.validValue(value, rule);
         break;
     }
 
@@ -175,8 +164,10 @@ export default class UpdatePage extends Component<
     let element = [];
     for (let i = 0; i < config.length; i++) {
       const { type, name, key, foreignData } = config[i];
-      const item = state.form[key];
-      const value = status === 'add' ? '' : item.value || '';
+      let item: CheckItem = { message: '', value: '', error: false };
+      if (state.form[key]) {
+        item = state.form[key];
+      }
       switch (type) {
         case 'input':
           element.push(
@@ -191,7 +182,7 @@ export default class UpdatePage extends Component<
                   onChange={(value: string) =>
                     this.checkValue(value, type, key, config[i])
                   }
-                  value={value}
+                  value={item.value}
                   error={item.error}
                 />
               }
@@ -208,7 +199,7 @@ export default class UpdatePage extends Component<
               onChange={(value: Date) =>
                 this.checkValue(value, type, key, config[i])
               }
-              value={typeof value === 'string' ? new Date(value) : value}
+              value={item.value ? new Date(item.value) : new Date()}
             >
               <List.Item arrow="horizontal">{name}</List.Item>
             </DatePicker>,
@@ -224,7 +215,7 @@ export default class UpdatePage extends Component<
               onChange={(value: any) =>
                 this.checkValue(value[0], type, key, config[i])
               }
-              value={value ? [value] : []}
+              value={item.value ? [item.value] : []}
             >
               <List.Item arrow="horizontal">{name}</List.Item>
             </Picker>,
@@ -238,7 +229,8 @@ export default class UpdatePage extends Component<
                 <List>
                   {foreignData.map(
                     (item: { value: string; label: string }, i: number) => {
-                      const stateValue = (value && value.split(',')) || [];
+                      const stateValue =
+                        (item.value && item.value.split(',')) || [];
                       return (
                         <CheckboxItem
                           key={`${prefixCls}-checkbox-item-${i}`}
@@ -259,7 +251,7 @@ export default class UpdatePage extends Component<
           break;
 
         case 'calendar':
-          const dateArr = (value && value.split(',')) || ['', ''];
+          const dateArr = (item.value && item.value.split(',')) || ['', ''];
           element.push(
             <React.Fragment key={`${prefixCls}-calendar-${i}`}>
               <List.Item
@@ -303,7 +295,7 @@ export default class UpdatePage extends Component<
               </List.Item>,
             );
           } else if (status === 'update') {
-            const latlng = value.split('|');
+            const latlng = (item.value && item.value.split('|')) || [];
             const lng = latlng[0];
             const lat = latlng[1];
             element.push(
