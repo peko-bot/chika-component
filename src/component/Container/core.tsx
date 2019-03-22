@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Modal, ActivityIndicator, List, Button } from 'antd-mobile';
 const { alert, operation } = Modal;
-import Template from './Template';
+import Template from '../Template';
 import TransformManager, { TransformManagerItem } from '../TransformManager';
 import DetailFactory from './DetailFactory';
 import UpdatePage, { UpdatePageStatus } from './UpdatePage';

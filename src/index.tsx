@@ -15,3 +15,5 @@ export { default as Tabs } from './component/Tabs';
 export { default as Upload } from './component/Upload';
 
 export { default as TransformManager } from './component/TransformManager';
+
+export { default as Template } from './component/Template';

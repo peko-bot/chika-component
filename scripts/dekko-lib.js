@@ -15,4 +15,5 @@ $('lib/component')
   .hasDirectory('Ripple')
   .hasDirectory('Swiper')
   .hasDirectory('Tabs')
-  .hasDirectory('Upload');
+  .hasDirectory('Upload')
+  .hasDirectory('Template');
