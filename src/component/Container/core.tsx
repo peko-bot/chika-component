@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Modal, ActivityIndicator, List, Button } from 'antd-mobile';
 const { alert, operation } = Modal;
-import Template from './Template';
+import Template from '../Template';
 import TransformManager, { TransformManagerItem } from '../TransformManager';
 import DetailFactory from './DetailFactory';
 import UpdatePage, { UpdatePageStatus } from './UpdatePage';
@@ -266,10 +266,9 @@ export default class ContainerCore extends Component<
               <Template
                 template={props.children}
                 dataSource={props.dataSource}
-                loading={props.loading}
                 onDataFormat={this.handleChildDataFormat}
                 onClick={this.handleTemplateClick}
-                onLongPress={this.handleTemplatePress}
+                onPress={this.handleTemplatePress}
               />
             </div>
           </TransformManagerItem>

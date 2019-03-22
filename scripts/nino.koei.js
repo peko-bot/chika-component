@@ -16,6 +16,8 @@ module.exports = {
       cwd + '/src/component/TransformManager',
     ),
     'lib/Upload/index': path.join(cwd + '/src/component/Upload'),
+    'lib/MapBox/index': path.join(cwd + '/src/component/MapBox'),
+    'lib/Template/index': path.join(cwd + '/src/component/Template'),
   },
   output: {
     path: path.join(cwd + '/dist'),

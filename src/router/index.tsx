@@ -11,6 +11,7 @@ import Upload from '../demo/Upload';
 import Drawer from '../demo/Drawer';
 import TransformManager from '../demo/TransformManager';
 import MapBox from '../demo/MapBox';
+import Template from '../demo/Template';
 
 export default class Entry extends Component {
   render = () => (
@@ -52,6 +53,10 @@ export default class Entry extends Component {
         <Route
           path="/mapbox"
           component={(props: any) => <MapBox {...props} />}
+        />
+        <Route
+          path="/template"
+          component={(props: any) => <Template {...props} />}
         />
       </Switch>
     </HashRouter>
