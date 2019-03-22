@@ -266,10 +266,9 @@ export default class ContainerCore extends Component<
               <Template
                 template={props.children}
                 dataSource={props.dataSource}
-                loading={props.loading}
                 onDataFormat={this.handleChildDataFormat}
                 onClick={this.handleTemplateClick}
-                onLongPress={this.handleTemplatePress}
+                onPress={this.handleTemplatePress}
               />
             </div>
           </TransformManagerItem>
