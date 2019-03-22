@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Upload } from '../../component/Upload';
+import Upload from '../../component/Upload';
 import { ajax } from '../../util/urlHelper';
 
 interface UploadFile extends File {
