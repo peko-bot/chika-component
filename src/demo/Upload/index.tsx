@@ -1,59 +1,65 @@
 import React, { Component } from 'react';
 import Upload from '../../component/Upload';
+import { ajax } from '../../util/urlHelper';
+
+interface UploadFile extends File {
+  id: string;
+  url: string;
+  error: boolean;
+}
 
 export default class UploadDemo extends Component {
-  state: { fileList: Array<any>; loading: boolean } = {
+  state: { fileList: Array<UploadFile>; loading: boolean } = {
     fileList: [],
     loading: false,
   };
 
-  onChange = (file: any) => {
-    const { name } = file;
-
-    let formData = new FormData();
-    let nameSplit = name.split('.');
-    let type = nameSplit[nameSplit.length - 1];
-
-    formData.append('Filedata', file);
-    formData.append('Filename', name);
-    formData.append('fileext', '*.' + type);
-    formData.append('DataType', 'UploadFile');
-    formData.append('UploadFolder', '/CommonReport/');
-    formData.append('IsConvertOffice', '');
-    formData.append('GetFileName', 'y');
-    formData.append('TCID', '');
-    formData.append('UploadTargetKey', 'n');
-    formData.append('GetFileInfo', 'y');
-
-    this.setState({ loading: true });
-    fetch('../../mock/uploadFiles.json')
-      .then(result => result.text())
-      .then(url => {
-        const { fileList } = this.state;
-        const file = { id: ~~(Math.random() * 10000), url };
-        fileList.push(file);
-
-        this.setState({ fileList, loading: false });
-      });
+  componentDidMount = () => {
+    ajax({
+      url: '../../mock/uploadFiles.json',
+      success: ({ data }) => {
+        let fileList: any = [];
+        for (let item of data) {
+          fileList.push({
+            url: item.filepath,
+            id: item.id,
+          });
+        }
+        this.setState({ fileList });
+      },
+    });
   };
 
-  onLongPress = () => {};
+  onChange = (file: UploadFile) => {
+    const { fileList } = this.state;
+    fileList.push(file);
+    this.setState({ fileList });
+  };
 
-  onPress = () => {};
+  handleClick = (file: UploadFile) => {
+    const { fileList } = this.state;
+    const index = fileList.findIndex(f => f.id === file.id);
+    fileList[index].error = !fileList[index].error;
+    this.setState({ fileList });
+  };
+
+  handlePress = (file: UploadFile) => {
+    const { fileList } = this.state;
+    const index = fileList.findIndex(f => f.id === file.id);
+    fileList.splice(index, 1);
+    this.setState({ fileList });
+  };
 
   render = () => {
     const { fileList } = this.state;
-    const config = {
-      fileList,
-      onChange: this.onChange,
-      onLongPress: this.onLongPress,
-      onPress: this.onPress,
-      // loading: false,
-      // isShowPlus: false,
-      // plusText: '添加',
-      style: { padding: 6 },
-    };
-
-    return <Upload {...config} />;
+    return (
+      <Upload
+        fileList={fileList}
+        onChange={this.onChange}
+        style={{ padding: 6 }}
+        onClick={this.handleClick}
+        onPress={this.handlePress}
+      />
+    );
   };
 }

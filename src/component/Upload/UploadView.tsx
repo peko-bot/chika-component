@@ -1,109 +1,78 @@
 import React, { Component } from 'react';
-
 import './css/UploadView.css';
-const imageTypes = ['image', 'webp', 'png', 'svg', 'gif', 'jpg', 'jpeg', 'bmp'];
+import { isImageUrl } from './utils';
+import { UploadFile } from './Uploader';
+import Uploader, { UploaderProps } from './Uploader';
+import classNames from 'classnames';
 
-export interface UploadViewProps {
-  fileList?: Array<any>;
-  loading?: boolean;
-  longPress?: (item: any, e: any) => void;
-  style?: any;
+export interface UploadViewProps extends UploaderProps {
+  fileList?: Array<UploadFile>;
+  onPress?: (file: UploadFile) => void;
+  onClick?: (file: UploadFile) => void;
 }
 
 export default class UploadView extends Component<UploadViewProps> {
   timer: any;
 
   componentWillUnmount = () => {
-    clearTimeout(this.timer);
+    this.clearTimer();
   };
 
-  extname = (url?: string) => {
-    if (!url) {
-      return '';
-    }
-    const temp = url.split('/');
-    const filename = temp[temp.length - 1];
-    const filenameWithoutSuffix = filename.split(/#|\?/)[0];
-
-    return (/\.[^./\\]*$/.exec(filenameWithoutSuffix) || [''])[0];
-  };
-
-  isImageUrl = (file: any) => {
-    if (imageTypes.includes(file.type)) {
-      return true;
-    }
-
-    const url = file.thumbUrl || file.url;
-    const extension = this.extname(url);
-
-    if (
-      /^data:image\//.test(url) ||
-      /(webp|svg|png|gif|jpg|jpeg|bmp)$/i.test(extension)
-    ) {
-      return true;
-    } else if (/^data:/.test(url)) {
-      // other file types of base64
-      return false;
-    } else if (extension) {
-      // other file types which have extension
-      return false;
-    }
-
-    return true;
-  };
-
-  previewFile = (file: any, callback: (result: any) => void) => {
-    const reader = new FileReader();
-    reader.onloadend = () => callback(reader.result);
-    reader.readAsDataURL(file);
-  };
-
-  handleViewTouchStart = (item: any, e: any) => {
+  handleViewTouchStart = (file: UploadFile) => {
     this.timer = setTimeout(() => {
-      if (this.props.longPress) {
-        this.props.longPress(item, e);
+      if (this.props.onPress) {
+        this.props.onPress(file);
       }
     }, 800);
   };
 
-  handleTouchEnd = () => {
+  clearTimer = () => {
     clearTimeout(this.timer);
   };
 
   render = () => {
-    const { fileList = [], style, loading } = this.props;
-    let view: any = [];
-    const loadingView = (
-      <div className="img-list" key={'loadingView'}>
-        <div className="img-wrapper">loading</div>
-      </div>
+    const { fileList = [], onChange, accept, multiple, onClick } = this.props;
+    const uploader = (
+      <Uploader
+        fileList={fileList}
+        onChange={onChange}
+        accept={accept}
+        multiple={multiple}
+      />
     );
-
-    fileList.map((item, i) => {
-      const { url } = item;
-      if (this.isImageUrl(url)) {
-        view.push(
-          <div
-            className="img-list"
-            key={'imgList' + i}
-            onTouchStart={(e: any) => this.handleViewTouchStart(item, e)}
-            onTouchMove={this.handleTouchEnd}
-            onTouchEnd={this.handleTouchEnd}
-          >
-            <div className="img-wrapper">
-              <img src={url} />
-            </div>
-          </div>,
-        );
-      } else {
-        view = <span>test</span>;
-      }
-    });
-
-    return (
-      <div className="UploadView" style={style}>
-        {loading ? loadingView : view}
+    const list = fileList.length ? (
+      <div className="upload-view-list">
+        {fileList.map(item => {
+          const { url, id, name, error } = item;
+          if (isImageUrl(url)) {
+            return (
+              <div
+                className={classNames({
+                  'upload-item': true,
+                  'upload-item-error': error,
+                })}
+                key={`upload-item-${id}`}
+                onTouchStart={() => this.handleViewTouchStart(item)}
+                onTouchMove={this.clearTimer}
+                onTouchEnd={this.clearTimer}
+                onClick={() => onClick && onClick(item)}
+              >
+                <img src={url} />
+              </div>
+            );
+          } else {
+            return (
+              <div className="upload-item" key={`upload-item-${id}`}>
+                {name}
+              </div>
+            );
+          }
+        })}
+        {uploader}
       </div>
+    ) : (
+      uploader
     );
+    return <div className="uploadView">{list}</div>;
   };
 }

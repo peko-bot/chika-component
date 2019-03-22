@@ -1,58 +1,68 @@
-import React, { Component } from 'react';
+import React, { Component, createRef } from 'react';
 import './css/Uploader.css';
+import { isImageUrl } from './utils';
 
+export interface UploadFile extends File {
+  id: string;
+  url: string;
+  error: boolean;
+}
 export interface UploaderProps {
-  onChange?: (file: any) => void;
-  visible?: boolean;
-  plusText?: string;
+  onChange?: (file: File) => void;
+  accept?: string;
+  multiple?: boolean;
+  renderPlusItem?: () => void;
+  fileList?: Array<UploadFile>;
 }
 
 export default class Uploader extends Component<UploaderProps> {
-  uploadInput: any;
+  uploadInput: React.RefObject<HTMLInputElement>;
 
-  wrapperOnClick = () => {
-    let el = this.uploadInput;
-    if (!el) {
+  constructor(props: UploaderProps) {
+    super(props);
+    this.uploadInput = createRef();
+  }
+
+  triggerInputUpload = () => {
+    const element = this.uploadInput.current;
+    if (!element) {
       return;
     }
-
-    el.click();
-    el.value = '';
+    element.click();
+    element.value = '';
   };
 
   onChange = (e: any) => {
-    let files = e.target.files;
-
-    if (files.length > 0) {
-      for (let file of files) {
-        this.upload(file);
-      }
-    }
-  };
-
-  upload = (file: File) => {
     const { onChange } = this.props;
-    onChange && onChange(file);
+    const file = e.target.files.length ? e.target.files[0] : null;
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      const result = { url: reader.result };
+      file.url = null;
+      if (isImageUrl(result)) {
+        file.url = reader.result;
+      }
+      file.id = file.size.toString() + new Date().getTime();
+      onChange && onChange(file);
+    };
   };
 
   render = () => {
-    const { visible = true, plusText } = this.props;
-
+    const { renderPlusItem, multiple } = this.props;
+    const plusItem = <i className="plus-icon">+</i>;
     return (
-      <div className="Uploader" style={{ display: visible ? '' : 'none' }}>
-        <div onClick={this.wrapperOnClick} className="wrapper">
+      <div className="uploader">
+        <div onClick={this.triggerInputUpload} className="upload-item">
           <span className="upload-button">
             <input
               type="file"
-              ref={ref => (this.uploadInput = ref)}
+              ref={this.uploadInput}
               style={{ display: 'none' }}
               onChange={this.onChange}
+              multiple={multiple}
             />
-
-            <div>
-              <i className="plus-icon">+</i>
-              <div>{plusText}</div>
-            </div>
+            {renderPlusItem ? renderPlusItem() : plusItem}
           </span>
         </div>
       </div>

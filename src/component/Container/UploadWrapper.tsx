@@ -113,7 +113,7 @@ export default class UploadWrapper extends Component<
         <Upload
           fileList={fileList}
           onChange={this.handleChange}
-          longPress={this.handleLongPress}
+          // onPress={this.handleLongPress}
         />
       </div>
     );
