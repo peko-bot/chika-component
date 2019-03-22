@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-
 import './css/UploadView.css';
-const imageTypes = ['image', 'webp', 'png', 'svg', 'gif', 'jpg', 'jpeg', 'bmp'];
+import { isImageUrl } from './utils';
 
 export interface UploadViewProps {
   fileList?: Array<any>;
@@ -15,41 +14,6 @@ export default class UploadView extends Component<UploadViewProps> {
 
   componentWillUnmount = () => {
     clearTimeout(this.timer);
-  };
-
-  extname = (url?: string) => {
-    if (!url) {
-      return '';
-    }
-    const temp = url.split('/');
-    const filename = temp[temp.length - 1];
-    const filenameWithoutSuffix = filename.split(/#|\?/)[0];
-
-    return (/\.[^./\\]*$/.exec(filenameWithoutSuffix) || [''])[0];
-  };
-
-  isImageUrl = (file: any) => {
-    if (imageTypes.includes(file.type)) {
-      return true;
-    }
-
-    const url = file.thumbUrl || file.url;
-    const extension = this.extname(url);
-
-    if (
-      /^data:image\//.test(url) ||
-      /(webp|svg|png|gif|jpg|jpeg|bmp)$/i.test(extension)
-    ) {
-      return true;
-    } else if (/^data:/.test(url)) {
-      // other file types of base64
-      return false;
-    } else if (extension) {
-      // other file types which have extension
-      return false;
-    }
-
-    return true;
   };
 
   previewFile = (file: any, callback: (result: any) => void) => {
@@ -81,7 +45,7 @@ export default class UploadView extends Component<UploadViewProps> {
 
     fileList.map((item, i) => {
       const { url } = item;
-      if (this.isImageUrl(url)) {
+      if (isImageUrl(url)) {
         view.push(
           <div
             className="img-list"

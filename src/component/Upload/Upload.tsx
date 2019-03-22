@@ -26,7 +26,12 @@ const Upload = (props: UploadProps) => {
         onPress={onPress}
         onClick={onClick}
       />
-      <Uploader onChange={onChange} accept={accept} multiple={multiple} />
+      <Uploader
+        fileList={fileList}
+        onChange={onChange}
+        accept={accept}
+        multiple={multiple}
+      />
     </div>
   );
 };
