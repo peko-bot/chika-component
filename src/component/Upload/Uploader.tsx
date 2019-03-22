@@ -42,7 +42,7 @@ export default class Uploader extends Component<UploaderProps> {
       if (isImageUrl(result)) {
         file.url = reader.result;
       }
-      file.id = file.size.toString() + ~~(file.lastModified / 10000).toString();
+      file.id = file.size.toString() + new Date().getTime();
       onChange && onChange(file);
     };
   };
