@@ -2,16 +2,16 @@ import React, { Component, createRef } from 'react';
 import './css/Uploader.css';
 import { isImageUrl } from './utils';
 
+export interface UploadFile extends File {
+  id: string;
+  url: string;
+}
 export interface UploaderProps {
   onChange?: (file: File) => void;
   accept?: string;
   multiple?: boolean;
   renderPlusItem?: () => void;
-  fileList?: Array<any>;
-}
-export interface UploadFile extends File {
-  id: string;
-  url: string;
+  fileList?: Array<UploadFile>;
 }
 
 export default class Uploader extends Component<UploaderProps> {
@@ -29,11 +29,6 @@ export default class Uploader extends Component<UploaderProps> {
     }
     element.click();
     element.value = '';
-  };
-
-  getOrigin = (file: File) => {
-    if (file.type) {
-    }
   };
 
   onChange = (e: any) => {

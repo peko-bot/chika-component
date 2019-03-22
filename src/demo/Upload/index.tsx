@@ -25,6 +25,7 @@ export default class UploadDemo extends Component {
         fileList={fileList}
         onChange={this.onChange}
         style={{ padding: 6 }}
+        onPress={() => console.log(11)}
       />
     );
   };

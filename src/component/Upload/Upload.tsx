@@ -1,37 +1,17 @@
 import React from 'react';
-import Uploader, { UploaderProps } from './Uploader';
 import UploadView, { UploadViewProps } from './UploadView';
+import classNames from 'classnames';
 
-export interface UploadProps extends UploaderProps, UploadViewProps {
+export interface UploadProps extends UploadViewProps {
   style?: React.CSSProperties;
   className?: string;
 }
 
 const Upload = (props: UploadProps) => {
-  const {
-    fileList,
-    onChange,
-    loading,
-    onPress,
-    onClick,
-    accept,
-    multiple,
-    ...rest
-  } = props;
+  const { style, className, ...rest } = props;
   return (
-    <div className="Upload" {...rest}>
-      <UploadView
-        fileList={fileList}
-        loading={loading}
-        onPress={onPress}
-        onClick={onClick}
-      />
-      <Uploader
-        fileList={fileList}
-        onChange={onChange}
-        accept={accept}
-        multiple={multiple}
-      />
+    <div className={classNames('upload', className)} style={style}>
+      <UploadView {...rest} />
     </div>
   );
 };

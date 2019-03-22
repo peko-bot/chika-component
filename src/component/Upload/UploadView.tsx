@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import './css/UploadView.css';
 import { isImageUrl } from './utils';
+import { UploadFile } from './Uploader';
+import Uploader, { UploaderProps } from './Uploader';
 
-export interface UploadViewProps {
-  fileList?: Array<any>;
-  loading?: boolean;
+export interface UploadViewProps extends UploaderProps {
+  fileList?: Array<UploadFile>;
   onPress?: () => void;
   onClick?: () => void;
 }
@@ -13,13 +14,7 @@ export default class UploadView extends Component<UploadViewProps> {
   timer: any;
 
   componentWillUnmount = () => {
-    clearTimeout(this.timer);
-  };
-
-  previewFile = (file: any, callback: (result: any) => void) => {
-    const reader = new FileReader();
-    reader.onloadend = () => callback(reader.result);
-    reader.readAsDataURL(file);
+    this.clearTimer();
   };
 
   handleViewTouchStart = () => {
@@ -30,40 +25,54 @@ export default class UploadView extends Component<UploadViewProps> {
     }, 800);
   };
 
-  handleTouchEnd = () => {
+  clearTimer = () => {
     clearTimeout(this.timer);
   };
 
   render = () => {
-    const { fileList = [], loading } = this.props;
-    let view: any = [];
-    const loadingView = (
-      <div className="img-list" key={'loadingView'}>
-        <div className="img-wrapper">loading</div>
-      </div>
+    const { fileList = [], onChange, accept, multiple } = this.props;
+    const uploader = (
+      <Uploader
+        fileList={fileList}
+        onChange={onChange}
+        accept={accept}
+        multiple={multiple}
+      />
     );
-
-    fileList.map((item, i) => {
-      const { url } = item;
-      if (isImageUrl(url)) {
-        view.push(
-          <div
-            className="img-list"
-            key={'imgList' + i}
-            onTouchStart={this.handleViewTouchStart}
-            onTouchMove={this.handleTouchEnd}
-            onTouchEnd={this.handleTouchEnd}
-          >
-            <div className="img-wrapper">
-              <img src={url} />
-            </div>
-          </div>,
-        );
-      } else {
-        view = <span>test</span>;
-      }
-    });
-
-    return <div className="UploadView">{loading ? loadingView : view}</div>;
+    const list = fileList.length ? (
+      <div
+        className="upload-view-list"
+        onTouchStart={this.handleViewTouchStart}
+        onTouchMove={this.clearTimer}
+        onTouchEnd={this.clearTimer}
+      >
+        {fileList.map(item => {
+          const { url, id, name } = item;
+          if (isImageUrl(url)) {
+            return (
+              <div
+                className="upload-view-image-wrapper"
+                key={`upload-view-image-wrapper-${id}`}
+              >
+                <img src={url} />
+              </div>
+            );
+          } else {
+            return (
+              <div
+                className="upload-view-image-wrapper"
+                key={`upload-view-image-wrapper-${id}`}
+              >
+                {name}
+              </div>
+            );
+          }
+        })}
+        {uploader}
+      </div>
+    ) : (
+      uploader
+    );
+    return <div className="uploadView">{list}</div>;
   };
 }
