@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Upload } from '../Upload';
+import Upload from '../Upload';
 import { ajax, isDev } from '../../util/urlHelper';
 
 function noop() {}
