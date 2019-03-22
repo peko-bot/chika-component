@@ -52,7 +52,7 @@ export default class Uploader extends Component<UploaderProps> {
     const plusItem = <i className="plus-icon">+</i>;
     return (
       <div className="uploader">
-        <div onClick={this.triggerInputUpload} className="uploader-wrapper">
+        <div onClick={this.triggerInputUpload} className="upload-item">
           <span className="upload-button">
             <input
               type="file"

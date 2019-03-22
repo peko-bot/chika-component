@@ -1,17 +1,14 @@
 .uploadView .upload-view-list {
   display: flex;
   flex-wrap: wrap;
-  flex-grow: 1;
 }
 
-.uploadView .upload-view-list .upload-view-image-wrapper {
-  width: 30vw;
-  height: 30vw;
+.uploadView .upload-view-list .upload-item {
   overflow: hidden;
   word-wrap: break-word;
 }
 
-.uploadView .upload-view-list .upload-view-image-wrapper img {
+.uploadView .upload-view-list .upload-item img {
   width: 100%;
   height: 100%;
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import UploadView, { UploadViewProps } from './UploadView';
 import classNames from 'classnames';
+import './css/Upload.css';
 
 export interface UploadProps extends UploadViewProps {
   style?: React.CSSProperties;
