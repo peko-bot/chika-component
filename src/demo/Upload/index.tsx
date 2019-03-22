@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Upload } from '../../component/Upload';
+import { ajax } from '../../util/urlHelper';
 
 interface UploadFile extends File {
   id: string;
@@ -7,14 +8,37 @@ interface UploadFile extends File {
 }
 
 export default class UploadDemo extends Component {
-  state: { fileList: Array<any>; loading: boolean } = {
+  state: { fileList: Array<UploadFile>; loading: boolean } = {
     fileList: [],
     loading: false,
+  };
+
+  componentDidMount = () => {
+    ajax({
+      url: '../../mock/uploadFiles.json',
+      success: ({ data }) => {
+        let fileList: any = [];
+        for (let item of data) {
+          fileList.push({
+            url: item.filepath,
+            id: item.id,
+          });
+        }
+        this.setState({ fileList });
+      },
+    });
   };
 
   onChange = (file: UploadFile) => {
     const { fileList } = this.state;
     fileList.push(file);
+    this.setState({ fileList });
+  };
+
+  handlePress = (file: UploadFile) => {
+    const { fileList } = this.state;
+    const index = fileList.findIndex(f => f.id === file.id);
+    fileList.splice(index, 1);
     this.setState({ fileList });
   };
 
@@ -25,7 +49,7 @@ export default class UploadDemo extends Component {
         fileList={fileList}
         onChange={this.onChange}
         style={{ padding: 6 }}
-        onPress={() => console.log(11)}
+        onClick={this.handlePress}
       />
     );
   };
