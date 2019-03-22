@@ -37,23 +37,14 @@ export default class UploadDemo extends Component {
       });
   };
 
-  onLongPress = () => {};
-
-  onPress = () => {};
-
   render = () => {
     const { fileList } = this.state;
-    const config = {
-      fileList,
-      onChange: this.onChange,
-      onLongPress: this.onLongPress,
-      onPress: this.onPress,
-      // loading: false,
-      // isShowPlus: false,
-      // plusText: '添加',
-      style: { padding: 6 },
-    };
-
-    return <Upload {...config} />;
+    return (
+      <Upload
+        fileList={fileList}
+        onChange={this.onChange}
+        style={{ padding: 6 }}
+      />
+    );
   };
 }

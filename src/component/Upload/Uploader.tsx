@@ -5,6 +5,7 @@ export interface UploaderProps {
   onChange?: (file: File) => void;
   accept?: string;
   multiple?: boolean;
+  renderPlusItem?: () => void;
 }
 
 export default class Uploader extends Component<UploaderProps> {
@@ -40,6 +41,12 @@ export default class Uploader extends Component<UploaderProps> {
   };
 
   render = () => {
+    const { renderPlusItem } = this.props;
+    const plusItem = (
+      <React.Fragment>
+        <i className="plus-icon">+</i>
+      </React.Fragment>
+    );
     return (
       <div className="Uploader">
         <div
@@ -54,11 +61,7 @@ export default class Uploader extends Component<UploaderProps> {
               onChange={this.onChange}
               multiple
             />
-
-            <div>
-              <i className="plus-icon">+</i>
-              <div>plus</div>
-            </div>
+            {renderPlusItem ? renderPlusItem() : plusItem}
           </span>
         </div>
       </div>

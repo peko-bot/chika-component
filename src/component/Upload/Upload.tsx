@@ -2,7 +2,10 @@ import React from 'react';
 import Uploader, { UploaderProps } from './Uploader';
 import UploadView, { UploadViewProps } from './UploadView';
 
-export interface UploadProps extends UploaderProps, UploadViewProps {}
+export interface UploadProps extends UploaderProps, UploadViewProps {
+  style?: React.CSSProperties;
+  className?: string;
+}
 
 const Upload = (props: UploadProps) => {
   const {
