@@ -12,3 +12,7 @@
   padding: 5px;
   margin: 0 1vw 1vw 0;
 }
+
+.upload .upload-item-error {
+  border: 1px dashed red;
+}

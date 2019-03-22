@@ -5,6 +5,7 @@ import { isImageUrl } from './utils';
 export interface UploadFile extends File {
   id: string;
   url: string;
+  error: boolean;
 }
 export interface UploaderProps {
   onChange?: (file: File) => void;

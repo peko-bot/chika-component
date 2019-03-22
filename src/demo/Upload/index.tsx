@@ -5,6 +5,7 @@ import { ajax } from '../../util/urlHelper';
 interface UploadFile extends File {
   id: string;
   url: string;
+  error: boolean;
 }
 
 export default class UploadDemo extends Component {
@@ -35,6 +36,13 @@ export default class UploadDemo extends Component {
     this.setState({ fileList });
   };
 
+  handleClick = (file: UploadFile) => {
+    const { fileList } = this.state;
+    const index = fileList.findIndex(f => f.id === file.id);
+    fileList[index].error = !fileList[index].error;
+    this.setState({ fileList });
+  };
+
   handlePress = (file: UploadFile) => {
     const { fileList } = this.state;
     const index = fileList.findIndex(f => f.id === file.id);
@@ -49,7 +57,8 @@ export default class UploadDemo extends Component {
         fileList={fileList}
         onChange={this.onChange}
         style={{ padding: 6 }}
-        onClick={this.handlePress}
+        onClick={this.handleClick}
+        onPress={this.handlePress}
       />
     );
   };
