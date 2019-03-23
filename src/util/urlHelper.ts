@@ -1,4 +1,4 @@
-// import { fetch } from 'whatwg-fetch';
+import { fetch } from 'whatwg-fetch';
 import { path, proxy, isDev } from './path';
 
 const types = ['json', 'html', 'text'];
@@ -64,8 +64,8 @@ const ajax = ({
 
   fetch(realUrl + realParams, postParam)
     .then((result: any) => result[type]())
-    .then(result => success && success(result))
-    .catch(err => error && error(err));
+    .then((result: any) => success && success(result))
+    .catch((err: Error) => error && error(err));
 };
 
 export const checkMethod = (method: string) => {

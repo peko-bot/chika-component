@@ -40,7 +40,8 @@
     "lint-staged": "^8.1.5",
     "moment": "^2.24.0",
     "pre-commit": "^1.2.2",
-    "react-router-dom": "^5.0.0"
+    "react-router-dom": "^5.0.0",
+    "whatwg-fetch": "^3.0.0"
   },
   "license": "MIT",
   "pre-commit": [
