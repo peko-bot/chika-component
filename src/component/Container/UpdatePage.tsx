@@ -124,7 +124,7 @@ export default class UpdatePage extends Component<
     switch (type) {
       case 'checkbox':
         let stateValue;
-        if (!Object.keys(this.state.form).length) {
+        if (!this.state.form[fieldName]) {
           this.state.form[fieldName] = {};
         }
         stateValue = this.state.form[fieldName].value || '';
@@ -137,7 +137,7 @@ export default class UpdatePage extends Component<
         } else {
           checkboxSet.add(value);
         }
-        value = [...checkboxSet].toString();
+        value = Array.from(checkboxSet).toString();
         break;
 
       case 'calendar':
