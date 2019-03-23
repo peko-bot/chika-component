@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DataController render correctly 1`] = `
+<div
+  className="DataController"
+>
+  <ContainerCore
+    config={Array []}
+    dataSource={Array []}
+    defaultDataFormatEnum={
+      Array [
+        Object {
+          "key": "data-date-format",
+          "method": [Function],
+        },
+        Object {
+          "key": "data-decimal-count",
+          "method": [Function],
+        },
+        Object {
+          "key": "data-unit",
+          "method": [Function],
+        },
+      ]
+    }
+    formatControls={[Function]}
+    loading={true}
+    menuId={-2}
+    onDelete={[Function]}
+    onMapPickerChange={[Function]}
+    onSearch={[Function]}
+    power={
+      Object {
+        "add": false,
+        "delete": false,
+        "select": false,
+        "update": false,
+      }
+    }
+    primaryKey=""
+    tableId={-2}
+    total={0}
+  >
+    <div
+      data-key="pjnm"
+    >
+      1
+    </div>
+    <div
+      data-key="dam_cd"
+    >
+      2
+    </div>
+  </ContainerCore>
+</div>
+`;
