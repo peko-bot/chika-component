@@ -1,0 +1,696 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DetailFactory render correctly 1`] = `
+<DetailFactory
+  dataItem={
+    Array [
+      Object {
+        "defaultValue": "",
+        "foreignData": Array [],
+        "isNull": false,
+        "isSearchItem": true,
+        "key": "dam_cd",
+        "maxLength": 8,
+        "minLength": null,
+        "name": "dam_cd",
+        "orderInDetail": 1,
+        "orderInEdit": 1,
+        "primaryValue": "Z000001",
+        "showInDetail": true,
+        "showInEdit": true,
+        "templateOrder": undefined,
+        "type": "input",
+        "value": "Z000001",
+      },
+      Object {
+        "defaultValue": "",
+        "foreignData": Array [],
+        "isNull": false,
+        "isSearchItem": true,
+        "key": "pjnm",
+        "maxLength": 5,
+        "minLength": 0,
+        "name": "pjnm",
+        "orderInDetail": 21,
+        "orderInEdit": 21,
+        "primaryValue": "Z000001",
+        "showInDetail": true,
+        "showInEdit": true,
+        "templateOrder": undefined,
+        "type": "label",
+        "value": "德江坞",
+      },
+      Object {
+        "address": "杭州1",
+        "defaultValue": "",
+        "foreignData": Array [],
+        "isNull": false,
+        "isSearchItem": false,
+        "key": "mapPicker",
+        "lat": "39.89520118467971",
+        "lng": "116.30038976669313",
+        "maxLength": 8,
+        "minLength": null,
+        "name": "mapPicker",
+        "orderInDetail": 16,
+        "orderInEdit": 16,
+        "primaryValue": "Z000001",
+        "showInDetail": true,
+        "showInEdit": true,
+        "templateOrder": undefined,
+        "type": "mapPicker",
+        "value": "116.30038976669313|39.89520118467971|杭州1",
+      },
+      Object {
+        "defaultValue": "",
+        "foreignData": Array [],
+        "isNull": false,
+        "isSearchItem": false,
+        "key": "datePicker",
+        "maxLength": 50,
+        "minLength": null,
+        "name": "datePicker",
+        "orderInDetail": 16,
+        "orderInEdit": 16,
+        "primaryValue": "Z000001",
+        "showInDetail": true,
+        "showInEdit": true,
+        "templateOrder": undefined,
+        "type": "datePicker",
+        "value": "2019-03-11",
+      },
+      Object {
+        "defaultValue": "",
+        "foreignData": Array [
+          Object {
+            "label": "label1",
+            "value": "value1",
+          },
+          Object {
+            "label": "label2",
+            "value": "value2",
+          },
+        ],
+        "isNull": false,
+        "isSearchItem": false,
+        "key": "select",
+        "maxLength": 8,
+        "minLength": null,
+        "name": "select",
+        "orderInDetail": 16,
+        "orderInEdit": 16,
+        "primaryValue": "Z000001",
+        "showInDetail": true,
+        "showInEdit": true,
+        "templateOrder": undefined,
+        "type": "select",
+        "value": "value1",
+      },
+      Object {
+        "defaultValue": "",
+        "foreignData": Array [
+          Object {
+            "label": "checkboxlable1",
+            "value": "checkbox1",
+          },
+          Object {
+            "label": "label2",
+            "value": "checkbox2",
+          },
+          Object {
+            "label": "label3",
+            "value": "checkbox3",
+          },
+        ],
+        "isNull": false,
+        "isSearchItem": false,
+        "key": "checkbox",
+        "maxLength": 8,
+        "minLength": null,
+        "name": "checkbox",
+        "orderInDetail": 16,
+        "orderInEdit": 16,
+        "primaryValue": "Z000001",
+        "showInDetail": true,
+        "showInEdit": true,
+        "templateOrder": undefined,
+        "type": "checkbox",
+        "value": "checkbox1",
+      },
+      Object {
+        "defaultValue": "",
+        "foreignData": Array [],
+        "isNull": false,
+        "isSearchItem": false,
+        "key": "calendar",
+        "maxLength": 8,
+        "minLength": null,
+        "name": "calendar",
+        "orderInDetail": 16,
+        "orderInEdit": 16,
+        "primaryValue": "Z000001",
+        "showInDetail": true,
+        "showInEdit": true,
+        "templateOrder": undefined,
+        "type": "calendar",
+        "value": "2018-04-03 00:00:00,2018-04-04 00:00:00",
+      },
+      Object {
+        "defaultValue": "",
+        "foreignData": Array [],
+        "isNull": false,
+        "isSearchItem": false,
+        "key": "upload",
+        "maxLength": 8,
+        "minLength": null,
+        "name": "upload",
+        "orderInDetail": 16,
+        "orderInEdit": 16,
+        "primaryValue": "Z000001",
+        "showInDetail": true,
+        "showInEdit": true,
+        "templateOrder": undefined,
+        "type": "upload",
+        "value": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\"}]",
+      },
+    ]
+  }
+>
+  <div
+    className="DetailFactory"
+  >
+    <List
+      prefixCls="am-list"
+    >
+      <div
+        className="am-list"
+      >
+        <div
+          className="am-list-body"
+        >
+          <ListItem
+            align="middle"
+            error={false}
+            multipleLine={false}
+            platform="ios"
+            prefixCls="am-list"
+            wrap={false}
+          >
+            <TouchFeedback
+              activeClassName="am-list-item-active"
+              disabled={true}
+            >
+              <div
+                className="am-list-item am-list-item-middle"
+                onClick={[Function]}
+              >
+                <div
+                  className="am-list-line"
+                >
+                  <div
+                    className="am-list-content"
+                  >
+                    <ListItem
+                      align="middle"
+                      error={false}
+                      extra="Z000001"
+                      key="detail-page-label-0"
+                      multipleLine={false}
+                      platform="ios"
+                      prefixCls="am-list"
+                      wrap={false}
+                    >
+                      <TouchFeedback
+                        activeClassName="am-list-item-active"
+                        disabled={true}
+                      >
+                        <div
+                          className="am-list-item am-list-item-middle"
+                          onClick={[Function]}
+                        >
+                          <div
+                            className="am-list-line"
+                          >
+                            <div
+                              className="am-list-content"
+                            >
+                              dam_cd
+                            </div>
+                            <div
+                              className="am-list-extra"
+                            >
+                              Z000001
+                            </div>
+                          </div>
+                          <div
+                            className="am-list-ripple"
+                            style={
+                              Object {
+                                "display": "none",
+                              }
+                            }
+                          />
+                        </div>
+                      </TouchFeedback>
+                    </ListItem>
+                    <ListItem
+                      align="middle"
+                      error={false}
+                      extra="德江坞"
+                      key="detail-page-label-1"
+                      multipleLine={false}
+                      platform="ios"
+                      prefixCls="am-list"
+                      wrap={false}
+                    >
+                      <TouchFeedback
+                        activeClassName="am-list-item-active"
+                        disabled={true}
+                      >
+                        <div
+                          className="am-list-item am-list-item-middle"
+                          onClick={[Function]}
+                        >
+                          <div
+                            className="am-list-line"
+                          >
+                            <div
+                              className="am-list-content"
+                            >
+                              pjnm
+                            </div>
+                            <div
+                              className="am-list-extra"
+                            >
+                              德江坞
+                            </div>
+                          </div>
+                          <div
+                            className="am-list-ripple"
+                            style={
+                              Object {
+                                "display": "none",
+                              }
+                            }
+                          />
+                        </div>
+                      </TouchFeedback>
+                    </ListItem>
+                    <ListItem
+                      align="middle"
+                      error={false}
+                      extra="116.30038976669313"
+                      multipleLine={false}
+                      platform="ios"
+                      prefixCls="am-list"
+                      wrap={false}
+                    >
+                      <TouchFeedback
+                        activeClassName="am-list-item-active"
+                        disabled={true}
+                      >
+                        <div
+                          className="am-list-item am-list-item-middle"
+                          onClick={[Function]}
+                        >
+                          <div
+                            className="am-list-line"
+                          >
+                            <div
+                              className="am-list-content"
+                            >
+                              经度
+                            </div>
+                            <div
+                              className="am-list-extra"
+                            >
+                              116.30038976669313
+                            </div>
+                          </div>
+                          <div
+                            className="am-list-ripple"
+                            style={
+                              Object {
+                                "display": "none",
+                              }
+                            }
+                          />
+                        </div>
+                      </TouchFeedback>
+                    </ListItem>
+                    <ListItem
+                      align="middle"
+                      error={false}
+                      extra="39.89520118467971"
+                      multipleLine={false}
+                      platform="ios"
+                      prefixCls="am-list"
+                      wrap={false}
+                    >
+                      <TouchFeedback
+                        activeClassName="am-list-item-active"
+                        disabled={true}
+                      >
+                        <div
+                          className="am-list-item am-list-item-middle"
+                          onClick={[Function]}
+                        >
+                          <div
+                            className="am-list-line"
+                          >
+                            <div
+                              className="am-list-content"
+                            >
+                              纬度
+                            </div>
+                            <div
+                              className="am-list-extra"
+                            >
+                              39.89520118467971
+                            </div>
+                          </div>
+                          <div
+                            className="am-list-ripple"
+                            style={
+                              Object {
+                                "display": "none",
+                              }
+                            }
+                          />
+                        </div>
+                      </TouchFeedback>
+                    </ListItem>
+                    <ListItem
+                      align="middle"
+                      arrow="horizontal"
+                      error={false}
+                      extra="杭州1"
+                      multipleLine={false}
+                      onClick={[Function]}
+                      platform="ios"
+                      prefixCls="am-list"
+                      wrap={false}
+                    >
+                      <TouchFeedback
+                        activeClassName="am-list-item-active"
+                        disabled={false}
+                      >
+                        <div
+                          className="am-list-item am-list-item-middle"
+                          onClick={[Function]}
+                          onMouseDown={[Function]}
+                          onMouseLeave={[Function]}
+                          onMouseUp={[Function]}
+                          onTouchCancel={[Function]}
+                          onTouchEnd={[Function]}
+                          onTouchMove={[Function]}
+                          onTouchStart={[Function]}
+                        >
+                          <div
+                            className="am-list-line"
+                          >
+                            <div
+                              className="am-list-content"
+                            >
+                              地址
+                            </div>
+                            <div
+                              className="am-list-extra"
+                            >
+                              杭州1
+                            </div>
+                            <div
+                              aria-hidden="true"
+                              className="am-list-arrow am-list-arrow-horizontal"
+                            />
+                          </div>
+                          <div
+                            className="am-list-ripple"
+                            style={
+                              Object {
+                                "display": "none",
+                              }
+                            }
+                          />
+                        </div>
+                      </TouchFeedback>
+                    </ListItem>
+                    <ListItem
+                      align="middle"
+                      error={false}
+                      extra="2019-03-11"
+                      key="detail-page-label-3"
+                      multipleLine={false}
+                      platform="ios"
+                      prefixCls="am-list"
+                      wrap={false}
+                    >
+                      <TouchFeedback
+                        activeClassName="am-list-item-active"
+                        disabled={true}
+                      >
+                        <div
+                          className="am-list-item am-list-item-middle"
+                          onClick={[Function]}
+                        >
+                          <div
+                            className="am-list-line"
+                          >
+                            <div
+                              className="am-list-content"
+                            >
+                              datePicker
+                            </div>
+                            <div
+                              className="am-list-extra"
+                            >
+                              2019-03-11
+                            </div>
+                          </div>
+                          <div
+                            className="am-list-ripple"
+                            style={
+                              Object {
+                                "display": "none",
+                              }
+                            }
+                          />
+                        </div>
+                      </TouchFeedback>
+                    </ListItem>
+                    <ListItem
+                      align="middle"
+                      error={false}
+                      extra="value1"
+                      key="detail-page-label-4"
+                      multipleLine={false}
+                      platform="ios"
+                      prefixCls="am-list"
+                      wrap={false}
+                    >
+                      <TouchFeedback
+                        activeClassName="am-list-item-active"
+                        disabled={true}
+                      >
+                        <div
+                          className="am-list-item am-list-item-middle"
+                          onClick={[Function]}
+                        >
+                          <div
+                            className="am-list-line"
+                          >
+                            <div
+                              className="am-list-content"
+                            >
+                              select
+                            </div>
+                            <div
+                              className="am-list-extra"
+                            >
+                              value1
+                            </div>
+                          </div>
+                          <div
+                            className="am-list-ripple"
+                            style={
+                              Object {
+                                "display": "none",
+                              }
+                            }
+                          />
+                        </div>
+                      </TouchFeedback>
+                    </ListItem>
+                    <ListItem
+                      align="middle"
+                      error={false}
+                      extra="checkbox1"
+                      key="detail-page-label-5"
+                      multipleLine={false}
+                      platform="ios"
+                      prefixCls="am-list"
+                      wrap={false}
+                    >
+                      <TouchFeedback
+                        activeClassName="am-list-item-active"
+                        disabled={true}
+                      >
+                        <div
+                          className="am-list-item am-list-item-middle"
+                          onClick={[Function]}
+                        >
+                          <div
+                            className="am-list-line"
+                          >
+                            <div
+                              className="am-list-content"
+                            >
+                              checkbox
+                            </div>
+                            <div
+                              className="am-list-extra"
+                            >
+                              checkbox1
+                            </div>
+                          </div>
+                          <div
+                            className="am-list-ripple"
+                            style={
+                              Object {
+                                "display": "none",
+                              }
+                            }
+                          />
+                        </div>
+                      </TouchFeedback>
+                    </ListItem>
+                    <ListItem
+                      align="middle"
+                      error={false}
+                      extra="2018-04-03 00:00:00,2018-04-04 00:00:00"
+                      key="detail-page-label-6"
+                      multipleLine={false}
+                      platform="ios"
+                      prefixCls="am-list"
+                      wrap={false}
+                    >
+                      <TouchFeedback
+                        activeClassName="am-list-item-active"
+                        disabled={true}
+                      >
+                        <div
+                          className="am-list-item am-list-item-middle"
+                          onClick={[Function]}
+                        >
+                          <div
+                            className="am-list-line"
+                          >
+                            <div
+                              className="am-list-content"
+                            >
+                              calendar
+                            </div>
+                            <div
+                              className="am-list-extra"
+                            >
+                              2018-04-03 00:00:00,2018-04-04 00:00:00
+                            </div>
+                          </div>
+                          <div
+                            className="am-list-ripple"
+                            style={
+                              Object {
+                                "display": "none",
+                              }
+                            }
+                          />
+                        </div>
+                      </TouchFeedback>
+                    </ListItem>
+                  </div>
+                </div>
+                <div
+                  className="am-list-ripple"
+                  style={
+                    Object {
+                      "display": "none",
+                    }
+                  }
+                />
+              </div>
+            </TouchFeedback>
+          </ListItem>
+          <ListItem
+            align="middle"
+            error={false}
+            multipleLine={false}
+            platform="ios"
+            prefixCls="am-list"
+            wrap={false}
+          >
+            <TouchFeedback
+              activeClassName="am-list-item-active"
+              disabled={true}
+            >
+              <div
+                className="am-list-item am-list-item-middle"
+                onClick={[Function]}
+              >
+                <div
+                  className="am-list-line"
+                >
+                  <div
+                    className="am-list-content"
+                  >
+                    <Button
+                      activeStyle={Object {}}
+                      disabled={false}
+                      inline={false}
+                      loading={false}
+                      prefixCls="am-button"
+                      size="large"
+                    >
+                      <TouchFeedback
+                        activeClassName="am-button-active"
+                        activeStyle={Object {}}
+                        disabled={false}
+                      >
+                        <a
+                          aria-disabled={false}
+                          className="am-button"
+                          onMouseDown={[Function]}
+                          onMouseLeave={[Function]}
+                          onMouseUp={[Function]}
+                          onTouchCancel={[Function]}
+                          onTouchEnd={[Function]}
+                          onTouchMove={[Function]}
+                          onTouchStart={[Function]}
+                          role="button"
+                        >
+                          <span
+                            key=".0"
+                          >
+                            返 回
+                          </span>
+                        </a>
+                      </TouchFeedback>
+                    </Button>
+                  </div>
+                </div>
+                <div
+                  className="am-list-ripple"
+                  style={
+                    Object {
+                      "display": "none",
+                    }
+                  }
+                />
+              </div>
+            </TouchFeedback>
+          </ListItem>
+        </div>
+      </div>
+    </List>
+  </div>
+</DetailFactory>
+`;
