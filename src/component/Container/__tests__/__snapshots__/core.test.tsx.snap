@@ -1,0 +1,2285 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`core render correctly 1`] = `
+<div
+  className="Container-core"
+>
+  <TransformManager
+    currentGroup="list-page"
+    currentOrder={0}
+  >
+    <TransformManagerItem
+      className=""
+      group="list-page"
+      key="list-page-0"
+      order={0}
+    >
+      <div
+        className="sc-content"
+      >
+        <Template
+          dataSource={
+            Array [
+              Object {
+                "calendar": "2018-04-03 00:00:00,2018-04-04 00:00:00",
+                "checkbox": "checkbox1",
+                "crest_length": 63,
+                "dam_cd": "Z000001",
+                "dam_width": 16,
+                "datePicker": "2019-03-11",
+                "mapPicker": "116.30038976669313|39.89520118467971|杭州1",
+                "pjnm": "德江坞",
+                "retain_dam_type": "堆石坝",
+                "rownum": 1,
+                "select": "value1",
+                "upload": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\"}]",
+              },
+              Object {
+                "calendar": "2018-04-03 00:00:00,2018-04-04 00:00:00",
+                "checkbox": "checkbox3",
+                "crest_length": 13.8,
+                "dam_cd": "Z000002",
+                "dam_width": 0.7,
+                "datePicker": "2019-03-11",
+                "mapPicker": "116.30038976669313|39.89520118467971|杭州",
+                "pjnm": "六谷地村混凝土堰坝1",
+                "retain_dam_type": "堆石坝",
+                "rownum": 2,
+                "select": "value1",
+                "upload": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\"}]",
+              },
+              Object {
+                "calendar": "2018-04-03 00:00:00,2018-04-04 00:00:00",
+                "checkbox": "checkbox3",
+                "crest_length": 42.4,
+                "dam_cd": "Z000003",
+                "dam_width": 2.4,
+                "datePicker": "2019-03-11",
+                "mapPicker": "116.30038976669313|39.89520118467971|杭州",
+                "pjnm": "赤龙坝",
+                "retain_dam_type": "混凝土坝",
+                "rownum": 3,
+                "select": "value1",
+                "upload": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\"}]",
+              },
+              Object {
+                "calendar": "2018-04-03 00:00:00,2018-04-04 00:00:00",
+                "checkbox": "checkbox2",
+                "crest_length": 45,
+                "dam_cd": "Z000004",
+                "dam_width": 3.5,
+                "datePicker": "2019-03-11",
+                "mapPicker": "116.30038976669313|39.89520118467971|杭州",
+                "pjnm": "湖家埭坝2",
+                "retain_dam_type": "混凝土坝",
+                "rownum": 4,
+                "select": "value1",
+                "upload": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\"}]",
+              },
+              Object {
+                "calendar": "2018-04-03 00:00:00,2018-04-04 00:00:00",
+                "checkbox": "checkbox2",
+                "crest_length": 34,
+                "dam_cd": "Z000005",
+                "dam_width": 6.2,
+                "datePicker": "2019-03-11",
+                "mapPicker": "116.30038976669313|39.89520118467971|杭州",
+                "pjnm": "家猫坞山塘",
+                "retain_dam_type": "混凝土坝",
+                "rownum": 5,
+                "select": "value1",
+                "upload": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\"}]",
+              },
+              Object {
+                "calendar": "2018-04-03 00:00:00,2018-04-04 00:00:00",
+                "checkbox": "checkbox1",
+                "crest_length": 66,
+                "dam_cd": "Z000006",
+                "dam_width": 16,
+                "datePicker": "2019-03-11",
+                "mapPicker": "116.30038976669313|39.89520118467971|杭州",
+                "pjnm": "南塘坞山塘",
+                "retain_dam_type": "混凝土坝",
+                "rownum": 6,
+                "select": "value1",
+                "upload": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\"}]",
+              },
+              Object {
+                "calendar": "2018-04-03 00:00:00,2018-04-04 00:00:00",
+                "checkbox": "checkbox1",
+                "crest_length": 38,
+                "dam_cd": "Z000007",
+                "dam_width": 12.1,
+                "datePicker": "2019-03-11",
+                "mapPicker": "116.30038976669313|39.89520118467971|杭州",
+                "pjnm": "西步坞山塘",
+                "retain_dam_type": "混凝土坝",
+                "rownum": 7,
+                "select": "value1",
+                "upload": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\"}]",
+              },
+              Object {
+                "calendar": "2018-04-03 00:00:00,2018-04-04 00:00:00",
+                "checkbox": "checkbox1",
+                "crest_length": 22,
+                "dam_cd": "Z000008",
+                "dam_width": 0.9,
+                "datePicker": "2019-03-11",
+                "mapPicker": "116.30038976669313|39.89520118467971|杭州",
+                "pjnm": "东沈村混凝土堰坝1",
+                "retain_dam_type": "混凝土坝",
+                "rownum": 8,
+                "select": "value1",
+                "upload": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\"}]",
+              },
+              Object {
+                "calendar": "2018-04-03 00:00:00,2018-04-04 00:00:00",
+                "checkbox": "checkbox1",
+                "crest_length": 17.3,
+                "dam_cd": "Z000009",
+                "dam_width": 1.6,
+                "datePicker": "2019-03-11",
+                "mapPicker": "116.30038976669313|39.89520118467971|杭州",
+                "pjnm": "东沈村混凝土堰坝2",
+                "retain_dam_type": "混凝土坝",
+                "rownum": 9,
+                "select": "value1",
+                "upload": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\"}]",
+              },
+              Object {
+                "calendar": "2018-04-03 00:00:00,2018-04-04 00:00:00",
+                "checkbox": "checkbox1",
+                "crest_length": 15,
+                "dam_cd": "Z000010",
+                "dam_width": 1.2,
+                "datePicker": "2019-03-11",
+                "mapPicker": "116.30038976669313|39.89520118467971|杭州",
+                "pjnm": "东沈村混凝土堰坝3",
+                "retain_dam_type": "混凝土坝",
+                "rownum": 10,
+                "select": "value1",
+                "upload": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\"}]",
+              },
+            ]
+          }
+          onClick={[Function]}
+          onDataFormat={[Function]}
+          onPress={[Function]}
+          template={
+            <React.Fragment>
+              <div
+                data-key="pjnm"
+              >
+                1
+              </div>
+              <div
+                data-key="dam_cd"
+              >
+                2
+              </div>
+            </React.Fragment>
+          }
+        />
+      </div>
+    </TransformManagerItem>
+    <TransformManagerItem
+      className=""
+      group="detail-page"
+      key="detail-page-0"
+      order={0}
+    >
+      <DetailFactory
+        dataItem={
+          Array [
+            Object {
+              "defaultValue": "",
+              "foreignData": Array [],
+              "isNull": false,
+              "isSearchItem": true,
+              "key": "dam_cd",
+              "maxLength": 8,
+              "minLength": null,
+              "name": "dam_cd",
+              "orderInDetail": 1,
+              "orderInEdit": 1,
+              "primaryValue": undefined,
+              "showInDetail": true,
+              "showInEdit": true,
+              "templateOrder": undefined,
+              "type": "input",
+              "value": "Z000001",
+            },
+            Object {
+              "defaultValue": "",
+              "foreignData": Array [],
+              "isNull": false,
+              "isSearchItem": true,
+              "key": "pjnm",
+              "maxLength": 5,
+              "minLength": 0,
+              "name": "pjnm",
+              "orderInDetail": 21,
+              "orderInEdit": 21,
+              "primaryValue": undefined,
+              "showInDetail": true,
+              "showInEdit": true,
+              "templateOrder": undefined,
+              "type": "label",
+              "value": "德江坞",
+            },
+            Object {
+              "address": "杭州1",
+              "defaultValue": "",
+              "foreignData": Array [],
+              "isNull": false,
+              "isSearchItem": false,
+              "key": "mapPicker",
+              "lat": "39.89520118467971",
+              "lng": "116.30038976669313",
+              "maxLength": 8,
+              "minLength": null,
+              "name": "mapPicker",
+              "orderInDetail": 16,
+              "orderInEdit": 16,
+              "primaryValue": undefined,
+              "showInDetail": true,
+              "showInEdit": true,
+              "templateOrder": undefined,
+              "type": "mapPicker",
+              "value": "116.30038976669313|39.89520118467971|杭州1",
+            },
+            Object {
+              "defaultValue": "",
+              "foreignData": Array [],
+              "isNull": false,
+              "isSearchItem": false,
+              "key": "datePicker",
+              "maxLength": 50,
+              "minLength": null,
+              "name": "datePicker",
+              "orderInDetail": 16,
+              "orderInEdit": 16,
+              "primaryValue": undefined,
+              "showInDetail": true,
+              "showInEdit": true,
+              "templateOrder": undefined,
+              "type": "datePicker",
+              "value": "2019-03-11",
+            },
+            Object {
+              "defaultValue": "",
+              "foreignData": Array [
+                Object {
+                  "label": "label1",
+                  "value": "value1",
+                },
+                Object {
+                  "label": "label2",
+                  "value": "value2",
+                },
+              ],
+              "isNull": false,
+              "isSearchItem": false,
+              "key": "select",
+              "maxLength": 8,
+              "minLength": null,
+              "name": "select",
+              "orderInDetail": 16,
+              "orderInEdit": 16,
+              "primaryValue": undefined,
+              "showInDetail": true,
+              "showInEdit": true,
+              "templateOrder": undefined,
+              "type": "select",
+              "value": "value1",
+            },
+            Object {
+              "defaultValue": "",
+              "foreignData": Array [
+                Object {
+                  "label": "checkboxlable1",
+                  "value": "checkbox1",
+                },
+                Object {
+                  "label": "label2",
+                  "value": "checkbox2",
+                },
+                Object {
+                  "label": "label3",
+                  "value": "checkbox3",
+                },
+              ],
+              "isNull": false,
+              "isSearchItem": false,
+              "key": "checkbox",
+              "maxLength": 8,
+              "minLength": null,
+              "name": "checkbox",
+              "orderInDetail": 16,
+              "orderInEdit": 16,
+              "primaryValue": undefined,
+              "showInDetail": true,
+              "showInEdit": true,
+              "templateOrder": undefined,
+              "type": "checkbox",
+              "value": "checkbox1",
+            },
+            Object {
+              "defaultValue": "",
+              "foreignData": Array [],
+              "isNull": false,
+              "isSearchItem": false,
+              "key": "calendar",
+              "maxLength": 8,
+              "minLength": null,
+              "name": "calendar",
+              "orderInDetail": 16,
+              "orderInEdit": 16,
+              "primaryValue": undefined,
+              "showInDetail": true,
+              "showInEdit": true,
+              "templateOrder": undefined,
+              "type": "calendar",
+              "value": "2018-04-03 00:00:00,2018-04-04 00:00:00",
+            },
+            Object {
+              "defaultValue": "",
+              "foreignData": Array [],
+              "isNull": false,
+              "isSearchItem": false,
+              "key": "upload",
+              "maxLength": 8,
+              "minLength": null,
+              "name": "upload",
+              "orderInDetail": 16,
+              "orderInEdit": 16,
+              "primaryValue": undefined,
+              "showInDetail": true,
+              "showInEdit": true,
+              "templateOrder": undefined,
+              "type": "upload",
+              "value": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\"}]",
+            },
+          ]
+        }
+        onBack={[Function]}
+        onDataFormat={[Function]}
+        onMapBoxChange={[Function]}
+        onPageChange={[Function]}
+      />
+    </TransformManagerItem>
+    <TransformManagerItem
+      className=""
+      group="detail-page"
+      key="detail-page-1"
+      order={1}
+    >
+      <DetailFactory
+        dataItem={
+          Array [
+            Object {
+              "defaultValue": "",
+              "foreignData": Array [],
+              "isNull": false,
+              "isSearchItem": true,
+              "key": "dam_cd",
+              "maxLength": 8,
+              "minLength": null,
+              "name": "dam_cd",
+              "orderInDetail": 1,
+              "orderInEdit": 1,
+              "primaryValue": undefined,
+              "showInDetail": true,
+              "showInEdit": true,
+              "templateOrder": undefined,
+              "type": "input",
+              "value": "Z000002",
+            },
+            Object {
+              "defaultValue": "",
+              "foreignData": Array [],
+              "isNull": false,
+              "isSearchItem": true,
+              "key": "pjnm",
+              "maxLength": 5,
+              "minLength": 0,
+              "name": "pjnm",
+              "orderInDetail": 21,
+              "orderInEdit": 21,
+              "primaryValue": undefined,
+              "showInDetail": true,
+              "showInEdit": true,
+              "templateOrder": undefined,
+              "type": "label",
+              "value": "六谷地村混凝土堰坝1",
+            },
+            Object {
+              "address": "杭州",
+              "defaultValue": "",
+              "foreignData": Array [],
+              "isNull": false,
+              "isSearchItem": false,
+              "key": "mapPicker",
+              "lat": "39.89520118467971",
+              "lng": "116.30038976669313",
+              "maxLength": 8,
+              "minLength": null,
+              "name": "mapPicker",
+              "orderInDetail": 16,
+              "orderInEdit": 16,
+              "primaryValue": undefined,
+              "showInDetail": true,
+              "showInEdit": true,
+              "templateOrder": undefined,
+              "type": "mapPicker",
+              "value": "116.30038976669313|39.89520118467971|杭州",
+            },
+            Object {
+              "defaultValue": "",
+              "foreignData": Array [],
+              "isNull": false,
+              "isSearchItem": false,
+              "key": "datePicker",
+              "maxLength": 50,
+              "minLength": null,
+              "name": "datePicker",
+              "orderInDetail": 16,
+              "orderInEdit": 16,
+              "primaryValue": undefined,
+              "showInDetail": true,
+              "showInEdit": true,
+              "templateOrder": undefined,
+              "type": "datePicker",
+              "value": "2019-03-11",
+            },
+            Object {
+              "defaultValue": "",
+              "foreignData": Array [
+                Object {
+                  "label": "label1",
+                  "value": "value1",
+                },
+                Object {
+                  "label": "label2",
+                  "value": "value2",
+                },
+              ],
+              "isNull": false,
+              "isSearchItem": false,
+              "key": "select",
+              "maxLength": 8,
+              "minLength": null,
+              "name": "select",
+              "orderInDetail": 16,
+              "orderInEdit": 16,
+              "primaryValue": undefined,
+              "showInDetail": true,
+              "showInEdit": true,
+              "templateOrder": undefined,
+              "type": "select",
+              "value": "value1",
+            },
+            Object {
+              "defaultValue": "",
+              "foreignData": Array [
+                Object {
+                  "label": "checkboxlable1",
+                  "value": "checkbox1",
+                },
+                Object {
+                  "label": "label2",
+                  "value": "checkbox2",
+                },
+                Object {
+                  "label": "label3",
+                  "value": "checkbox3",
+                },
+              ],
+              "isNull": false,
+              "isSearchItem": false,
+              "key": "checkbox",
+              "maxLength": 8,
+              "minLength": null,
+              "name": "checkbox",
+              "orderInDetail": 16,
+              "orderInEdit": 16,
+              "primaryValue": undefined,
+              "showInDetail": true,
+              "showInEdit": true,
+              "templateOrder": undefined,
+              "type": "checkbox",
+              "value": "checkbox3",
+            },
+            Object {
+              "defaultValue": "",
+              "foreignData": Array [],
+              "isNull": false,
+              "isSearchItem": false,
+              "key": "calendar",
+              "maxLength": 8,
+              "minLength": null,
+              "name": "calendar",
+              "orderInDetail": 16,
+              "orderInEdit": 16,
+              "primaryValue": undefined,
+              "showInDetail": true,
+              "showInEdit": true,
+              "templateOrder": undefined,
+              "type": "calendar",
+              "value": "2018-04-03 00:00:00,2018-04-04 00:00:00",
+            },
+            Object {
+              "defaultValue": "",
+              "foreignData": Array [],
+              "isNull": false,
+              "isSearchItem": false,
+              "key": "upload",
+              "maxLength": 8,
+              "minLength": null,
+              "name": "upload",
+              "orderInDetail": 16,
+              "orderInEdit": 16,
+              "primaryValue": undefined,
+              "showInDetail": true,
+              "showInEdit": true,
+              "templateOrder": undefined,
+              "type": "upload",
+              "value": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\"}]",
+            },
+          ]
+        }
+        onBack={[Function]}
+        onDataFormat={[Function]}
+        onMapBoxChange={[Function]}
+        onPageChange={[Function]}
+      />
+    </TransformManagerItem>
+    <TransformManagerItem
+      className=""
+      group="detail-page"
+      key="detail-page-2"
+      order={2}
+    >
+      <DetailFactory
+        dataItem={
+          Array [
+            Object {
+              "defaultValue": "",
+              "foreignData": Array [],
+              "isNull": false,
+              "isSearchItem": true,
+              "key": "dam_cd",
+              "maxLength": 8,
+              "minLength": null,
+              "name": "dam_cd",
+              "orderInDetail": 1,
+              "orderInEdit": 1,
+              "primaryValue": undefined,
+              "showInDetail": true,
+              "showInEdit": true,
+              "templateOrder": undefined,
+              "type": "input",
+              "value": "Z000003",
+            },
+            Object {
+              "defaultValue": "",
+              "foreignData": Array [],
+              "isNull": false,
+              "isSearchItem": true,
+              "key": "pjnm",
+              "maxLength": 5,
+              "minLength": 0,
+              "name": "pjnm",
+              "orderInDetail": 21,
+              "orderInEdit": 21,
+              "primaryValue": undefined,
+              "showInDetail": true,
+              "showInEdit": true,
+              "templateOrder": undefined,
+              "type": "label",
+              "value": "赤龙坝",
+            },
+            Object {
+              "address": "杭州",
+              "defaultValue": "",
+              "foreignData": Array [],
+              "isNull": false,
+              "isSearchItem": false,
+              "key": "mapPicker",
+              "lat": "39.89520118467971",
+              "lng": "116.30038976669313",
+              "maxLength": 8,
+              "minLength": null,
+              "name": "mapPicker",
+              "orderInDetail": 16,
+              "orderInEdit": 16,
+              "primaryValue": undefined,
+              "showInDetail": true,
+              "showInEdit": true,
+              "templateOrder": undefined,
+              "type": "mapPicker",
+              "value": "116.30038976669313|39.89520118467971|杭州",
+            },
+            Object {
+              "defaultValue": "",
+              "foreignData": Array [],
+              "isNull": false,
+              "isSearchItem": false,
+              "key": "datePicker",
+              "maxLength": 50,
+              "minLength": null,
+              "name": "datePicker",
+              "orderInDetail": 16,
+              "orderInEdit": 16,
+              "primaryValue": undefined,
+              "showInDetail": true,
+              "showInEdit": true,
+              "templateOrder": undefined,
+              "type": "datePicker",
+              "value": "2019-03-11",
+            },
+            Object {
+              "defaultValue": "",
+              "foreignData": Array [
+                Object {
+                  "label": "label1",
+                  "value": "value1",
+                },
+                Object {
+                  "label": "label2",
+                  "value": "value2",
+                },
+              ],
+              "isNull": false,
+              "isSearchItem": false,
+              "key": "select",
+              "maxLength": 8,
+              "minLength": null,
+              "name": "select",
+              "orderInDetail": 16,
+              "orderInEdit": 16,
+              "primaryValue": undefined,
+              "showInDetail": true,
+              "showInEdit": true,
+              "templateOrder": undefined,
+              "type": "select",
+              "value": "value1",
+            },
+            Object {
+              "defaultValue": "",
+              "foreignData": Array [
+                Object {
+                  "label": "checkboxlable1",
+                  "value": "checkbox1",
+                },
+                Object {
+                  "label": "label2",
+                  "value": "checkbox2",
+                },
+                Object {
+                  "label": "label3",
+                  "value": "checkbox3",
+                },
+              ],
+              "isNull": false,
+              "isSearchItem": false,
+              "key": "checkbox",
+              "maxLength": 8,
+              "minLength": null,
+              "name": "checkbox",
+              "orderInDetail": 16,
+              "orderInEdit": 16,
+              "primaryValue": undefined,
+              "showInDetail": true,
+              "showInEdit": true,
+              "templateOrder": undefined,
+              "type": "checkbox",
+              "value": "checkbox3",
+            },
+            Object {
+              "defaultValue": "",
+              "foreignData": Array [],
+              "isNull": false,
+              "isSearchItem": false,
+              "key": "calendar",
+              "maxLength": 8,
+              "minLength": null,
+              "name": "calendar",
+              "orderInDetail": 16,
+              "orderInEdit": 16,
+              "primaryValue": undefined,
+              "showInDetail": true,
+              "showInEdit": true,
+              "templateOrder": undefined,
+              "type": "calendar",
+              "value": "2018-04-03 00:00:00,2018-04-04 00:00:00",
+            },
+            Object {
+              "defaultValue": "",
+              "foreignData": Array [],
+              "isNull": false,
+              "isSearchItem": false,
+              "key": "upload",
+              "maxLength": 8,
+              "minLength": null,
+              "name": "upload",
+              "orderInDetail": 16,
+              "orderInEdit": 16,
+              "primaryValue": undefined,
+              "showInDetail": true,
+              "showInEdit": true,
+              "templateOrder": undefined,
+              "type": "upload",
+              "value": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\"}]",
+            },
+          ]
+        }
+        onBack={[Function]}
+        onDataFormat={[Function]}
+        onMapBoxChange={[Function]}
+        onPageChange={[Function]}
+      />
+    </TransformManagerItem>
+    <TransformManagerItem
+      className=""
+      group="detail-page"
+      key="detail-page-3"
+      order={3}
+    >
+      <DetailFactory
+        dataItem={
+          Array [
+            Object {
+              "defaultValue": "",
+              "foreignData": Array [],
+              "isNull": false,
+              "isSearchItem": true,
+              "key": "dam_cd",
+              "maxLength": 8,
+              "minLength": null,
+              "name": "dam_cd",
+              "orderInDetail": 1,
+              "orderInEdit": 1,
+              "primaryValue": undefined,
+              "showInDetail": true,
+              "showInEdit": true,
+              "templateOrder": undefined,
+              "type": "input",
+              "value": "Z000004",
+            },
+            Object {
+              "defaultValue": "",
+              "foreignData": Array [],
+              "isNull": false,
+              "isSearchItem": true,
+              "key": "pjnm",
+              "maxLength": 5,
+              "minLength": 0,
+              "name": "pjnm",
+              "orderInDetail": 21,
+              "orderInEdit": 21,
+              "primaryValue": undefined,
+              "showInDetail": true,
+              "showInEdit": true,
+              "templateOrder": undefined,
+              "type": "label",
+              "value": "湖家埭坝2",
+            },
+            Object {
+              "address": "杭州",
+              "defaultValue": "",
+              "foreignData": Array [],
+              "isNull": false,
+              "isSearchItem": false,
+              "key": "mapPicker",
+              "lat": "39.89520118467971",
+              "lng": "116.30038976669313",
+              "maxLength": 8,
+              "minLength": null,
+              "name": "mapPicker",
+              "orderInDetail": 16,
+              "orderInEdit": 16,
+              "primaryValue": undefined,
+              "showInDetail": true,
+              "showInEdit": true,
+              "templateOrder": undefined,
+              "type": "mapPicker",
+              "value": "116.30038976669313|39.89520118467971|杭州",
+            },
+            Object {
+              "defaultValue": "",
+              "foreignData": Array [],
+              "isNull": false,
+              "isSearchItem": false,
+              "key": "datePicker",
+              "maxLength": 50,
+              "minLength": null,
+              "name": "datePicker",
+              "orderInDetail": 16,
+              "orderInEdit": 16,
+              "primaryValue": undefined,
+              "showInDetail": true,
+              "showInEdit": true,
+              "templateOrder": undefined,
+              "type": "datePicker",
+              "value": "2019-03-11",
+            },
+            Object {
+              "defaultValue": "",
+              "foreignData": Array [
+                Object {
+                  "label": "label1",
+                  "value": "value1",
+                },
+                Object {
+                  "label": "label2",
+                  "value": "value2",
+                },
+              ],
+              "isNull": false,
+              "isSearchItem": false,
+              "key": "select",
+              "maxLength": 8,
+              "minLength": null,
+              "name": "select",
+              "orderInDetail": 16,
+              "orderInEdit": 16,
+              "primaryValue": undefined,
+              "showInDetail": true,
+              "showInEdit": true,
+              "templateOrder": undefined,
+              "type": "select",
+              "value": "value1",
+            },
+            Object {
+              "defaultValue": "",
+              "foreignData": Array [
+                Object {
+                  "label": "checkboxlable1",
+                  "value": "checkbox1",
+                },
+                Object {
+                  "label": "label2",
+                  "value": "checkbox2",
+                },
+                Object {
+                  "label": "label3",
+                  "value": "checkbox3",
+                },
+              ],
+              "isNull": false,
+              "isSearchItem": false,
+              "key": "checkbox",
+              "maxLength": 8,
+              "minLength": null,
+              "name": "checkbox",
+              "orderInDetail": 16,
+              "orderInEdit": 16,
+              "primaryValue": undefined,
+              "showInDetail": true,
+              "showInEdit": true,
+              "templateOrder": undefined,
+              "type": "checkbox",
+              "value": "checkbox2",
+            },
+            Object {
+              "defaultValue": "",
+              "foreignData": Array [],
+              "isNull": false,
+              "isSearchItem": false,
+              "key": "calendar",
+              "maxLength": 8,
+              "minLength": null,
+              "name": "calendar",
+              "orderInDetail": 16,
+              "orderInEdit": 16,
+              "primaryValue": undefined,
+              "showInDetail": true,
+              "showInEdit": true,
+              "templateOrder": undefined,
+              "type": "calendar",
+              "value": "2018-04-03 00:00:00,2018-04-04 00:00:00",
+            },
+            Object {
+              "defaultValue": "",
+              "foreignData": Array [],
+              "isNull": false,
+              "isSearchItem": false,
+              "key": "upload",
+              "maxLength": 8,
+              "minLength": null,
+              "name": "upload",
+              "orderInDetail": 16,
+              "orderInEdit": 16,
+              "primaryValue": undefined,
+              "showInDetail": true,
+              "showInEdit": true,
+              "templateOrder": undefined,
+              "type": "upload",
+              "value": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\"}]",
+            },
+          ]
+        }
+        onBack={[Function]}
+        onDataFormat={[Function]}
+        onMapBoxChange={[Function]}
+        onPageChange={[Function]}
+      />
+    </TransformManagerItem>
+    <TransformManagerItem
+      className=""
+      group="detail-page"
+      key="detail-page-4"
+      order={4}
+    >
+      <DetailFactory
+        dataItem={
+          Array [
+            Object {
+              "defaultValue": "",
+              "foreignData": Array [],
+              "isNull": false,
+              "isSearchItem": true,
+              "key": "dam_cd",
+              "maxLength": 8,
+              "minLength": null,
+              "name": "dam_cd",
+              "orderInDetail": 1,
+              "orderInEdit": 1,
+              "primaryValue": undefined,
+              "showInDetail": true,
+              "showInEdit": true,
+              "templateOrder": undefined,
+              "type": "input",
+              "value": "Z000005",
+            },
+            Object {
+              "defaultValue": "",
+              "foreignData": Array [],
+              "isNull": false,
+              "isSearchItem": true,
+              "key": "pjnm",
+              "maxLength": 5,
+              "minLength": 0,
+              "name": "pjnm",
+              "orderInDetail": 21,
+              "orderInEdit": 21,
+              "primaryValue": undefined,
+              "showInDetail": true,
+              "showInEdit": true,
+              "templateOrder": undefined,
+              "type": "label",
+              "value": "家猫坞山塘",
+            },
+            Object {
+              "address": "杭州",
+              "defaultValue": "",
+              "foreignData": Array [],
+              "isNull": false,
+              "isSearchItem": false,
+              "key": "mapPicker",
+              "lat": "39.89520118467971",
+              "lng": "116.30038976669313",
+              "maxLength": 8,
+              "minLength": null,
+              "name": "mapPicker",
+              "orderInDetail": 16,
+              "orderInEdit": 16,
+              "primaryValue": undefined,
+              "showInDetail": true,
+              "showInEdit": true,
+              "templateOrder": undefined,
+              "type": "mapPicker",
+              "value": "116.30038976669313|39.89520118467971|杭州",
+            },
+            Object {
+              "defaultValue": "",
+              "foreignData": Array [],
+              "isNull": false,
+              "isSearchItem": false,
+              "key": "datePicker",
+              "maxLength": 50,
+              "minLength": null,
+              "name": "datePicker",
+              "orderInDetail": 16,
+              "orderInEdit": 16,
+              "primaryValue": undefined,
+              "showInDetail": true,
+              "showInEdit": true,
+              "templateOrder": undefined,
+              "type": "datePicker",
+              "value": "2019-03-11",
+            },
+            Object {
+              "defaultValue": "",
+              "foreignData": Array [
+                Object {
+                  "label": "label1",
+                  "value": "value1",
+                },
+                Object {
+                  "label": "label2",
+                  "value": "value2",
+                },
+              ],
+              "isNull": false,
+              "isSearchItem": false,
+              "key": "select",
+              "maxLength": 8,
+              "minLength": null,
+              "name": "select",
+              "orderInDetail": 16,
+              "orderInEdit": 16,
+              "primaryValue": undefined,
+              "showInDetail": true,
+              "showInEdit": true,
+              "templateOrder": undefined,
+              "type": "select",
+              "value": "value1",
+            },
+            Object {
+              "defaultValue": "",
+              "foreignData": Array [
+                Object {
+                  "label": "checkboxlable1",
+                  "value": "checkbox1",
+                },
+                Object {
+                  "label": "label2",
+                  "value": "checkbox2",
+                },
+                Object {
+                  "label": "label3",
+                  "value": "checkbox3",
+                },
+              ],
+              "isNull": false,
+              "isSearchItem": false,
+              "key": "checkbox",
+              "maxLength": 8,
+              "minLength": null,
+              "name": "checkbox",
+              "orderInDetail": 16,
+              "orderInEdit": 16,
+              "primaryValue": undefined,
+              "showInDetail": true,
+              "showInEdit": true,
+              "templateOrder": undefined,
+              "type": "checkbox",
+              "value": "checkbox2",
+            },
+            Object {
+              "defaultValue": "",
+              "foreignData": Array [],
+              "isNull": false,
+              "isSearchItem": false,
+              "key": "calendar",
+              "maxLength": 8,
+              "minLength": null,
+              "name": "calendar",
+              "orderInDetail": 16,
+              "orderInEdit": 16,
+              "primaryValue": undefined,
+              "showInDetail": true,
+              "showInEdit": true,
+              "templateOrder": undefined,
+              "type": "calendar",
+              "value": "2018-04-03 00:00:00,2018-04-04 00:00:00",
+            },
+            Object {
+              "defaultValue": "",
+              "foreignData": Array [],
+              "isNull": false,
+              "isSearchItem": false,
+              "key": "upload",
+              "maxLength": 8,
+              "minLength": null,
+              "name": "upload",
+              "orderInDetail": 16,
+              "orderInEdit": 16,
+              "primaryValue": undefined,
+              "showInDetail": true,
+              "showInEdit": true,
+              "templateOrder": undefined,
+              "type": "upload",
+              "value": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\"}]",
+            },
+          ]
+        }
+        onBack={[Function]}
+        onDataFormat={[Function]}
+        onMapBoxChange={[Function]}
+        onPageChange={[Function]}
+      />
+    </TransformManagerItem>
+    <TransformManagerItem
+      className=""
+      group="detail-page"
+      key="detail-page-5"
+      order={5}
+    >
+      <DetailFactory
+        dataItem={
+          Array [
+            Object {
+              "defaultValue": "",
+              "foreignData": Array [],
+              "isNull": false,
+              "isSearchItem": true,
+              "key": "dam_cd",
+              "maxLength": 8,
+              "minLength": null,
+              "name": "dam_cd",
+              "orderInDetail": 1,
+              "orderInEdit": 1,
+              "primaryValue": undefined,
+              "showInDetail": true,
+              "showInEdit": true,
+              "templateOrder": undefined,
+              "type": "input",
+              "value": "Z000006",
+            },
+            Object {
+              "defaultValue": "",
+              "foreignData": Array [],
+              "isNull": false,
+              "isSearchItem": true,
+              "key": "pjnm",
+              "maxLength": 5,
+              "minLength": 0,
+              "name": "pjnm",
+              "orderInDetail": 21,
+              "orderInEdit": 21,
+              "primaryValue": undefined,
+              "showInDetail": true,
+              "showInEdit": true,
+              "templateOrder": undefined,
+              "type": "label",
+              "value": "南塘坞山塘",
+            },
+            Object {
+              "address": "杭州",
+              "defaultValue": "",
+              "foreignData": Array [],
+              "isNull": false,
+              "isSearchItem": false,
+              "key": "mapPicker",
+              "lat": "39.89520118467971",
+              "lng": "116.30038976669313",
+              "maxLength": 8,
+              "minLength": null,
+              "name": "mapPicker",
+              "orderInDetail": 16,
+              "orderInEdit": 16,
+              "primaryValue": undefined,
+              "showInDetail": true,
+              "showInEdit": true,
+              "templateOrder": undefined,
+              "type": "mapPicker",
+              "value": "116.30038976669313|39.89520118467971|杭州",
+            },
+            Object {
+              "defaultValue": "",
+              "foreignData": Array [],
+              "isNull": false,
+              "isSearchItem": false,
+              "key": "datePicker",
+              "maxLength": 50,
+              "minLength": null,
+              "name": "datePicker",
+              "orderInDetail": 16,
+              "orderInEdit": 16,
+              "primaryValue": undefined,
+              "showInDetail": true,
+              "showInEdit": true,
+              "templateOrder": undefined,
+              "type": "datePicker",
+              "value": "2019-03-11",
+            },
+            Object {
+              "defaultValue": "",
+              "foreignData": Array [
+                Object {
+                  "label": "label1",
+                  "value": "value1",
+                },
+                Object {
+                  "label": "label2",
+                  "value": "value2",
+                },
+              ],
+              "isNull": false,
+              "isSearchItem": false,
+              "key": "select",
+              "maxLength": 8,
+              "minLength": null,
+              "name": "select",
+              "orderInDetail": 16,
+              "orderInEdit": 16,
+              "primaryValue": undefined,
+              "showInDetail": true,
+              "showInEdit": true,
+              "templateOrder": undefined,
+              "type": "select",
+              "value": "value1",
+            },
+            Object {
+              "defaultValue": "",
+              "foreignData": Array [
+                Object {
+                  "label": "checkboxlable1",
+                  "value": "checkbox1",
+                },
+                Object {
+                  "label": "label2",
+                  "value": "checkbox2",
+                },
+                Object {
+                  "label": "label3",
+                  "value": "checkbox3",
+                },
+              ],
+              "isNull": false,
+              "isSearchItem": false,
+              "key": "checkbox",
+              "maxLength": 8,
+              "minLength": null,
+              "name": "checkbox",
+              "orderInDetail": 16,
+              "orderInEdit": 16,
+              "primaryValue": undefined,
+              "showInDetail": true,
+              "showInEdit": true,
+              "templateOrder": undefined,
+              "type": "checkbox",
+              "value": "checkbox1",
+            },
+            Object {
+              "defaultValue": "",
+              "foreignData": Array [],
+              "isNull": false,
+              "isSearchItem": false,
+              "key": "calendar",
+              "maxLength": 8,
+              "minLength": null,
+              "name": "calendar",
+              "orderInDetail": 16,
+              "orderInEdit": 16,
+              "primaryValue": undefined,
+              "showInDetail": true,
+              "showInEdit": true,
+              "templateOrder": undefined,
+              "type": "calendar",
+              "value": "2018-04-03 00:00:00,2018-04-04 00:00:00",
+            },
+            Object {
+              "defaultValue": "",
+              "foreignData": Array [],
+              "isNull": false,
+              "isSearchItem": false,
+              "key": "upload",
+              "maxLength": 8,
+              "minLength": null,
+              "name": "upload",
+              "orderInDetail": 16,
+              "orderInEdit": 16,
+              "primaryValue": undefined,
+              "showInDetail": true,
+              "showInEdit": true,
+              "templateOrder": undefined,
+              "type": "upload",
+              "value": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\"}]",
+            },
+          ]
+        }
+        onBack={[Function]}
+        onDataFormat={[Function]}
+        onMapBoxChange={[Function]}
+        onPageChange={[Function]}
+      />
+    </TransformManagerItem>
+    <TransformManagerItem
+      className=""
+      group="detail-page"
+      key="detail-page-6"
+      order={6}
+    >
+      <DetailFactory
+        dataItem={
+          Array [
+            Object {
+              "defaultValue": "",
+              "foreignData": Array [],
+              "isNull": false,
+              "isSearchItem": true,
+              "key": "dam_cd",
+              "maxLength": 8,
+              "minLength": null,
+              "name": "dam_cd",
+              "orderInDetail": 1,
+              "orderInEdit": 1,
+              "primaryValue": undefined,
+              "showInDetail": true,
+              "showInEdit": true,
+              "templateOrder": undefined,
+              "type": "input",
+              "value": "Z000007",
+            },
+            Object {
+              "defaultValue": "",
+              "foreignData": Array [],
+              "isNull": false,
+              "isSearchItem": true,
+              "key": "pjnm",
+              "maxLength": 5,
+              "minLength": 0,
+              "name": "pjnm",
+              "orderInDetail": 21,
+              "orderInEdit": 21,
+              "primaryValue": undefined,
+              "showInDetail": true,
+              "showInEdit": true,
+              "templateOrder": undefined,
+              "type": "label",
+              "value": "西步坞山塘",
+            },
+            Object {
+              "address": "杭州",
+              "defaultValue": "",
+              "foreignData": Array [],
+              "isNull": false,
+              "isSearchItem": false,
+              "key": "mapPicker",
+              "lat": "39.89520118467971",
+              "lng": "116.30038976669313",
+              "maxLength": 8,
+              "minLength": null,
+              "name": "mapPicker",
+              "orderInDetail": 16,
+              "orderInEdit": 16,
+              "primaryValue": undefined,
+              "showInDetail": true,
+              "showInEdit": true,
+              "templateOrder": undefined,
+              "type": "mapPicker",
+              "value": "116.30038976669313|39.89520118467971|杭州",
+            },
+            Object {
+              "defaultValue": "",
+              "foreignData": Array [],
+              "isNull": false,
+              "isSearchItem": false,
+              "key": "datePicker",
+              "maxLength": 50,
+              "minLength": null,
+              "name": "datePicker",
+              "orderInDetail": 16,
+              "orderInEdit": 16,
+              "primaryValue": undefined,
+              "showInDetail": true,
+              "showInEdit": true,
+              "templateOrder": undefined,
+              "type": "datePicker",
+              "value": "2019-03-11",
+            },
+            Object {
+              "defaultValue": "",
+              "foreignData": Array [
+                Object {
+                  "label": "label1",
+                  "value": "value1",
+                },
+                Object {
+                  "label": "label2",
+                  "value": "value2",
+                },
+              ],
+              "isNull": false,
+              "isSearchItem": false,
+              "key": "select",
+              "maxLength": 8,
+              "minLength": null,
+              "name": "select",
+              "orderInDetail": 16,
+              "orderInEdit": 16,
+              "primaryValue": undefined,
+              "showInDetail": true,
+              "showInEdit": true,
+              "templateOrder": undefined,
+              "type": "select",
+              "value": "value1",
+            },
+            Object {
+              "defaultValue": "",
+              "foreignData": Array [
+                Object {
+                  "label": "checkboxlable1",
+                  "value": "checkbox1",
+                },
+                Object {
+                  "label": "label2",
+                  "value": "checkbox2",
+                },
+                Object {
+                  "label": "label3",
+                  "value": "checkbox3",
+                },
+              ],
+              "isNull": false,
+              "isSearchItem": false,
+              "key": "checkbox",
+              "maxLength": 8,
+              "minLength": null,
+              "name": "checkbox",
+              "orderInDetail": 16,
+              "orderInEdit": 16,
+              "primaryValue": undefined,
+              "showInDetail": true,
+              "showInEdit": true,
+              "templateOrder": undefined,
+              "type": "checkbox",
+              "value": "checkbox1",
+            },
+            Object {
+              "defaultValue": "",
+              "foreignData": Array [],
+              "isNull": false,
+              "isSearchItem": false,
+              "key": "calendar",
+              "maxLength": 8,
+              "minLength": null,
+              "name": "calendar",
+              "orderInDetail": 16,
+              "orderInEdit": 16,
+              "primaryValue": undefined,
+              "showInDetail": true,
+              "showInEdit": true,
+              "templateOrder": undefined,
+              "type": "calendar",
+              "value": "2018-04-03 00:00:00,2018-04-04 00:00:00",
+            },
+            Object {
+              "defaultValue": "",
+              "foreignData": Array [],
+              "isNull": false,
+              "isSearchItem": false,
+              "key": "upload",
+              "maxLength": 8,
+              "minLength": null,
+              "name": "upload",
+              "orderInDetail": 16,
+              "orderInEdit": 16,
+              "primaryValue": undefined,
+              "showInDetail": true,
+              "showInEdit": true,
+              "templateOrder": undefined,
+              "type": "upload",
+              "value": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\"}]",
+            },
+          ]
+        }
+        onBack={[Function]}
+        onDataFormat={[Function]}
+        onMapBoxChange={[Function]}
+        onPageChange={[Function]}
+      />
+    </TransformManagerItem>
+    <TransformManagerItem
+      className=""
+      group="detail-page"
+      key="detail-page-7"
+      order={7}
+    >
+      <DetailFactory
+        dataItem={
+          Array [
+            Object {
+              "defaultValue": "",
+              "foreignData": Array [],
+              "isNull": false,
+              "isSearchItem": true,
+              "key": "dam_cd",
+              "maxLength": 8,
+              "minLength": null,
+              "name": "dam_cd",
+              "orderInDetail": 1,
+              "orderInEdit": 1,
+              "primaryValue": undefined,
+              "showInDetail": true,
+              "showInEdit": true,
+              "templateOrder": undefined,
+              "type": "input",
+              "value": "Z000008",
+            },
+            Object {
+              "defaultValue": "",
+              "foreignData": Array [],
+              "isNull": false,
+              "isSearchItem": true,
+              "key": "pjnm",
+              "maxLength": 5,
+              "minLength": 0,
+              "name": "pjnm",
+              "orderInDetail": 21,
+              "orderInEdit": 21,
+              "primaryValue": undefined,
+              "showInDetail": true,
+              "showInEdit": true,
+              "templateOrder": undefined,
+              "type": "label",
+              "value": "东沈村混凝土堰坝1",
+            },
+            Object {
+              "address": "杭州",
+              "defaultValue": "",
+              "foreignData": Array [],
+              "isNull": false,
+              "isSearchItem": false,
+              "key": "mapPicker",
+              "lat": "39.89520118467971",
+              "lng": "116.30038976669313",
+              "maxLength": 8,
+              "minLength": null,
+              "name": "mapPicker",
+              "orderInDetail": 16,
+              "orderInEdit": 16,
+              "primaryValue": undefined,
+              "showInDetail": true,
+              "showInEdit": true,
+              "templateOrder": undefined,
+              "type": "mapPicker",
+              "value": "116.30038976669313|39.89520118467971|杭州",
+            },
+            Object {
+              "defaultValue": "",
+              "foreignData": Array [],
+              "isNull": false,
+              "isSearchItem": false,
+              "key": "datePicker",
+              "maxLength": 50,
+              "minLength": null,
+              "name": "datePicker",
+              "orderInDetail": 16,
+              "orderInEdit": 16,
+              "primaryValue": undefined,
+              "showInDetail": true,
+              "showInEdit": true,
+              "templateOrder": undefined,
+              "type": "datePicker",
+              "value": "2019-03-11",
+            },
+            Object {
+              "defaultValue": "",
+              "foreignData": Array [
+                Object {
+                  "label": "label1",
+                  "value": "value1",
+                },
+                Object {
+                  "label": "label2",
+                  "value": "value2",
+                },
+              ],
+              "isNull": false,
+              "isSearchItem": false,
+              "key": "select",
+              "maxLength": 8,
+              "minLength": null,
+              "name": "select",
+              "orderInDetail": 16,
+              "orderInEdit": 16,
+              "primaryValue": undefined,
+              "showInDetail": true,
+              "showInEdit": true,
+              "templateOrder": undefined,
+              "type": "select",
+              "value": "value1",
+            },
+            Object {
+              "defaultValue": "",
+              "foreignData": Array [
+                Object {
+                  "label": "checkboxlable1",
+                  "value": "checkbox1",
+                },
+                Object {
+                  "label": "label2",
+                  "value": "checkbox2",
+                },
+                Object {
+                  "label": "label3",
+                  "value": "checkbox3",
+                },
+              ],
+              "isNull": false,
+              "isSearchItem": false,
+              "key": "checkbox",
+              "maxLength": 8,
+              "minLength": null,
+              "name": "checkbox",
+              "orderInDetail": 16,
+              "orderInEdit": 16,
+              "primaryValue": undefined,
+              "showInDetail": true,
+              "showInEdit": true,
+              "templateOrder": undefined,
+              "type": "checkbox",
+              "value": "checkbox1",
+            },
+            Object {
+              "defaultValue": "",
+              "foreignData": Array [],
+              "isNull": false,
+              "isSearchItem": false,
+              "key": "calendar",
+              "maxLength": 8,
+              "minLength": null,
+              "name": "calendar",
+              "orderInDetail": 16,
+              "orderInEdit": 16,
+              "primaryValue": undefined,
+              "showInDetail": true,
+              "showInEdit": true,
+              "templateOrder": undefined,
+              "type": "calendar",
+              "value": "2018-04-03 00:00:00,2018-04-04 00:00:00",
+            },
+            Object {
+              "defaultValue": "",
+              "foreignData": Array [],
+              "isNull": false,
+              "isSearchItem": false,
+              "key": "upload",
+              "maxLength": 8,
+              "minLength": null,
+              "name": "upload",
+              "orderInDetail": 16,
+              "orderInEdit": 16,
+              "primaryValue": undefined,
+              "showInDetail": true,
+              "showInEdit": true,
+              "templateOrder": undefined,
+              "type": "upload",
+              "value": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\"}]",
+            },
+          ]
+        }
+        onBack={[Function]}
+        onDataFormat={[Function]}
+        onMapBoxChange={[Function]}
+        onPageChange={[Function]}
+      />
+    </TransformManagerItem>
+    <TransformManagerItem
+      className=""
+      group="detail-page"
+      key="detail-page-8"
+      order={8}
+    >
+      <DetailFactory
+        dataItem={
+          Array [
+            Object {
+              "defaultValue": "",
+              "foreignData": Array [],
+              "isNull": false,
+              "isSearchItem": true,
+              "key": "dam_cd",
+              "maxLength": 8,
+              "minLength": null,
+              "name": "dam_cd",
+              "orderInDetail": 1,
+              "orderInEdit": 1,
+              "primaryValue": undefined,
+              "showInDetail": true,
+              "showInEdit": true,
+              "templateOrder": undefined,
+              "type": "input",
+              "value": "Z000009",
+            },
+            Object {
+              "defaultValue": "",
+              "foreignData": Array [],
+              "isNull": false,
+              "isSearchItem": true,
+              "key": "pjnm",
+              "maxLength": 5,
+              "minLength": 0,
+              "name": "pjnm",
+              "orderInDetail": 21,
+              "orderInEdit": 21,
+              "primaryValue": undefined,
+              "showInDetail": true,
+              "showInEdit": true,
+              "templateOrder": undefined,
+              "type": "label",
+              "value": "东沈村混凝土堰坝2",
+            },
+            Object {
+              "address": "杭州",
+              "defaultValue": "",
+              "foreignData": Array [],
+              "isNull": false,
+              "isSearchItem": false,
+              "key": "mapPicker",
+              "lat": "39.89520118467971",
+              "lng": "116.30038976669313",
+              "maxLength": 8,
+              "minLength": null,
+              "name": "mapPicker",
+              "orderInDetail": 16,
+              "orderInEdit": 16,
+              "primaryValue": undefined,
+              "showInDetail": true,
+              "showInEdit": true,
+              "templateOrder": undefined,
+              "type": "mapPicker",
+              "value": "116.30038976669313|39.89520118467971|杭州",
+            },
+            Object {
+              "defaultValue": "",
+              "foreignData": Array [],
+              "isNull": false,
+              "isSearchItem": false,
+              "key": "datePicker",
+              "maxLength": 50,
+              "minLength": null,
+              "name": "datePicker",
+              "orderInDetail": 16,
+              "orderInEdit": 16,
+              "primaryValue": undefined,
+              "showInDetail": true,
+              "showInEdit": true,
+              "templateOrder": undefined,
+              "type": "datePicker",
+              "value": "2019-03-11",
+            },
+            Object {
+              "defaultValue": "",
+              "foreignData": Array [
+                Object {
+                  "label": "label1",
+                  "value": "value1",
+                },
+                Object {
+                  "label": "label2",
+                  "value": "value2",
+                },
+              ],
+              "isNull": false,
+              "isSearchItem": false,
+              "key": "select",
+              "maxLength": 8,
+              "minLength": null,
+              "name": "select",
+              "orderInDetail": 16,
+              "orderInEdit": 16,
+              "primaryValue": undefined,
+              "showInDetail": true,
+              "showInEdit": true,
+              "templateOrder": undefined,
+              "type": "select",
+              "value": "value1",
+            },
+            Object {
+              "defaultValue": "",
+              "foreignData": Array [
+                Object {
+                  "label": "checkboxlable1",
+                  "value": "checkbox1",
+                },
+                Object {
+                  "label": "label2",
+                  "value": "checkbox2",
+                },
+                Object {
+                  "label": "label3",
+                  "value": "checkbox3",
+                },
+              ],
+              "isNull": false,
+              "isSearchItem": false,
+              "key": "checkbox",
+              "maxLength": 8,
+              "minLength": null,
+              "name": "checkbox",
+              "orderInDetail": 16,
+              "orderInEdit": 16,
+              "primaryValue": undefined,
+              "showInDetail": true,
+              "showInEdit": true,
+              "templateOrder": undefined,
+              "type": "checkbox",
+              "value": "checkbox1",
+            },
+            Object {
+              "defaultValue": "",
+              "foreignData": Array [],
+              "isNull": false,
+              "isSearchItem": false,
+              "key": "calendar",
+              "maxLength": 8,
+              "minLength": null,
+              "name": "calendar",
+              "orderInDetail": 16,
+              "orderInEdit": 16,
+              "primaryValue": undefined,
+              "showInDetail": true,
+              "showInEdit": true,
+              "templateOrder": undefined,
+              "type": "calendar",
+              "value": "2018-04-03 00:00:00,2018-04-04 00:00:00",
+            },
+            Object {
+              "defaultValue": "",
+              "foreignData": Array [],
+              "isNull": false,
+              "isSearchItem": false,
+              "key": "upload",
+              "maxLength": 8,
+              "minLength": null,
+              "name": "upload",
+              "orderInDetail": 16,
+              "orderInEdit": 16,
+              "primaryValue": undefined,
+              "showInDetail": true,
+              "showInEdit": true,
+              "templateOrder": undefined,
+              "type": "upload",
+              "value": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\"}]",
+            },
+          ]
+        }
+        onBack={[Function]}
+        onDataFormat={[Function]}
+        onMapBoxChange={[Function]}
+        onPageChange={[Function]}
+      />
+    </TransformManagerItem>
+    <TransformManagerItem
+      className=""
+      group="detail-page"
+      key="detail-page-9"
+      order={9}
+    >
+      <DetailFactory
+        dataItem={
+          Array [
+            Object {
+              "defaultValue": "",
+              "foreignData": Array [],
+              "isNull": false,
+              "isSearchItem": true,
+              "key": "dam_cd",
+              "maxLength": 8,
+              "minLength": null,
+              "name": "dam_cd",
+              "orderInDetail": 1,
+              "orderInEdit": 1,
+              "primaryValue": undefined,
+              "showInDetail": true,
+              "showInEdit": true,
+              "templateOrder": undefined,
+              "type": "input",
+              "value": "Z000010",
+            },
+            Object {
+              "defaultValue": "",
+              "foreignData": Array [],
+              "isNull": false,
+              "isSearchItem": true,
+              "key": "pjnm",
+              "maxLength": 5,
+              "minLength": 0,
+              "name": "pjnm",
+              "orderInDetail": 21,
+              "orderInEdit": 21,
+              "primaryValue": undefined,
+              "showInDetail": true,
+              "showInEdit": true,
+              "templateOrder": undefined,
+              "type": "label",
+              "value": "东沈村混凝土堰坝3",
+            },
+            Object {
+              "address": "杭州",
+              "defaultValue": "",
+              "foreignData": Array [],
+              "isNull": false,
+              "isSearchItem": false,
+              "key": "mapPicker",
+              "lat": "39.89520118467971",
+              "lng": "116.30038976669313",
+              "maxLength": 8,
+              "minLength": null,
+              "name": "mapPicker",
+              "orderInDetail": 16,
+              "orderInEdit": 16,
+              "primaryValue": undefined,
+              "showInDetail": true,
+              "showInEdit": true,
+              "templateOrder": undefined,
+              "type": "mapPicker",
+              "value": "116.30038976669313|39.89520118467971|杭州",
+            },
+            Object {
+              "defaultValue": "",
+              "foreignData": Array [],
+              "isNull": false,
+              "isSearchItem": false,
+              "key": "datePicker",
+              "maxLength": 50,
+              "minLength": null,
+              "name": "datePicker",
+              "orderInDetail": 16,
+              "orderInEdit": 16,
+              "primaryValue": undefined,
+              "showInDetail": true,
+              "showInEdit": true,
+              "templateOrder": undefined,
+              "type": "datePicker",
+              "value": "2019-03-11",
+            },
+            Object {
+              "defaultValue": "",
+              "foreignData": Array [
+                Object {
+                  "label": "label1",
+                  "value": "value1",
+                },
+                Object {
+                  "label": "label2",
+                  "value": "value2",
+                },
+              ],
+              "isNull": false,
+              "isSearchItem": false,
+              "key": "select",
+              "maxLength": 8,
+              "minLength": null,
+              "name": "select",
+              "orderInDetail": 16,
+              "orderInEdit": 16,
+              "primaryValue": undefined,
+              "showInDetail": true,
+              "showInEdit": true,
+              "templateOrder": undefined,
+              "type": "select",
+              "value": "value1",
+            },
+            Object {
+              "defaultValue": "",
+              "foreignData": Array [
+                Object {
+                  "label": "checkboxlable1",
+                  "value": "checkbox1",
+                },
+                Object {
+                  "label": "label2",
+                  "value": "checkbox2",
+                },
+                Object {
+                  "label": "label3",
+                  "value": "checkbox3",
+                },
+              ],
+              "isNull": false,
+              "isSearchItem": false,
+              "key": "checkbox",
+              "maxLength": 8,
+              "minLength": null,
+              "name": "checkbox",
+              "orderInDetail": 16,
+              "orderInEdit": 16,
+              "primaryValue": undefined,
+              "showInDetail": true,
+              "showInEdit": true,
+              "templateOrder": undefined,
+              "type": "checkbox",
+              "value": "checkbox1",
+            },
+            Object {
+              "defaultValue": "",
+              "foreignData": Array [],
+              "isNull": false,
+              "isSearchItem": false,
+              "key": "calendar",
+              "maxLength": 8,
+              "minLength": null,
+              "name": "calendar",
+              "orderInDetail": 16,
+              "orderInEdit": 16,
+              "primaryValue": undefined,
+              "showInDetail": true,
+              "showInEdit": true,
+              "templateOrder": undefined,
+              "type": "calendar",
+              "value": "2018-04-03 00:00:00,2018-04-04 00:00:00",
+            },
+            Object {
+              "defaultValue": "",
+              "foreignData": Array [],
+              "isNull": false,
+              "isSearchItem": false,
+              "key": "upload",
+              "maxLength": 8,
+              "minLength": null,
+              "name": "upload",
+              "orderInDetail": 16,
+              "orderInEdit": 16,
+              "primaryValue": undefined,
+              "showInDetail": true,
+              "showInEdit": true,
+              "templateOrder": undefined,
+              "type": "upload",
+              "value": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\"}]",
+            },
+          ]
+        }
+        onBack={[Function]}
+        onDataFormat={[Function]}
+        onMapBoxChange={[Function]}
+        onPageChange={[Function]}
+      />
+    </TransformManagerItem>
+    <TransformManagerItem
+      className=""
+      group="update-page"
+      key="update-page-0"
+      order={0}
+    >
+      <UpdatePage
+        config={
+          Array [
+            Object {
+              "defaultValue": "",
+              "foreignData": Array [],
+              "isNull": false,
+              "isSearchItem": true,
+              "key": "pjnm",
+              "maxLength": 5,
+              "minLength": 0,
+              "name": "pjnm",
+              "orderInDetail": 21,
+              "orderInEdit": 21,
+              "showInDetail": true,
+              "showInEdit": true,
+              "type": "label",
+            },
+            Object {
+              "defaultValue": "",
+              "foreignData": Array [],
+              "isNull": false,
+              "isSearchItem": true,
+              "key": "dam_cd",
+              "maxLength": 8,
+              "minLength": null,
+              "name": "dam_cd",
+              "orderInDetail": 1,
+              "orderInEdit": 1,
+              "showInDetail": true,
+              "showInEdit": true,
+              "type": "input",
+            },
+            Object {
+              "defaultValue": "",
+              "foreignData": Array [],
+              "isNull": false,
+              "isSearchItem": false,
+              "key": "datePicker",
+              "maxLength": 50,
+              "minLength": null,
+              "name": "datePicker",
+              "orderInDetail": 16,
+              "orderInEdit": 16,
+              "showInDetail": true,
+              "showInEdit": true,
+              "type": "datePicker",
+            },
+            Object {
+              "defaultValue": "",
+              "foreignData": Array [
+                Object {
+                  "label": "label1",
+                  "value": "value1",
+                },
+                Object {
+                  "label": "label2",
+                  "value": "value2",
+                },
+              ],
+              "isNull": false,
+              "isSearchItem": false,
+              "key": "select",
+              "maxLength": 8,
+              "minLength": null,
+              "name": "select",
+              "orderInDetail": 16,
+              "orderInEdit": 16,
+              "showInDetail": true,
+              "showInEdit": true,
+              "type": "select",
+            },
+            Object {
+              "defaultValue": "",
+              "foreignData": Array [
+                Object {
+                  "label": "checkboxlable1",
+                  "value": "checkbox1",
+                },
+                Object {
+                  "label": "label2",
+                  "value": "checkbox2",
+                },
+                Object {
+                  "label": "label3",
+                  "value": "checkbox3",
+                },
+              ],
+              "isNull": false,
+              "isSearchItem": false,
+              "key": "checkbox",
+              "maxLength": 8,
+              "minLength": null,
+              "name": "checkbox",
+              "orderInDetail": 16,
+              "orderInEdit": 16,
+              "showInDetail": true,
+              "showInEdit": true,
+              "type": "checkbox",
+            },
+            Object {
+              "defaultValue": "",
+              "foreignData": Array [],
+              "isNull": false,
+              "isSearchItem": false,
+              "key": "calendar",
+              "maxLength": 8,
+              "minLength": null,
+              "name": "calendar",
+              "orderInDetail": 16,
+              "orderInEdit": 16,
+              "showInDetail": true,
+              "showInEdit": true,
+              "type": "calendar",
+            },
+            Object {
+              "defaultValue": "",
+              "foreignData": Array [],
+              "isNull": false,
+              "isSearchItem": false,
+              "key": "upload",
+              "maxLength": 8,
+              "minLength": null,
+              "name": "upload",
+              "orderInDetail": 16,
+              "orderInEdit": 16,
+              "showInDetail": true,
+              "showInEdit": true,
+              "type": "upload",
+            },
+            Object {
+              "defaultValue": "",
+              "foreignData": Array [],
+              "isNull": false,
+              "isSearchItem": false,
+              "key": "mapPicker",
+              "maxLength": 8,
+              "minLength": null,
+              "name": "mapPicker",
+              "orderInDetail": 16,
+              "orderInEdit": 16,
+              "showInDetail": true,
+              "showInEdit": true,
+              "type": "mapPicker",
+            },
+          ]
+        }
+        dataItem={Object {}}
+        onBack={[Function]}
+        onMapBoxChange={[Function]}
+        status="add"
+      />
+    </TransformManagerItem>
+    <TransformManagerItem
+      className=""
+      group="map-box"
+      key="map-box-0"
+      order={0}
+    >
+      <MapBox
+        center={
+          Object {
+            "lat": "-1",
+            "lng": "-1",
+          }
+        }
+        onMarkerDrag={[Function]}
+      />
+      <List
+        prefixCls="am-list"
+        renderHeader="坐标信息"
+        style={
+          Object {
+            "bottom": 0,
+            "position": "absolute",
+            "width": "100%",
+            "zIndex": 400,
+          }
+        }
+      >
+        <ListItem
+          align="middle"
+          error={false}
+          extra="-1"
+          multipleLine={false}
+          platform="ios"
+          prefixCls="am-list"
+          wrap={false}
+        >
+          经度
+        </ListItem>
+        <ListItem
+          align="middle"
+          error={false}
+          extra="-1"
+          multipleLine={false}
+          platform="ios"
+          prefixCls="am-list"
+          wrap={false}
+        >
+          纬度
+        </ListItem>
+        <ListItem
+          align="middle"
+          error={false}
+          multipleLine={false}
+          platform="ios"
+          prefixCls="am-list"
+          wrap={false}
+        >
+          <Button
+            activeStyle={Object {}}
+            disabled={false}
+            inline={false}
+            loading={false}
+            onClick={[Function]}
+            prefixCls="am-button"
+            size="large"
+          >
+            返回
+          </Button>
+        </ListItem>
+      </List>
+    </TransformManagerItem>
+  </TransformManager>
+  <ActivityIndicator
+    animating={true}
+    panelColor="rgba(34,34,34,0.6)"
+    prefixCls="am-activity-indicator"
+    size="large"
+    text="正在加载..."
+    toast={true}
+  />
+</div>
+`;

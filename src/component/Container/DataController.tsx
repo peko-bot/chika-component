@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import Container, { MapPickerChangeProps } from './core';
 import { ajax } from '../../util/urlHelper';
 import { Toast } from 'antd-mobile';
-import { formatDate } from '../../util';
 import { formatConfig, formatControls } from './utils';
+import { defaultDataFormatEnum } from './utils';
 
 export interface DataControllerProps {
   children: any;
@@ -198,19 +198,3 @@ export default class DataController extends Component<
     );
   };
 }
-
-const defaultDataFormatEnum = [
-  {
-    key: 'data-date-format',
-    method: (value: string, format: string) => formatDate(value, format),
-  },
-  {
-    key: 'data-decimal-count',
-    method: (value: number, decimalCount: number) =>
-      +parseFloat(value.toFixed(decimalCount)).toPrecision(12),
-  },
-  {
-    key: 'data-unit',
-    method: (value: number | string, unit: string) => `${value} ${unit}`,
-  },
-];
