@@ -9,7 +9,8 @@ const Config = formatConfig(originConfig);
 let UpdatePage;
 switch (process.env.LIB_DIR) {
   case 'lib':
-    UpdatePage = require('../../../../lib/component/UpdatePage').default;
+    UpdatePage = require('../../../../lib/component/Container/UpdatePage')
+      .default;
     break;
   default:
     UpdatePage = require('../UpdatePage').default;
