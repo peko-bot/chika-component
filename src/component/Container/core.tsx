@@ -165,8 +165,8 @@ export default class ContainerCore extends Component<
 
   onDetailPageChange = () => {};
 
-  renderDetailPage = (dataSource: Array<any>) => {
-    const { config, formatControls, primaryKey } = this.props;
+  renderDetailPage = () => {
+    const { config, formatControls, primaryKey, dataSource } = this.props;
     let result: Array<any> = [];
     dataSource.map((item, i) => {
       const dataItem = formatControls(item, config, primaryKey);
@@ -222,6 +222,23 @@ export default class ContainerCore extends Component<
     );
   };
 
+  renderTemplate = () => {
+    const { children, dataSource } = this.props;
+    return (
+      <TransformManagerItem group="list-page" order={0} key="list-page-0">
+        <div className="sc-content" ref={(ref: any) => (this.content = ref)}>
+          <Template
+            template={children}
+            dataSource={dataSource}
+            onDataFormat={this.handleChildDataFormat}
+            onClick={this.handleTemplateClick}
+            onPress={this.handleTemplatePress}
+          />
+        </div>
+      </TransformManagerItem>
+    );
+  };
+
   renderUpdatePage = () => {
     const { config, dataSource, primaryKey } = this.props;
     const { primaryValue, updatePageStatus } = this.state;
@@ -231,26 +248,58 @@ export default class ContainerCore extends Component<
     const dataItem =
       updatePageStatus === 'add' ? {} : dataSource[dataItemIndex];
     return (
-      <UpdatePage
-        onBack={this.backToList}
-        config={config}
-        dataItem={dataItem}
-        status={updatePageStatus}
-        onMapBoxChange={this.handleMapBoxChange}
-      />
+      <TransformManagerItem group="update-page" order={0} key="update-page-0">
+        <UpdatePage
+          onBack={this.backToList}
+          config={config}
+          dataItem={dataItem}
+          status={updatePageStatus}
+          onMapBoxChange={this.handleMapBoxChange}
+        />
+      </TransformManagerItem>
+    );
+  };
+
+  renderMapBox = () => {
+    const { lat, lng, primaryValue, mapBoxTargetKey } = this.state;
+    const { onMapPickerChange } = this.props;
+    return (
+      <TransformManagerItem group="map-box" order={0} key="map-box-0">
+        <MapBox
+          center={{ lat, lng }}
+          onMarkerDrag={({ lat, lng }) => {
+            this.setState({ lat: lat.toString(), lng: lng.toString() });
+            onMapPickerChange &&
+              onMapPickerChange({
+                lat: lat.toString(),
+                lng: lng.toString(),
+                primaryValue,
+                targetKey: mapBoxTargetKey,
+              });
+          }}
+        />
+        <List
+          renderHeader="坐标信息"
+          style={{
+            position: 'absolute',
+            bottom: 0,
+            width: '100%',
+            zIndex: 400,
+          }}
+        >
+          <List.Item extra={lng}>经度</List.Item>
+          <List.Item extra={lat}>纬度</List.Item>
+          <List.Item>
+            <Button onClick={this.handleBackFromMapBox}>返回</Button>
+          </List.Item>
+        </List>
+      </TransformManagerItem>
     );
   };
 
   render = () => {
     const { state, props } = this;
-    const {
-      currentOrder,
-      currentGroup,
-      lat,
-      lng,
-      primaryValue,
-      mapBoxTargetKey,
-    } = state;
+    const { currentOrder, currentGroup } = state;
 
     return (
       <div className="Container-core">
@@ -258,58 +307,10 @@ export default class ContainerCore extends Component<
           currentGroup={currentGroup}
           currentOrder={currentOrder}
         >
-          <TransformManagerItem group="list-page" order={0} key="list-page-0">
-            <div
-              className="sc-content"
-              ref={(ref: any) => (this.content = ref)}
-            >
-              <Template
-                template={props.children}
-                dataSource={props.dataSource}
-                onDataFormat={this.handleChildDataFormat}
-                onClick={this.handleTemplateClick}
-                onPress={this.handleTemplatePress}
-              />
-            </div>
-          </TransformManagerItem>
-          {this.renderDetailPage(props.dataSource)}
-          <TransformManagerItem
-            group="update-page"
-            order={0}
-            key="update-page-0"
-          >
-            {this.renderUpdatePage()}
-          </TransformManagerItem>
-          <TransformManagerItem group="map-box" order={0} key="map-box-0">
-            <MapBox
-              center={{ lat, lng }}
-              onMarkerDrag={({ lat, lng }) => {
-                this.setState({ lat: lat.toString(), lng: lng.toString() });
-                props.onMapPickerChange &&
-                  props.onMapPickerChange({
-                    lat: lat.toString(),
-                    lng: lng.toString(),
-                    primaryValue,
-                    targetKey: mapBoxTargetKey,
-                  });
-              }}
-            />
-            <List
-              renderHeader="坐标信息"
-              style={{
-                position: 'absolute',
-                bottom: 0,
-                width: '100%',
-                zIndex: 400,
-              }}
-            >
-              <List.Item extra={lng}>经度</List.Item>
-              <List.Item extra={lat}>纬度</List.Item>
-              <List.Item>
-                <Button onClick={this.handleBackFromMapBox}>返回</Button>
-              </List.Item>
-            </List>
-          </TransformManagerItem>
+          {this.renderTemplate()}
+          {this.renderDetailPage()}
+          {this.renderUpdatePage()}
+          {this.renderMapBox()}
         </TransformManager>
 
         <ActivityIndicator
