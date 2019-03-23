@@ -3,7 +3,7 @@ import Container, { MapPickerChangeProps } from './core';
 import { ajax } from '../../util/urlHelper';
 import { Toast } from 'antd-mobile';
 import { formatDate } from '../../util';
-import { formatConfig } from './utils';
+import { formatConfig, formatControls } from './utils';
 
 export interface DataControllerProps {
   children: any;
@@ -155,40 +155,6 @@ export default class DataController extends Component<
     });
   };
 
-  formatControls = (dataItem: any, config: Array<any>) => {
-    let result = [];
-    const keys = Object.keys(dataItem);
-    for (let item of keys) {
-      const targetItem = config.filter(target => target.key === item);
-      if (targetItem.length) {
-        const { key, showInDetail, type } = targetItem[0];
-        if (!showInDetail) continue;
-        const value = dataItem[key];
-        const item = {
-          ...targetItem[0],
-          value: dataItem[key],
-          templateOrder: dataItem.templateOrder,
-          // when mapPicker change, dataSource will change target item by this.
-          primaryValue: dataItem[this.state.primaryKey],
-        };
-
-        // handle with mapPicker
-        if (type === 'mapPicker') {
-          const latng = value.split('|');
-          result.push({
-            ...item,
-            lng: latng[0],
-            lat: latng[1],
-            address: latng[2],
-          });
-        } else {
-          result.push(item);
-        }
-      }
-    }
-    return result;
-  };
-
   handeMapPickerChange = ({
     primaryValue,
     targetKey,
@@ -224,7 +190,7 @@ export default class DataController extends Component<
           loading={loading}
           onSearch={this.search}
           onDelete={this.handleDelete}
-          formatControls={this.formatControls}
+          formatControls={formatControls as any}
           onMapPickerChange={this.handeMapPickerChange}
           defaultDataFormatEnum={defaultDataFormatEnum}
         />

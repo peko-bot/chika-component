@@ -30,7 +30,7 @@ export interface ContainerCoreProps {
   primaryKey: string;
   onDelete?: (primaryValue: string | number) => void;
   onSearch?: () => void;
-  formatControls: (item: any, config: any) => void;
+  formatControls: (item: any, config: any, primaryKey: string) => void;
   onMapPickerChange?: (item: MapPickerChangeProps) => void;
   defaultDataFormatEnum: Array<{
     key: string;
@@ -166,10 +166,10 @@ export default class ContainerCore extends Component<
   onDetailPageChange = () => {};
 
   renderDetailPage = (dataSource: Array<any>) => {
-    const { config, formatControls } = this.props;
+    const { config, formatControls, primaryKey } = this.props;
     let result: Array<any> = [];
     dataSource.map((item, i) => {
-      const dataItem = formatControls(item, config);
+      const dataItem = formatControls(item, config, primaryKey);
       result.push(
         <TransformManagerItem
           group="detail-page"

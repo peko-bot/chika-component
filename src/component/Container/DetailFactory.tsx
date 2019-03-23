@@ -2,27 +2,15 @@ import React, { Component } from 'react';
 import { List, Button } from 'antd-mobile';
 import { PropsGoToMaxBox } from './core';
 
-function noop() {}
-
 export interface DetailFactoryProps {
-  controlType: string;
   onPageChange: () => void;
   onBack: () => void;
   dataItem?: Array<any>;
-  onDataFormat: (value: string | number, item: any) => void;
+  onDataFormat?: (value: string | number, item: any) => void;
   onMapBoxChange?: (item: PropsGoToMaxBox) => void;
 }
 
 export default class DetailFactory extends Component<DetailFactoryProps> {
-  static defaultProps = {
-    controlType: '',
-    onPageChange: noop,
-    onBack: noop,
-    dataItem: [],
-    onDataFormat: (value: any) => value,
-    onMapBoxChange: noop,
-  };
-
   handleControls = (item: any, index: number) => {
     const { onDataFormat, onMapBoxChange } = this.props;
     const { type, value, name } = item;
@@ -47,7 +35,7 @@ export default class DetailFactory extends Component<DetailFactoryProps> {
       return (
         <List.Item
           key={`detail-page-label-${index}`}
-          extra={onDataFormat && (onDataFormat(value, item) as any)}
+          extra={onDataFormat ? (onDataFormat(value, item) as any) : value}
         >
           {name}
         </List.Item>

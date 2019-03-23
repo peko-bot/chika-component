@@ -44,3 +44,41 @@ const controlTypeEnums = {
   14: 'mapPicker',
   99: 'label',
 };
+
+export const formatControls = (
+  dataItem: any,
+  config: Array<any>,
+  primaryKey: string,
+) => {
+  let result = [];
+  const keys = Object.keys(dataItem);
+  for (let item of keys) {
+    const targetItem = config.filter(target => target.key === item);
+    if (targetItem.length) {
+      const { key, showInDetail, type } = targetItem[0];
+      if (!showInDetail) continue;
+      const value = dataItem[key];
+      const item = {
+        ...targetItem[0],
+        value: dataItem[key],
+        templateOrder: dataItem.templateOrder,
+        // when mapPicker change, dataSource will change target item by this.
+        primaryValue: dataItem[primaryKey],
+      };
+
+      // handle with mapPicker
+      if (type === 'mapPicker') {
+        const latng = value.split('|');
+        result.push({
+          ...item,
+          lng: latng[0],
+          lat: latng[1],
+          address: latng[2],
+        });
+      } else {
+        result.push(item);
+      }
+    }
+  }
+  return result;
+};
