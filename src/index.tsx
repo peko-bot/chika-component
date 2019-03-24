@@ -4,8 +4,6 @@ export { default as Drawer } from './component/Drawer';
 
 export { default as Container } from './component/Container';
 
-export { default as Progress } from './component/Progress';
-
 export { default as Ripple } from './component/Ripple';
 
 export { default as Swiper } from './component/Swiper';

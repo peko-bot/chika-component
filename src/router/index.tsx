@@ -6,7 +6,6 @@ import Container from '../demo/Container';
 import Swiper from '../demo/Swiper';
 import Ripple from '../demo/Ripple';
 import Tabs from '../demo/Tabs';
-import Progress from '../demo/Progress';
 import Upload from '../demo/Upload';
 import Drawer from '../demo/Drawer';
 import TransformManager from '../demo/TransformManager';
@@ -30,10 +29,6 @@ export default class Entry extends Component {
           component={(props: any) => <Swiper {...props} />}
         />
         <Route path="/tabs" component={(props: any) => <Tabs {...props} />} />
-        <Route
-          path="/progress"
-          component={(props: any) => <Progress {...props} />}
-        />
         <Route
           path="/ripple"
           component={(props: any) => <Ripple {...props} />}
