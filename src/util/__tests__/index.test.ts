@@ -2,7 +2,10 @@ import { formatDate, getParamsFromUrl } from '..';
 
 describe('index', () => {
   it('formatDate', () => {
-    expect(formatDate('2019-03-24')).toBe('2019-03-24 08:00:00');
+    expect(formatDate('2019-03-24T00:00:00')).toBe('2019-03-24 00:00:00');
+    expect(formatDate(new Date(Date.UTC(2019, 2, 24, 8)))).toBe(
+      '2019-03-24 16:00:00',
+    );
   });
 
   it('getParamsFromUrl', () => {
