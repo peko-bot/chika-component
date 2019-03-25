@@ -194,6 +194,7 @@ exports[`core render correctly 1`] = `
             Object {
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 3072,
               "isNull": false,
               "isSearchItem": true,
               "key": "dam_cd",
@@ -212,6 +213,7 @@ exports[`core render correctly 1`] = `
             Object {
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 8732,
               "isNull": false,
               "isSearchItem": true,
               "key": "pjnm",
@@ -231,6 +233,7 @@ exports[`core render correctly 1`] = `
               "address": "杭州1",
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 1270,
               "isNull": false,
               "isSearchItem": false,
               "key": "mapPicker",
@@ -251,6 +254,7 @@ exports[`core render correctly 1`] = `
             Object {
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 4155,
               "isNull": false,
               "isSearchItem": false,
               "key": "datePicker",
@@ -264,7 +268,7 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "datePicker",
-              "value": "2019-03-11",
+              "value": 2019-03-11T00:00:00.000Z,
             },
             Object {
               "defaultValue": "",
@@ -278,6 +282,7 @@ exports[`core render correctly 1`] = `
                   "value": "value2",
                 },
               ],
+              "id": 3957,
               "isNull": false,
               "isSearchItem": false,
               "key": "select",
@@ -309,6 +314,7 @@ exports[`core render correctly 1`] = `
                   "value": "checkbox3",
                 },
               ],
+              "id": 7130,
               "isNull": false,
               "isSearchItem": false,
               "key": "checkbox",
@@ -327,6 +333,7 @@ exports[`core render correctly 1`] = `
             Object {
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 3342,
               "isNull": false,
               "isSearchItem": false,
               "key": "calendar",
@@ -345,6 +352,7 @@ exports[`core render correctly 1`] = `
             Object {
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 5427,
               "isNull": false,
               "isSearchItem": false,
               "key": "upload",
@@ -358,7 +366,13 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "upload",
-              "value": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\"}]",
+              "value": Array [
+                Object {
+                  "id": 342,
+                  "name": "name2",
+                  "url": "../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg",
+                },
+              ],
             },
           ]
         }
@@ -380,6 +394,7 @@ exports[`core render correctly 1`] = `
             Object {
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 7141,
               "isNull": false,
               "isSearchItem": true,
               "key": "dam_cd",
@@ -398,6 +413,7 @@ exports[`core render correctly 1`] = `
             Object {
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 767,
               "isNull": false,
               "isSearchItem": true,
               "key": "pjnm",
@@ -417,6 +433,7 @@ exports[`core render correctly 1`] = `
               "address": "杭州",
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 9228,
               "isNull": false,
               "isSearchItem": false,
               "key": "mapPicker",
@@ -437,6 +454,7 @@ exports[`core render correctly 1`] = `
             Object {
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 9379,
               "isNull": false,
               "isSearchItem": false,
               "key": "datePicker",
@@ -450,7 +468,7 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "datePicker",
-              "value": "2019-03-11",
+              "value": 2019-03-11T00:00:00.000Z,
             },
             Object {
               "defaultValue": "",
@@ -464,6 +482,7 @@ exports[`core render correctly 1`] = `
                   "value": "value2",
                 },
               ],
+              "id": 2632,
               "isNull": false,
               "isSearchItem": false,
               "key": "select",
@@ -495,6 +514,7 @@ exports[`core render correctly 1`] = `
                   "value": "checkbox3",
                 },
               ],
+              "id": 7303,
               "isNull": false,
               "isSearchItem": false,
               "key": "checkbox",
@@ -513,6 +533,7 @@ exports[`core render correctly 1`] = `
             Object {
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 7331,
               "isNull": false,
               "isSearchItem": false,
               "key": "calendar",
@@ -531,6 +552,7 @@ exports[`core render correctly 1`] = `
             Object {
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 5361,
               "isNull": false,
               "isSearchItem": false,
               "key": "upload",
@@ -544,7 +566,13 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "upload",
-              "value": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\"}]",
+              "value": Array [
+                Object {
+                  "id": 742,
+                  "name": "name2",
+                  "url": "../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg",
+                },
+              ],
             },
           ]
         }
@@ -566,6 +594,7 @@ exports[`core render correctly 1`] = `
             Object {
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 5338,
               "isNull": false,
               "isSearchItem": true,
               "key": "dam_cd",
@@ -584,6 +613,7 @@ exports[`core render correctly 1`] = `
             Object {
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 6735,
               "isNull": false,
               "isSearchItem": true,
               "key": "pjnm",
@@ -603,6 +633,7 @@ exports[`core render correctly 1`] = `
               "address": "杭州",
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 4625,
               "isNull": false,
               "isSearchItem": false,
               "key": "mapPicker",
@@ -623,6 +654,7 @@ exports[`core render correctly 1`] = `
             Object {
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 2497,
               "isNull": false,
               "isSearchItem": false,
               "key": "datePicker",
@@ -636,7 +668,7 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "datePicker",
-              "value": "2019-03-11",
+              "value": 2019-03-11T00:00:00.000Z,
             },
             Object {
               "defaultValue": "",
@@ -650,6 +682,7 @@ exports[`core render correctly 1`] = `
                   "value": "value2",
                 },
               ],
+              "id": 4565,
               "isNull": false,
               "isSearchItem": false,
               "key": "select",
@@ -681,6 +714,7 @@ exports[`core render correctly 1`] = `
                   "value": "checkbox3",
                 },
               ],
+              "id": 4756,
               "isNull": false,
               "isSearchItem": false,
               "key": "checkbox",
@@ -699,6 +733,7 @@ exports[`core render correctly 1`] = `
             Object {
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 8406,
               "isNull": false,
               "isSearchItem": false,
               "key": "calendar",
@@ -717,6 +752,7 @@ exports[`core render correctly 1`] = `
             Object {
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 512,
               "isNull": false,
               "isSearchItem": false,
               "key": "upload",
@@ -730,7 +766,13 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "upload",
-              "value": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\"}]",
+              "value": Array [
+                Object {
+                  "id": 978,
+                  "name": "name2",
+                  "url": "../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg",
+                },
+              ],
             },
           ]
         }
@@ -752,6 +794,7 @@ exports[`core render correctly 1`] = `
             Object {
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 7826,
               "isNull": false,
               "isSearchItem": true,
               "key": "dam_cd",
@@ -770,6 +813,7 @@ exports[`core render correctly 1`] = `
             Object {
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 5634,
               "isNull": false,
               "isSearchItem": true,
               "key": "pjnm",
@@ -789,6 +833,7 @@ exports[`core render correctly 1`] = `
               "address": "杭州",
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 4809,
               "isNull": false,
               "isSearchItem": false,
               "key": "mapPicker",
@@ -809,6 +854,7 @@ exports[`core render correctly 1`] = `
             Object {
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 9679,
               "isNull": false,
               "isSearchItem": false,
               "key": "datePicker",
@@ -822,7 +868,7 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "datePicker",
-              "value": "2019-03-11",
+              "value": 2019-03-11T00:00:00.000Z,
             },
             Object {
               "defaultValue": "",
@@ -836,6 +882,7 @@ exports[`core render correctly 1`] = `
                   "value": "value2",
                 },
               ],
+              "id": 5763,
               "isNull": false,
               "isSearchItem": false,
               "key": "select",
@@ -867,6 +914,7 @@ exports[`core render correctly 1`] = `
                   "value": "checkbox3",
                 },
               ],
+              "id": 42,
               "isNull": false,
               "isSearchItem": false,
               "key": "checkbox",
@@ -885,6 +933,7 @@ exports[`core render correctly 1`] = `
             Object {
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 4218,
               "isNull": false,
               "isSearchItem": false,
               "key": "calendar",
@@ -903,6 +952,7 @@ exports[`core render correctly 1`] = `
             Object {
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 9331,
               "isNull": false,
               "isSearchItem": false,
               "key": "upload",
@@ -916,7 +966,13 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "upload",
-              "value": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\"}]",
+              "value": Array [
+                Object {
+                  "id": 404,
+                  "name": "name2",
+                  "url": "../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg",
+                },
+              ],
             },
           ]
         }
@@ -938,6 +994,7 @@ exports[`core render correctly 1`] = `
             Object {
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 6048,
               "isNull": false,
               "isSearchItem": true,
               "key": "dam_cd",
@@ -956,6 +1013,7 @@ exports[`core render correctly 1`] = `
             Object {
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 2173,
               "isNull": false,
               "isSearchItem": true,
               "key": "pjnm",
@@ -975,6 +1033,7 @@ exports[`core render correctly 1`] = `
               "address": "杭州",
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 1701,
               "isNull": false,
               "isSearchItem": false,
               "key": "mapPicker",
@@ -995,6 +1054,7 @@ exports[`core render correctly 1`] = `
             Object {
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 2519,
               "isNull": false,
               "isSearchItem": false,
               "key": "datePicker",
@@ -1008,7 +1068,7 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "datePicker",
-              "value": "2019-03-11",
+              "value": 2019-03-11T00:00:00.000Z,
             },
             Object {
               "defaultValue": "",
@@ -1022,6 +1082,7 @@ exports[`core render correctly 1`] = `
                   "value": "value2",
                 },
               ],
+              "id": 117,
               "isNull": false,
               "isSearchItem": false,
               "key": "select",
@@ -1053,6 +1114,7 @@ exports[`core render correctly 1`] = `
                   "value": "checkbox3",
                 },
               ],
+              "id": 2,
               "isNull": false,
               "isSearchItem": false,
               "key": "checkbox",
@@ -1071,6 +1133,7 @@ exports[`core render correctly 1`] = `
             Object {
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 2557,
               "isNull": false,
               "isSearchItem": false,
               "key": "calendar",
@@ -1089,6 +1152,7 @@ exports[`core render correctly 1`] = `
             Object {
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 3205,
               "isNull": false,
               "isSearchItem": false,
               "key": "upload",
@@ -1102,7 +1166,13 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "upload",
-              "value": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\"}]",
+              "value": Array [
+                Object {
+                  "id": 656,
+                  "name": "name2",
+                  "url": "../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg",
+                },
+              ],
             },
           ]
         }
@@ -1124,6 +1194,7 @@ exports[`core render correctly 1`] = `
             Object {
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 37,
               "isNull": false,
               "isSearchItem": true,
               "key": "dam_cd",
@@ -1142,6 +1213,7 @@ exports[`core render correctly 1`] = `
             Object {
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 4254,
               "isNull": false,
               "isSearchItem": true,
               "key": "pjnm",
@@ -1161,6 +1233,7 @@ exports[`core render correctly 1`] = `
               "address": "杭州",
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 8787,
               "isNull": false,
               "isSearchItem": false,
               "key": "mapPicker",
@@ -1181,6 +1254,7 @@ exports[`core render correctly 1`] = `
             Object {
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 8620,
               "isNull": false,
               "isSearchItem": false,
               "key": "datePicker",
@@ -1194,7 +1268,7 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "datePicker",
-              "value": "2019-03-11",
+              "value": 2019-03-11T00:00:00.000Z,
             },
             Object {
               "defaultValue": "",
@@ -1208,6 +1282,7 @@ exports[`core render correctly 1`] = `
                   "value": "value2",
                 },
               ],
+              "id": 4291,
               "isNull": false,
               "isSearchItem": false,
               "key": "select",
@@ -1239,6 +1314,7 @@ exports[`core render correctly 1`] = `
                   "value": "checkbox3",
                 },
               ],
+              "id": 1831,
               "isNull": false,
               "isSearchItem": false,
               "key": "checkbox",
@@ -1257,6 +1333,7 @@ exports[`core render correctly 1`] = `
             Object {
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 3592,
               "isNull": false,
               "isSearchItem": false,
               "key": "calendar",
@@ -1275,6 +1352,7 @@ exports[`core render correctly 1`] = `
             Object {
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 9707,
               "isNull": false,
               "isSearchItem": false,
               "key": "upload",
@@ -1288,7 +1366,13 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "upload",
-              "value": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\"}]",
+              "value": Array [
+                Object {
+                  "id": 634,
+                  "name": "name2",
+                  "url": "../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg",
+                },
+              ],
             },
           ]
         }
@@ -1310,6 +1394,7 @@ exports[`core render correctly 1`] = `
             Object {
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 3238,
               "isNull": false,
               "isSearchItem": true,
               "key": "dam_cd",
@@ -1328,6 +1413,7 @@ exports[`core render correctly 1`] = `
             Object {
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 2299,
               "isNull": false,
               "isSearchItem": true,
               "key": "pjnm",
@@ -1347,6 +1433,7 @@ exports[`core render correctly 1`] = `
               "address": "杭州",
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 8936,
               "isNull": false,
               "isSearchItem": false,
               "key": "mapPicker",
@@ -1367,6 +1454,7 @@ exports[`core render correctly 1`] = `
             Object {
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 3165,
               "isNull": false,
               "isSearchItem": false,
               "key": "datePicker",
@@ -1380,7 +1468,7 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "datePicker",
-              "value": "2019-03-11",
+              "value": 2019-03-11T00:00:00.000Z,
             },
             Object {
               "defaultValue": "",
@@ -1394,6 +1482,7 @@ exports[`core render correctly 1`] = `
                   "value": "value2",
                 },
               ],
+              "id": 9128,
               "isNull": false,
               "isSearchItem": false,
               "key": "select",
@@ -1425,6 +1514,7 @@ exports[`core render correctly 1`] = `
                   "value": "checkbox3",
                 },
               ],
+              "id": 8605,
               "isNull": false,
               "isSearchItem": false,
               "key": "checkbox",
@@ -1443,6 +1533,7 @@ exports[`core render correctly 1`] = `
             Object {
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 3644,
               "isNull": false,
               "isSearchItem": false,
               "key": "calendar",
@@ -1461,6 +1552,7 @@ exports[`core render correctly 1`] = `
             Object {
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 6117,
               "isNull": false,
               "isSearchItem": false,
               "key": "upload",
@@ -1474,7 +1566,13 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "upload",
-              "value": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\"}]",
+              "value": Array [
+                Object {
+                  "id": 325,
+                  "name": "name2",
+                  "url": "../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg",
+                },
+              ],
             },
           ]
         }
@@ -1496,6 +1594,7 @@ exports[`core render correctly 1`] = `
             Object {
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 2037,
               "isNull": false,
               "isSearchItem": true,
               "key": "dam_cd",
@@ -1514,6 +1613,7 @@ exports[`core render correctly 1`] = `
             Object {
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 6346,
               "isNull": false,
               "isSearchItem": true,
               "key": "pjnm",
@@ -1533,6 +1633,7 @@ exports[`core render correctly 1`] = `
               "address": "杭州",
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 8490,
               "isNull": false,
               "isSearchItem": false,
               "key": "mapPicker",
@@ -1553,6 +1654,7 @@ exports[`core render correctly 1`] = `
             Object {
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 6004,
               "isNull": false,
               "isSearchItem": false,
               "key": "datePicker",
@@ -1566,7 +1668,7 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "datePicker",
-              "value": "2019-03-11",
+              "value": 2019-03-11T00:00:00.000Z,
             },
             Object {
               "defaultValue": "",
@@ -1580,6 +1682,7 @@ exports[`core render correctly 1`] = `
                   "value": "value2",
                 },
               ],
+              "id": 6256,
               "isNull": false,
               "isSearchItem": false,
               "key": "select",
@@ -1611,6 +1714,7 @@ exports[`core render correctly 1`] = `
                   "value": "checkbox3",
                 },
               ],
+              "id": 1375,
               "isNull": false,
               "isSearchItem": false,
               "key": "checkbox",
@@ -1629,6 +1733,7 @@ exports[`core render correctly 1`] = `
             Object {
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 8506,
               "isNull": false,
               "isSearchItem": false,
               "key": "calendar",
@@ -1647,6 +1752,7 @@ exports[`core render correctly 1`] = `
             Object {
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 4405,
               "isNull": false,
               "isSearchItem": false,
               "key": "upload",
@@ -1660,7 +1766,13 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "upload",
-              "value": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\"}]",
+              "value": Array [
+                Object {
+                  "id": 685,
+                  "name": "name2",
+                  "url": "../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg",
+                },
+              ],
             },
           ]
         }
@@ -1682,6 +1794,7 @@ exports[`core render correctly 1`] = `
             Object {
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 6083,
               "isNull": false,
               "isSearchItem": true,
               "key": "dam_cd",
@@ -1700,6 +1813,7 @@ exports[`core render correctly 1`] = `
             Object {
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 8565,
               "isNull": false,
               "isSearchItem": true,
               "key": "pjnm",
@@ -1719,6 +1833,7 @@ exports[`core render correctly 1`] = `
               "address": "杭州",
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 6381,
               "isNull": false,
               "isSearchItem": false,
               "key": "mapPicker",
@@ -1739,6 +1854,7 @@ exports[`core render correctly 1`] = `
             Object {
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 6426,
               "isNull": false,
               "isSearchItem": false,
               "key": "datePicker",
@@ -1752,7 +1868,7 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "datePicker",
-              "value": "2019-03-11",
+              "value": 2019-03-11T00:00:00.000Z,
             },
             Object {
               "defaultValue": "",
@@ -1766,6 +1882,7 @@ exports[`core render correctly 1`] = `
                   "value": "value2",
                 },
               ],
+              "id": 9264,
               "isNull": false,
               "isSearchItem": false,
               "key": "select",
@@ -1797,6 +1914,7 @@ exports[`core render correctly 1`] = `
                   "value": "checkbox3",
                 },
               ],
+              "id": 320,
               "isNull": false,
               "isSearchItem": false,
               "key": "checkbox",
@@ -1815,6 +1933,7 @@ exports[`core render correctly 1`] = `
             Object {
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 7172,
               "isNull": false,
               "isSearchItem": false,
               "key": "calendar",
@@ -1833,6 +1952,7 @@ exports[`core render correctly 1`] = `
             Object {
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 8578,
               "isNull": false,
               "isSearchItem": false,
               "key": "upload",
@@ -1846,7 +1966,13 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "upload",
-              "value": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\"}]",
+              "value": Array [
+                Object {
+                  "id": 951,
+                  "name": "name2",
+                  "url": "../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg",
+                },
+              ],
             },
           ]
         }
@@ -1868,6 +1994,7 @@ exports[`core render correctly 1`] = `
             Object {
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 2407,
               "isNull": false,
               "isSearchItem": true,
               "key": "dam_cd",
@@ -1886,6 +2013,7 @@ exports[`core render correctly 1`] = `
             Object {
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 2287,
               "isNull": false,
               "isSearchItem": true,
               "key": "pjnm",
@@ -1905,6 +2033,7 @@ exports[`core render correctly 1`] = `
               "address": "杭州",
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 7714,
               "isNull": false,
               "isSearchItem": false,
               "key": "mapPicker",
@@ -1925,6 +2054,7 @@ exports[`core render correctly 1`] = `
             Object {
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 7467,
               "isNull": false,
               "isSearchItem": false,
               "key": "datePicker",
@@ -1938,7 +2068,7 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "datePicker",
-              "value": "2019-03-11",
+              "value": 2019-03-11T00:00:00.000Z,
             },
             Object {
               "defaultValue": "",
@@ -1952,6 +2082,7 @@ exports[`core render correctly 1`] = `
                   "value": "value2",
                 },
               ],
+              "id": 3553,
               "isNull": false,
               "isSearchItem": false,
               "key": "select",
@@ -1983,6 +2114,7 @@ exports[`core render correctly 1`] = `
                   "value": "checkbox3",
                 },
               ],
+              "id": 8039,
               "isNull": false,
               "isSearchItem": false,
               "key": "checkbox",
@@ -2001,6 +2133,7 @@ exports[`core render correctly 1`] = `
             Object {
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 9278,
               "isNull": false,
               "isSearchItem": false,
               "key": "calendar",
@@ -2019,6 +2152,7 @@ exports[`core render correctly 1`] = `
             Object {
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 9392,
               "isNull": false,
               "isSearchItem": false,
               "key": "upload",
@@ -2032,7 +2166,13 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "upload",
-              "value": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\"}]",
+              "value": Array [
+                Object {
+                  "id": 545,
+                  "name": "name2",
+                  "url": "../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg",
+                },
+              ],
             },
           ]
         }
@@ -2049,153 +2189,7 @@ exports[`core render correctly 1`] = `
       order={0}
     >
       <UpdatePage
-        config={
-          Array [
-            Object {
-              "defaultValue": "",
-              "foreignData": Array [],
-              "isNull": false,
-              "isSearchItem": true,
-              "key": "pjnm",
-              "maxLength": 5,
-              "minLength": 0,
-              "name": "pjnm",
-              "orderInDetail": 21,
-              "orderInEdit": 21,
-              "showInDetail": true,
-              "showInEdit": true,
-              "type": "label",
-            },
-            Object {
-              "defaultValue": "",
-              "foreignData": Array [],
-              "isNull": false,
-              "isSearchItem": true,
-              "key": "dam_cd",
-              "maxLength": 8,
-              "minLength": null,
-              "name": "dam_cd",
-              "orderInDetail": 1,
-              "orderInEdit": 1,
-              "showInDetail": true,
-              "showInEdit": true,
-              "type": "input",
-            },
-            Object {
-              "defaultValue": "",
-              "foreignData": Array [],
-              "isNull": false,
-              "isSearchItem": false,
-              "key": "datePicker",
-              "maxLength": 50,
-              "minLength": null,
-              "name": "datePicker",
-              "orderInDetail": 16,
-              "orderInEdit": 16,
-              "showInDetail": true,
-              "showInEdit": true,
-              "type": "datePicker",
-            },
-            Object {
-              "defaultValue": "",
-              "foreignData": Array [
-                Object {
-                  "label": "label1",
-                  "value": "value1",
-                },
-                Object {
-                  "label": "label2",
-                  "value": "value2",
-                },
-              ],
-              "isNull": false,
-              "isSearchItem": false,
-              "key": "select",
-              "maxLength": 8,
-              "minLength": null,
-              "name": "select",
-              "orderInDetail": 16,
-              "orderInEdit": 16,
-              "showInDetail": true,
-              "showInEdit": true,
-              "type": "select",
-            },
-            Object {
-              "defaultValue": "",
-              "foreignData": Array [
-                Object {
-                  "label": "checkboxlable1",
-                  "value": "checkbox1",
-                },
-                Object {
-                  "label": "label2",
-                  "value": "checkbox2",
-                },
-                Object {
-                  "label": "label3",
-                  "value": "checkbox3",
-                },
-              ],
-              "isNull": false,
-              "isSearchItem": false,
-              "key": "checkbox",
-              "maxLength": 8,
-              "minLength": null,
-              "name": "checkbox",
-              "orderInDetail": 16,
-              "orderInEdit": 16,
-              "showInDetail": true,
-              "showInEdit": true,
-              "type": "checkbox",
-            },
-            Object {
-              "defaultValue": "",
-              "foreignData": Array [],
-              "isNull": false,
-              "isSearchItem": false,
-              "key": "calendar",
-              "maxLength": 8,
-              "minLength": null,
-              "name": "calendar",
-              "orderInDetail": 16,
-              "orderInEdit": 16,
-              "showInDetail": true,
-              "showInEdit": true,
-              "type": "calendar",
-            },
-            Object {
-              "defaultValue": "",
-              "foreignData": Array [],
-              "isNull": false,
-              "isSearchItem": false,
-              "key": "upload",
-              "maxLength": 8,
-              "minLength": null,
-              "name": "upload",
-              "orderInDetail": 16,
-              "orderInEdit": 16,
-              "showInDetail": true,
-              "showInEdit": true,
-              "type": "upload",
-            },
-            Object {
-              "defaultValue": "",
-              "foreignData": Array [],
-              "isNull": false,
-              "isSearchItem": false,
-              "key": "mapPicker",
-              "maxLength": 8,
-              "minLength": null,
-              "name": "mapPicker",
-              "orderInDetail": 16,
-              "orderInEdit": 16,
-              "showInDetail": true,
-              "showInEdit": true,
-              "type": "mapPicker",
-            },
-          ]
-        }
-        dataItem={Object {}}
+        dataSource={Object {}}
         onBack={[Function]}
         onMapBoxChange={[Function]}
         status="add"

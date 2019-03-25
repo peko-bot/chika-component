@@ -3,7 +3,6 @@ import Container, { MapPickerChangeProps } from './core';
 import { ajax } from '../../util/urlHelper';
 import { Toast } from 'antd-mobile';
 import { formatConfig, formatControls } from './utils';
-import { defaultDataFormatEnum } from './utils';
 
 export interface DataControllerProps {
   children: any;
@@ -210,7 +209,6 @@ export default class DataController extends Component<
           onDelete={this.handleDelete}
           formatControls={formatControls as any}
           onMapPickerChange={this.handeMapPickerChange}
-          defaultDataFormatEnum={defaultDataFormatEnum}
         />
       </div>
     );

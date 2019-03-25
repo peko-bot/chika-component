@@ -32,10 +32,6 @@ export interface ContainerCoreProps {
   onSearch?: () => void;
   formatControls: (item: any, config: any, primaryKey: string) => void;
   onMapPickerChange?: (item: MapPickerChangeProps) => void;
-  defaultDataFormatEnum: Array<{
-    key: string;
-    method: (value: any, method: any) => void;
-  }>;
 }
 export interface ContainerCoreState {
   currentOrder: number | string;
@@ -151,12 +147,22 @@ export default class ContainerCore extends Component<
     param.length !== 0 && operation(param);
   };
 
-  handleChildDataFormat = (value: string | number, childProps: any) => {
-    for (let item of this.props.defaultDataFormatEnum) {
-      const { key: itemKey, method } = item;
-      for (let key in childProps) {
-        if (key === itemKey) {
-          return method(value, childProps[key]);
+  handleChildDataFormat = (
+    value: string | number,
+    childProps: any,
+    bindKey: string,
+  ) => {
+    for (let item of this.props.config) {
+      // dateFormat
+      const { key, unit, decimalCount } = item;
+      if (key === childProps[bindKey]) {
+        if (decimalCount) {
+          value = +parseFloat(
+            parseFloat(value.toString()).toFixed(decimalCount),
+          ).toPrecision(12);
+        }
+        if (unit) {
+          value = `${value} ${unit}`;
         }
       }
     }
@@ -180,7 +186,7 @@ export default class ContainerCore extends Component<
             onBack={this.backToList}
             onPageChange={this.onDetailPageChange}
             dataItem={dataItem as any}
-            onDataFormat={this.handleChildDataFormat}
+            onDataFormat={this.handleChildDataFormat as any}
             onMapBoxChange={this.handleMapBoxChange}
           />
         </TransformManagerItem>,

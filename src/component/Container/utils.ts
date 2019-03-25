@@ -1,4 +1,4 @@
-import { formatDate } from '../../util';
+// import { formatDate } from '../../util';
 
 export const formatConfig = (config: Array<any>) => {
   let result: any = [];
@@ -16,6 +16,9 @@ export const formatConfig = (config: Array<any>) => {
       maxlen,
       minlen,
       foreigndata,
+      unit,
+      dateformat,
+      decimalcount,
     } = item;
     result.push({
       type: (controlTypeEnums as any)[controltype],
@@ -31,6 +34,9 @@ export const formatConfig = (config: Array<any>) => {
       maxLength: maxlen,
       minLength: minlen,
       foreignData: foreigndata,
+      unit,
+      dateFormat: dateformat,
+      decimalCount: decimalcount,
     });
   }
   return result;
@@ -110,18 +116,18 @@ export const formatControls = (
   return result;
 };
 
-export const defaultDataFormatEnum = [
-  {
-    key: 'data-date-format',
-    method: (value: string, format: string) => formatDate(value, format),
-  },
-  {
-    key: 'data-decimal-count',
-    method: (value: number, decimalCount: number) =>
-      +parseFloat(value.toFixed(decimalCount)).toPrecision(12),
-  },
-  {
-    key: 'data-unit',
-    method: (value: number | string, unit: string) => `${value} ${unit}`,
-  },
-];
+// export const defaultDataFormatEnum = [
+//   {
+//     key: 'data-date-format',
+//     method: (value: string, format: string) => formatDate(value, format),
+//   },
+//   {
+//     key: 'data-decimal-count',
+//     method: (value: number, decimalCount: number) =>
+//       +parseFloat(value.toFixed(decimalCount)).toPrecision(12),
+//   },
+//   {
+//     key: 'data-unit',
+//     method: (value: number | string, unit: string) => `${value} ${unit}`,
+//   },
+// ];

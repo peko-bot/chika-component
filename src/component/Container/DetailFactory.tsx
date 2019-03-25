@@ -6,7 +6,7 @@ export interface DetailFactoryProps {
   onPageChange: () => void;
   onBack: () => void;
   dataItem?: Array<any>;
-  onDataFormat?: (value: string | number, item: any) => void;
+  onDataFormat?: (value: string | number, item: any, bindKey: string) => void;
   onMapBoxChange?: (item: PropsGoToMaxBox) => void;
 }
 
