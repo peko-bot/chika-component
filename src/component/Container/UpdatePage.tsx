@@ -158,12 +158,12 @@ export default class UpdatePage extends Component<
     const prefixCls = `update-page-${status}`;
     let element = [];
     for (let item of state.form) {
-      const { type, name, key, foreignData } = item;
+      const { type, name, key, foreignData, id } = item;
       switch (type) {
         case 'input':
           element.push(
             <List.Item
-              // key={`${prefixCls}-input-item-${i}`}
+              key={`${prefixCls}-input-item-${id}`}
               extra={
                 <InputItem
                   clear
@@ -184,9 +184,9 @@ export default class UpdatePage extends Component<
         case 'datePicker':
           element.push(
             <DatePicker
-              // key={`${prefixCls}-data-picker-${i}`}
+              key={`${prefixCls}-data-picker-${id}`}
               onChange={(value: Date) => this.checkValue(value, item)}
-              value={item.value ? new Date(item.value) : new Date()}
+              value={item.value}
             >
               <List.Item arrow="horizontal">{name}</List.Item>
             </DatePicker>,
@@ -196,7 +196,7 @@ export default class UpdatePage extends Component<
         case 'select':
           element.push(
             <Picker
-              // key={`${prefixCls}-select-${i}`}
+              key={`${prefixCls}-select-${id}`}
               data={foreignData}
               cols={1}
               onChange={(value: any) => this.checkValue(value[0], item)}
@@ -209,9 +209,7 @@ export default class UpdatePage extends Component<
 
         case 'checkbox':
           element.push(
-            <Accordion
-            // key={`${prefixCls}-checkbox-${i}`}
-            >
+            <Accordion key={`${prefixCls}-checkbox-${id}`}>
               <Accordion.Panel header={name}>
                 <List>
                   {foreignData.map(
@@ -243,9 +241,7 @@ export default class UpdatePage extends Component<
         case 'calendar':
           const dateArr = (item.value && item.value.split(',')) || ['', ''];
           element.push(
-            <React.Fragment
-            // key={`${prefixCls}-calendar-${i}`}
-            >
+            <React.Fragment key={`${prefixCls}-calendar-${id}`}>
               <List.Item
                 extra={dateArr[0] ? '' : '请选择'}
                 arrow="horizontal"
@@ -266,9 +262,7 @@ export default class UpdatePage extends Component<
 
         case 'upload':
           element.push(
-            <Accordion
-            // key={`${prefixCls}-upload-${i}`}
-            >
+            <Accordion key={`${prefixCls}-upload-${id}`}>
               <Accordion.Panel header={name}>
                 <Upload
                   fileList={item.value as any}
@@ -284,7 +278,7 @@ export default class UpdatePage extends Component<
             element.push(
               <List.Item
                 extra="请选择"
-                // key={`${prefixCls}-map-picker-add-${i}`}
+                key={`${prefixCls}-map-picker-add-${id}`}
                 arrow="horizontal"
                 // onClick={() => this.setState({ calendarVisible: true })}
               >
@@ -297,7 +291,7 @@ export default class UpdatePage extends Component<
             const lat = latlng[1];
             element.push(
               <List.Item
-                // key={`${prefixCls}-map-picker-address-${i}`}
+                key={`${prefixCls}-map-picker-address-${id}`}
                 arrow="horizontal"
                 onClick={() =>
                   onMapBoxChange && onMapBoxChange({ lat, lng, key })
@@ -309,7 +303,7 @@ export default class UpdatePage extends Component<
             );
             element.push(
               <List.Item
-                // key={`${prefixCls}-map-picker-lng-${i}`}
+                key={`${prefixCls}-map-picker-lng-${id}`}
                 extra={parseFloat(lng).toFixed(6)}
               >
                 经度
@@ -317,7 +311,7 @@ export default class UpdatePage extends Component<
             );
             element.push(
               <List.Item
-                // key={`${prefixCls}-map-picker-lat-${i}`}
+                key={`${prefixCls}-map-picker-lat-${id}`}
                 extra={parseFloat(lat).toFixed(6)}
               >
                 纬度
@@ -336,6 +330,7 @@ export default class UpdatePage extends Component<
   render = () => {
     const { onBack } = this.props;
     const { calendarVisible, currentCalendarItem } = this.state;
+    console.log(this.state.form);
     return (
       <>
         <List>

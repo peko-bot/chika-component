@@ -61,6 +61,7 @@ export const formatControls = (
       if (!showInDetail) continue;
       const value = dataItem[key];
       const tempItem = {
+        id: ~~(Math.random() * 10000),
         ...targetItem[0],
         value: dataItem[key],
         templateOrder: dataItem.templateOrder,
@@ -68,28 +69,41 @@ export const formatControls = (
         primaryValue: dataItem[primaryKey],
       };
 
-      if (type === 'mapPicker') {
-        const latng = value.split('|');
-        result.push({
-          ...tempItem,
-          lng: latng[0],
-          lat: latng[1],
-          address: latng[2],
-        });
-      } else if (type === 'upload') {
-        const originFileList = JSON.parse(value || '[]');
-        let fileList = [];
-        for (let file of originFileList) {
-          fileList.push({
-            url: file.filepath,
-            id: file.id || ~~(Math.random() * 1000),
-            name: file.filetile,
+      switch (type) {
+        case 'mapPicker':
+          const latng = value.split('|');
+          result.push({
+            ...tempItem,
+            lng: latng[0],
+            lat: latng[1],
+            address: latng[2],
           });
-        }
-        tempItem.value = fileList;
-        result.push(tempItem);
-      } else {
-        result.push(tempItem);
+          break;
+
+        case 'upload':
+          const originFileList = JSON.parse(value || '[]');
+          let fileList = [];
+          for (let file of originFileList) {
+            fileList.push({
+              url: file.filepath,
+              id: file.id || ~~(Math.random() * 1000),
+              name: file.filetile,
+            });
+          }
+          tempItem.value = fileList;
+          result.push(tempItem);
+          break;
+
+        case 'datePicker':
+          tempItem.value = tempItem.value
+            ? new Date(tempItem.value)
+            : new Date();
+          result.push(tempItem);
+          break;
+
+        default:
+          result.push(tempItem);
+          break;
       }
     }
   }
