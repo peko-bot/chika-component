@@ -240,19 +240,20 @@ export default class ContainerCore extends Component<
   };
 
   renderUpdatePage = () => {
-    const { config, dataSource, primaryKey } = this.props;
+    const { config, dataSource, primaryKey, formatControls } = this.props;
     const { primaryValue, updatePageStatus } = this.state;
     const dataItemIndex = dataSource.findIndex(
       item => item[primaryKey] === primaryValue,
     );
     const dataItem =
-      updatePageStatus === 'add' ? {} : dataSource[dataItemIndex];
+      updatePageStatus === 'add'
+        ? {}
+        : formatControls(dataSource[dataItemIndex], config, primaryKey);
     return (
       <TransformManagerItem group="update-page" order={0} key="update-page-0">
         <UpdatePage
           onBack={this.backToList}
-          config={config}
-          dataItem={dataItem}
+          dataSource={dataItem as any}
           status={updatePageStatus}
           onMapBoxChange={this.handleMapBoxChange}
         />

@@ -11,7 +11,7 @@ import {
   Calendar,
 } from 'antd-mobile';
 const { CheckboxItem } = Checkbox;
-import Upload from './UploadWrapper';
+import Upload from '../Upload';
 import { formatDate } from '../../util';
 import { PropsGoToMaxBox } from './core';
 
@@ -30,18 +30,9 @@ export type ControlTypes =
   | 'upload'
   | 'mapPicker'
   | 'label';
-export type CheckItem = {
-  error?: boolean;
-  value?: string;
-  message?: string;
-};
-export type Form = {
-  [fieldName: string]: CheckItem;
-};
 export interface UpdatePageProps {
   onBack?: () => void;
-  config: Array<any>;
-  dataItem: any;
+  dataSource: Array<any>;
   status: UpdatePageStatus;
   onMapBoxChange?: (item: PropsGoToMaxBox) => void;
 }
@@ -53,7 +44,7 @@ export type CalendarItem = {
   };
 };
 export type UpdatePageState = {
-  form: Form;
+  form: Array<any>;
 } & CalendarItem;
 
 const CalendarDefaultValue: CalendarItem = {
@@ -73,20 +64,16 @@ export default class UpdatePage extends Component<
 
     this.state = {
       ...CalendarDefaultValue,
-      form: this.initDefaultValue(props.dataItem),
+      form: this.initDefaultValue(props.dataSource),
     };
   }
 
-  initDefaultValue = (dataItem: any) => {
-    const result: Form = {};
-    for (let key in dataItem) {
-      result[key] = {
-        value: dataItem[key],
-        error: false,
-        message: '',
-      };
+  initDefaultValue = (dataSource: any) => {
+    for (let item of dataSource) {
+      item.error = false;
+      item.message = '';
     }
-    return result;
+    return dataSource;
   };
 
   validValue = (value: any, rule: ValidTypes) => {
@@ -113,21 +100,15 @@ export default class UpdatePage extends Component<
     };
   };
 
-  checkValue = (
-    value: any,
-    type: ControlTypes,
-    fieldName: string,
-    rule: ValidTypes,
-  ) => {
+  checkValue = (value: any, item: any) => {
+    const { type } = item;
     let tip = {};
     let rest = {};
+    const index = this.state.form.findIndex(f => f.key === item.key);
     switch (type) {
       case 'checkbox':
         let stateValue;
-        if (!this.state.form[fieldName]) {
-          this.state.form[fieldName] = {};
-        }
-        stateValue = this.state.form[fieldName].value || '';
+        stateValue = this.state.form[index].value || '';
         let checkboxSet = new Set();
         if (stateValue) {
           checkboxSet = new Set(stateValue.split(','));
@@ -146,45 +127,50 @@ export default class UpdatePage extends Component<
         rest = CalendarDefaultValue;
         break;
 
+      case 'upload':
+        const fileList = JSON.parse(this.state.form[index].value || '[]');
+        fileList.push({
+          url: value.url,
+          id: value.id,
+          name: value.name,
+        });
+        value = fileList.toString();
+        break;
+
       default:
-        tip = this.validValue(value, rule);
+        tip = this.validValue(value, item);
         break;
     }
 
-    const form = Object.assign(this.state.form, {
-      [fieldName]: { value, ...tip },
+    this.state.form[index] = Object.assign(this.state.form[index], {
+      value,
+      ...tip,
     });
     this.setState({
-      form,
+      form: this.state.form,
       ...rest,
     });
   };
 
   renderEditItem = () => {
     const { props, state } = this;
-    const { status, config, onMapBoxChange } = props;
+    const { status, onMapBoxChange } = props;
     const prefixCls = `update-page-${status}`;
     let element = [];
-    for (let i = 0; i < config.length; i++) {
-      const { type, name, key, foreignData } = config[i];
-      let item: CheckItem = { message: '', value: '', error: false };
-      if (state.form[key]) {
-        item = state.form[key];
-      }
+    for (let item of state.form) {
+      const { type, name, key, foreignData } = item;
       switch (type) {
         case 'input':
           element.push(
             <List.Item
-              key={`${prefixCls}-input-item-${i}`}
+              // key={`${prefixCls}-input-item-${i}`}
               extra={
                 <InputItem
                   clear
                   placeholder="请输入"
                   style={{ textAlign: 'right' }}
                   onErrorClick={() => Toast.fail(item.message)}
-                  onChange={(value: string) =>
-                    this.checkValue(value, type, key, config[i])
-                  }
+                  onChange={(value: string) => this.checkValue(value, item)}
                   value={item.value}
                   error={item.error}
                 />
@@ -198,10 +184,8 @@ export default class UpdatePage extends Component<
         case 'datePicker':
           element.push(
             <DatePicker
-              key={`${prefixCls}-data-picker-${i}`}
-              onChange={(value: Date) =>
-                this.checkValue(value, type, key, config[i])
-              }
+              // key={`${prefixCls}-data-picker-${i}`}
+              onChange={(value: Date) => this.checkValue(value, item)}
               value={item.value ? new Date(item.value) : new Date()}
             >
               <List.Item arrow="horizontal">{name}</List.Item>
@@ -212,12 +196,10 @@ export default class UpdatePage extends Component<
         case 'select':
           element.push(
             <Picker
-              key={`${prefixCls}-select-${i}`}
+              // key={`${prefixCls}-select-${i}`}
               data={foreignData}
               cols={1}
-              onChange={(value: any) =>
-                this.checkValue(value[0], type, key, config[i])
-              }
+              onChange={(value: any) => this.checkValue(value[0], item)}
               value={item.value ? [item.value] : []}
             >
               <List.Item arrow="horizontal">{name}</List.Item>
@@ -227,7 +209,9 @@ export default class UpdatePage extends Component<
 
         case 'checkbox':
           element.push(
-            <Accordion key={`${prefixCls}-checkbox-${i}`}>
+            <Accordion
+            // key={`${prefixCls}-checkbox-${i}`}
+            >
               <Accordion.Panel header={name}>
                 <List>
                   {foreignData.map(
@@ -242,12 +226,7 @@ export default class UpdatePage extends Component<
                           key={`${prefixCls}-checkbox-item-${i}`}
                           checked={stateValue.includes(checkboxItem.value)}
                           onChange={() =>
-                            this.checkValue(
-                              checkboxItem.value,
-                              type,
-                              key,
-                              config[i],
-                            )
+                            this.checkValue(checkboxItem.value, item)
                           }
                         >
                           {checkboxItem.label}
@@ -264,14 +243,16 @@ export default class UpdatePage extends Component<
         case 'calendar':
           const dateArr = (item.value && item.value.split(',')) || ['', ''];
           element.push(
-            <React.Fragment key={`${prefixCls}-calendar-${i}`}>
+            <React.Fragment
+            // key={`${prefixCls}-calendar-${i}`}
+            >
               <List.Item
                 extra={dateArr[0] ? '' : '请选择'}
                 arrow="horizontal"
                 onClick={() =>
                   this.setState({
                     calendarVisible: true,
-                    currentCalendarItem: { type, key, config: config[i] },
+                    currentCalendarItem: { type, key, config: item },
                   })
                 }
               >
@@ -285,9 +266,14 @@ export default class UpdatePage extends Component<
 
         case 'upload':
           element.push(
-            <Accordion key={`${prefixCls}-upload-${i}`}>
+            <Accordion
+            // key={`${prefixCls}-upload-${i}`}
+            >
               <Accordion.Panel header={name}>
-                <Upload />
+                <Upload
+                  fileList={item.value as any}
+                  onChange={file => this.checkValue(file, item)}
+                />
               </Accordion.Panel>
             </Accordion>,
           );
@@ -298,7 +284,7 @@ export default class UpdatePage extends Component<
             element.push(
               <List.Item
                 extra="请选择"
-                key={`${prefixCls}-map-picker-add-${i}`}
+                // key={`${prefixCls}-map-picker-add-${i}`}
                 arrow="horizontal"
                 // onClick={() => this.setState({ calendarVisible: true })}
               >
@@ -311,7 +297,7 @@ export default class UpdatePage extends Component<
             const lat = latlng[1];
             element.push(
               <List.Item
-                key={`${prefixCls}-map-picker-address-${i}`}
+                // key={`${prefixCls}-map-picker-address-${i}`}
                 arrow="horizontal"
                 onClick={() =>
                   onMapBoxChange && onMapBoxChange({ lat, lng, key })
@@ -323,7 +309,7 @@ export default class UpdatePage extends Component<
             );
             element.push(
               <List.Item
-                key={`${prefixCls}-map-picker-lng-${i}`}
+                // key={`${prefixCls}-map-picker-lng-${i}`}
                 extra={parseFloat(lng).toFixed(6)}
               >
                 经度
@@ -331,7 +317,7 @@ export default class UpdatePage extends Component<
             );
             element.push(
               <List.Item
-                key={`${prefixCls}-map-picker-lat-${i}`}
+                // key={`${prefixCls}-map-picker-lat-${i}`}
                 extra={parseFloat(lat).toFixed(6)}
               >
                 纬度
@@ -377,8 +363,6 @@ export default class UpdatePage extends Component<
           onConfirm={(startDateTime: Date, endDateTime: Date) =>
             this.checkValue(
               { startDateTime, endDateTime },
-              'calendar',
-              currentCalendarItem.key,
               currentCalendarItem.config,
             )
           }

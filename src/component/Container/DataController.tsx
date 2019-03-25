@@ -169,6 +169,24 @@ export default class DataController extends Component<
     this.setState({ dataSource });
   };
 
+  getUploadParam = (file: File) => {
+    const param = new FormData();
+    param.append('Filedata', file);
+    param.append('Filename', file.name);
+    param.append(
+      'fileext',
+      '*.' + file.name.split('.')[file.name.split('.').length - 1],
+    );
+    param.append('DataType', 'UploadFile');
+    param.append('UploadFolder', '/Attachement/');
+    param.append('IsConvertOffice', '');
+    param.append('GetFileName', 'y');
+    param.append('TCID', '');
+    param.append('UploadTargetKey', 'n');
+    param.append('GetFileInfo', 'y');
+    return param;
+  };
+
   render = () => {
     const {
       power,

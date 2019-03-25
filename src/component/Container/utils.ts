@@ -60,7 +60,7 @@ export const formatControls = (
       const { key, showInDetail, type } = targetItem[0];
       if (!showInDetail) continue;
       const value = dataItem[key];
-      const item = {
+      const tempItem = {
         ...targetItem[0],
         value: dataItem[key],
         templateOrder: dataItem.templateOrder,
@@ -68,17 +68,28 @@ export const formatControls = (
         primaryValue: dataItem[primaryKey],
       };
 
-      // handle with mapPicker
       if (type === 'mapPicker') {
         const latng = value.split('|');
         result.push({
-          ...item,
+          ...tempItem,
           lng: latng[0],
           lat: latng[1],
           address: latng[2],
         });
+      } else if (type === 'upload') {
+        const originFileList = JSON.parse(value || '[]');
+        let fileList = [];
+        for (let file of originFileList) {
+          fileList.push({
+            url: file.filepath,
+            id: file.id || ~~(Math.random() * 1000),
+            name: file.filetile,
+          });
+        }
+        tempItem.value = fileList;
+        result.push(tempItem);
       } else {
-        result.push(item);
+        result.push(tempItem);
       }
     }
   }
