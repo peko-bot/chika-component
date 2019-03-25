@@ -123,7 +123,7 @@ export default class UpdatePage extends Component<
 
       case 'calendar':
         const { startDateTime, endDateTime } = value;
-        value = `${formatDate(startDateTime)},${formatDate(endDateTime)}`;
+        value = [formatDate(startDateTime), formatDate(endDateTime)];
         rest = CalendarDefaultValue;
         break;
 
@@ -239,11 +239,10 @@ export default class UpdatePage extends Component<
           break;
 
         case 'calendar':
-          const dateArr = (item.value && item.value.split(',')) || ['', ''];
           element.push(
             <React.Fragment key={`${prefixCls}-calendar-${id}`}>
               <List.Item
-                extra={dateArr[0] ? '' : '请选择'}
+                extra={item.value[0] ? '' : '请选择'}
                 arrow="horizontal"
                 onClick={() =>
                   this.setState({
@@ -254,8 +253,8 @@ export default class UpdatePage extends Component<
               >
                 {name}
               </List.Item>
-              <List.Item extra={dateArr[0]}>起始时间</List.Item>
-              <List.Item extra={dateArr[1]}>结束时间</List.Item>
+              <List.Item extra={item.value[0]}>起始时间</List.Item>
+              <List.Item extra={item.value[1]}>结束时间</List.Item>
             </React.Fragment>,
           );
           break;
@@ -330,7 +329,6 @@ export default class UpdatePage extends Component<
   render = () => {
     const { onBack } = this.props;
     const { calendarVisible, currentCalendarItem } = this.state;
-    console.log(this.state.form);
     return (
       <>
         <List>
