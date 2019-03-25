@@ -128,13 +128,13 @@ export default class UpdatePage extends Component<
         break;
 
       case 'upload':
-        const fileList = JSON.parse(this.state.form[index].value || '[]');
+        const fileList = this.state.form[index].value;
         fileList.push({
           url: value.url,
           id: value.id,
           name: value.name,
         });
-        value = fileList.toString();
+        value = fileList;
         break;
 
       default:
