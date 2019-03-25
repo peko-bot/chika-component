@@ -107,6 +107,11 @@ export const formatControls = (
           result.push(tempItem);
           break;
 
+        case 'calendar':
+          tempItem.value = tempItem.value.split(',') || ['', ''];
+          result.push(tempItem);
+          break;
+
         default:
           result.push(tempItem);
           break;

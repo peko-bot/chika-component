@@ -8,6 +8,9 @@ export const formatDate = (
   if (typeof date === 'string') {
     date = new Date(date);
   }
+  if (!format) {
+    format = 'yyyy-MM-dd HH:mm:ss';
+  }
   return fnsFormat(date, format, {
     locale: zhCN,
   });

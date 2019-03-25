@@ -6,6 +6,7 @@ import TransformManager, { TransformManagerItem } from '../TransformManager';
 import DetailFactory from './DetailFactory';
 import UpdatePage, { UpdatePageStatus } from './UpdatePage';
 import { MapBox } from '../MapBox';
+import { formatDate } from '../../util';
 import './css/Container-core.css';
 
 type GroupType = 'list-page' | 'update-page' | 'detail-page' | 'map-box';
@@ -148,14 +149,16 @@ export default class ContainerCore extends Component<
   };
 
   handleChildDataFormat = (
-    value: string | number,
+    value: string | number | Date,
     childProps: any,
     bindKey: string,
   ) => {
     for (let item of this.props.config) {
-      // dateFormat
-      const { key, unit, decimalCount } = item;
+      const { key, unit, decimalCount, dateFormat } = item;
       if (key === childProps[bindKey]) {
+        if (value instanceof Date) {
+          value = formatDate(value, dateFormat);
+        }
         if (decimalCount) {
           value = +parseFloat(
             parseFloat(value.toString()).toFixed(decimalCount),

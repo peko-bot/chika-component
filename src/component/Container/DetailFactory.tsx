@@ -31,11 +31,38 @@ export default class DetailFactory extends Component<DetailFactoryProps> {
       );
     }
 
+    if (type === 'calendar') {
+      return (
+        <React.Fragment key={`detail-page-label-${index}`}>
+          <List.Item
+            extra={
+              onDataFormat
+                ? (onDataFormat(value[0], item, 'key') as any)
+                : value
+            }
+          >
+            {name + '开始时间'}
+          </List.Item>
+          <List.Item
+            extra={
+              onDataFormat
+                ? (onDataFormat(value[1], item, 'key') as any)
+                : value
+            }
+          >
+            {name + '结束时间'}
+          </List.Item>
+        </React.Fragment>
+      );
+    }
+
     if (type !== 'mapPicker' && type !== 'upload') {
       return (
         <List.Item
           key={`detail-page-label-${index}`}
-          extra={onDataFormat ? (onDataFormat(value, item) as any) : value}
+          extra={
+            onDataFormat ? (onDataFormat(value, item, 'key') as any) : value
+          }
         >
           {name}
         </List.Item>
