@@ -2,9 +2,8 @@ import React from 'react';
 import { mount } from 'enzyme';
 import 'nino-cli/scripts/setup';
 import { originConfig } from '../../../mock/config';
-// import { originDataSource } from '../../../mock/dataSource';
-// formatControls
-import { formatConfig } from '../utils';
+import { originDataSource } from '../../../mock/dataSource';
+import { formatConfig, formatControls } from '../utils';
 const Config = formatConfig(originConfig);
 let UpdatePage;
 switch (process.env.LIB_DIR) {

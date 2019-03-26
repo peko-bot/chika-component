@@ -7,6 +7,7 @@ import DetailFactory from './DetailFactory';
 import UpdatePage, { UpdatePageStatus } from './UpdatePage';
 import { MapBox } from '../MapBox';
 import { formatDate } from '../../util';
+import { updatePageMapBoxOnAddProps } from './DataController';
 import './css/Container-core.css';
 
 type GroupType = 'list-page' | 'update-page' | 'detail-page' | 'map-box';
@@ -19,7 +20,7 @@ export type PropsGoToMaxBox = {
 export type MapPickerChangeProps = {
   lat: string;
   lng: string;
-  primaryValue: string | number;
+  primaryValue: string | number | null;
   targetKey: string;
 };
 export interface ContainerCoreProps {
@@ -33,6 +34,7 @@ export interface ContainerCoreProps {
   onSearch?: () => void;
   formatControls: (item: any, config: any, primaryKey: string) => void;
   onMapPickerChange?: (item: MapPickerChangeProps) => void;
+  updatePageMapBoxOnAdd?: updatePageMapBoxOnAddProps;
 }
 export interface ContainerCoreState {
   currentOrder: number | string;
@@ -217,6 +219,22 @@ export default class ContainerCore extends Component<
 
   handleBackFromMapBox = () => {
     const { group, order } = this.history;
+    const {
+      primaryValue,
+      mapBoxTargetKey,
+      lat,
+      lng,
+      updatePageStatus,
+    } = this.state;
+    const { onMapPickerChange } = this.props;
+
+    onMapPickerChange &&
+      onMapPickerChange({
+        lat: lat.toString(),
+        lng: lng.toString(),
+        primaryValue: updatePageStatus === 'add' ? null : primaryValue,
+        targetKey: mapBoxTargetKey,
+      });
     this.setState(
       {
         currentGroup: group,
@@ -249,7 +267,13 @@ export default class ContainerCore extends Component<
   };
 
   renderUpdatePage = () => {
-    const { config, dataSource, primaryKey, formatControls } = this.props;
+    const {
+      config,
+      dataSource,
+      primaryKey,
+      formatControls,
+      updatePageMapBoxOnAdd,
+    } = this.props;
     const { primaryValue, updatePageStatus } = this.state;
     const dataItemIndex = dataSource.findIndex(
       item => item[primaryKey] === primaryValue,
@@ -265,27 +289,20 @@ export default class ContainerCore extends Component<
           dataSource={dataItem as any}
           status={updatePageStatus}
           onMapBoxChange={this.handleMapBoxChange}
+          updatePageMapBoxOnAdd={updatePageMapBoxOnAdd}
         />
       </TransformManagerItem>
     );
   };
 
   renderMapBox = () => {
-    const { lat, lng, primaryValue, mapBoxTargetKey } = this.state;
-    const { onMapPickerChange } = this.props;
+    const { lat, lng } = this.state;
     return (
       <TransformManagerItem group="map-box" order={0} key="map-box-0">
         <MapBox
           center={{ lat, lng }}
           onMarkerDrag={({ lat, lng }) => {
             this.setState({ lat: lat.toString(), lng: lng.toString() });
-            onMapPickerChange &&
-              onMapPickerChange({
-                lat: lat.toString(),
-                lng: lng.toString(),
-                primaryValue,
-                targetKey: mapBoxTargetKey,
-              });
           }}
         />
         <List

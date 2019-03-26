@@ -9,6 +9,11 @@ export interface DataControllerProps {
   tableId: number;
   menuId: number;
 }
+export type updatePageMapBoxOnAddProps = {
+  lat: string;
+  lng: string;
+  key: string;
+};
 export interface DataControllerState {
   config: Array<any>;
   dataSource: Array<any>;
@@ -21,6 +26,7 @@ export interface DataControllerState {
     update: boolean;
     add: boolean;
   };
+  updatePageMapBoxOnAdd: updatePageMapBoxOnAddProps;
 }
 
 export default class DataController extends Component<
@@ -39,6 +45,7 @@ export default class DataController extends Component<
     },
     primaryKey: '',
     loading: false,
+    updatePageMapBoxOnAdd: { lng: '-1', lat: '-1', key: 'key' },
   };
 
   static defaultProps = {
@@ -161,11 +168,15 @@ export default class DataController extends Component<
     lat,
   }: MapPickerChangeProps) => {
     const { dataSource, primaryKey } = this.state;
-    const itemIndex = dataSource.findIndex(
-      item => item[primaryKey] === primaryValue,
-    );
-    dataSource[itemIndex][targetKey] = `${lng}|${lat}|`;
-    this.setState({ dataSource });
+    if (!primaryValue) {
+      this.setState({ updatePageMapBoxOnAdd: { lat, lng, key: targetKey } });
+    } else {
+      const itemIndex = dataSource.findIndex(
+        item => item[primaryKey] === primaryValue,
+      );
+      dataSource[itemIndex][targetKey] = `${lng}|${lat}|`;
+      this.setState({ dataSource });
+    }
   };
 
   getUploadParam = (file: File) => {
@@ -194,6 +205,7 @@ export default class DataController extends Component<
       loading,
       total,
       primaryKey,
+      updatePageMapBoxOnAdd,
     } = this.state;
     return (
       <div className="DataController">
@@ -209,6 +221,7 @@ export default class DataController extends Component<
           onDelete={this.handleDelete}
           formatControls={formatControls as any}
           onMapPickerChange={this.handeMapPickerChange}
+          updatePageMapBoxOnAdd={updatePageMapBoxOnAdd}
         />
       </div>
     );

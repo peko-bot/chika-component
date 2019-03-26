@@ -14,6 +14,7 @@ const { CheckboxItem } = Checkbox;
 import Upload from '../Upload';
 import { formatDate } from '../../util';
 import { PropsGoToMaxBox } from './core';
+import { updatePageMapBoxOnAddProps } from './DataController';
 
 export type UpdatePageStatus = 'add' | 'update';
 export type ValidTypes = {
@@ -35,6 +36,7 @@ export interface UpdatePageProps {
   dataSource: Array<any>;
   status: UpdatePageStatus;
   onMapBoxChange?: (item: PropsGoToMaxBox) => void;
+  updatePageMapBoxOnAdd?: updatePageMapBoxOnAddProps;
 }
 export type CalendarItem = {
   calendarVisible: boolean;
@@ -154,7 +156,7 @@ export default class UpdatePage extends Component<
 
   renderEditItem = () => {
     const { props, state } = this;
-    const { status, onMapBoxChange } = props;
+    const { status, onMapBoxChange, updatePageMapBoxOnAdd } = props;
     const prefixCls = `update-page-${status}`;
     let element = [];
     for (let item of state.form) {
@@ -273,26 +275,62 @@ export default class UpdatePage extends Component<
           break;
 
         case 'mapPicker':
+          const latlng = (item.value && item.value.split('|')) || [];
+          const lng = latlng[0];
+          const lat = latlng[1];
           if (status === 'add') {
-            const latlng = (item.value && item.value.split('|')) || [];
-            const lng = latlng[0];
-            const lat = latlng[1];
-            element.push(
-              <List.Item
-                extra="请选择"
-                key={`${prefixCls}-map-picker-add-${id}`}
-                arrow="horizontal"
-                onClick={() =>
-                  onMapBoxChange && onMapBoxChange({ lat, lng, key })
-                }
-              >
-                {name}
-              </List.Item>,
-            );
+            if (
+              updatePageMapBoxOnAdd &&
+              Object.keys(updatePageMapBoxOnAdd).length
+            ) {
+              element.push(
+                <List.Item
+                  key={`${prefixCls}-map-picker-address-${id}`}
+                  arrow="horizontal"
+                  onClick={() =>
+                    onMapBoxChange &&
+                    onMapBoxChange({
+                      lat: updatePageMapBoxOnAdd.lat,
+                      lng: updatePageMapBoxOnAdd.lng,
+                      key: updatePageMapBoxOnAdd.key,
+                    })
+                  }
+                  extra="修改"
+                >
+                  地址
+                </List.Item>,
+              );
+              element.push(
+                <List.Item
+                  key={`${prefixCls}-map-picker-lng-${id}`}
+                  extra={parseFloat(updatePageMapBoxOnAdd.lng).toFixed(6)}
+                >
+                  经度
+                </List.Item>,
+              );
+              element.push(
+                <List.Item
+                  key={`${prefixCls}-map-picker-lat-${id}`}
+                  extra={parseFloat(updatePageMapBoxOnAdd.lat).toFixed(6)}
+                >
+                  纬度
+                </List.Item>,
+              );
+            } else {
+              element.push(
+                <List.Item
+                  extra="请选择"
+                  key={`${prefixCls}-map-picker-add-${id}`}
+                  arrow="horizontal"
+                  onClick={() =>
+                    onMapBoxChange && onMapBoxChange({ lat, lng, key })
+                  }
+                >
+                  {name}
+                </List.Item>,
+              );
+            }
           } else if (status === 'update') {
-            const latlng = (item.value && item.value.split('|')) || [];
-            const lng = latlng[0];
-            const lat = latlng[1];
             element.push(
               <List.Item
                 key={`${prefixCls}-map-picker-address-${id}`}
