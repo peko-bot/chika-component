@@ -188,7 +188,7 @@ export default class ContainerCore extends Component<
           <DetailFactory
             onBack={this.backToList}
             onPageChange={this.onDetailPageChange}
-            dataItem={dataItem as any}
+            dataSource={dataItem as any}
             onDataFormat={this.handleChildDataFormat as any}
             onMapBoxChange={this.handleMapBoxChange}
           />
@@ -256,7 +256,7 @@ export default class ContainerCore extends Component<
     );
     const dataItem =
       updatePageStatus === 'add'
-        ? {}
+        ? formatControls(null, config, primaryKey)
         : formatControls(dataSource[dataItemIndex], config, primaryKey);
     return (
       <TransformManagerItem group="update-page" order={0} key="update-page-0">

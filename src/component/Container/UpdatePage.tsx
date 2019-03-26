@@ -128,7 +128,7 @@ export default class UpdatePage extends Component<
         break;
 
       case 'upload':
-        const fileList = this.state.form[index].value;
+        const fileList = this.state.form[index].value || [];
         fileList.push({
           url: value.url,
           id: value.id,
@@ -274,12 +274,17 @@ export default class UpdatePage extends Component<
 
         case 'mapPicker':
           if (status === 'add') {
+            const latlng = (item.value && item.value.split('|')) || [];
+            const lng = latlng[0];
+            const lat = latlng[1];
             element.push(
               <List.Item
                 extra="请选择"
                 key={`${prefixCls}-map-picker-add-${id}`}
                 arrow="horizontal"
-                // onClick={() => this.setState({ calendarVisible: true })}
+                onClick={() =>
+                  onMapBoxChange && onMapBoxChange({ lat, lng, key })
+                }
               >
                 {name}
               </List.Item>,

@@ -2,8 +2,8 @@ import React from 'react';
 import { mount } from 'enzyme';
 import 'nino-cli/scripts/setup';
 import { originConfig } from '../../../mock/config';
-import { originDataSource } from '../../../mock/dataSource';
-const DataItem = originDataSource[0];
+// import { originDataSource } from '../../../mock/dataSource';
+// formatControls
 import { formatConfig } from '../utils';
 const Config = formatConfig(originConfig);
 let UpdatePage;
@@ -20,7 +20,10 @@ switch (process.env.LIB_DIR) {
 describe('UpdatePage', () => {
   it('should render correctly when status is add', () => {
     const wrapper = mount(
-      <UpdatePage config={Config} dataItem={DataItem} status="add" />,
+      <UpdatePage
+        dataSource={formatControls(originDataSource[0], originConfig, 'dam_cd')}
+        status="add"
+      />,
     );
     const listContent = wrapper.find('.am-list-content');
     expect(listContent.length).toBe(8);
@@ -35,9 +38,10 @@ describe('UpdatePage', () => {
 
   it('should update state correctly when status is add', () => {
     const wrapper = mount(
-      <UpdatePage config={Config} dataItem={{}} status="add" />,
+      <UpdatePage config={Config} dataSource={[]} status="add" />,
     );
-    expect(wrapper.state().form).toEqual({});
+    console.log(wrapper.debug());
+    expect(wrapper.state().form).toEqual([]);
     // input
     wrapper
       .find('input')

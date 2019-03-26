@@ -1,5 +1,3 @@
-// import { formatDate } from '../../util';
-
 export const formatConfig = (config: Array<any>) => {
   let result: any = [];
   for (let item of config) {
@@ -60,7 +58,17 @@ export const formatControls = (
   config: Array<any>,
   primaryKey: string,
 ) => {
-  let result = [];
+  let result: Array<any> = [];
+  // UpdatePage - add
+  if (!dataItem) {
+    for (let item of config) {
+      result.push({
+        ...item,
+        value: '',
+      });
+    }
+    return result;
+  }
   const keys = Object.keys(dataItem);
   for (let item of keys) {
     const targetItem = config.filter(target => target.key === item);
@@ -122,19 +130,3 @@ export const formatControls = (
   }
   return result;
 };
-
-// export const defaultDataFormatEnum = [
-//   {
-//     key: 'data-date-format',
-//     method: (value: string, format: string) => formatDate(value, format),
-//   },
-//   {
-//     key: 'data-decimal-count',
-//     method: (value: number, decimalCount: number) =>
-//       +parseFloat(value.toFixed(decimalCount)).toPrecision(12),
-//   },
-//   {
-//     key: 'data-unit',
-//     method: (value: number | string, unit: string) => `${value} ${unit}`,
-//   },
-// ];
