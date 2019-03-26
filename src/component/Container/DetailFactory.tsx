@@ -5,7 +5,7 @@ import { PropsGoToMaxBox } from './core';
 export interface DetailFactoryProps {
   onPageChange: () => void;
   onBack: () => void;
-  dataItem?: Array<any>;
+  dataSource?: Array<any>;
   onDataFormat?: (value: string | number, item: any, bindKey: string) => void;
   onMapBoxChange?: (item: PropsGoToMaxBox) => void;
 }
@@ -72,12 +72,12 @@ export default class DetailFactory extends Component<DetailFactoryProps> {
   };
 
   render = () => {
-    const { onBack, dataItem = [] } = this.props;
+    const { onBack, dataSource = [] } = this.props;
     return (
       <div className="DetailFactory">
         <List>
           <List.Item>
-            {dataItem.map((item, i) => this.handleControls(item, i))}
+            {dataSource.map((item, i) => this.handleControls(item, i))}
           </List.Item>
           <List.Item>
             <Button onClick={onBack}>返回</Button>

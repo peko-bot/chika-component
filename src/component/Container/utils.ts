@@ -19,8 +19,10 @@ export const formatConfig = (config: Array<any>) => {
       unit,
       dateformat,
       decimalcount,
+      id,
     } = item;
     result.push({
+      id,
       type: (controlTypeEnums as any)[controltype],
       key: fname,
       name: fvalue,

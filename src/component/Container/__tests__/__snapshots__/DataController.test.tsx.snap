@@ -7,22 +7,6 @@ exports[`DataController render correctly 1`] = `
   <ContainerCore
     config={Array []}
     dataSource={Array []}
-    defaultDataFormatEnum={
-      Array [
-        Object {
-          "key": "data-date-format",
-          "method": [Function],
-        },
-        Object {
-          "key": "data-decimal-count",
-          "method": [Function],
-        },
-        Object {
-          "key": "data-unit",
-          "method": [Function],
-        },
-      ]
-    }
     formatControls={[Function]}
     loading={true}
     menuId={-2}
