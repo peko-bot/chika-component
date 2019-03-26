@@ -24,7 +24,7 @@ export const originConfig = [
     isadd: true,
     fieldtag: null,
     foreigndata: [],
-    dateformat: '',
+    dateformat: 'yyyy-MM-dd HH:mm:ss',
     fieldpar: '',
   },
   {
@@ -52,7 +52,7 @@ export const originConfig = [
     isadd: true,
     fieldtag: null,
     foreigndata: [],
-    dateformat: '',
+    dateformat: 'yyyy-MM-dd HH:mm:ss',
     fieldpar: '',
   },
   {
@@ -80,7 +80,7 @@ export const originConfig = [
     isadd: true,
     fieldtag: null,
     foreigndata: [],
-    dateformat: '',
+    dateformat: 'yyyy-MM-dd HH:mm:ss',
   },
   {
     id: 113442,
@@ -110,7 +110,7 @@ export const originConfig = [
       { label: 'label1', value: 'value1' },
       { label: 'label2', value: 'value2' },
     ],
-    dateformat: '',
+    dateformat: 'yyyy-MM-dd HH:mm:ss',
   },
   {
     id: 113442,
@@ -141,7 +141,7 @@ export const originConfig = [
       { label: 'label2', value: 'checkbox2' },
       { label: 'label3', value: 'checkbox3' },
     ],
-    dateformat: '',
+    dateformat: 'yyyy-MM-dd HH:mm:ss',
   },
   {
     id: 113442,
@@ -168,7 +168,7 @@ export const originConfig = [
     isadd: true,
     fieldtag: null,
     foreigndata: [],
-    dateformat: '',
+    dateformat: 'yyyy-MM-dd HH:mm:ss',
   },
   {
     id: 113442,
@@ -195,7 +195,7 @@ export const originConfig = [
     isadd: true,
     fieldtag: null,
     foreigndata: [],
-    dateformat: '',
+    dateformat: 'yyyy-MM-dd HH:mm:ss',
   },
   {
     id: 113442,
@@ -222,6 +222,6 @@ export const originConfig = [
     isadd: true,
     fieldtag: null,
     foreigndata: [],
-    dateformat: '',
+    dateformat: 'yyyy-MM-dd HH:mm:ss',
   },
 ];

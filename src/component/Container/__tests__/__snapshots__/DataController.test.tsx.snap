@@ -24,6 +24,13 @@ exports[`DataController render correctly 1`] = `
     primaryKey=""
     tableId={-2}
     total={0}
+    updatePageMapBoxOnAdd={
+      Object {
+        "key": "key",
+        "lat": "-1",
+        "lng": "-1",
+      }
+    }
   >
     <div
       data-key="pjnm"

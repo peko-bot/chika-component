@@ -27,7 +27,7 @@
         "isadd": true,
         "fieldtag": null,
         "foreigndata": [],
-        "dateformat": "",
+        "dateformat": "yyyy-MM-dd HH:mm:ss",
         "fieldpar": ""
       },
       {
@@ -55,7 +55,7 @@
         "isadd": true,
         "fieldtag": null,
         "foreigndata": [],
-        "dateformat": "",
+        "dateformat": "yyyy-MM-dd HH:mm:ss",
         "fieldpar": ""
       },
       {
@@ -83,7 +83,7 @@
         "isadd": true,
         "fieldtag": null,
         "foreigndata": [],
-        "dateformat": "",
+        "dateformat": "yyyy-MM-dd HH:mm:ss",
         "fieldpar": ""
       },
       {
@@ -111,7 +111,7 @@
         "isadd": true,
         "fieldtag": null,
         "foreigndata": [],
-        "dateformat": "",
+        "dateformat": "yyyy-MM-dd HH:mm:ss",
         "fieldpar": ""
       },
       {
@@ -139,7 +139,7 @@
         "isadd": true,
         "fieldtag": null,
         "foreigndata": [],
-        "dateformat": "",
+        "dateformat": "yyyy-MM-dd HH:mm:ss",
         "fieldpar": "{\r\n    IsUploadMultFile:\"y\",/*是否为多附件上传，y为是，其他或不填单附件*/\r\n    FileListHeight:80,/*上传后附件展示的列表的高度，这边填数字*/\r\n    FileListWidth:\"\",/*上传后附件展示的列表的宽度，这边填数字*/\r\n    UploadFileLimit:\"20971520\",/*文件上传最大长度默认为20MB：20*1024*1024=20971520*/\r\n    IsHideDelBtn:\"false\",/*是否因此删除按钮，默认是隐藏的，为false的时候才显示出来*/\r\n    UploadType:\"*.doc;*.docx;*.xls;*.xlsx;*.ppt;*.pptx;*.mpp;*.vsd\",/*文件类型*/\r\n}"
       },
       {
@@ -167,7 +167,7 @@
         "isadd": true,
         "fieldtag": null,
         "foreigndata": [],
-        "dateformat": ""
+        "dateformat": "yyyy-MM-dd HH:mm:ss"
       },
       {
         "id": 113442,
@@ -197,7 +197,7 @@
           { "label": "label1", "value": "value1" },
           { "label": "label2", "value": "value2" }
         ],
-        "dateformat": ""
+        "dateformat": "yyyy-MM-dd HH:mm:ss"
       },
       {
         "id": 113442,
@@ -228,7 +228,7 @@
           { "label": "label2", "value": "checkbox2" },
           { "label": "label3", "value": "checkbox3" }
         ],
-        "dateformat": ""
+        "dateformat": "yyyy-MM-dd HH:mm:ss"
       },
       {
         "id": 113442,
@@ -255,7 +255,7 @@
         "isadd": true,
         "fieldtag": null,
         "foreigndata": [],
-        "dateformat": ""
+        "dateformat": "yyyy-MM-dd HH:mm:ss"
       },
       {
         "id": 113442,
@@ -282,7 +282,7 @@
         "isadd": true,
         "fieldtag": null,
         "foreigndata": [],
-        "dateformat": ""
+        "dateformat": "yyyy-MM-dd HH:mm:ss"
       },
       {
         "id": 113442,
@@ -309,7 +309,7 @@
         "isadd": true,
         "fieldtag": null,
         "foreigndata": [],
-        "dateformat": ""
+        "dateformat": "yyyy-MM-dd HH:mm:ss"
       }
     ]
   }

@@ -26,7 +26,7 @@ exports[`core render correctly 1`] = `
                 "crest_length": 63,
                 "dam_cd": "Z000001",
                 "dam_width": 16,
-                "datePicker": "2019-03-11",
+                "datePicker": 2017-08-09T08:00:00.000Z,
                 "mapPicker": "116.30038976669313|39.89520118467971|杭州1",
                 "pjnm": "德江坞",
                 "retain_dam_type": "堆石坝",
@@ -40,7 +40,7 @@ exports[`core render correctly 1`] = `
                 "crest_length": 13.8,
                 "dam_cd": "Z000002",
                 "dam_width": 0.7,
-                "datePicker": "2019-03-11",
+                "datePicker": 2017-08-09T08:00:00.000Z,
                 "mapPicker": "116.30038976669313|39.89520118467971|杭州",
                 "pjnm": "六谷地村混凝土堰坝1",
                 "retain_dam_type": "堆石坝",
@@ -54,7 +54,7 @@ exports[`core render correctly 1`] = `
                 "crest_length": 42.4,
                 "dam_cd": "Z000003",
                 "dam_width": 2.4,
-                "datePicker": "2019-03-11",
+                "datePicker": 2017-08-09T08:00:00.000Z,
                 "mapPicker": "116.30038976669313|39.89520118467971|杭州",
                 "pjnm": "赤龙坝",
                 "retain_dam_type": "混凝土坝",
@@ -68,7 +68,7 @@ exports[`core render correctly 1`] = `
                 "crest_length": 45,
                 "dam_cd": "Z000004",
                 "dam_width": 3.5,
-                "datePicker": "2019-03-11",
+                "datePicker": 2017-08-09T08:00:00.000Z,
                 "mapPicker": "116.30038976669313|39.89520118467971|杭州",
                 "pjnm": "湖家埭坝2",
                 "retain_dam_type": "混凝土坝",
@@ -82,7 +82,7 @@ exports[`core render correctly 1`] = `
                 "crest_length": 34,
                 "dam_cd": "Z000005",
                 "dam_width": 6.2,
-                "datePicker": "2019-03-11",
+                "datePicker": 2017-08-09T08:00:00.000Z,
                 "mapPicker": "116.30038976669313|39.89520118467971|杭州",
                 "pjnm": "家猫坞山塘",
                 "retain_dam_type": "混凝土坝",
@@ -96,7 +96,7 @@ exports[`core render correctly 1`] = `
                 "crest_length": 66,
                 "dam_cd": "Z000006",
                 "dam_width": 16,
-                "datePicker": "2019-03-11",
+                "datePicker": 2017-08-09T08:00:00.000Z,
                 "mapPicker": "116.30038976669313|39.89520118467971|杭州",
                 "pjnm": "南塘坞山塘",
                 "retain_dam_type": "混凝土坝",
@@ -110,7 +110,7 @@ exports[`core render correctly 1`] = `
                 "crest_length": 38,
                 "dam_cd": "Z000007",
                 "dam_width": 12.1,
-                "datePicker": "2019-03-11",
+                "datePicker": 2017-08-09T08:00:00.000Z,
                 "mapPicker": "116.30038976669313|39.89520118467971|杭州",
                 "pjnm": "西步坞山塘",
                 "retain_dam_type": "混凝土坝",
@@ -124,7 +124,7 @@ exports[`core render correctly 1`] = `
                 "crest_length": 22,
                 "dam_cd": "Z000008",
                 "dam_width": 0.9,
-                "datePicker": "2019-03-11",
+                "datePicker": 2017-08-09T08:00:00.000Z,
                 "mapPicker": "116.30038976669313|39.89520118467971|杭州",
                 "pjnm": "东沈村混凝土堰坝1",
                 "retain_dam_type": "混凝土坝",
@@ -138,7 +138,7 @@ exports[`core render correctly 1`] = `
                 "crest_length": 17.3,
                 "dam_cd": "Z000009",
                 "dam_width": 1.6,
-                "datePicker": "2019-03-11",
+                "datePicker": 2017-08-09T08:00:00.000Z,
                 "mapPicker": "116.30038976669313|39.89520118467971|杭州",
                 "pjnm": "东沈村混凝土堰坝2",
                 "retain_dam_type": "混凝土坝",
@@ -152,7 +152,7 @@ exports[`core render correctly 1`] = `
                 "crest_length": 15,
                 "dam_cd": "Z000010",
                 "dam_width": 1.2,
-                "datePicker": "2019-03-11",
+                "datePicker": 2017-08-09T08:00:00.000Z,
                 "mapPicker": "116.30038976669313|39.89520118467971|杭州",
                 "pjnm": "东沈村混凝土堰坝3",
                 "retain_dam_type": "混凝土坝",
@@ -192,7 +192,7 @@ exports[`core render correctly 1`] = `
         dataSource={
           Array [
             Object {
-              "dateFormat": "",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
               "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
@@ -214,7 +214,7 @@ exports[`core render correctly 1`] = `
               "value": "Z000001",
             },
             Object {
-              "dateFormat": "",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
               "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
@@ -237,7 +237,7 @@ exports[`core render correctly 1`] = `
             },
             Object {
               "address": "杭州1",
-              "dateFormat": "",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
               "decimalCount": 2,
               "defaultValue": "",
               "foreignData": Array [],
@@ -261,7 +261,7 @@ exports[`core render correctly 1`] = `
               "value": "116.30038976669313|39.89520118467971|杭州1",
             },
             Object {
-              "dateFormat": "",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
               "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
@@ -280,10 +280,10 @@ exports[`core render correctly 1`] = `
               "templateOrder": undefined,
               "type": "datePicker",
               "unit": "",
-              "value": 2019-03-11T00:00:00.000Z,
+              "value": 2017-08-09T08:00:00.000Z,
             },
             Object {
-              "dateFormat": "",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
               "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [
@@ -314,7 +314,7 @@ exports[`core render correctly 1`] = `
               "value": "value1",
             },
             Object {
-              "dateFormat": "",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
               "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [
@@ -349,7 +349,7 @@ exports[`core render correctly 1`] = `
               "value": "checkbox1",
             },
             Object {
-              "dateFormat": "",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
               "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
@@ -374,7 +374,7 @@ exports[`core render correctly 1`] = `
               ],
             },
             Object {
-              "dateFormat": "",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
               "decimalCount": 2,
               "defaultValue": "",
               "foreignData": Array [],
@@ -419,7 +419,7 @@ exports[`core render correctly 1`] = `
         dataSource={
           Array [
             Object {
-              "dateFormat": "",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
               "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
@@ -441,7 +441,7 @@ exports[`core render correctly 1`] = `
               "value": "Z000002",
             },
             Object {
-              "dateFormat": "",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
               "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
@@ -464,7 +464,7 @@ exports[`core render correctly 1`] = `
             },
             Object {
               "address": "杭州",
-              "dateFormat": "",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
               "decimalCount": 2,
               "defaultValue": "",
               "foreignData": Array [],
@@ -488,7 +488,7 @@ exports[`core render correctly 1`] = `
               "value": "116.30038976669313|39.89520118467971|杭州",
             },
             Object {
-              "dateFormat": "",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
               "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
@@ -507,10 +507,10 @@ exports[`core render correctly 1`] = `
               "templateOrder": undefined,
               "type": "datePicker",
               "unit": "",
-              "value": 2019-03-11T00:00:00.000Z,
+              "value": 2017-08-09T08:00:00.000Z,
             },
             Object {
-              "dateFormat": "",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
               "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [
@@ -541,7 +541,7 @@ exports[`core render correctly 1`] = `
               "value": "value1",
             },
             Object {
-              "dateFormat": "",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
               "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [
@@ -576,7 +576,7 @@ exports[`core render correctly 1`] = `
               "value": "checkbox3",
             },
             Object {
-              "dateFormat": "",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
               "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
@@ -601,7 +601,7 @@ exports[`core render correctly 1`] = `
               ],
             },
             Object {
-              "dateFormat": "",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
               "decimalCount": 2,
               "defaultValue": "",
               "foreignData": Array [],
@@ -646,7 +646,7 @@ exports[`core render correctly 1`] = `
         dataSource={
           Array [
             Object {
-              "dateFormat": "",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
               "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
@@ -668,7 +668,7 @@ exports[`core render correctly 1`] = `
               "value": "Z000003",
             },
             Object {
-              "dateFormat": "",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
               "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
@@ -691,7 +691,7 @@ exports[`core render correctly 1`] = `
             },
             Object {
               "address": "杭州",
-              "dateFormat": "",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
               "decimalCount": 2,
               "defaultValue": "",
               "foreignData": Array [],
@@ -715,7 +715,7 @@ exports[`core render correctly 1`] = `
               "value": "116.30038976669313|39.89520118467971|杭州",
             },
             Object {
-              "dateFormat": "",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
               "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
@@ -734,10 +734,10 @@ exports[`core render correctly 1`] = `
               "templateOrder": undefined,
               "type": "datePicker",
               "unit": "",
-              "value": 2019-03-11T00:00:00.000Z,
+              "value": 2017-08-09T08:00:00.000Z,
             },
             Object {
-              "dateFormat": "",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
               "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [
@@ -768,7 +768,7 @@ exports[`core render correctly 1`] = `
               "value": "value1",
             },
             Object {
-              "dateFormat": "",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
               "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [
@@ -803,7 +803,7 @@ exports[`core render correctly 1`] = `
               "value": "checkbox3",
             },
             Object {
-              "dateFormat": "",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
               "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
@@ -828,7 +828,7 @@ exports[`core render correctly 1`] = `
               ],
             },
             Object {
-              "dateFormat": "",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
               "decimalCount": 2,
               "defaultValue": "",
               "foreignData": Array [],
@@ -873,7 +873,7 @@ exports[`core render correctly 1`] = `
         dataSource={
           Array [
             Object {
-              "dateFormat": "",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
               "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
@@ -895,7 +895,7 @@ exports[`core render correctly 1`] = `
               "value": "Z000004",
             },
             Object {
-              "dateFormat": "",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
               "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
@@ -918,7 +918,7 @@ exports[`core render correctly 1`] = `
             },
             Object {
               "address": "杭州",
-              "dateFormat": "",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
               "decimalCount": 2,
               "defaultValue": "",
               "foreignData": Array [],
@@ -942,7 +942,7 @@ exports[`core render correctly 1`] = `
               "value": "116.30038976669313|39.89520118467971|杭州",
             },
             Object {
-              "dateFormat": "",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
               "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
@@ -961,10 +961,10 @@ exports[`core render correctly 1`] = `
               "templateOrder": undefined,
               "type": "datePicker",
               "unit": "",
-              "value": 2019-03-11T00:00:00.000Z,
+              "value": 2017-08-09T08:00:00.000Z,
             },
             Object {
-              "dateFormat": "",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
               "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [
@@ -995,7 +995,7 @@ exports[`core render correctly 1`] = `
               "value": "value1",
             },
             Object {
-              "dateFormat": "",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
               "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [
@@ -1030,7 +1030,7 @@ exports[`core render correctly 1`] = `
               "value": "checkbox2",
             },
             Object {
-              "dateFormat": "",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
               "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
@@ -1055,7 +1055,7 @@ exports[`core render correctly 1`] = `
               ],
             },
             Object {
-              "dateFormat": "",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
               "decimalCount": 2,
               "defaultValue": "",
               "foreignData": Array [],
@@ -1100,7 +1100,7 @@ exports[`core render correctly 1`] = `
         dataSource={
           Array [
             Object {
-              "dateFormat": "",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
               "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
@@ -1122,7 +1122,7 @@ exports[`core render correctly 1`] = `
               "value": "Z000005",
             },
             Object {
-              "dateFormat": "",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
               "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
@@ -1145,7 +1145,7 @@ exports[`core render correctly 1`] = `
             },
             Object {
               "address": "杭州",
-              "dateFormat": "",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
               "decimalCount": 2,
               "defaultValue": "",
               "foreignData": Array [],
@@ -1169,7 +1169,7 @@ exports[`core render correctly 1`] = `
               "value": "116.30038976669313|39.89520118467971|杭州",
             },
             Object {
-              "dateFormat": "",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
               "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
@@ -1188,10 +1188,10 @@ exports[`core render correctly 1`] = `
               "templateOrder": undefined,
               "type": "datePicker",
               "unit": "",
-              "value": 2019-03-11T00:00:00.000Z,
+              "value": 2017-08-09T08:00:00.000Z,
             },
             Object {
-              "dateFormat": "",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
               "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [
@@ -1222,7 +1222,7 @@ exports[`core render correctly 1`] = `
               "value": "value1",
             },
             Object {
-              "dateFormat": "",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
               "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [
@@ -1257,7 +1257,7 @@ exports[`core render correctly 1`] = `
               "value": "checkbox2",
             },
             Object {
-              "dateFormat": "",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
               "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
@@ -1282,7 +1282,7 @@ exports[`core render correctly 1`] = `
               ],
             },
             Object {
-              "dateFormat": "",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
               "decimalCount": 2,
               "defaultValue": "",
               "foreignData": Array [],
@@ -1327,7 +1327,7 @@ exports[`core render correctly 1`] = `
         dataSource={
           Array [
             Object {
-              "dateFormat": "",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
               "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
@@ -1349,7 +1349,7 @@ exports[`core render correctly 1`] = `
               "value": "Z000006",
             },
             Object {
-              "dateFormat": "",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
               "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
@@ -1372,7 +1372,7 @@ exports[`core render correctly 1`] = `
             },
             Object {
               "address": "杭州",
-              "dateFormat": "",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
               "decimalCount": 2,
               "defaultValue": "",
               "foreignData": Array [],
@@ -1396,7 +1396,7 @@ exports[`core render correctly 1`] = `
               "value": "116.30038976669313|39.89520118467971|杭州",
             },
             Object {
-              "dateFormat": "",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
               "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
@@ -1415,10 +1415,10 @@ exports[`core render correctly 1`] = `
               "templateOrder": undefined,
               "type": "datePicker",
               "unit": "",
-              "value": 2019-03-11T00:00:00.000Z,
+              "value": 2017-08-09T08:00:00.000Z,
             },
             Object {
-              "dateFormat": "",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
               "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [
@@ -1449,7 +1449,7 @@ exports[`core render correctly 1`] = `
               "value": "value1",
             },
             Object {
-              "dateFormat": "",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
               "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [
@@ -1484,7 +1484,7 @@ exports[`core render correctly 1`] = `
               "value": "checkbox1",
             },
             Object {
-              "dateFormat": "",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
               "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
@@ -1509,7 +1509,7 @@ exports[`core render correctly 1`] = `
               ],
             },
             Object {
-              "dateFormat": "",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
               "decimalCount": 2,
               "defaultValue": "",
               "foreignData": Array [],
@@ -1554,7 +1554,7 @@ exports[`core render correctly 1`] = `
         dataSource={
           Array [
             Object {
-              "dateFormat": "",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
               "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
@@ -1576,7 +1576,7 @@ exports[`core render correctly 1`] = `
               "value": "Z000007",
             },
             Object {
-              "dateFormat": "",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
               "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
@@ -1599,7 +1599,7 @@ exports[`core render correctly 1`] = `
             },
             Object {
               "address": "杭州",
-              "dateFormat": "",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
               "decimalCount": 2,
               "defaultValue": "",
               "foreignData": Array [],
@@ -1623,7 +1623,7 @@ exports[`core render correctly 1`] = `
               "value": "116.30038976669313|39.89520118467971|杭州",
             },
             Object {
-              "dateFormat": "",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
               "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
@@ -1642,10 +1642,10 @@ exports[`core render correctly 1`] = `
               "templateOrder": undefined,
               "type": "datePicker",
               "unit": "",
-              "value": 2019-03-11T00:00:00.000Z,
+              "value": 2017-08-09T08:00:00.000Z,
             },
             Object {
-              "dateFormat": "",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
               "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [
@@ -1676,7 +1676,7 @@ exports[`core render correctly 1`] = `
               "value": "value1",
             },
             Object {
-              "dateFormat": "",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
               "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [
@@ -1711,7 +1711,7 @@ exports[`core render correctly 1`] = `
               "value": "checkbox1",
             },
             Object {
-              "dateFormat": "",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
               "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
@@ -1736,7 +1736,7 @@ exports[`core render correctly 1`] = `
               ],
             },
             Object {
-              "dateFormat": "",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
               "decimalCount": 2,
               "defaultValue": "",
               "foreignData": Array [],
@@ -1781,7 +1781,7 @@ exports[`core render correctly 1`] = `
         dataSource={
           Array [
             Object {
-              "dateFormat": "",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
               "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
@@ -1803,7 +1803,7 @@ exports[`core render correctly 1`] = `
               "value": "Z000008",
             },
             Object {
-              "dateFormat": "",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
               "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
@@ -1826,7 +1826,7 @@ exports[`core render correctly 1`] = `
             },
             Object {
               "address": "杭州",
-              "dateFormat": "",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
               "decimalCount": 2,
               "defaultValue": "",
               "foreignData": Array [],
@@ -1850,7 +1850,7 @@ exports[`core render correctly 1`] = `
               "value": "116.30038976669313|39.89520118467971|杭州",
             },
             Object {
-              "dateFormat": "",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
               "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
@@ -1869,10 +1869,10 @@ exports[`core render correctly 1`] = `
               "templateOrder": undefined,
               "type": "datePicker",
               "unit": "",
-              "value": 2019-03-11T00:00:00.000Z,
+              "value": 2017-08-09T08:00:00.000Z,
             },
             Object {
-              "dateFormat": "",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
               "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [
@@ -1903,7 +1903,7 @@ exports[`core render correctly 1`] = `
               "value": "value1",
             },
             Object {
-              "dateFormat": "",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
               "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [
@@ -1938,7 +1938,7 @@ exports[`core render correctly 1`] = `
               "value": "checkbox1",
             },
             Object {
-              "dateFormat": "",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
               "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
@@ -1963,7 +1963,7 @@ exports[`core render correctly 1`] = `
               ],
             },
             Object {
-              "dateFormat": "",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
               "decimalCount": 2,
               "defaultValue": "",
               "foreignData": Array [],
@@ -2008,7 +2008,7 @@ exports[`core render correctly 1`] = `
         dataSource={
           Array [
             Object {
-              "dateFormat": "",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
               "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
@@ -2030,7 +2030,7 @@ exports[`core render correctly 1`] = `
               "value": "Z000009",
             },
             Object {
-              "dateFormat": "",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
               "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
@@ -2053,7 +2053,7 @@ exports[`core render correctly 1`] = `
             },
             Object {
               "address": "杭州",
-              "dateFormat": "",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
               "decimalCount": 2,
               "defaultValue": "",
               "foreignData": Array [],
@@ -2077,7 +2077,7 @@ exports[`core render correctly 1`] = `
               "value": "116.30038976669313|39.89520118467971|杭州",
             },
             Object {
-              "dateFormat": "",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
               "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
@@ -2096,10 +2096,10 @@ exports[`core render correctly 1`] = `
               "templateOrder": undefined,
               "type": "datePicker",
               "unit": "",
-              "value": 2019-03-11T00:00:00.000Z,
+              "value": 2017-08-09T08:00:00.000Z,
             },
             Object {
-              "dateFormat": "",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
               "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [
@@ -2130,7 +2130,7 @@ exports[`core render correctly 1`] = `
               "value": "value1",
             },
             Object {
-              "dateFormat": "",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
               "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [
@@ -2165,7 +2165,7 @@ exports[`core render correctly 1`] = `
               "value": "checkbox1",
             },
             Object {
-              "dateFormat": "",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
               "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
@@ -2190,7 +2190,7 @@ exports[`core render correctly 1`] = `
               ],
             },
             Object {
-              "dateFormat": "",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
               "decimalCount": 2,
               "defaultValue": "",
               "foreignData": Array [],
@@ -2235,7 +2235,7 @@ exports[`core render correctly 1`] = `
         dataSource={
           Array [
             Object {
-              "dateFormat": "",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
               "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
@@ -2257,7 +2257,7 @@ exports[`core render correctly 1`] = `
               "value": "Z000010",
             },
             Object {
-              "dateFormat": "",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
               "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
@@ -2280,7 +2280,7 @@ exports[`core render correctly 1`] = `
             },
             Object {
               "address": "杭州",
-              "dateFormat": "",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
               "decimalCount": 2,
               "defaultValue": "",
               "foreignData": Array [],
@@ -2304,7 +2304,7 @@ exports[`core render correctly 1`] = `
               "value": "116.30038976669313|39.89520118467971|杭州",
             },
             Object {
-              "dateFormat": "",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
               "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
@@ -2323,10 +2323,10 @@ exports[`core render correctly 1`] = `
               "templateOrder": undefined,
               "type": "datePicker",
               "unit": "",
-              "value": 2019-03-11T00:00:00.000Z,
+              "value": 2017-08-09T08:00:00.000Z,
             },
             Object {
-              "dateFormat": "",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
               "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [
@@ -2357,7 +2357,7 @@ exports[`core render correctly 1`] = `
               "value": "value1",
             },
             Object {
-              "dateFormat": "",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
               "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [
@@ -2392,7 +2392,7 @@ exports[`core render correctly 1`] = `
               "value": "checkbox1",
             },
             Object {
-              "dateFormat": "",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
               "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
@@ -2417,7 +2417,7 @@ exports[`core render correctly 1`] = `
               ],
             },
             Object {
-              "dateFormat": "",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
               "decimalCount": 2,
               "defaultValue": "",
               "foreignData": Array [],
@@ -2459,7 +2459,192 @@ exports[`core render correctly 1`] = `
       order={0}
     >
       <UpdatePage
-        dataSource={Object {}}
+        dataSource={
+          Array [
+            Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": null,
+              "defaultValue": "",
+              "foreignData": Array [],
+              "id": 113442,
+              "isNull": false,
+              "isSearchItem": true,
+              "key": "pjnm",
+              "maxLength": 5,
+              "minLength": 0,
+              "name": "pjnm",
+              "orderInDetail": 21,
+              "orderInEdit": 21,
+              "showInDetail": true,
+              "showInEdit": true,
+              "type": "label",
+              "unit": "",
+              "value": "",
+            },
+            Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": null,
+              "defaultValue": "",
+              "foreignData": Array [],
+              "id": 113438,
+              "isNull": false,
+              "isSearchItem": true,
+              "key": "dam_cd",
+              "maxLength": 8,
+              "minLength": null,
+              "name": "dam_cd",
+              "orderInDetail": 1,
+              "orderInEdit": 1,
+              "showInDetail": true,
+              "showInEdit": true,
+              "type": "input",
+              "unit": "",
+              "value": "",
+            },
+            Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": null,
+              "defaultValue": "",
+              "foreignData": Array [],
+              "id": 113442,
+              "isNull": false,
+              "isSearchItem": false,
+              "key": "datePicker",
+              "maxLength": 50,
+              "minLength": null,
+              "name": "datePicker",
+              "orderInDetail": 16,
+              "orderInEdit": 16,
+              "showInDetail": true,
+              "showInEdit": true,
+              "type": "datePicker",
+              "unit": "",
+              "value": "",
+            },
+            Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": null,
+              "defaultValue": "",
+              "foreignData": Array [
+                Object {
+                  "label": "label1",
+                  "value": "value1",
+                },
+                Object {
+                  "label": "label2",
+                  "value": "value2",
+                },
+              ],
+              "id": 113442,
+              "isNull": false,
+              "isSearchItem": false,
+              "key": "select",
+              "maxLength": 8,
+              "minLength": null,
+              "name": "select",
+              "orderInDetail": 16,
+              "orderInEdit": 16,
+              "showInDetail": true,
+              "showInEdit": true,
+              "type": "select",
+              "unit": "",
+              "value": "",
+            },
+            Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": null,
+              "defaultValue": "",
+              "foreignData": Array [
+                Object {
+                  "label": "checkboxlable1",
+                  "value": "checkbox1",
+                },
+                Object {
+                  "label": "label2",
+                  "value": "checkbox2",
+                },
+                Object {
+                  "label": "label3",
+                  "value": "checkbox3",
+                },
+              ],
+              "id": 113442,
+              "isNull": false,
+              "isSearchItem": false,
+              "key": "checkbox",
+              "maxLength": 8,
+              "minLength": null,
+              "name": "checkbox",
+              "orderInDetail": 16,
+              "orderInEdit": 16,
+              "showInDetail": true,
+              "showInEdit": true,
+              "type": "checkbox",
+              "unit": "",
+              "value": "",
+            },
+            Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": null,
+              "defaultValue": "",
+              "foreignData": Array [],
+              "id": 113442,
+              "isNull": false,
+              "isSearchItem": false,
+              "key": "calendar",
+              "maxLength": 8,
+              "minLength": null,
+              "name": "calendar",
+              "orderInDetail": 16,
+              "orderInEdit": 16,
+              "showInDetail": true,
+              "showInEdit": true,
+              "type": "calendar",
+              "unit": "",
+              "value": "",
+            },
+            Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": 2,
+              "defaultValue": "",
+              "foreignData": Array [],
+              "id": 113442,
+              "isNull": false,
+              "isSearchItem": false,
+              "key": "upload",
+              "maxLength": 8,
+              "minLength": null,
+              "name": "upload",
+              "orderInDetail": 16,
+              "orderInEdit": 16,
+              "showInDetail": true,
+              "showInEdit": true,
+              "type": "upload",
+              "unit": "",
+              "value": "",
+            },
+            Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": 2,
+              "defaultValue": "",
+              "foreignData": Array [],
+              "id": 113442,
+              "isNull": false,
+              "isSearchItem": false,
+              "key": "mapPicker",
+              "maxLength": 8,
+              "minLength": null,
+              "name": "mapPicker",
+              "orderInDetail": 16,
+              "orderInEdit": 16,
+              "showInDetail": true,
+              "showInEdit": true,
+              "type": "mapPicker",
+              "unit": "",
+              "value": "",
+            },
+          ]
+        }
         onBack={[Function]}
         onMapBoxChange={[Function]}
         status="add"

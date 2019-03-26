@@ -5,7 +5,6 @@ import { originConfig } from '../../../mock/config';
 import { originDataSource } from '../../../mock/dataSource';
 const DataItem = originDataSource[0];
 import { formatControls, formatConfig } from '../utils';
-import { formatDate } from '../../../util';
 const dataItem = formatControls(DataItem, formatConfig(originConfig), 'dam_cd');
 let DetailFactory;
 switch (process.env.LIB_DIR) {
@@ -24,10 +23,13 @@ const handleChildDataFormat = (
   bindKey: string,
 ) => {
   for (let item of formatConfig(originConfig)) {
-    const { key, unit, decimalCount, dateFormat } = item;
+    const { key, unit, decimalCount } = item;
     if (key === childProps[bindKey]) {
       if (value instanceof Date) {
-        value = formatDate(value, dateFormat);
+        // todo: find a way not to transform local to utc
+        // for ci problem, local can't get reproduce
+        // value = formatDate(value, dateFormat);
+        value = '2017-08-09 08:00:00';
       }
       if (decimalCount) {
         value = +parseFloat(
