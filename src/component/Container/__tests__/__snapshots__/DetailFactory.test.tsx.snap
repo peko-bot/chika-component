@@ -221,34 +221,10 @@ exports[`DetailFactory render correctly 1`] = `
   <div
     className="DetailFactory"
   >
-    <DetailArrow>
-      <div
-        className="sc-extend-drawer sc-left"
-        onClick={[Function]}
-        style={
-          Object {
-            "top": "calc((100vh - 100px) / 2)",
-          }
-        }
-      >
-        <img
-          src="../../assets/List_Container/arrow-left.png"
-        />
-      </div>
-      <div
-        className="sc-extend-drawer sc-right"
-        onClick={[Function]}
-        style={
-          Object {
-            "top": "calc((100vh - 100px) / 2)",
-          }
-        }
-      >
-        <img
-          src="../../assets/List_Container/arrow-right.png"
-        />
-      </div>
-    </DetailArrow>
+    <DetailArrow
+      showLast={false}
+      showNext={false}
+    />
     <List
       prefixCls="am-list"
     >

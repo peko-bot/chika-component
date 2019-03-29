@@ -6,7 +6,7 @@ export interface DetailArrowProps {
   onClick?: (status: string) => void;
 }
 
-export default (props: DetailArrowProps) => {
+const DetailArrow = (props: DetailArrowProps) => {
   const { onClick, showLast, showNext } = props;
   const top = 'calc((100vh - 100px) / 2)';
   const last = (
@@ -34,3 +34,5 @@ export default (props: DetailArrowProps) => {
     </React.Fragment>
   );
 };
+
+export default DetailArrow;
