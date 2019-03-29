@@ -33,11 +33,9 @@ export const getParamsFromUrl = (name: string, url?: string) => {
 
 export const compare = (property: any, isDesc = false) => {
   let ins = null;
-
   ins = isDesc
     ? (b: any, a: any) => a[property] - b[property]
     : (a: any, b: any) => a[property] - b[property];
-
   return ins;
 };
 

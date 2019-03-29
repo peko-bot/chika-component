@@ -1,145 +1,135 @@
-// import React, { Component } from 'react';
-// import { Modal, List, Button } from 'antd-mobile';
-// import { compare } from '../../util/Sort';
+import React, { Component } from 'react';
+import { Modal, List } from 'antd-mobile';
+import { compare } from '../../util';
 
-// export interface FunctionalButtonProps {}
-// export interface FunctionalButtonState {}
+type SortStatus = '无' | '升序' | '降序';
+type SortDirection = 'horizontal' | 'up' | 'down';
+type SortByProps = { key: string; text: string };
+export type SortItem = {
+  status: SortStatus;
+  direction: SortDirection;
+} & SortByProps;
+export interface FunctionalButtonProps {
+  sortBy: Array<SortByProps>;
+  dataSource: Array<any>;
+  onSort?: (dataSource: Array<any>) => void;
+}
+export interface FunctionalButtonState {
+  modalVisible: boolean;
+  sorts: Array<SortItem>;
+}
 
-// export default class FunctionalButton extends Component<
-//   FunctionalButtonProps,
-//   FunctionalButtonState
-// > {
-//   constructor(props) {
-//     super(props);
+export default class FunctionalButton extends Component<
+  FunctionalButtonProps,
+  FunctionalButtonState
+> {
+  constructor(props: FunctionalButtonProps) {
+    super(props);
 
-//     // 初始化排序属性
-//     const defaultVar = {
-//       status: '无',
-//       direction: 'horizontal',
-//     };
-//     let datas = [];
+    let sorts: Array<
+      {
+        status: SortStatus;
+        direction: SortDirection;
+      } & SortByProps
+    > = [];
+    for (let item of props.sortBy) {
+      sorts.push({
+        ...{
+          status: '无',
+          direction: 'horizontal',
+        },
+        ...item,
+      });
+    }
 
-//     for (let item of props.sortBy) {
-//       item = Object.assign({}, defaultVar, item);
-//       datas.push(item);
-//     }
+    this.state = {
+      modalVisible: false,
+      sorts,
+    };
+  }
 
-//     this.state = {
-//       modalVisible: false,
-//       datas,
-//     };
-//   }
+  /**
+   * 排序顺序，初始为无，箭头向右
+   * 无 => 升序 => 降序
+   * horizontal => up => down
+   * 只有一个字段参与排序
+   */
+  handleOnClick = (item: SortItem) => {
+    let { dataSource, onSort } = this.props;
+    let { sorts } = this.state;
+    let { direction, key } = item;
 
-//   handleOnAdd = () => {
-//     const { onAdd } = this.props;
+    for (let ins of sorts) {
+      let { key: insKey } = ins;
 
-//     onAdd('add');
+      if (key != insKey) {
+        ins.direction = 'horizontal';
+        ins.status = '无';
+      }
+    }
+    let isDesc = false;
+    switch (direction) {
+      case 'horizontal':
+        item.direction = 'up';
+        item.status = '升序';
+        break;
 
-//     this.setState({ modalVisible: false });
-//   };
+      case 'up':
+        item.direction = 'down';
+        item.status = '降序';
+        isDesc = true;
+        break;
 
-//   /**
-//    * 排序顺序，初始为无，箭头向右
-//    * 无 => 升序 => 降序
-//    * horizontal => up => down
-//    * 只有一个字段参与排序
-//    */
-//   handleOnClick = item => {
-//     let { dataSource, onSort } = this.props;
-//     let { datas } = this.state;
-//     let { direction, status, key } = item;
+      case 'down':
+        item.direction = 'up';
+        item.status = '升序';
+        break;
 
-//     for (let ins of datas) {
-//       let { key: insKey } = ins;
+      default:
+        item.direction = 'horizontal';
+        item.status = '无';
+        break;
+    }
 
-//       if (key != insKey) {
-//         ins.direction = 'horizontal';
-//         ins.status = '无';
-//       }
-//     }
+    dataSource.sort(compare(key, isDesc));
+    onSort && onSort(dataSource);
 
-//     let isDesc = false;
+    this.setState({ sorts });
+  };
 
-//     switch (direction) {
-//       case 'horizontal':
-//         item.direction = 'up';
-//         item.status = '升序';
-//         break;
+  render = () => {
+    const { modalVisible, sorts } = this.state;
+    return (
+      <div className="FunctionalButton">
+        <div
+          className="sc-extend-add"
+          onClick={() => this.setState({ modalVisible: true })}
+        >
+          <i className="sc-extend-add-icon">+</i>
+        </div>
 
-//       case 'up':
-//         item.direction = 'down';
-//         item.status = '降序';
-//         isDesc = true;
-//         break;
-
-//       case 'down':
-//         item.direction = 'up';
-//         item.status = '升序';
-//         break;
-
-//       default:
-//         item.direction = 'horizontal';
-//         item.status = '无';
-//         break;
-//     }
-
-//     dataSource.sort(compare(key, isDesc));
-//     onSort(dataSource);
-
-//     this.setState({ datas });
-//   };
-
-//   render = () => {
-//     const { visible, sortBy, power } = this.props;
-//     const { modalVisible, datas } = this.state;
-
-//     let extraAdd = null;
-
-//     for (let item of power) {
-//       if (item.includes('Add')) {
-//         extraAdd = (
-//           <List.Item>
-//             <Button type="primary" onClick={this.handleOnAdd}>
-//               新增
-//             </Button>
-//           </List.Item>
-//         );
-//       }
-//     }
-
-//     return (
-//       <div className="FunctionalButton">
-//         <div
-//           className="sc-extend-add"
-//           onClick={() => this.setState({ modalVisible: !modalVisible })}
-//           style={{ display: visible ? '' : 'none' }}
-//         >
-//           <i className="sc-extend-add-icon">+</i>
-//         </div>
-
-//         <Modal
-//           popup
-//           animationType="slide-up"
-//           visible={modalVisible}
-//           onClose={() => {
-//             this.setState({ modalVisible: !modalVisible });
-//           }}
-//         >
-//           <List renderHeader="按字段排序">
-//             {datas.map((item, index) => (
-//               <List.Item
-//                 extra={item.status}
-//                 key={index}
-//                 arrow={item.direction}
-//                 onClick={() => this.handleOnClick(item)}
-//               >
-//                 {item.text}
-//               </List.Item>
-//             ))}
-//             {extraAdd}
-//           </List>
-//         </Modal>
-//       </div>
-//     );
-//   };
-// }
+        <Modal
+          popup
+          animationType="slide-up"
+          visible={modalVisible}
+          onClose={() => {
+            this.setState({ modalVisible: false });
+          }}
+        >
+          <List renderHeader="按字段排序">
+            {sorts.map(item => (
+              <List.Item
+                extra={item.status}
+                key={item.key}
+                arrow={item.direction}
+                onClick={() => this.handleOnClick(item)}
+              >
+                {item.text}
+              </List.Item>
+            ))}
+          </List>
+        </Modal>
+      </div>
+    );
+  };
+}

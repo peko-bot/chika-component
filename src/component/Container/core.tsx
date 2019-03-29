@@ -8,6 +8,7 @@ import UpdatePage, { UpdatePageStatus } from './UpdatePage';
 import { MapBox } from '../MapBox';
 import { formatDate } from '../../util';
 import { updatePageMapBoxOnAddProps } from './DataController';
+import FunctionalButton from './FunctionalButton';
 import './css/Container-core.css';
 
 type GroupType = 'list-page' | 'update-page' | 'detail-page' | 'map-box';
@@ -35,6 +36,7 @@ export interface ContainerCoreProps {
   formatControls: (item: any, config: any, primaryKey: string) => void;
   onMapPickerChange?: (item: MapPickerChangeProps) => void;
   updatePageMapBoxOnAdd?: updatePageMapBoxOnAddProps;
+  onSort?: (dataSource: Array<any>) => void;
 }
 export interface ContainerCoreState {
   currentOrder: number;
@@ -271,7 +273,10 @@ export default class ContainerCore extends Component<
     const { children, dataSource } = this.props;
     return (
       <TransformManagerItem group="list-page" order={0} key="list-page-0">
-        <div className="sc-content" ref={(ref: any) => (this.content = ref)}>
+        <div
+          className="sc-content"
+          ref={(ref: HTMLDivElement) => (this.content = ref)}
+        >
           <Template
             template={children}
             dataSource={dataSource}
@@ -357,6 +362,21 @@ export default class ContainerCore extends Component<
           {this.renderUpdatePage()}
           {this.renderMapBox()}
         </TransformManager>
+
+        <FunctionalButton
+          sortBy={[
+            {
+              key: 'dam_width',
+              text: '坝高',
+            },
+            {
+              key: 'crest_length',
+              text: '坝长',
+            },
+          ]}
+          dataSource={props.dataSource}
+          onSort={props.onSort}
+        />
 
         <ActivityIndicator
           animating={props.loading}
