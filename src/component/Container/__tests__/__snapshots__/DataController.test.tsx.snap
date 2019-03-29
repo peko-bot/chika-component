@@ -13,6 +13,7 @@ exports[`DataController render correctly 1`] = `
     onDelete={[Function]}
     onMapPickerChange={[Function]}
     onSearch={[Function]}
+    onSort={[Function]}
     power={
       Object {
         "add": false,

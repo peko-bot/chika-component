@@ -197,6 +197,10 @@ export default class DataController extends Component<
     return param;
   };
 
+  handleSort = (dataSource: Array<any>) => {
+    this.setState({ dataSource });
+  };
+
   render = () => {
     const {
       power,
@@ -222,6 +226,7 @@ export default class DataController extends Component<
           formatControls={formatControls as any}
           onMapPickerChange={this.handeMapPickerChange}
           updatePageMapBoxOnAdd={updatePageMapBoxOnAdd}
+          onSort={this.handleSort}
         />
       </div>
     );
