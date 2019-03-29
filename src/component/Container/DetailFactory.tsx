@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { List, Button } from 'antd-mobile';
 import { PropsGoToMaxBox } from './core';
+import Arrow from './DetailArrow';
 
 export interface DetailFactoryProps {
-  onPageChange: () => void;
+  onPageChange: (status: string) => void;
   onBack: () => void;
   dataSource?: Array<any>;
   onDataFormat?: (value: string | number, item: any, bindKey: string) => void;
@@ -72,9 +73,10 @@ export default class DetailFactory extends Component<DetailFactoryProps> {
   };
 
   render = () => {
-    const { onBack, dataSource = [] } = this.props;
+    const { onBack, dataSource = [], onPageChange } = this.props;
     return (
       <div className="DetailFactory">
+        <Arrow onClick={onPageChange} />
         <List>
           <List.Item>
             {dataSource.map((item, i) => this.handleControls(item, i))}
