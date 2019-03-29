@@ -3,13 +3,17 @@ import Container, { MapPickerChangeProps } from './core';
 import { ajax } from '../../util/urlHelper';
 import { Toast } from 'antd-mobile';
 import { formatConfig, formatControls } from './utils';
-import { defaultDataFormatEnum } from './utils';
 
 export interface DataControllerProps {
   children: any;
   tableId: number;
   menuId: number;
 }
+export type updatePageMapBoxOnAddProps = {
+  lat: string;
+  lng: string;
+  key: string;
+};
 export interface DataControllerState {
   config: Array<any>;
   dataSource: Array<any>;
@@ -22,6 +26,7 @@ export interface DataControllerState {
     update: boolean;
     add: boolean;
   };
+  updatePageMapBoxOnAdd: updatePageMapBoxOnAddProps;
 }
 
 export default class DataController extends Component<
@@ -40,6 +45,7 @@ export default class DataController extends Component<
     },
     primaryKey: '',
     loading: false,
+    updatePageMapBoxOnAdd: { lng: '-1', lat: '-1', key: 'key' },
   };
 
   static defaultProps = {
@@ -162,11 +168,33 @@ export default class DataController extends Component<
     lat,
   }: MapPickerChangeProps) => {
     const { dataSource, primaryKey } = this.state;
-    const itemIndex = dataSource.findIndex(
-      item => item[primaryKey] === primaryValue,
+    if (!primaryValue) {
+      this.setState({ updatePageMapBoxOnAdd: { lat, lng, key: targetKey } });
+    } else {
+      const itemIndex = dataSource.findIndex(
+        item => item[primaryKey] === primaryValue,
+      );
+      dataSource[itemIndex][targetKey] = `${lng}|${lat}|`;
+      this.setState({ dataSource });
+    }
+  };
+
+  getUploadParam = (file: File) => {
+    const param = new FormData();
+    param.append('Filedata', file);
+    param.append('Filename', file.name);
+    param.append(
+      'fileext',
+      '*.' + file.name.split('.')[file.name.split('.').length - 1],
     );
-    dataSource[itemIndex][targetKey] = `${lng}|${lat}|`;
-    this.setState({ dataSource });
+    param.append('DataType', 'UploadFile');
+    param.append('UploadFolder', '/Attachement/');
+    param.append('IsConvertOffice', '');
+    param.append('GetFileName', 'y');
+    param.append('TCID', '');
+    param.append('UploadTargetKey', 'n');
+    param.append('GetFileInfo', 'y');
+    return param;
   };
 
   render = () => {
@@ -177,6 +205,7 @@ export default class DataController extends Component<
       loading,
       total,
       primaryKey,
+      updatePageMapBoxOnAdd,
     } = this.state;
     return (
       <div className="DataController">
@@ -192,7 +221,7 @@ export default class DataController extends Component<
           onDelete={this.handleDelete}
           formatControls={formatControls as any}
           onMapPickerChange={this.handeMapPickerChange}
-          defaultDataFormatEnum={defaultDataFormatEnum}
+          updatePageMapBoxOnAdd={updatePageMapBoxOnAdd}
         />
       </div>
     );

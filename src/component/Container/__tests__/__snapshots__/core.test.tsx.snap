@@ -26,13 +26,13 @@ exports[`core render correctly 1`] = `
                 "crest_length": 63,
                 "dam_cd": "Z000001",
                 "dam_width": 16,
-                "datePicker": "2019-03-11",
+                "datePicker": 2017-08-09T08:00:00.000Z,
                 "mapPicker": "116.30038976669313|39.89520118467971|杭州1",
                 "pjnm": "德江坞",
                 "retain_dam_type": "堆石坝",
                 "rownum": 1,
                 "select": "value1",
-                "upload": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\"}]",
+                "upload": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\",\\"id\\": 1}]",
               },
               Object {
                 "calendar": "2018-04-03 00:00:00,2018-04-04 00:00:00",
@@ -40,13 +40,13 @@ exports[`core render correctly 1`] = `
                 "crest_length": 13.8,
                 "dam_cd": "Z000002",
                 "dam_width": 0.7,
-                "datePicker": "2019-03-11",
+                "datePicker": 2017-08-09T08:00:00.000Z,
                 "mapPicker": "116.30038976669313|39.89520118467971|杭州",
                 "pjnm": "六谷地村混凝土堰坝1",
                 "retain_dam_type": "堆石坝",
                 "rownum": 2,
                 "select": "value1",
-                "upload": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\"}]",
+                "upload": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\", \\"id\\": 2}]",
               },
               Object {
                 "calendar": "2018-04-03 00:00:00,2018-04-04 00:00:00",
@@ -54,13 +54,13 @@ exports[`core render correctly 1`] = `
                 "crest_length": 42.4,
                 "dam_cd": "Z000003",
                 "dam_width": 2.4,
-                "datePicker": "2019-03-11",
+                "datePicker": 2017-08-09T08:00:00.000Z,
                 "mapPicker": "116.30038976669313|39.89520118467971|杭州",
                 "pjnm": "赤龙坝",
                 "retain_dam_type": "混凝土坝",
                 "rownum": 3,
                 "select": "value1",
-                "upload": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\"}]",
+                "upload": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\", \\"id\\": 3}]",
               },
               Object {
                 "calendar": "2018-04-03 00:00:00,2018-04-04 00:00:00",
@@ -68,13 +68,13 @@ exports[`core render correctly 1`] = `
                 "crest_length": 45,
                 "dam_cd": "Z000004",
                 "dam_width": 3.5,
-                "datePicker": "2019-03-11",
+                "datePicker": 2017-08-09T08:00:00.000Z,
                 "mapPicker": "116.30038976669313|39.89520118467971|杭州",
                 "pjnm": "湖家埭坝2",
                 "retain_dam_type": "混凝土坝",
                 "rownum": 4,
                 "select": "value1",
-                "upload": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\"}]",
+                "upload": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\", \\"id\\": 4}]",
               },
               Object {
                 "calendar": "2018-04-03 00:00:00,2018-04-04 00:00:00",
@@ -82,13 +82,13 @@ exports[`core render correctly 1`] = `
                 "crest_length": 34,
                 "dam_cd": "Z000005",
                 "dam_width": 6.2,
-                "datePicker": "2019-03-11",
+                "datePicker": 2017-08-09T08:00:00.000Z,
                 "mapPicker": "116.30038976669313|39.89520118467971|杭州",
                 "pjnm": "家猫坞山塘",
                 "retain_dam_type": "混凝土坝",
                 "rownum": 5,
                 "select": "value1",
-                "upload": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\"}]",
+                "upload": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\", \\"id\\": 5}]",
               },
               Object {
                 "calendar": "2018-04-03 00:00:00,2018-04-04 00:00:00",
@@ -96,13 +96,13 @@ exports[`core render correctly 1`] = `
                 "crest_length": 66,
                 "dam_cd": "Z000006",
                 "dam_width": 16,
-                "datePicker": "2019-03-11",
+                "datePicker": 2017-08-09T08:00:00.000Z,
                 "mapPicker": "116.30038976669313|39.89520118467971|杭州",
                 "pjnm": "南塘坞山塘",
                 "retain_dam_type": "混凝土坝",
                 "rownum": 6,
                 "select": "value1",
-                "upload": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\"}]",
+                "upload": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\", \\"id\\": 6}]",
               },
               Object {
                 "calendar": "2018-04-03 00:00:00,2018-04-04 00:00:00",
@@ -110,13 +110,13 @@ exports[`core render correctly 1`] = `
                 "crest_length": 38,
                 "dam_cd": "Z000007",
                 "dam_width": 12.1,
-                "datePicker": "2019-03-11",
+                "datePicker": 2017-08-09T08:00:00.000Z,
                 "mapPicker": "116.30038976669313|39.89520118467971|杭州",
                 "pjnm": "西步坞山塘",
                 "retain_dam_type": "混凝土坝",
                 "rownum": 7,
                 "select": "value1",
-                "upload": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\"}]",
+                "upload": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\", \\"id\\": 7}]",
               },
               Object {
                 "calendar": "2018-04-03 00:00:00,2018-04-04 00:00:00",
@@ -124,13 +124,13 @@ exports[`core render correctly 1`] = `
                 "crest_length": 22,
                 "dam_cd": "Z000008",
                 "dam_width": 0.9,
-                "datePicker": "2019-03-11",
+                "datePicker": 2017-08-09T08:00:00.000Z,
                 "mapPicker": "116.30038976669313|39.89520118467971|杭州",
                 "pjnm": "东沈村混凝土堰坝1",
                 "retain_dam_type": "混凝土坝",
                 "rownum": 8,
                 "select": "value1",
-                "upload": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\"}]",
+                "upload": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\", \\"id\\": 8}]",
               },
               Object {
                 "calendar": "2018-04-03 00:00:00,2018-04-04 00:00:00",
@@ -138,13 +138,13 @@ exports[`core render correctly 1`] = `
                 "crest_length": 17.3,
                 "dam_cd": "Z000009",
                 "dam_width": 1.6,
-                "datePicker": "2019-03-11",
+                "datePicker": 2017-08-09T08:00:00.000Z,
                 "mapPicker": "116.30038976669313|39.89520118467971|杭州",
                 "pjnm": "东沈村混凝土堰坝2",
                 "retain_dam_type": "混凝土坝",
                 "rownum": 9,
                 "select": "value1",
-                "upload": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\"}]",
+                "upload": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\", \\"id\\": 9}]",
               },
               Object {
                 "calendar": "2018-04-03 00:00:00,2018-04-04 00:00:00",
@@ -152,13 +152,13 @@ exports[`core render correctly 1`] = `
                 "crest_length": 15,
                 "dam_cd": "Z000010",
                 "dam_width": 1.2,
-                "datePicker": "2019-03-11",
+                "datePicker": 2017-08-09T08:00:00.000Z,
                 "mapPicker": "116.30038976669313|39.89520118467971|杭州",
                 "pjnm": "东沈村混凝土堰坝3",
                 "retain_dam_type": "混凝土坝",
                 "rownum": 10,
                 "select": "value1",
-                "upload": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\"}]",
+                "upload": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\", \\"id\\": 10}]",
               },
             ]
           }
@@ -189,11 +189,14 @@ exports[`core render correctly 1`] = `
       order={0}
     >
       <DetailFactory
-        dataItem={
+        dataSource={
           Array [
             Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 113438,
               "isNull": false,
               "isSearchItem": true,
               "key": "dam_cd",
@@ -207,11 +210,15 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "input",
+              "unit": "",
               "value": "Z000001",
             },
             Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 113442,
               "isNull": false,
               "isSearchItem": true,
               "key": "pjnm",
@@ -225,12 +232,16 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "label",
+              "unit": "",
               "value": "德江坞",
             },
             Object {
               "address": "杭州1",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": 2,
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 113442,
               "isNull": false,
               "isSearchItem": false,
               "key": "mapPicker",
@@ -246,11 +257,15 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "mapPicker",
+              "unit": "",
               "value": "116.30038976669313|39.89520118467971|杭州1",
             },
             Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 113442,
               "isNull": false,
               "isSearchItem": false,
               "key": "datePicker",
@@ -264,9 +279,12 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "datePicker",
-              "value": "2019-03-11",
+              "unit": "",
+              "value": 2017-08-09T08:00:00.000Z,
             },
             Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [
                 Object {
@@ -278,6 +296,7 @@ exports[`core render correctly 1`] = `
                   "value": "value2",
                 },
               ],
+              "id": 113442,
               "isNull": false,
               "isSearchItem": false,
               "key": "select",
@@ -291,9 +310,12 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "select",
+              "unit": "",
               "value": "value1",
             },
             Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [
                 Object {
@@ -309,6 +331,7 @@ exports[`core render correctly 1`] = `
                   "value": "checkbox3",
                 },
               ],
+              "id": 113442,
               "isNull": false,
               "isSearchItem": false,
               "key": "checkbox",
@@ -322,11 +345,15 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "checkbox",
+              "unit": "",
               "value": "checkbox1",
             },
             Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 113442,
               "isNull": false,
               "isSearchItem": false,
               "key": "calendar",
@@ -340,11 +367,18 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "calendar",
-              "value": "2018-04-03 00:00:00,2018-04-04 00:00:00",
+              "unit": "",
+              "value": Array [
+                "2018-04-03 00:00:00",
+                "2018-04-04 00:00:00",
+              ],
             },
             Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": 2,
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 113442,
               "isNull": false,
               "isSearchItem": false,
               "key": "upload",
@@ -358,7 +392,14 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "upload",
-              "value": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\"}]",
+              "unit": "",
+              "value": Array [
+                Object {
+                  "id": 1,
+                  "name": "name2",
+                  "url": "../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg",
+                },
+              ],
             },
           ]
         }
@@ -375,11 +416,14 @@ exports[`core render correctly 1`] = `
       order={1}
     >
       <DetailFactory
-        dataItem={
+        dataSource={
           Array [
             Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 113438,
               "isNull": false,
               "isSearchItem": true,
               "key": "dam_cd",
@@ -393,11 +437,15 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "input",
+              "unit": "",
               "value": "Z000002",
             },
             Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 113442,
               "isNull": false,
               "isSearchItem": true,
               "key": "pjnm",
@@ -411,12 +459,16 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "label",
+              "unit": "",
               "value": "六谷地村混凝土堰坝1",
             },
             Object {
               "address": "杭州",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": 2,
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 113442,
               "isNull": false,
               "isSearchItem": false,
               "key": "mapPicker",
@@ -432,11 +484,15 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "mapPicker",
+              "unit": "",
               "value": "116.30038976669313|39.89520118467971|杭州",
             },
             Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 113442,
               "isNull": false,
               "isSearchItem": false,
               "key": "datePicker",
@@ -450,9 +506,12 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "datePicker",
-              "value": "2019-03-11",
+              "unit": "",
+              "value": 2017-08-09T08:00:00.000Z,
             },
             Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [
                 Object {
@@ -464,6 +523,7 @@ exports[`core render correctly 1`] = `
                   "value": "value2",
                 },
               ],
+              "id": 113442,
               "isNull": false,
               "isSearchItem": false,
               "key": "select",
@@ -477,9 +537,12 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "select",
+              "unit": "",
               "value": "value1",
             },
             Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [
                 Object {
@@ -495,6 +558,7 @@ exports[`core render correctly 1`] = `
                   "value": "checkbox3",
                 },
               ],
+              "id": 113442,
               "isNull": false,
               "isSearchItem": false,
               "key": "checkbox",
@@ -508,11 +572,15 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "checkbox",
+              "unit": "",
               "value": "checkbox3",
             },
             Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 113442,
               "isNull": false,
               "isSearchItem": false,
               "key": "calendar",
@@ -526,11 +594,18 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "calendar",
-              "value": "2018-04-03 00:00:00,2018-04-04 00:00:00",
+              "unit": "",
+              "value": Array [
+                "2018-04-03 00:00:00",
+                "2018-04-04 00:00:00",
+              ],
             },
             Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": 2,
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 113442,
               "isNull": false,
               "isSearchItem": false,
               "key": "upload",
@@ -544,7 +619,14 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "upload",
-              "value": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\"}]",
+              "unit": "",
+              "value": Array [
+                Object {
+                  "id": 2,
+                  "name": "name2",
+                  "url": "../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg",
+                },
+              ],
             },
           ]
         }
@@ -561,11 +643,14 @@ exports[`core render correctly 1`] = `
       order={2}
     >
       <DetailFactory
-        dataItem={
+        dataSource={
           Array [
             Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 113438,
               "isNull": false,
               "isSearchItem": true,
               "key": "dam_cd",
@@ -579,11 +664,15 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "input",
+              "unit": "",
               "value": "Z000003",
             },
             Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 113442,
               "isNull": false,
               "isSearchItem": true,
               "key": "pjnm",
@@ -597,12 +686,16 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "label",
+              "unit": "",
               "value": "赤龙坝",
             },
             Object {
               "address": "杭州",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": 2,
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 113442,
               "isNull": false,
               "isSearchItem": false,
               "key": "mapPicker",
@@ -618,11 +711,15 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "mapPicker",
+              "unit": "",
               "value": "116.30038976669313|39.89520118467971|杭州",
             },
             Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 113442,
               "isNull": false,
               "isSearchItem": false,
               "key": "datePicker",
@@ -636,9 +733,12 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "datePicker",
-              "value": "2019-03-11",
+              "unit": "",
+              "value": 2017-08-09T08:00:00.000Z,
             },
             Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [
                 Object {
@@ -650,6 +750,7 @@ exports[`core render correctly 1`] = `
                   "value": "value2",
                 },
               ],
+              "id": 113442,
               "isNull": false,
               "isSearchItem": false,
               "key": "select",
@@ -663,9 +764,12 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "select",
+              "unit": "",
               "value": "value1",
             },
             Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [
                 Object {
@@ -681,6 +785,7 @@ exports[`core render correctly 1`] = `
                   "value": "checkbox3",
                 },
               ],
+              "id": 113442,
               "isNull": false,
               "isSearchItem": false,
               "key": "checkbox",
@@ -694,11 +799,15 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "checkbox",
+              "unit": "",
               "value": "checkbox3",
             },
             Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 113442,
               "isNull": false,
               "isSearchItem": false,
               "key": "calendar",
@@ -712,11 +821,18 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "calendar",
-              "value": "2018-04-03 00:00:00,2018-04-04 00:00:00",
+              "unit": "",
+              "value": Array [
+                "2018-04-03 00:00:00",
+                "2018-04-04 00:00:00",
+              ],
             },
             Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": 2,
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 113442,
               "isNull": false,
               "isSearchItem": false,
               "key": "upload",
@@ -730,7 +846,14 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "upload",
-              "value": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\"}]",
+              "unit": "",
+              "value": Array [
+                Object {
+                  "id": 3,
+                  "name": "name2",
+                  "url": "../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg",
+                },
+              ],
             },
           ]
         }
@@ -747,11 +870,14 @@ exports[`core render correctly 1`] = `
       order={3}
     >
       <DetailFactory
-        dataItem={
+        dataSource={
           Array [
             Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 113438,
               "isNull": false,
               "isSearchItem": true,
               "key": "dam_cd",
@@ -765,11 +891,15 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "input",
+              "unit": "",
               "value": "Z000004",
             },
             Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 113442,
               "isNull": false,
               "isSearchItem": true,
               "key": "pjnm",
@@ -783,12 +913,16 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "label",
+              "unit": "",
               "value": "湖家埭坝2",
             },
             Object {
               "address": "杭州",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": 2,
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 113442,
               "isNull": false,
               "isSearchItem": false,
               "key": "mapPicker",
@@ -804,11 +938,15 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "mapPicker",
+              "unit": "",
               "value": "116.30038976669313|39.89520118467971|杭州",
             },
             Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 113442,
               "isNull": false,
               "isSearchItem": false,
               "key": "datePicker",
@@ -822,9 +960,12 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "datePicker",
-              "value": "2019-03-11",
+              "unit": "",
+              "value": 2017-08-09T08:00:00.000Z,
             },
             Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [
                 Object {
@@ -836,6 +977,7 @@ exports[`core render correctly 1`] = `
                   "value": "value2",
                 },
               ],
+              "id": 113442,
               "isNull": false,
               "isSearchItem": false,
               "key": "select",
@@ -849,9 +991,12 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "select",
+              "unit": "",
               "value": "value1",
             },
             Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [
                 Object {
@@ -867,6 +1012,7 @@ exports[`core render correctly 1`] = `
                   "value": "checkbox3",
                 },
               ],
+              "id": 113442,
               "isNull": false,
               "isSearchItem": false,
               "key": "checkbox",
@@ -880,11 +1026,15 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "checkbox",
+              "unit": "",
               "value": "checkbox2",
             },
             Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 113442,
               "isNull": false,
               "isSearchItem": false,
               "key": "calendar",
@@ -898,11 +1048,18 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "calendar",
-              "value": "2018-04-03 00:00:00,2018-04-04 00:00:00",
+              "unit": "",
+              "value": Array [
+                "2018-04-03 00:00:00",
+                "2018-04-04 00:00:00",
+              ],
             },
             Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": 2,
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 113442,
               "isNull": false,
               "isSearchItem": false,
               "key": "upload",
@@ -916,7 +1073,14 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "upload",
-              "value": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\"}]",
+              "unit": "",
+              "value": Array [
+                Object {
+                  "id": 4,
+                  "name": "name2",
+                  "url": "../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg",
+                },
+              ],
             },
           ]
         }
@@ -933,11 +1097,14 @@ exports[`core render correctly 1`] = `
       order={4}
     >
       <DetailFactory
-        dataItem={
+        dataSource={
           Array [
             Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 113438,
               "isNull": false,
               "isSearchItem": true,
               "key": "dam_cd",
@@ -951,11 +1118,15 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "input",
+              "unit": "",
               "value": "Z000005",
             },
             Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 113442,
               "isNull": false,
               "isSearchItem": true,
               "key": "pjnm",
@@ -969,12 +1140,16 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "label",
+              "unit": "",
               "value": "家猫坞山塘",
             },
             Object {
               "address": "杭州",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": 2,
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 113442,
               "isNull": false,
               "isSearchItem": false,
               "key": "mapPicker",
@@ -990,11 +1165,15 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "mapPicker",
+              "unit": "",
               "value": "116.30038976669313|39.89520118467971|杭州",
             },
             Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 113442,
               "isNull": false,
               "isSearchItem": false,
               "key": "datePicker",
@@ -1008,9 +1187,12 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "datePicker",
-              "value": "2019-03-11",
+              "unit": "",
+              "value": 2017-08-09T08:00:00.000Z,
             },
             Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [
                 Object {
@@ -1022,6 +1204,7 @@ exports[`core render correctly 1`] = `
                   "value": "value2",
                 },
               ],
+              "id": 113442,
               "isNull": false,
               "isSearchItem": false,
               "key": "select",
@@ -1035,9 +1218,12 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "select",
+              "unit": "",
               "value": "value1",
             },
             Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [
                 Object {
@@ -1053,6 +1239,7 @@ exports[`core render correctly 1`] = `
                   "value": "checkbox3",
                 },
               ],
+              "id": 113442,
               "isNull": false,
               "isSearchItem": false,
               "key": "checkbox",
@@ -1066,11 +1253,15 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "checkbox",
+              "unit": "",
               "value": "checkbox2",
             },
             Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 113442,
               "isNull": false,
               "isSearchItem": false,
               "key": "calendar",
@@ -1084,11 +1275,18 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "calendar",
-              "value": "2018-04-03 00:00:00,2018-04-04 00:00:00",
+              "unit": "",
+              "value": Array [
+                "2018-04-03 00:00:00",
+                "2018-04-04 00:00:00",
+              ],
             },
             Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": 2,
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 113442,
               "isNull": false,
               "isSearchItem": false,
               "key": "upload",
@@ -1102,7 +1300,14 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "upload",
-              "value": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\"}]",
+              "unit": "",
+              "value": Array [
+                Object {
+                  "id": 5,
+                  "name": "name2",
+                  "url": "../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg",
+                },
+              ],
             },
           ]
         }
@@ -1119,11 +1324,14 @@ exports[`core render correctly 1`] = `
       order={5}
     >
       <DetailFactory
-        dataItem={
+        dataSource={
           Array [
             Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 113438,
               "isNull": false,
               "isSearchItem": true,
               "key": "dam_cd",
@@ -1137,11 +1345,15 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "input",
+              "unit": "",
               "value": "Z000006",
             },
             Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 113442,
               "isNull": false,
               "isSearchItem": true,
               "key": "pjnm",
@@ -1155,12 +1367,16 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "label",
+              "unit": "",
               "value": "南塘坞山塘",
             },
             Object {
               "address": "杭州",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": 2,
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 113442,
               "isNull": false,
               "isSearchItem": false,
               "key": "mapPicker",
@@ -1176,11 +1392,15 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "mapPicker",
+              "unit": "",
               "value": "116.30038976669313|39.89520118467971|杭州",
             },
             Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 113442,
               "isNull": false,
               "isSearchItem": false,
               "key": "datePicker",
@@ -1194,9 +1414,12 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "datePicker",
-              "value": "2019-03-11",
+              "unit": "",
+              "value": 2017-08-09T08:00:00.000Z,
             },
             Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [
                 Object {
@@ -1208,6 +1431,7 @@ exports[`core render correctly 1`] = `
                   "value": "value2",
                 },
               ],
+              "id": 113442,
               "isNull": false,
               "isSearchItem": false,
               "key": "select",
@@ -1221,9 +1445,12 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "select",
+              "unit": "",
               "value": "value1",
             },
             Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [
                 Object {
@@ -1239,6 +1466,7 @@ exports[`core render correctly 1`] = `
                   "value": "checkbox3",
                 },
               ],
+              "id": 113442,
               "isNull": false,
               "isSearchItem": false,
               "key": "checkbox",
@@ -1252,11 +1480,15 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "checkbox",
+              "unit": "",
               "value": "checkbox1",
             },
             Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 113442,
               "isNull": false,
               "isSearchItem": false,
               "key": "calendar",
@@ -1270,11 +1502,18 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "calendar",
-              "value": "2018-04-03 00:00:00,2018-04-04 00:00:00",
+              "unit": "",
+              "value": Array [
+                "2018-04-03 00:00:00",
+                "2018-04-04 00:00:00",
+              ],
             },
             Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": 2,
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 113442,
               "isNull": false,
               "isSearchItem": false,
               "key": "upload",
@@ -1288,7 +1527,14 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "upload",
-              "value": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\"}]",
+              "unit": "",
+              "value": Array [
+                Object {
+                  "id": 6,
+                  "name": "name2",
+                  "url": "../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg",
+                },
+              ],
             },
           ]
         }
@@ -1305,11 +1551,14 @@ exports[`core render correctly 1`] = `
       order={6}
     >
       <DetailFactory
-        dataItem={
+        dataSource={
           Array [
             Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 113438,
               "isNull": false,
               "isSearchItem": true,
               "key": "dam_cd",
@@ -1323,11 +1572,15 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "input",
+              "unit": "",
               "value": "Z000007",
             },
             Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 113442,
               "isNull": false,
               "isSearchItem": true,
               "key": "pjnm",
@@ -1341,12 +1594,16 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "label",
+              "unit": "",
               "value": "西步坞山塘",
             },
             Object {
               "address": "杭州",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": 2,
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 113442,
               "isNull": false,
               "isSearchItem": false,
               "key": "mapPicker",
@@ -1362,11 +1619,15 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "mapPicker",
+              "unit": "",
               "value": "116.30038976669313|39.89520118467971|杭州",
             },
             Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 113442,
               "isNull": false,
               "isSearchItem": false,
               "key": "datePicker",
@@ -1380,9 +1641,12 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "datePicker",
-              "value": "2019-03-11",
+              "unit": "",
+              "value": 2017-08-09T08:00:00.000Z,
             },
             Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [
                 Object {
@@ -1394,6 +1658,7 @@ exports[`core render correctly 1`] = `
                   "value": "value2",
                 },
               ],
+              "id": 113442,
               "isNull": false,
               "isSearchItem": false,
               "key": "select",
@@ -1407,9 +1672,12 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "select",
+              "unit": "",
               "value": "value1",
             },
             Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [
                 Object {
@@ -1425,6 +1693,7 @@ exports[`core render correctly 1`] = `
                   "value": "checkbox3",
                 },
               ],
+              "id": 113442,
               "isNull": false,
               "isSearchItem": false,
               "key": "checkbox",
@@ -1438,11 +1707,15 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "checkbox",
+              "unit": "",
               "value": "checkbox1",
             },
             Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 113442,
               "isNull": false,
               "isSearchItem": false,
               "key": "calendar",
@@ -1456,11 +1729,18 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "calendar",
-              "value": "2018-04-03 00:00:00,2018-04-04 00:00:00",
+              "unit": "",
+              "value": Array [
+                "2018-04-03 00:00:00",
+                "2018-04-04 00:00:00",
+              ],
             },
             Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": 2,
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 113442,
               "isNull": false,
               "isSearchItem": false,
               "key": "upload",
@@ -1474,7 +1754,14 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "upload",
-              "value": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\"}]",
+              "unit": "",
+              "value": Array [
+                Object {
+                  "id": 7,
+                  "name": "name2",
+                  "url": "../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg",
+                },
+              ],
             },
           ]
         }
@@ -1491,11 +1778,14 @@ exports[`core render correctly 1`] = `
       order={7}
     >
       <DetailFactory
-        dataItem={
+        dataSource={
           Array [
             Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 113438,
               "isNull": false,
               "isSearchItem": true,
               "key": "dam_cd",
@@ -1509,11 +1799,15 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "input",
+              "unit": "",
               "value": "Z000008",
             },
             Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 113442,
               "isNull": false,
               "isSearchItem": true,
               "key": "pjnm",
@@ -1527,12 +1821,16 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "label",
+              "unit": "",
               "value": "东沈村混凝土堰坝1",
             },
             Object {
               "address": "杭州",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": 2,
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 113442,
               "isNull": false,
               "isSearchItem": false,
               "key": "mapPicker",
@@ -1548,11 +1846,15 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "mapPicker",
+              "unit": "",
               "value": "116.30038976669313|39.89520118467971|杭州",
             },
             Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 113442,
               "isNull": false,
               "isSearchItem": false,
               "key": "datePicker",
@@ -1566,9 +1868,12 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "datePicker",
-              "value": "2019-03-11",
+              "unit": "",
+              "value": 2017-08-09T08:00:00.000Z,
             },
             Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [
                 Object {
@@ -1580,6 +1885,7 @@ exports[`core render correctly 1`] = `
                   "value": "value2",
                 },
               ],
+              "id": 113442,
               "isNull": false,
               "isSearchItem": false,
               "key": "select",
@@ -1593,9 +1899,12 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "select",
+              "unit": "",
               "value": "value1",
             },
             Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [
                 Object {
@@ -1611,6 +1920,7 @@ exports[`core render correctly 1`] = `
                   "value": "checkbox3",
                 },
               ],
+              "id": 113442,
               "isNull": false,
               "isSearchItem": false,
               "key": "checkbox",
@@ -1624,11 +1934,15 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "checkbox",
+              "unit": "",
               "value": "checkbox1",
             },
             Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 113442,
               "isNull": false,
               "isSearchItem": false,
               "key": "calendar",
@@ -1642,11 +1956,18 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "calendar",
-              "value": "2018-04-03 00:00:00,2018-04-04 00:00:00",
+              "unit": "",
+              "value": Array [
+                "2018-04-03 00:00:00",
+                "2018-04-04 00:00:00",
+              ],
             },
             Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": 2,
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 113442,
               "isNull": false,
               "isSearchItem": false,
               "key": "upload",
@@ -1660,7 +1981,14 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "upload",
-              "value": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\"}]",
+              "unit": "",
+              "value": Array [
+                Object {
+                  "id": 8,
+                  "name": "name2",
+                  "url": "../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg",
+                },
+              ],
             },
           ]
         }
@@ -1677,11 +2005,14 @@ exports[`core render correctly 1`] = `
       order={8}
     >
       <DetailFactory
-        dataItem={
+        dataSource={
           Array [
             Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 113438,
               "isNull": false,
               "isSearchItem": true,
               "key": "dam_cd",
@@ -1695,11 +2026,15 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "input",
+              "unit": "",
               "value": "Z000009",
             },
             Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 113442,
               "isNull": false,
               "isSearchItem": true,
               "key": "pjnm",
@@ -1713,12 +2048,16 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "label",
+              "unit": "",
               "value": "东沈村混凝土堰坝2",
             },
             Object {
               "address": "杭州",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": 2,
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 113442,
               "isNull": false,
               "isSearchItem": false,
               "key": "mapPicker",
@@ -1734,11 +2073,15 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "mapPicker",
+              "unit": "",
               "value": "116.30038976669313|39.89520118467971|杭州",
             },
             Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 113442,
               "isNull": false,
               "isSearchItem": false,
               "key": "datePicker",
@@ -1752,9 +2095,12 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "datePicker",
-              "value": "2019-03-11",
+              "unit": "",
+              "value": 2017-08-09T08:00:00.000Z,
             },
             Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [
                 Object {
@@ -1766,6 +2112,7 @@ exports[`core render correctly 1`] = `
                   "value": "value2",
                 },
               ],
+              "id": 113442,
               "isNull": false,
               "isSearchItem": false,
               "key": "select",
@@ -1779,9 +2126,12 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "select",
+              "unit": "",
               "value": "value1",
             },
             Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [
                 Object {
@@ -1797,6 +2147,7 @@ exports[`core render correctly 1`] = `
                   "value": "checkbox3",
                 },
               ],
+              "id": 113442,
               "isNull": false,
               "isSearchItem": false,
               "key": "checkbox",
@@ -1810,11 +2161,15 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "checkbox",
+              "unit": "",
               "value": "checkbox1",
             },
             Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 113442,
               "isNull": false,
               "isSearchItem": false,
               "key": "calendar",
@@ -1828,11 +2183,18 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "calendar",
-              "value": "2018-04-03 00:00:00,2018-04-04 00:00:00",
+              "unit": "",
+              "value": Array [
+                "2018-04-03 00:00:00",
+                "2018-04-04 00:00:00",
+              ],
             },
             Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": 2,
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 113442,
               "isNull": false,
               "isSearchItem": false,
               "key": "upload",
@@ -1846,7 +2208,14 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "upload",
-              "value": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\"}]",
+              "unit": "",
+              "value": Array [
+                Object {
+                  "id": 9,
+                  "name": "name2",
+                  "url": "../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg",
+                },
+              ],
             },
           ]
         }
@@ -1863,11 +2232,14 @@ exports[`core render correctly 1`] = `
       order={9}
     >
       <DetailFactory
-        dataItem={
+        dataSource={
           Array [
             Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 113438,
               "isNull": false,
               "isSearchItem": true,
               "key": "dam_cd",
@@ -1881,11 +2253,15 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "input",
+              "unit": "",
               "value": "Z000010",
             },
             Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 113442,
               "isNull": false,
               "isSearchItem": true,
               "key": "pjnm",
@@ -1899,12 +2275,16 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "label",
+              "unit": "",
               "value": "东沈村混凝土堰坝3",
             },
             Object {
               "address": "杭州",
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": 2,
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 113442,
               "isNull": false,
               "isSearchItem": false,
               "key": "mapPicker",
@@ -1920,11 +2300,15 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "mapPicker",
+              "unit": "",
               "value": "116.30038976669313|39.89520118467971|杭州",
             },
             Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 113442,
               "isNull": false,
               "isSearchItem": false,
               "key": "datePicker",
@@ -1938,9 +2322,12 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "datePicker",
-              "value": "2019-03-11",
+              "unit": "",
+              "value": 2017-08-09T08:00:00.000Z,
             },
             Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [
                 Object {
@@ -1952,6 +2339,7 @@ exports[`core render correctly 1`] = `
                   "value": "value2",
                 },
               ],
+              "id": 113442,
               "isNull": false,
               "isSearchItem": false,
               "key": "select",
@@ -1965,9 +2353,12 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "select",
+              "unit": "",
               "value": "value1",
             },
             Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [
                 Object {
@@ -1983,6 +2374,7 @@ exports[`core render correctly 1`] = `
                   "value": "checkbox3",
                 },
               ],
+              "id": 113442,
               "isNull": false,
               "isSearchItem": false,
               "key": "checkbox",
@@ -1996,11 +2388,15 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "checkbox",
+              "unit": "",
               "value": "checkbox1",
             },
             Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 113442,
               "isNull": false,
               "isSearchItem": false,
               "key": "calendar",
@@ -2014,11 +2410,18 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "calendar",
-              "value": "2018-04-03 00:00:00,2018-04-04 00:00:00",
+              "unit": "",
+              "value": Array [
+                "2018-04-03 00:00:00",
+                "2018-04-04 00:00:00",
+              ],
             },
             Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": 2,
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 113442,
               "isNull": false,
               "isSearchItem": false,
               "key": "upload",
@@ -2032,7 +2435,14 @@ exports[`core render correctly 1`] = `
               "showInEdit": true,
               "templateOrder": undefined,
               "type": "upload",
-              "value": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\"}]",
+              "unit": "",
+              "value": Array [
+                Object {
+                  "id": 10,
+                  "name": "name2",
+                  "url": "../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg",
+                },
+              ],
             },
           ]
         }
@@ -2049,11 +2459,14 @@ exports[`core render correctly 1`] = `
       order={0}
     >
       <UpdatePage
-        config={
+        dataSource={
           Array [
             Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 113442,
               "isNull": false,
               "isSearchItem": true,
               "key": "pjnm",
@@ -2065,10 +2478,15 @@ exports[`core render correctly 1`] = `
               "showInDetail": true,
               "showInEdit": true,
               "type": "label",
+              "unit": "",
+              "value": "",
             },
             Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 113438,
               "isNull": false,
               "isSearchItem": true,
               "key": "dam_cd",
@@ -2080,10 +2498,15 @@ exports[`core render correctly 1`] = `
               "showInDetail": true,
               "showInEdit": true,
               "type": "input",
+              "unit": "",
+              "value": "",
             },
             Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 113442,
               "isNull": false,
               "isSearchItem": false,
               "key": "datePicker",
@@ -2095,8 +2518,12 @@ exports[`core render correctly 1`] = `
               "showInDetail": true,
               "showInEdit": true,
               "type": "datePicker",
+              "unit": "",
+              "value": "",
             },
             Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [
                 Object {
@@ -2108,6 +2535,7 @@ exports[`core render correctly 1`] = `
                   "value": "value2",
                 },
               ],
+              "id": 113442,
               "isNull": false,
               "isSearchItem": false,
               "key": "select",
@@ -2119,8 +2547,12 @@ exports[`core render correctly 1`] = `
               "showInDetail": true,
               "showInEdit": true,
               "type": "select",
+              "unit": "",
+              "value": "",
             },
             Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [
                 Object {
@@ -2136,6 +2568,7 @@ exports[`core render correctly 1`] = `
                   "value": "checkbox3",
                 },
               ],
+              "id": 113442,
               "isNull": false,
               "isSearchItem": false,
               "key": "checkbox",
@@ -2147,10 +2580,15 @@ exports[`core render correctly 1`] = `
               "showInDetail": true,
               "showInEdit": true,
               "type": "checkbox",
+              "unit": "",
+              "value": "",
             },
             Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": null,
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 113442,
               "isNull": false,
               "isSearchItem": false,
               "key": "calendar",
@@ -2162,10 +2600,15 @@ exports[`core render correctly 1`] = `
               "showInDetail": true,
               "showInEdit": true,
               "type": "calendar",
+              "unit": "",
+              "value": "",
             },
             Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": 2,
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 113442,
               "isNull": false,
               "isSearchItem": false,
               "key": "upload",
@@ -2177,10 +2620,15 @@ exports[`core render correctly 1`] = `
               "showInDetail": true,
               "showInEdit": true,
               "type": "upload",
+              "unit": "",
+              "value": "",
             },
             Object {
+              "dateFormat": "yyyy-MM-dd HH:mm:ss",
+              "decimalCount": 2,
               "defaultValue": "",
               "foreignData": Array [],
+              "id": 113442,
               "isNull": false,
               "isSearchItem": false,
               "key": "mapPicker",
@@ -2192,10 +2640,11 @@ exports[`core render correctly 1`] = `
               "showInDetail": true,
               "showInEdit": true,
               "type": "mapPicker",
+              "unit": "",
+              "value": "",
             },
           ]
         }
-        dataItem={Object {}}
         onBack={[Function]}
         onMapBoxChange={[Function]}
         status="add"

@@ -1,3 +1,4 @@
+const datePicker = new Date(Date.UTC(2017, 7, 9, 8));
 export const originDataSource = [
   {
     rownum: 1,
@@ -7,12 +8,12 @@ export const originDataSource = [
     retain_dam_type: '堆石坝',
     pjnm: '德江坞',
     mapPicker: '116.30038976669313|39.89520118467971|杭州1',
-    datePicker: '2019-03-11',
+    datePicker,
     select: 'value1',
     checkbox: 'checkbox1',
     calendar: '2018-04-03 00:00:00,2018-04-04 00:00:00',
     upload:
-      '[{"filepath":"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg","filetile":"name2","filename":"jpg"}]',
+      '[{"filepath":"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg","filetile":"name2","filename":"jpg","id": 1}]',
   },
   {
     rownum: 2,
@@ -22,12 +23,12 @@ export const originDataSource = [
     retain_dam_type: '堆石坝',
     pjnm: '六谷地村混凝土堰坝1',
     mapPicker: '116.30038976669313|39.89520118467971|杭州',
-    datePicker: '2019-03-11',
+    datePicker,
     select: 'value1',
     checkbox: 'checkbox3',
     calendar: '2018-04-03 00:00:00,2018-04-04 00:00:00',
     upload:
-      '[{"filepath":"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg","filetile":"name2","filename":"jpg"}]',
+      '[{"filepath":"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg","filetile":"name2","filename":"jpg", "id": 2}]',
   },
   {
     rownum: 3,
@@ -37,12 +38,12 @@ export const originDataSource = [
     retain_dam_type: '混凝土坝',
     pjnm: '赤龙坝',
     mapPicker: '116.30038976669313|39.89520118467971|杭州',
-    datePicker: '2019-03-11',
+    datePicker,
     select: 'value1',
     checkbox: 'checkbox3',
     calendar: '2018-04-03 00:00:00,2018-04-04 00:00:00',
     upload:
-      '[{"filepath":"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg","filetile":"name2","filename":"jpg"}]',
+      '[{"filepath":"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg","filetile":"name2","filename":"jpg", "id": 3}]',
   },
   {
     rownum: 4,
@@ -52,12 +53,12 @@ export const originDataSource = [
     retain_dam_type: '混凝土坝',
     pjnm: '湖家埭坝2',
     mapPicker: '116.30038976669313|39.89520118467971|杭州',
-    datePicker: '2019-03-11',
+    datePicker,
     select: 'value1',
     checkbox: 'checkbox2',
     calendar: '2018-04-03 00:00:00,2018-04-04 00:00:00',
     upload:
-      '[{"filepath":"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg","filetile":"name2","filename":"jpg"}]',
+      '[{"filepath":"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg","filetile":"name2","filename":"jpg", "id": 4}]',
   },
   {
     rownum: 5,
@@ -67,12 +68,12 @@ export const originDataSource = [
     retain_dam_type: '混凝土坝',
     pjnm: '家猫坞山塘',
     mapPicker: '116.30038976669313|39.89520118467971|杭州',
-    datePicker: '2019-03-11',
+    datePicker,
     select: 'value1',
     checkbox: 'checkbox2',
     calendar: '2018-04-03 00:00:00,2018-04-04 00:00:00',
     upload:
-      '[{"filepath":"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg","filetile":"name2","filename":"jpg"}]',
+      '[{"filepath":"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg","filetile":"name2","filename":"jpg", "id": 5}]',
   },
   {
     rownum: 6,
@@ -82,12 +83,12 @@ export const originDataSource = [
     retain_dam_type: '混凝土坝',
     pjnm: '南塘坞山塘',
     mapPicker: '116.30038976669313|39.89520118467971|杭州',
-    datePicker: '2019-03-11',
+    datePicker,
     select: 'value1',
     checkbox: 'checkbox1',
     calendar: '2018-04-03 00:00:00,2018-04-04 00:00:00',
     upload:
-      '[{"filepath":"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg","filetile":"name2","filename":"jpg"}]',
+      '[{"filepath":"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg","filetile":"name2","filename":"jpg", "id": 6}]',
   },
   {
     rownum: 7,
@@ -97,12 +98,12 @@ export const originDataSource = [
     retain_dam_type: '混凝土坝',
     pjnm: '西步坞山塘',
     mapPicker: '116.30038976669313|39.89520118467971|杭州',
-    datePicker: '2019-03-11',
+    datePicker,
     select: 'value1',
     checkbox: 'checkbox1',
     calendar: '2018-04-03 00:00:00,2018-04-04 00:00:00',
     upload:
-      '[{"filepath":"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg","filetile":"name2","filename":"jpg"}]',
+      '[{"filepath":"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg","filetile":"name2","filename":"jpg", "id": 7}]',
   },
   {
     rownum: 8,
@@ -112,12 +113,12 @@ export const originDataSource = [
     retain_dam_type: '混凝土坝',
     pjnm: '东沈村混凝土堰坝1',
     mapPicker: '116.30038976669313|39.89520118467971|杭州',
-    datePicker: '2019-03-11',
+    datePicker,
     select: 'value1',
     checkbox: 'checkbox1',
     calendar: '2018-04-03 00:00:00,2018-04-04 00:00:00',
     upload:
-      '[{"filepath":"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg","filetile":"name2","filename":"jpg"}]',
+      '[{"filepath":"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg","filetile":"name2","filename":"jpg", "id": 8}]',
   },
   {
     rownum: 9,
@@ -127,12 +128,12 @@ export const originDataSource = [
     retain_dam_type: '混凝土坝',
     pjnm: '东沈村混凝土堰坝2',
     mapPicker: '116.30038976669313|39.89520118467971|杭州',
-    datePicker: '2019-03-11',
+    datePicker,
     select: 'value1',
     checkbox: 'checkbox1',
     calendar: '2018-04-03 00:00:00,2018-04-04 00:00:00',
     upload:
-      '[{"filepath":"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg","filetile":"name2","filename":"jpg"}]',
+      '[{"filepath":"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg","filetile":"name2","filename":"jpg", "id": 9}]',
   },
   {
     rownum: 10,
@@ -142,11 +143,11 @@ export const originDataSource = [
     retain_dam_type: '混凝土坝',
     pjnm: '东沈村混凝土堰坝3',
     mapPicker: '116.30038976669313|39.89520118467971|杭州',
-    datePicker: '2019-03-11',
+    datePicker,
     select: 'value1',
     checkbox: 'checkbox1',
     calendar: '2018-04-03 00:00:00,2018-04-04 00:00:00',
     upload:
-      '[{"filepath":"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg","filetile":"name2","filename":"jpg"}]',
+      '[{"filepath":"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg","filetile":"name2","filename":"jpg", "id": 10}]',
   },
 ];

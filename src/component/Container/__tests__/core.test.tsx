@@ -4,7 +4,6 @@ import 'nino-cli/scripts/setup';
 import { originConfig } from '../../../mock/config';
 import { originDataSource } from '../../../mock/dataSource';
 import { formatControls, formatConfig } from '../utils';
-import { defaultDataFormatEnum } from '../utils';
 let Core;
 switch (process.env.LIB_DIR) {
   case 'lib':
@@ -22,7 +21,6 @@ describe('core', () => {
         dataSource={originDataSource}
         formatControls={formatControls}
         config={formatConfig(originConfig)}
-        defaultDataFormatEnum={defaultDataFormatEnum}
       >
         <>
           <div data-key="pjnm">1</div>

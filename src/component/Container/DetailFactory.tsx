@@ -5,8 +5,8 @@ import { PropsGoToMaxBox } from './core';
 export interface DetailFactoryProps {
   onPageChange: () => void;
   onBack: () => void;
-  dataItem?: Array<any>;
-  onDataFormat?: (value: string | number, item: any) => void;
+  dataSource?: Array<any>;
+  onDataFormat?: (value: string | number, item: any, bindKey: string) => void;
   onMapBoxChange?: (item: PropsGoToMaxBox) => void;
 }
 
@@ -31,11 +31,38 @@ export default class DetailFactory extends Component<DetailFactoryProps> {
       );
     }
 
+    if (type === 'calendar') {
+      return (
+        <React.Fragment key={`detail-page-label-${index}`}>
+          <List.Item
+            extra={
+              onDataFormat
+                ? (onDataFormat(value[0], item, 'key') as any)
+                : value
+            }
+          >
+            {name + '开始时间'}
+          </List.Item>
+          <List.Item
+            extra={
+              onDataFormat
+                ? (onDataFormat(value[1], item, 'key') as any)
+                : value
+            }
+          >
+            {name + '结束时间'}
+          </List.Item>
+        </React.Fragment>
+      );
+    }
+
     if (type !== 'mapPicker' && type !== 'upload') {
       return (
         <List.Item
           key={`detail-page-label-${index}`}
-          extra={onDataFormat ? (onDataFormat(value, item) as any) : value}
+          extra={
+            onDataFormat ? (onDataFormat(value, item, 'key') as any) : value
+          }
         >
           {name}
         </List.Item>
@@ -45,12 +72,12 @@ export default class DetailFactory extends Component<DetailFactoryProps> {
   };
 
   render = () => {
-    const { onBack, dataItem = [] } = this.props;
+    const { onBack, dataSource = [] } = this.props;
     return (
       <div className="DetailFactory">
         <List>
           <List.Item>
-            {dataItem.map((item, i) => this.handleControls(item, i))}
+            {dataSource.map((item, i) => this.handleControls(item, i))}
           </List.Item>
           <List.Item>
             <Button onClick={onBack}>返回</Button>

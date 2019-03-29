@@ -2,9 +2,8 @@ import React from 'react';
 import { mount } from 'enzyme';
 import 'nino-cli/scripts/setup';
 import { originConfig } from '../../../mock/config';
-import { originDataSource } from '../../../mock/dataSource';
-const DataItem = originDataSource[0];
-import { formatConfig } from '../utils';
+// import { originDataSource } from '../../../mock/dataSource';
+import { formatControls, formatConfig } from '../utils';
 const Config = formatConfig(originConfig);
 let UpdatePage;
 switch (process.env.LIB_DIR) {
@@ -20,7 +19,10 @@ switch (process.env.LIB_DIR) {
 describe('UpdatePage', () => {
   it('should render correctly when status is add', () => {
     const wrapper = mount(
-      <UpdatePage config={Config} dataItem={DataItem} status="add" />,
+      <UpdatePage
+        dataSource={formatControls(null, Config, 'dam_cd')}
+        status="add"
+      />,
     );
     const listContent = wrapper.find('.am-list-content');
     expect(listContent.length).toBe(8);
@@ -34,32 +36,37 @@ describe('UpdatePage', () => {
   });
 
   it('should update state correctly when status is add', () => {
-    const wrapper = mount(
-      <UpdatePage config={Config} dataItem={{}} status="add" />,
-    );
-    expect(wrapper.state().form).toEqual({});
+    const dataSource = formatControls(null, Config, 'dam_cd');
+    const wrapper = mount(<UpdatePage dataSource={dataSource} status="add" />);
+    let transformedDataSource = [];
+    for (let item of dataSource) {
+      transformedDataSource.push({
+        ...item,
+        error: false,
+        message: '',
+      });
+    }
+    expect(wrapper.state().form).toEqual(transformedDataSource);
     // input
     wrapper
       .find('input')
-      .first()
+      .at(0)
       .simulate('change', { target: { value: 'test' } });
-    expect(wrapper.state().form.dam_cd.value).toBe('test');
+    expect(wrapper.state().form[1].value).toBe('test');
     // datePicker
     wrapper
       .find('ListItem')
       .at(1)
       .simulate('click');
     wrapper.find('.am-picker-popup-header-right').simulate('click');
-    expect(wrapper.state().form.datePicker.value.getDate()).toBe(
-      new Date().getDate(),
-    );
+    expect(wrapper.state().form[2].value.getDate()).toBe(new Date().getDate());
     // select
     wrapper
       .find('ListItem')
       .at(2)
       .simulate('click');
     wrapper.find('.am-picker-popup-header-right').simulate('click');
-    expect(wrapper.state().form.select.value).toBe('value1');
+    expect(wrapper.state().form[3].value).toBe('value1');
     // checkbox
     wrapper
       .find('.am-accordion-header')
@@ -67,12 +74,12 @@ describe('UpdatePage', () => {
       .simulate('click');
     wrapper
       .find('.am-checkbox-input')
-      .at(1)
+      .at(2)
       .simulate('change');
-    expect(wrapper.state().form.checkbox.value).toBe('checkbox2');
+    expect(wrapper.state().form[4].value).toBe('checkbox3');
     // calendar
     // upload
     // mapPicker
-    // hard to test
+    // they are hard to test
   });
 });

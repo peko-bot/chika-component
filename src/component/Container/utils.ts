@@ -1,5 +1,3 @@
-import { formatDate } from '../../util';
-
 export const formatConfig = (config: Array<any>) => {
   let result: any = [];
   for (let item of config) {
@@ -16,8 +14,13 @@ export const formatConfig = (config: Array<any>) => {
       maxlen,
       minlen,
       foreigndata,
+      unit,
+      dateformat,
+      decimalcount,
+      id,
     } = item;
     result.push({
+      id,
       type: (controlTypeEnums as any)[controltype],
       key: fname,
       name: fvalue,
@@ -31,6 +34,9 @@ export const formatConfig = (config: Array<any>) => {
       maxLength: maxlen,
       minLength: minlen,
       foreignData: foreigndata,
+      unit,
+      dateFormat: dateformat,
+      decimalCount: decimalcount,
     });
   }
   return result;
@@ -52,7 +58,17 @@ export const formatControls = (
   config: Array<any>,
   primaryKey: string,
 ) => {
-  let result = [];
+  let result: Array<any> = [];
+  // UpdatePage - add
+  if (!dataItem) {
+    for (let item of config) {
+      result.push({
+        ...item,
+        value: '',
+      });
+    }
+    return result;
+  }
   const keys = Object.keys(dataItem);
   for (let item of keys) {
     const targetItem = config.filter(target => target.key === item);
@@ -60,7 +76,8 @@ export const formatControls = (
       const { key, showInDetail, type } = targetItem[0];
       if (!showInDetail) continue;
       const value = dataItem[key];
-      const item = {
+      const tempItem = {
+        id: ~~(Math.random() * 10000),
         ...targetItem[0],
         value: dataItem[key],
         templateOrder: dataItem.templateOrder,
@@ -68,35 +85,48 @@ export const formatControls = (
         primaryValue: dataItem[primaryKey],
       };
 
-      // handle with mapPicker
-      if (type === 'mapPicker') {
-        const latng = value.split('|');
-        result.push({
-          ...item,
-          lng: latng[0],
-          lat: latng[1],
-          address: latng[2],
-        });
-      } else {
-        result.push(item);
+      switch (type) {
+        case 'mapPicker':
+          const latng = value.split('|');
+          result.push({
+            ...tempItem,
+            lng: latng[0],
+            lat: latng[1],
+            address: latng[2],
+          });
+          break;
+
+        case 'upload':
+          const originFileList = JSON.parse(value || '[]');
+          let fileList = [];
+          for (let file of originFileList) {
+            fileList.push({
+              url: file.filepath,
+              id: file.id || ~~(Math.random() * 1000),
+              name: file.filetile,
+            });
+          }
+          tempItem.value = fileList;
+          result.push(tempItem);
+          break;
+
+        case 'datePicker':
+          tempItem.value = tempItem.value
+            ? new Date(tempItem.value)
+            : new Date();
+          result.push(tempItem);
+          break;
+
+        case 'calendar':
+          tempItem.value = tempItem.value.split(',') || ['', ''];
+          result.push(tempItem);
+          break;
+
+        default:
+          result.push(tempItem);
+          break;
       }
     }
   }
   return result;
 };
-
-export const defaultDataFormatEnum = [
-  {
-    key: 'data-date-format',
-    method: (value: string, format: string) => formatDate(value, format),
-  },
-  {
-    key: 'data-decimal-count',
-    method: (value: number, decimalCount: number) =>
-      +parseFloat(value.toFixed(decimalCount)).toPrecision(12),
-  },
-  {
-    key: 'data-unit',
-    method: (value: number | string, unit: string) => `${value} ${unit}`,
-  },
-];

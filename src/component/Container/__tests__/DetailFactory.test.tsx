@@ -17,16 +17,52 @@ switch (process.env.LIB_DIR) {
     break;
 }
 
+const handleChildDataFormat = (
+  value: string | number | Date,
+  childProps: any,
+  bindKey: string,
+) => {
+  for (let item of formatConfig(originConfig)) {
+    const { key, unit, decimalCount } = item;
+    if (key === childProps[bindKey]) {
+      if (value instanceof Date) {
+        // todo: find a way not to transform local to utc
+        // for ci problem, local can't get reproduce
+        // value = formatDate(value, dateFormat);
+        value = '2017-08-09 08:00:00';
+      }
+      if (decimalCount) {
+        value = +parseFloat(
+          parseFloat(value.toString()).toFixed(decimalCount),
+        ).toPrecision(12);
+      }
+      if (unit) {
+        value = `${value} ${unit}`;
+      }
+    }
+  }
+  return value;
+};
+
 describe('DetailFactory', () => {
   it('render correctly', () => {
-    const wrapper = mount(<DetailFactory dataItem={dataItem} />);
+    const wrapper = mount(
+      <DetailFactory
+        dataSource={dataItem}
+        onDataFormat={handleChildDataFormat}
+      />,
+    );
     expect(wrapper).toMatchSnapshot();
   });
 
   it('onMapBoxChange should work correctly', () => {
     const onMapBoxChange = jest.fn();
     const wrapper = mount(
-      <DetailFactory dataItem={dataItem} onMapBoxChange={onMapBoxChange} />,
+      <DetailFactory
+        dataSource={dataItem}
+        onMapBoxChange={onMapBoxChange}
+        onDataFormat={handleChildDataFormat}
+      />,
     );
     wrapper
       .find('ListItem')

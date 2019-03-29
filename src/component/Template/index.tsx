@@ -6,7 +6,7 @@ export interface TemplateProps {
   dataSource?: Array<any>;
   template?: any;
   bindKey?: string;
-  onDataFormat?: CallbackFunc;
+  onDataFormat?: (dataItem: any, childProps: any, bindKey?: string) => void;
   onClick?: CallbackFunc;
   onPress?: CallbackFunc;
   timeForTriggerLongPress?: number;
@@ -77,7 +77,7 @@ export default class Template extends Component<TemplateProps> {
       const key = childProps[bindKey];
       const value = dataItem[key];
       childProps.children = onDataFormat
-        ? onDataFormat(value, childProps)
+        ? onDataFormat(value, childProps, bindKey)
         : value;
     }
     return childNode;

@@ -2,11 +2,14 @@
 
 exports[`DetailFactory render correctly 1`] = `
 <DetailFactory
-  dataItem={
+  dataSource={
     Array [
       Object {
+        "dateFormat": "yyyy-MM-dd HH:mm:ss",
+        "decimalCount": null,
         "defaultValue": "",
         "foreignData": Array [],
+        "id": 113438,
         "isNull": false,
         "isSearchItem": true,
         "key": "dam_cd",
@@ -20,11 +23,15 @@ exports[`DetailFactory render correctly 1`] = `
         "showInEdit": true,
         "templateOrder": undefined,
         "type": "input",
+        "unit": "",
         "value": "Z000001",
       },
       Object {
+        "dateFormat": "yyyy-MM-dd HH:mm:ss",
+        "decimalCount": null,
         "defaultValue": "",
         "foreignData": Array [],
+        "id": 113442,
         "isNull": false,
         "isSearchItem": true,
         "key": "pjnm",
@@ -38,12 +45,16 @@ exports[`DetailFactory render correctly 1`] = `
         "showInEdit": true,
         "templateOrder": undefined,
         "type": "label",
+        "unit": "",
         "value": "德江坞",
       },
       Object {
         "address": "杭州1",
+        "dateFormat": "yyyy-MM-dd HH:mm:ss",
+        "decimalCount": 2,
         "defaultValue": "",
         "foreignData": Array [],
+        "id": 113442,
         "isNull": false,
         "isSearchItem": false,
         "key": "mapPicker",
@@ -59,11 +70,15 @@ exports[`DetailFactory render correctly 1`] = `
         "showInEdit": true,
         "templateOrder": undefined,
         "type": "mapPicker",
+        "unit": "",
         "value": "116.30038976669313|39.89520118467971|杭州1",
       },
       Object {
+        "dateFormat": "yyyy-MM-dd HH:mm:ss",
+        "decimalCount": null,
         "defaultValue": "",
         "foreignData": Array [],
+        "id": 113442,
         "isNull": false,
         "isSearchItem": false,
         "key": "datePicker",
@@ -77,9 +92,12 @@ exports[`DetailFactory render correctly 1`] = `
         "showInEdit": true,
         "templateOrder": undefined,
         "type": "datePicker",
-        "value": "2019-03-11",
+        "unit": "",
+        "value": 2017-08-09T08:00:00.000Z,
       },
       Object {
+        "dateFormat": "yyyy-MM-dd HH:mm:ss",
+        "decimalCount": null,
         "defaultValue": "",
         "foreignData": Array [
           Object {
@@ -91,6 +109,7 @@ exports[`DetailFactory render correctly 1`] = `
             "value": "value2",
           },
         ],
+        "id": 113442,
         "isNull": false,
         "isSearchItem": false,
         "key": "select",
@@ -104,9 +123,12 @@ exports[`DetailFactory render correctly 1`] = `
         "showInEdit": true,
         "templateOrder": undefined,
         "type": "select",
+        "unit": "",
         "value": "value1",
       },
       Object {
+        "dateFormat": "yyyy-MM-dd HH:mm:ss",
+        "decimalCount": null,
         "defaultValue": "",
         "foreignData": Array [
           Object {
@@ -122,6 +144,7 @@ exports[`DetailFactory render correctly 1`] = `
             "value": "checkbox3",
           },
         ],
+        "id": 113442,
         "isNull": false,
         "isSearchItem": false,
         "key": "checkbox",
@@ -135,11 +158,15 @@ exports[`DetailFactory render correctly 1`] = `
         "showInEdit": true,
         "templateOrder": undefined,
         "type": "checkbox",
+        "unit": "",
         "value": "checkbox1",
       },
       Object {
+        "dateFormat": "yyyy-MM-dd HH:mm:ss",
+        "decimalCount": null,
         "defaultValue": "",
         "foreignData": Array [],
+        "id": 113442,
         "isNull": false,
         "isSearchItem": false,
         "key": "calendar",
@@ -153,11 +180,18 @@ exports[`DetailFactory render correctly 1`] = `
         "showInEdit": true,
         "templateOrder": undefined,
         "type": "calendar",
-        "value": "2018-04-03 00:00:00,2018-04-04 00:00:00",
+        "unit": "",
+        "value": Array [
+          "2018-04-03 00:00:00",
+          "2018-04-04 00:00:00",
+        ],
       },
       Object {
+        "dateFormat": "yyyy-MM-dd HH:mm:ss",
+        "decimalCount": 2,
         "defaultValue": "",
         "foreignData": Array [],
+        "id": 113442,
         "isNull": false,
         "isSearchItem": false,
         "key": "upload",
@@ -171,10 +205,18 @@ exports[`DetailFactory render correctly 1`] = `
         "showInEdit": true,
         "templateOrder": undefined,
         "type": "upload",
-        "value": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\"}]",
+        "unit": "",
+        "value": Array [
+          Object {
+            "id": 1,
+            "name": "name2",
+            "url": "../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg",
+          },
+        ],
       },
     ]
   }
+  onDataFormat={[Function]}
 >
   <div
     className="DetailFactory"
@@ -438,7 +480,7 @@ exports[`DetailFactory render correctly 1`] = `
                     <ListItem
                       align="middle"
                       error={false}
-                      extra="2019-03-11"
+                      extra="2017-08-09 08:00:00"
                       key="detail-page-label-3"
                       multipleLine={false}
                       platform="ios"
@@ -464,7 +506,7 @@ exports[`DetailFactory render correctly 1`] = `
                             <div
                               className="am-list-extra"
                             >
-                              2019-03-11
+                              2017-08-09 08:00:00
                             </div>
                           </div>
                           <div
@@ -567,8 +609,7 @@ exports[`DetailFactory render correctly 1`] = `
                     <ListItem
                       align="middle"
                       error={false}
-                      extra="2018-04-03 00:00:00,2018-04-04 00:00:00"
-                      key="detail-page-label-6"
+                      extra="2018-04-03 00:00:00"
                       multipleLine={false}
                       platform="ios"
                       prefixCls="am-list"
@@ -588,12 +629,54 @@ exports[`DetailFactory render correctly 1`] = `
                             <div
                               className="am-list-content"
                             >
-                              calendar
+                              calendar开始时间
                             </div>
                             <div
                               className="am-list-extra"
                             >
-                              2018-04-03 00:00:00,2018-04-04 00:00:00
+                              2018-04-03 00:00:00
+                            </div>
+                          </div>
+                          <div
+                            className="am-list-ripple"
+                            style={
+                              Object {
+                                "display": "none",
+                              }
+                            }
+                          />
+                        </div>
+                      </TouchFeedback>
+                    </ListItem>
+                    <ListItem
+                      align="middle"
+                      error={false}
+                      extra="2018-04-04 00:00:00"
+                      multipleLine={false}
+                      platform="ios"
+                      prefixCls="am-list"
+                      wrap={false}
+                    >
+                      <TouchFeedback
+                        activeClassName="am-list-item-active"
+                        disabled={true}
+                      >
+                        <div
+                          className="am-list-item am-list-item-middle"
+                          onClick={[Function]}
+                        >
+                          <div
+                            className="am-list-line"
+                          >
+                            <div
+                              className="am-list-content"
+                            >
+                              calendar结束时间
+                            </div>
+                            <div
+                              className="am-list-extra"
+                            >
+                              2018-04-04 00:00:00
                             </div>
                           </div>
                           <div
