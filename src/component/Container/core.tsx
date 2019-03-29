@@ -347,6 +347,27 @@ export default class ContainerCore extends Component<
     );
   };
 
+  renderFunctionalButton = () => {
+    const { dataSource, onSort, config } = this.props;
+    let sortBy = [];
+    for (let item of config) {
+      const { isSort, key, name } = item;
+      if (isSort) {
+        sortBy.push({
+          key,
+          text: name,
+        });
+      }
+    }
+    return (
+      <FunctionalButton
+        sortBy={sortBy}
+        dataSource={dataSource}
+        onSort={onSort}
+      />
+    );
+  };
+
   render = () => {
     const { state, props } = this;
     const { currentOrder, currentGroup } = state;
@@ -362,22 +383,7 @@ export default class ContainerCore extends Component<
           {this.renderUpdatePage()}
           {this.renderMapBox()}
         </TransformManager>
-
-        <FunctionalButton
-          sortBy={[
-            {
-              key: 'dam_width',
-              text: '坝高',
-            },
-            {
-              key: 'crest_length',
-              text: '坝长',
-            },
-          ]}
-          dataSource={props.dataSource}
-          onSort={props.onSort}
-        />
-
+        {this.renderFunctionalButton()}
         <ActivityIndicator
           animating={props.loading}
           text="正在加载..."

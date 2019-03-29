@@ -18,6 +18,7 @@ export const formatConfig = (config: Array<any>) => {
       dateformat,
       decimalcount,
       id,
+      isSort,
     } = item;
     result.push({
       id,
@@ -37,6 +38,7 @@ export const formatConfig = (config: Array<any>) => {
       unit,
       dateFormat: dateformat,
       decimalCount: decimalcount,
+      isSort,
     });
   }
   return result;

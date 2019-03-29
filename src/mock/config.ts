@@ -54,6 +54,7 @@ export const originConfig = [
     foreigndata: [],
     dateformat: 'yyyy-MM-dd HH:mm:ss',
     fieldpar: '',
+    isSort: true,
   },
   {
     id: 113442,

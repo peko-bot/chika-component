@@ -23,29 +23,29 @@ export default class FunctionalButton extends Component<
   FunctionalButtonProps,
   FunctionalButtonState
 > {
-  constructor(props: FunctionalButtonProps) {
-    super(props);
+  state: FunctionalButtonState = {
+    modalVisible: false,
+    sorts: [],
+  };
 
-    let sorts: Array<
-      {
-        status: SortStatus;
-        direction: SortDirection;
-      } & SortByProps
-    > = [];
-    for (let item of props.sortBy) {
-      sorts.push({
-        ...{
-          status: '无',
-          direction: 'horizontal',
-        },
-        ...item,
-      });
+  static getDerivedStateFromProps(
+    prevProps: FunctionalButtonProps,
+    prevState: FunctionalButtonState,
+  ) {
+    if (prevState.sorts.length === 0) {
+      let sorts: Array<SortItem> = [];
+      for (let item of prevProps.sortBy) {
+        sorts.push({
+          ...{
+            status: '无',
+            direction: 'horizontal',
+          },
+          ...item,
+        });
+      }
+      return { sorts };
     }
-
-    this.state = {
-      modalVisible: false,
-      sorts,
-    };
+    return null;
   }
 
   /**
@@ -99,6 +99,7 @@ export default class FunctionalButton extends Component<
 
   render = () => {
     const { modalVisible, sorts } = this.state;
+
     return (
       <div className="FunctionalButton">
         <div
