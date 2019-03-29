@@ -204,6 +204,9 @@ export default class ContainerCore extends Component<
         >
           <DetailFactory
             onBack={this.backToList}
+            currentOrder={this.state.currentOrder}
+            minPage={0}
+            maxPage={dataSource.length - 1}
             onPageChange={this.onDetailPageChange}
             dataSource={dataItem as any}
             onDataFormat={this.handleChildDataFormat as any}
