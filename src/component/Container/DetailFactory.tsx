@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
 import { List, Button } from 'antd-mobile';
 import { PropsGoToMaxBox } from './core';
+import Arrow from './DetailArrow';
 
 export interface DetailFactoryProps {
-  onPageChange: () => void;
+  onPageChange: (status: string) => void;
   onBack: () => void;
   dataSource?: Array<any>;
   onDataFormat?: (value: string | number, item: any, bindKey: string) => void;
   onMapBoxChange?: (item: PropsGoToMaxBox) => void;
+  currentOrder?: number;
+  minPage?: number;
+  maxPage?: number;
 }
 
 export default class DetailFactory extends Component<DetailFactoryProps> {
@@ -72,9 +76,21 @@ export default class DetailFactory extends Component<DetailFactoryProps> {
   };
 
   render = () => {
-    const { onBack, dataSource = [] } = this.props;
+    const {
+      onBack,
+      dataSource = [],
+      onPageChange,
+      currentOrder,
+      minPage,
+      maxPage,
+    } = this.props;
     return (
       <div className="DetailFactory">
+        <Arrow
+          onClick={onPageChange}
+          showLast={currentOrder !== minPage}
+          showNext={currentOrder !== maxPage}
+        />
         <List>
           <List.Item>
             {dataSource.map((item, i) => this.handleControls(item, i))}

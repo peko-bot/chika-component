@@ -189,6 +189,7 @@ exports[`core render correctly 1`] = `
       order={0}
     >
       <DetailFactory
+        currentOrder={0}
         dataSource={
           Array [
             Object {
@@ -403,6 +404,8 @@ exports[`core render correctly 1`] = `
             },
           ]
         }
+        maxPage={9}
+        minPage={0}
         onBack={[Function]}
         onDataFormat={[Function]}
         onMapBoxChange={[Function]}
@@ -416,6 +419,7 @@ exports[`core render correctly 1`] = `
       order={1}
     >
       <DetailFactory
+        currentOrder={0}
         dataSource={
           Array [
             Object {
@@ -630,6 +634,8 @@ exports[`core render correctly 1`] = `
             },
           ]
         }
+        maxPage={9}
+        minPage={0}
         onBack={[Function]}
         onDataFormat={[Function]}
         onMapBoxChange={[Function]}
@@ -643,6 +649,7 @@ exports[`core render correctly 1`] = `
       order={2}
     >
       <DetailFactory
+        currentOrder={0}
         dataSource={
           Array [
             Object {
@@ -857,6 +864,8 @@ exports[`core render correctly 1`] = `
             },
           ]
         }
+        maxPage={9}
+        minPage={0}
         onBack={[Function]}
         onDataFormat={[Function]}
         onMapBoxChange={[Function]}
@@ -870,6 +879,7 @@ exports[`core render correctly 1`] = `
       order={3}
     >
       <DetailFactory
+        currentOrder={0}
         dataSource={
           Array [
             Object {
@@ -1084,6 +1094,8 @@ exports[`core render correctly 1`] = `
             },
           ]
         }
+        maxPage={9}
+        minPage={0}
         onBack={[Function]}
         onDataFormat={[Function]}
         onMapBoxChange={[Function]}
@@ -1097,6 +1109,7 @@ exports[`core render correctly 1`] = `
       order={4}
     >
       <DetailFactory
+        currentOrder={0}
         dataSource={
           Array [
             Object {
@@ -1311,6 +1324,8 @@ exports[`core render correctly 1`] = `
             },
           ]
         }
+        maxPage={9}
+        minPage={0}
         onBack={[Function]}
         onDataFormat={[Function]}
         onMapBoxChange={[Function]}
@@ -1324,6 +1339,7 @@ exports[`core render correctly 1`] = `
       order={5}
     >
       <DetailFactory
+        currentOrder={0}
         dataSource={
           Array [
             Object {
@@ -1538,6 +1554,8 @@ exports[`core render correctly 1`] = `
             },
           ]
         }
+        maxPage={9}
+        minPage={0}
         onBack={[Function]}
         onDataFormat={[Function]}
         onMapBoxChange={[Function]}
@@ -1551,6 +1569,7 @@ exports[`core render correctly 1`] = `
       order={6}
     >
       <DetailFactory
+        currentOrder={0}
         dataSource={
           Array [
             Object {
@@ -1765,6 +1784,8 @@ exports[`core render correctly 1`] = `
             },
           ]
         }
+        maxPage={9}
+        minPage={0}
         onBack={[Function]}
         onDataFormat={[Function]}
         onMapBoxChange={[Function]}
@@ -1778,6 +1799,7 @@ exports[`core render correctly 1`] = `
       order={7}
     >
       <DetailFactory
+        currentOrder={0}
         dataSource={
           Array [
             Object {
@@ -1992,6 +2014,8 @@ exports[`core render correctly 1`] = `
             },
           ]
         }
+        maxPage={9}
+        minPage={0}
         onBack={[Function]}
         onDataFormat={[Function]}
         onMapBoxChange={[Function]}
@@ -2005,6 +2029,7 @@ exports[`core render correctly 1`] = `
       order={8}
     >
       <DetailFactory
+        currentOrder={0}
         dataSource={
           Array [
             Object {
@@ -2219,6 +2244,8 @@ exports[`core render correctly 1`] = `
             },
           ]
         }
+        maxPage={9}
+        minPage={0}
         onBack={[Function]}
         onDataFormat={[Function]}
         onMapBoxChange={[Function]}
@@ -2232,6 +2259,7 @@ exports[`core render correctly 1`] = `
       order={9}
     >
       <DetailFactory
+        currentOrder={0}
         dataSource={
           Array [
             Object {
@@ -2446,6 +2474,8 @@ exports[`core render correctly 1`] = `
             },
           ]
         }
+        maxPage={9}
+        minPage={0}
         onBack={[Function]}
         onDataFormat={[Function]}
         onMapBoxChange={[Function]}

@@ -221,6 +221,10 @@ exports[`DetailFactory render correctly 1`] = `
   <div
     className="DetailFactory"
   >
+    <DetailArrow
+      showLast={false}
+      showNext={false}
+    />
     <List
       prefixCls="am-list"
     >

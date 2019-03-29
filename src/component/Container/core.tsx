@@ -37,7 +37,7 @@ export interface ContainerCoreProps {
   updatePageMapBoxOnAdd?: updatePageMapBoxOnAddProps;
 }
 export interface ContainerCoreState {
-  currentOrder: number | string;
+  currentOrder: number;
   currentGroup: GroupType;
   lng: string;
   lat: string;
@@ -66,10 +66,10 @@ export default class ContainerCore extends Component<
 
   history: {
     group: GroupType;
-    order: string | number;
+    order: number;
   } = {
     group: 'list-page',
-    order: '',
+    order: -1,
   };
 
   backToList = () => {
@@ -96,7 +96,7 @@ export default class ContainerCore extends Component<
   handleTemplateClick = ({
     templateOrder,
   }: {
-    templateOrder: string | number;
+    templateOrder: number;
     childProps?: any;
     event?: any;
   }) => {
@@ -174,7 +174,22 @@ export default class ContainerCore extends Component<
     return value;
   };
 
-  onDetailPageChange = () => {};
+  onDetailPageChange = (status: string) => {
+    let currentOrder = this.state.currentOrder;
+    switch (status) {
+      case 'last':
+        currentOrder--;
+        break;
+
+      case 'next':
+        currentOrder++;
+        break;
+
+      default:
+        break;
+    }
+    this.setState({ currentGroup: 'detail-page', currentOrder });
+  };
 
   renderDetailPage = () => {
     const { config, formatControls, primaryKey, dataSource } = this.props;
@@ -189,6 +204,9 @@ export default class ContainerCore extends Component<
         >
           <DetailFactory
             onBack={this.backToList}
+            currentOrder={this.state.currentOrder}
+            minPage={0}
+            maxPage={dataSource.length - 1}
             onPageChange={this.onDetailPageChange}
             dataSource={dataItem as any}
             onDataFormat={this.handleChildDataFormat as any}
@@ -243,7 +261,7 @@ export default class ContainerCore extends Component<
       () => {
         this.history = {
           group: 'list-page',
-          order: '',
+          order: -1,
         };
       },
     );
