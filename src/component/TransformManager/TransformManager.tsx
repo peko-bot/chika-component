@@ -4,12 +4,12 @@ import './css/TransformManager.css';
 
 export interface TransformManagerProps {
   currentGroup: string;
-  currentOrder: number | string;
+  currentOrder: number;
   children?: any;
 }
 export interface TransformManagerState {
   currentGroup: string;
-  currentOrder: number | string;
+  currentOrder: number;
   display: Array<any>;
   history: Array<any>;
   shouldTransform: boolean;
