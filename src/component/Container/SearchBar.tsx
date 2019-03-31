@@ -221,19 +221,15 @@ export default class SearchBar extends Component<
   };
 
   render() {
-    const { visible, onVisibleChange, className } = this.props;
+    const { visible, onVisibleChange, className, children } = this.props;
     const { calendarVisible, currentCalendarItem } = this.state;
     const sidebar = (
-      <React.Fragment>
-        {this.renderSidebar()}
-        <List>
-          <List.Item>
-            <Button type="primary" onClick={() => console.log(this.state.form)}>
-              确定
-            </Button>
-          </List.Item>
-        </List>
-      </React.Fragment>
+      <List renderHeader={<span style={{ fontSize: 17 }}>搜索面板</span>}>
+        <List.Item>{this.renderSidebar()}</List.Item>
+        <List.Item>
+          <Button type="primary">确定</Button>
+        </List.Item>
+      </List>
     );
 
     return (
@@ -246,8 +242,13 @@ export default class SearchBar extends Component<
           onOpenChange={visible => onVisibleChange && onVisibleChange(visible)}
           sidebarStyle={{ width: '77%', background: '#fff' }}
           overlayStyle={{ backgroundColor: 'transpent' }}
+          style={{
+            minHeight:
+              document.documentElement.clientHeight ||
+              document.body.clientHeight,
+          }}
         >
-          <React.Fragment />
+          {children || <React.Fragment />}
         </Drawer>
         <Calendar
           visible={calendarVisible}

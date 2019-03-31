@@ -289,18 +289,20 @@ export default class ContainerCore extends Component<
     const { children, dataSource } = this.props;
     return (
       <TransformManagerItem group="list-page" order={0} key="list-page-0">
-        <div
-          className="sc-content"
-          ref={(ref: HTMLDivElement) => (this.content = ref)}
-        >
-          <Template
-            template={children}
-            dataSource={dataSource}
-            onDataFormat={this.handleChildDataFormat}
-            onClick={this.handleTemplateClick}
-            onPress={this.handleTemplatePress}
-          />
-        </div>
+        {this.renderSearchBar(
+          <div
+            className="sc-content"
+            ref={(ref: HTMLDivElement) => (this.content = ref)}
+          >
+            <Template
+              template={children}
+              dataSource={dataSource}
+              onDataFormat={this.handleChildDataFormat}
+              onClick={this.handleTemplateClick}
+              onPress={this.handleTemplatePress}
+            />
+          </div>,
+        )}
       </TransformManagerItem>
     );
   };
@@ -384,7 +386,7 @@ export default class ContainerCore extends Component<
     );
   };
 
-  renderSearchBar = () => {
+  renderSearchBar = (children?: React.ReactChild) => {
     const props = this.props;
     const { showSearchBar } = this.state;
     return (
@@ -394,6 +396,7 @@ export default class ContainerCore extends Component<
         }
         visible={showSearchBar}
         onVisibleChange={showSearchBar => this.setState({ showSearchBar })}
+        children={children}
       />
     );
   };
@@ -414,7 +417,6 @@ export default class ContainerCore extends Component<
           {this.renderMapBox()}
         </TransformManager>
         {currentGroup === 'list-page' && this.renderFunctionalButton()}
-        {this.renderSearchBar()}
         <ActivityIndicator
           animating={props.loading}
           text="正在加载..."
