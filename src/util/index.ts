@@ -73,6 +73,9 @@ export const bindTouchDirection = (
   ref: any,
   callback: (direction: string) => void,
 ) => {
+  if (!ref) {
+    return callback('error');
+  }
   let startX: number;
   let startY: number;
   let endX: number;

@@ -46,7 +46,7 @@ exports[`DetailFactory render correctly 1`] = `
         "showInDetail": true,
         "showInEdit": true,
         "templateOrder": undefined,
-        "type": "label",
+        "type": "input",
         "unit": "",
         "value": "德江坞",
       },
