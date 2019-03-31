@@ -9,6 +9,7 @@ import { MapBox } from '../MapBox';
 import { formatDate } from '../../util';
 import { updatePageMapBoxOnAddProps } from './DataController';
 import FunctionalButton from './FunctionalButton';
+import SearchBar from './SearchBar';
 import './css/Container-core.css';
 
 type GroupType = 'list-page' | 'update-page' | 'detail-page' | 'map-box';
@@ -47,6 +48,7 @@ export interface ContainerCoreState {
   currentState: number;
   updatePageStatus: UpdatePageStatus;
   mapBoxTargetKey: string;
+  showSearchBar: boolean;
 }
 
 export default class ContainerCore extends Component<
@@ -64,6 +66,7 @@ export default class ContainerCore extends Component<
     currentState: 0,
     updatePageStatus: 'add',
     mapBoxTargetKey: '',
+    showSearchBar: true,
   };
 
   history: {
@@ -370,7 +373,7 @@ export default class ContainerCore extends Component<
 
   render = () => {
     const { state, props } = this;
-    const { currentOrder, currentGroup } = state;
+    const { currentOrder, currentGroup, showSearchBar } = state;
 
     return (
       <div className="Container-core">
@@ -383,7 +386,14 @@ export default class ContainerCore extends Component<
           {this.renderUpdatePage()}
           {this.renderMapBox()}
         </TransformManager>
-        {this.renderFunctionalButton()}
+        {currentGroup === 'list-page' && this.renderFunctionalButton()}
+        {showSearchBar && (
+          <SearchBar
+            dataSource={
+              props.formatControls(null, props.config, props.primaryKey) as any
+            }
+          />
+        )}
         <ActivityIndicator
           animating={props.loading}
           text="正在加载..."
