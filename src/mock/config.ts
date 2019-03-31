@@ -17,7 +17,7 @@ export const originConfig = [
     isvisiable: true,
     defaultvalue: '',
     unit: '',
-    controltype: 99,
+    controltype: 1,
     editpageorderid: 21,
     controlheight: '',
     controlwidth: '',

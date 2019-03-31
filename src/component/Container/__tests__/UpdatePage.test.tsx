@@ -25,14 +25,15 @@ describe('UpdatePage', () => {
       />,
     );
     const listContent = wrapper.find('.am-list-content');
-    expect(listContent.length).toBe(8);
-    expect(listContent.at(0).text()).toBe('dam_cd');
-    expect(listContent.at(1).text()).toBe('datePicker');
-    expect(listContent.at(2).text()).toBe('select');
-    expect(listContent.at(3).text()).toBe('calendar');
-    expect(listContent.at(4).text()).toBe('起始时间');
-    expect(listContent.at(5).text()).toBe('结束时间');
-    expect(listContent.at(6).text()).toBe('mapPicker');
+    expect(listContent.length).toBe(9);
+    expect(listContent.at(0).text()).toBe('pjnm');
+    expect(listContent.at(1).text()).toBe('dam_cd');
+    expect(listContent.at(2).text()).toBe('datePicker');
+    expect(listContent.at(3).text()).toBe('select');
+    expect(listContent.at(4).text()).toBe('calendar');
+    expect(listContent.at(5).text()).toBe('起始时间');
+    expect(listContent.at(6).text()).toBe('结束时间');
+    expect(listContent.at(7).text()).toBe('mapPicker');
   });
 
   it('should update state correctly when status is add', () => {
@@ -50,20 +51,20 @@ describe('UpdatePage', () => {
     // input
     wrapper
       .find('input')
-      .at(0)
+      .at(1)
       .simulate('change', { target: { value: 'test' } });
     expect(wrapper.state().form[1].value).toBe('test');
     // datePicker
     wrapper
       .find('ListItem')
-      .at(1)
+      .at(2)
       .simulate('click');
     wrapper.find('.am-picker-popup-header-right').simulate('click');
     expect(wrapper.state().form[2].value.getDate()).toBe(new Date().getDate());
     // select
     wrapper
       .find('ListItem')
-      .at(2)
+      .at(3)
       .simulate('click');
     wrapper.find('.am-picker-popup-header-right').simulate('click');
     expect(wrapper.state().form[3].value).toBe('value1');

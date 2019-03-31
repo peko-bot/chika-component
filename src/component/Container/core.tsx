@@ -6,9 +6,10 @@ import TransformManager, { TransformManagerItem } from '../TransformManager';
 import DetailFactory from './DetailFactory';
 import UpdatePage, { UpdatePageStatus } from './UpdatePage';
 import { MapBox } from '../MapBox';
-import { formatDate } from '../../util';
+import { formatDate, bindTouchDirection } from '../../util';
 import { updatePageMapBoxOnAddProps } from './DataController';
 import FunctionalButton from './FunctionalButton';
+import SearchBar from './SearchBar';
 import './css/Container-core.css';
 
 type GroupType = 'list-page' | 'update-page' | 'detail-page' | 'map-box';
@@ -47,6 +48,7 @@ export interface ContainerCoreState {
   currentState: number;
   updatePageStatus: UpdatePageStatus;
   mapBoxTargetKey: string;
+  showSearchBar: boolean;
 }
 
 export default class ContainerCore extends Component<
@@ -64,6 +66,7 @@ export default class ContainerCore extends Component<
     currentState: 0,
     updatePageStatus: 'add',
     mapBoxTargetKey: '',
+    showSearchBar: false,
   };
 
   history: {
@@ -72,6 +75,19 @@ export default class ContainerCore extends Component<
   } = {
     group: 'list-page',
     order: -1,
+  };
+
+  componentDidMount = () => {
+    bindTouchDirection(this.content, direction => {
+      switch (direction) {
+        case 'toRight':
+          this.setState({ showSearchBar: true });
+          break;
+
+        default:
+          break;
+      }
+    });
   };
 
   backToList = () => {
@@ -273,18 +289,20 @@ export default class ContainerCore extends Component<
     const { children, dataSource } = this.props;
     return (
       <TransformManagerItem group="list-page" order={0} key="list-page-0">
-        <div
-          className="sc-content"
-          ref={(ref: HTMLDivElement) => (this.content = ref)}
-        >
-          <Template
-            template={children}
-            dataSource={dataSource}
-            onDataFormat={this.handleChildDataFormat}
-            onClick={this.handleTemplateClick}
-            onPress={this.handleTemplatePress}
-          />
-        </div>
+        {this.renderSearchBar(
+          <div
+            className="sc-content"
+            ref={(ref: HTMLDivElement) => (this.content = ref)}
+          >
+            <Template
+              template={children}
+              dataSource={dataSource}
+              onDataFormat={this.handleChildDataFormat}
+              onClick={this.handleTemplateClick}
+              onPress={this.handleTemplatePress}
+            />
+          </div>,
+        )}
       </TransformManagerItem>
     );
   };
@@ -368,6 +386,21 @@ export default class ContainerCore extends Component<
     );
   };
 
+  renderSearchBar = (children?: React.ReactChild) => {
+    const props = this.props;
+    const { showSearchBar } = this.state;
+    return (
+      <SearchBar
+        dataSource={
+          props.formatControls(null, props.config, props.primaryKey) as any
+        }
+        visible={showSearchBar}
+        onVisibleChange={showSearchBar => this.setState({ showSearchBar })}
+        children={children}
+      />
+    );
+  };
+
   render = () => {
     const { state, props } = this;
     const { currentOrder, currentGroup } = state;
@@ -383,7 +416,7 @@ export default class ContainerCore extends Component<
           {this.renderUpdatePage()}
           {this.renderMapBox()}
         </TransformManager>
-        {this.renderFunctionalButton()}
+        {currentGroup === 'list-page' && this.renderFunctionalButton()}
         <ActivityIndicator
           animating={props.loading}
           text="正在加载..."
