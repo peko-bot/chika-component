@@ -88,12 +88,6 @@
   height: 40px;
 }
 
-.Container-core .sc-search-drawer {
-  /* position: absolute;
-    overflow: auto;
-    -webkit-overflow-scrolling: touch; */
-}
-
 .Container-core .sc-search-drawer .am-drawer-sidebar {
   background-color: #fff;
   overflow: auto;
@@ -107,8 +101,6 @@
 .Container-core .am-list .am-list-extra {
   flex-basis: 50%;
 }
-
-/* 针对搜索面板的样式调整 */
 
 .Container-core .sc-search-drawer .am-list-item-middle {
   background-color: rgba(0, 0, 0, .4);

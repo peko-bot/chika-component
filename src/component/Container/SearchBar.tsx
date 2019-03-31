@@ -30,6 +30,9 @@ export type CalendarItem = {
 };
 export interface SearchBarProps {
   dataSource: Array<any>;
+  visible?: boolean;
+  onVisibleChange?: (visible: boolean) => void;
+  className?: string;
 }
 export type SearchBarState = {
   form: Array<any>;
@@ -48,10 +51,11 @@ export default class SearchBar extends Component<
     prevProps: SearchBarProps,
     prevState: SearchBarState,
   ) {
+    const newState: any = {};
     if (prevProps.dataSource.length !== 0 && prevState.form.length === 0) {
-      return { form: prevProps.dataSource };
+      newState.form = prevProps.dataSource;
     }
-    return null;
+    return newState;
   }
 
   checkValue = (value: any, item: any) => {
@@ -217,6 +221,7 @@ export default class SearchBar extends Component<
   };
 
   render() {
+    const { visible, onVisibleChange, className } = this.props;
     const { calendarVisible, currentCalendarItem } = this.state;
     const sidebar = (
       <React.Fragment>
@@ -236,10 +241,11 @@ export default class SearchBar extends Component<
         <Drawer
           sidebar={sidebar}
           position="left"
-          // open={true}
+          open={visible}
+          className={className}
+          onOpenChange={visible => onVisibleChange && onVisibleChange(visible)}
           sidebarStyle={{ width: '77%', background: '#fff' }}
           overlayStyle={{ backgroundColor: 'transpent' }}
-          enableDragHandle
         >
           <React.Fragment />
         </Drawer>

@@ -6,7 +6,7 @@ import TransformManager, { TransformManagerItem } from '../TransformManager';
 import DetailFactory from './DetailFactory';
 import UpdatePage, { UpdatePageStatus } from './UpdatePage';
 import { MapBox } from '../MapBox';
-import { formatDate } from '../../util';
+import { formatDate, bindTouchDirection } from '../../util';
 import { updatePageMapBoxOnAddProps } from './DataController';
 import FunctionalButton from './FunctionalButton';
 import SearchBar from './SearchBar';
@@ -66,7 +66,7 @@ export default class ContainerCore extends Component<
     currentState: 0,
     updatePageStatus: 'add',
     mapBoxTargetKey: '',
-    showSearchBar: true,
+    showSearchBar: false,
   };
 
   history: {
@@ -75,6 +75,19 @@ export default class ContainerCore extends Component<
   } = {
     group: 'list-page',
     order: -1,
+  };
+
+  componentDidMount = () => {
+    bindTouchDirection(this.content, direction => {
+      switch (direction) {
+        case 'toRight':
+          this.setState({ showSearchBar: true });
+          break;
+
+        default:
+          break;
+      }
+    });
   };
 
   backToList = () => {
@@ -371,9 +384,23 @@ export default class ContainerCore extends Component<
     );
   };
 
+  renderSearchBar = () => {
+    const props = this.props;
+    const { showSearchBar } = this.state;
+    return (
+      <SearchBar
+        dataSource={
+          props.formatControls(null, props.config, props.primaryKey) as any
+        }
+        visible={showSearchBar}
+        onVisibleChange={showSearchBar => this.setState({ showSearchBar })}
+      />
+    );
+  };
+
   render = () => {
     const { state, props } = this;
-    const { currentOrder, currentGroup, showSearchBar } = state;
+    const { currentOrder, currentGroup } = state;
 
     return (
       <div className="Container-core">
@@ -387,13 +414,7 @@ export default class ContainerCore extends Component<
           {this.renderMapBox()}
         </TransformManager>
         {currentGroup === 'list-page' && this.renderFunctionalButton()}
-        {showSearchBar && (
-          <SearchBar
-            dataSource={
-              props.formatControls(null, props.config, props.primaryKey) as any
-            }
-          />
-        )}
+        {this.renderSearchBar()}
         <ActivityIndicator
           animating={props.loading}
           text="正在加载..."
