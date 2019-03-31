@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { List, Button } from 'antd-mobile';
 import { PropsGoToMaxBox } from './core';
+import { bindTouchDirection } from '../../util';
 import Arrow from './DetailArrow';
 
 export interface DetailFactoryProps {
@@ -15,6 +16,26 @@ export interface DetailFactoryProps {
 }
 
 export default class DetailFactory extends Component<DetailFactoryProps> {
+  content: HTMLDivElement;
+
+  componentDidMount = () => {
+    bindTouchDirection(this.content, direction => {
+      const { onPageChange } = this.props;
+      switch (direction) {
+        case 'toRight':
+          onPageChange && onPageChange('last');
+          break;
+
+        case 'toLeft':
+          onPageChange && onPageChange('next');
+          break;
+
+        default:
+          break;
+      }
+    });
+  };
+
   handleControls = (item: any, index: number) => {
     const { onDataFormat, onMapBoxChange } = this.props;
     const { type, value, name } = item;
@@ -85,7 +106,7 @@ export default class DetailFactory extends Component<DetailFactoryProps> {
       maxPage,
     } = this.props;
     return (
-      <div className="DetailFactory">
+      <div className="DetailFactory" ref={ref => ref && (this.content = ref)}>
         <Arrow
           onClick={onPageChange}
           showLast={currentOrder !== minPage}
