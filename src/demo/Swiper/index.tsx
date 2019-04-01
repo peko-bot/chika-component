@@ -1,40 +1,41 @@
 import React from 'react';
 import Swiper from '../../component/Swiper';
 import './css/Swiper_demo.css';
-const secRecordPath = '/mock/s_problem_record_hy.json';
+const secRecordPath = '/mock/swiper.json';
+import { ajax } from '../../util/urlHelper';
 
 export default class SwiperDemo extends React.Component {
   swiper: any;
-  state: { datas: Array<any> } = {
+  state: { datas: Array<any>; loading: boolean } = {
     datas: [],
+    loading: false,
   };
 
   dataSource = [];
   componentDidMount = () => {
-    fetch(secRecordPath)
-      .then(result => result.json())
-      .then(result => {
-        this.setState({ datas: result }, () => {
-          this.swiper.reset();
-        });
-      });
+    this.setState({ loading: true });
+    ajax({
+      url: secRecordPath,
+      success: result => this.setState({ datas: result, loading: false }),
+    });
   };
 
   refresh = () => {
-    fetch(secRecordPath)
-      .then(result => result.json())
-      .then(result => {
+    this.setState({ loading: true });
+    ajax({
+      url: secRecordPath,
+      success: result => {
         setTimeout(() => {
-          this.setState({ datas: result }, () => {
-            this.swiper.cancelRefresh();
-          });
+          this.setState({ datas: result, loading: false });
         }, 1000);
-      });
+      },
+    });
   };
 
   load = () => {
+    this.setState({ loading: true });
     setTimeout(() => {
-      this.swiper.cancelLoad();
+      this.setState({ loading: false });
     }, 1000);
   };
 
@@ -44,6 +45,7 @@ export default class SwiperDemo extends React.Component {
 
   render() {
     const { onClick } = this;
+    const { loading } = this.state;
 
     return (
       <div className="Swiper_demo">
@@ -53,12 +55,12 @@ export default class SwiperDemo extends React.Component {
           sensibility={1}
           onRefresh={this.refresh}
           onLoad={this.load}
-          ref={ref => (this.swiper = ref)}
+          loading={loading}
         >
           <ul>
             {this.state.datas.map((item, i) => {
               return (
-                <li key={`datas_${i}`} onClick={() => onClick(item)}>
+                <li key={i} onClick={() => onClick(item)}>
                   {item}
                 </li>
               );

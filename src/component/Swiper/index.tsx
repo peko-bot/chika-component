@@ -13,11 +13,11 @@ type SpinnerParam = {
 };
 export interface SwiperProps {
   wrapperHeight: number;
+  loading: boolean;
   sensibility?: number;
   duration?: number;
   onRefresh?: () => void;
   onLoad?: () => void;
-  loading?: boolean;
 }
 export interface SwiperState {
   distance: number;
@@ -56,11 +56,7 @@ export default class Swiper extends React.Component<SwiperProps, SwiperState> {
   }
 
   componentDidMount = () => {
-    this.eventBind(this.wrapper);
-  };
-
-  reset = () => {
-    this.getChildHeight();
+    this.bindEvent(this.wrapper);
   };
 
   getChildHeight = () => {
@@ -70,20 +66,19 @@ export default class Swiper extends React.Component<SwiperProps, SwiperState> {
     this.scrollerHeight = scrollHeight;
   };
 
-  eventBind = (refs: any) => {
+  bindEvent = (refs: any) => {
     const { sensibility = 1 } = this.props;
 
     refs.addEventListener('touchstart', (e: any) => {
-      // record coordinate before sliding
+      // record coordinate before touch start
       this.startY = e.touches[0].pageY;
       this.setState({ refreshEnd: false, loadEnd: false });
     });
 
     refs.addEventListener('touchmove', (e: any) => {
-      // 放在touchstart里会覆盖children里的click事件
       e.preventDefault();
-      // 计算容器滑过的距离
-      let distance =
+      // distance of wrapper moving
+      const distance =
         (e.touches[0].pageY - this.startY) / sensibility + this.endY;
       let iconDeg;
       if (distance > 44) {
@@ -96,22 +91,21 @@ export default class Swiper extends React.Component<SwiperProps, SwiperState> {
         // 下方的加载偷懒没写箭头变换以及未超过44的行为，mark
         iconDeg = 180;
       }
-
       this.setState({ distance, iconDeg });
     });
 
     refs.addEventListener('touchend', () => {
-      let { distance } = this.state;
-
+      const { onRefresh, onLoad } = this.props;
+      const { distance } = this.state;
       if (distance > 44) {
         // 拖到顶部的情况
-        if (this.props.onRefresh) {
+        if (onRefresh) {
           this.setState({
             refreshImg: this.loading,
             refreshText: '刷新中...',
             distance: 44,
           });
-          this.props.onRefresh();
+          onRefresh();
         }
       } else if (distance > 0 && distance <= 44) {
         // 上方div未超过44的情况
@@ -120,14 +114,13 @@ export default class Swiper extends React.Component<SwiperProps, SwiperState> {
         // 拖动到底部的情况
         const { offsetHeight, scrollHeight } = this.scroller;
         const differHeight = scrollHeight - offsetHeight;
-
         // 超出边界回弹
+        // 这里不能写等于，不然容器拖到底部时，touchstart会触发加载事件
         if (Math.abs(distance) > differHeight) {
-          // 这里不能写等于，不然容器拖到底部时，touchstart会触发加载事件
           this.endY = -differHeight;
           // 下拉加载
-          if (this.props.onLoad) {
-            this.props.onLoad();
+          if (onLoad) {
+            onLoad();
             this.setState({
               loadText: '加载中...',
               loadImg: this.loading,
@@ -147,50 +140,6 @@ export default class Swiper extends React.Component<SwiperProps, SwiperState> {
         loadEnd: true,
       });
     });
-  };
-
-  cancelRefresh = () => {
-    // 上方div在加载完后显示更新成功
-    this.setState(
-      {
-        refreshImg: this.complete,
-        refreshText: '刷新成功',
-        iconDeg: 0,
-      },
-      () => {
-        // 滑回去
-        setTimeout(() => {
-          this.reset();
-          this.setState({
-            refreshImg: this.down,
-            distance: 0,
-            refreshText: '下拉刷新',
-          });
-        }, 1000);
-      },
-    );
-  };
-
-  cancelLoad = (finishText = '加载完成') => {
-    // 下方div在加载完后显示加载成功
-    this.setState(
-      {
-        loadImg: this.complete,
-        loadText: finishText,
-        iconDeg: 0,
-      },
-      () => {
-        // 滑回去
-        setTimeout(() => {
-          this.reset();
-          this.setState({
-            loadImg: this.down,
-            distance: this.endY,
-            loadText: '加载更多',
-          });
-        }, 1000);
-      },
-    );
   };
 
   generateStyle = () => {
