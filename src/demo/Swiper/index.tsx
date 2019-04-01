@@ -38,8 +38,7 @@ export default class SwiperDemo extends React.Component {
     }, 1000);
   };
 
-  onClick = (i: number) => {
-    // eslint-disable-next-line
+  onClick = (i: string) => {
     console.log(i);
   };
 
@@ -49,9 +48,11 @@ export default class SwiperDemo extends React.Component {
     return (
       <div className="Swiper_demo">
         <Swiper
-          config={this.config}
-          refresh={this.refresh}
-          load={this.load}
+          wrapperHeight={500}
+          duration={0.5}
+          sensibility={1}
+          onRefresh={this.refresh}
+          onLoad={this.load}
           ref={ref => (this.swiper = ref)}
         >
           <ul>
@@ -67,14 +68,4 @@ export default class SwiperDemo extends React.Component {
       </div>
     );
   }
-
-  height = document.documentElement.clientHeight || document.body.clientHeight;
-
-  config = {
-    wrapperHeight: 500, // 容器高度
-    duration: 0.5, // 弹回时间
-    sensibility: 1, // 灵敏度
-    // refresh: false,
-    // load: false,
-  };
 }
