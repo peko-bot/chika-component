@@ -20,14 +20,18 @@ export default class DetailFactory extends Component<DetailFactoryProps> {
 
   componentDidMount = () => {
     bindTouchDirection(this.content, direction => {
-      const { onPageChange } = this.props;
+      const { onPageChange, currentOrder, minPage, maxPage } = this.props;
       switch (direction) {
         case 'toRight':
-          onPageChange && onPageChange('last');
+          if (currentOrder !== minPage) {
+            onPageChange && onPageChange('last');
+          }
           break;
 
         case 'toLeft':
-          onPageChange && onPageChange('next');
+          if (currentOrder !== maxPage) {
+            onPageChange && onPageChange('next');
+          }
           break;
 
         default:
