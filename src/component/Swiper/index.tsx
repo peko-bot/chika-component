@@ -2,6 +2,15 @@ import React from 'react';
 import './css/Swiper.css';
 import classNames from 'classnames';
 
+type SpinnerType = 'load' | 'refresh';
+type SpinnerParam = {
+  type: SpinnerType;
+  relatedStyle: React.CSSProperties;
+  relatedText: string;
+  iconUrl: string;
+  iconDeg: number;
+  isFinished: boolean;
+};
 export interface SwiperProps {
   wrapperHeight: number;
   sensibility?: number;
@@ -184,16 +193,62 @@ export default class Swiper extends React.Component<SwiperProps, SwiperState> {
     );
   };
 
+  generateStyle = () => {
+    const { wrapperHeight, duration = 1 } = this.props;
+    const { distance, refreshEnd, loadEnd } = this.state;
+    const clientHeight =
+      document.documentElement.clientHeight || document.body.clientHeight;
+    const refreshStyle: React.CSSProperties = {};
+    const loadStyle: React.CSSProperties = {};
+    let wrapperStyle: React.CSSProperties = {};
+    const transform = `translate3d(0px, ${distance}px, 0)`;
+    const transition = `all ${duration}s ease`;
+
+    refreshStyle.transform = transform;
+    if (refreshEnd) refreshStyle.transition = transition;
+
+    loadStyle.transform = transform;
+    loadStyle.top = this.scrollerHeight;
+    if (loadEnd) loadStyle.transition = transition;
+
+    wrapperStyle = {
+      ...refreshStyle,
+      height: wrapperHeight || clientHeight,
+    };
+
+    return { wrapperStyle, loadStyle, refreshStyle };
+  };
+
+  renderSpinner = ({
+    type,
+    isFinished,
+    relatedStyle,
+    iconUrl,
+    iconDeg,
+    relatedText,
+  }: SpinnerParam) => {
+    return (
+      <div
+        className={classNames({
+          [type]: true,
+          [`${type}-end`]: isFinished,
+        })}
+        style={relatedStyle}
+      >
+        <span
+          className={`${type}-icon`}
+          style={{ transform: `rotateZ(${iconDeg}deg)` }}
+        >
+          <img src={iconUrl} />
+        </span>
+        <span className={`${type}-text`}>{relatedText}</span>
+      </div>
+    );
+  };
+
   render() {
+    const { onRefresh, onLoad, children } = this.props;
     const {
-      wrapperHeight,
-      onRefresh,
-      onLoad,
-      children,
-      duration = 1,
-    } = this.props;
-    const {
-      distance,
       iconDeg,
       refreshEnd,
       refreshText,
@@ -202,83 +257,32 @@ export default class Swiper extends React.Component<SwiperProps, SwiperState> {
       loadText,
       loadImg,
     } = this.state;
-    const clientHeight =
-      document.documentElement.clientHeight || document.body.clientHeight;
-    const commonStyle = {
-      transform: `translate3d(0px, ${distance}px, 0)`,
-    };
-    let refreshStyle = {
-      transform: `translate3d(0px, ${distance}px, 0)`,
-    };
-    if (refreshEnd)
-      refreshStyle = Object.assign(commonStyle, {
-        transition: `all ${duration}s ease`,
-      });
-    let loadStyle = {
-      ...commonStyle,
-      top: this.scrollerHeight,
-    };
-    if (loadEnd)
-      loadStyle = Object.assign(loadStyle, {
-        top: this.scrollerHeight,
-        transition: `all ${duration}s ease`,
-      });
-    const wrapStyle = Object.assign(
-      { height: wrapperHeight || clientHeight },
-      refreshStyle,
-    );
+    const { refreshStyle, wrapperStyle, loadStyle } = this.generateStyle();
 
-    let refresh: React.ReactElement | null = null;
-    if (onRefresh) {
-      refresh = (
-        <div
-          className={classNames({
-            refresh: true,
-            'refresh-end': refreshEnd,
-          })}
-          style={refreshStyle}
-        >
-          <span
-            className="refresh-icon"
-            style={{ transform: `rotateZ(${iconDeg}deg)` }}
-          >
-            <img src={refreshImg} />
-          </span>
-          <span className="refresh-text">{refreshText}</span>
-        </div>
-      );
-    }
-
-    let load: React.ReactElement | null = null;
-    if (onLoad) {
-      load = (
-        <div
-          className={classNames({
-            load: true,
-            'load-end': loadEnd,
-          })}
-          style={loadStyle}
-        >
-          <span
-            className="load-icon"
-            style={{ transform: `rotateZ(${iconDeg}deg)` }}
-          >
-            <img src={loadImg} />
-          </span>
-          <span className="load-text">{loadText}</span>
-        </div>
-      );
-    }
-
-    console.log(wrapStyle, loadStyle, refreshStyle);
     return (
       <div className="Swiper">
         <div ref={ref => (this.wrapper = ref)} className="wrapper">
-          <div style={wrapStyle} ref={ref => ref && (this.scroller = ref)}>
+          <div style={wrapperStyle} ref={ref => ref && (this.scroller = ref)}>
             {children}
           </div>
-          {refresh}
-          {load}
+          {onRefresh &&
+            this.renderSpinner({
+              type: 'refresh',
+              isFinished: refreshEnd,
+              relatedStyle: refreshStyle,
+              iconUrl: refreshImg,
+              iconDeg,
+              relatedText: refreshText,
+            })}
+          {onLoad &&
+            this.renderSpinner({
+              type: 'load',
+              isFinished: loadEnd,
+              relatedStyle: loadStyle,
+              iconUrl: loadImg,
+              iconDeg,
+              relatedText: loadText,
+            })}
         </div>
       </div>
     );
