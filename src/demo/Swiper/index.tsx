@@ -49,7 +49,7 @@ export default class SwiperDemo extends React.Component {
       <div className="Swiper_demo">
         <Swiper
           wrapperHeight={500}
-          duration={0.5}
+          duration={0.7}
           sensibility={1}
           onRefresh={this.refresh}
           onLoad={this.load}

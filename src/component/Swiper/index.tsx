@@ -1,12 +1,14 @@
 import React from 'react';
 import './css/Swiper.css';
+import classNames from 'classnames';
 
 export interface SwiperProps {
   wrapperHeight: number;
-  sensibility: number;
-  duration: number;
+  sensibility?: number;
+  duration?: number;
   onRefresh?: () => void;
   onLoad?: () => void;
+  loading?: boolean;
 }
 export interface SwiperState {
   distance: number;
@@ -17,20 +19,18 @@ export interface SwiperState {
   refreshImg: string;
   loadText: string;
   loadImg: string;
-  duration: number;
 }
 
 export default class Swiper extends React.Component<SwiperProps, SwiperState> {
+  wrapper: HTMLDivElement | null;
+  scroller: HTMLDivElement;
   startY = 0;
   endY = 0;
   down = '../../assets/Swiper/down.png';
   loading = '../../assets/Swiper/loading.gif';
   complete = '../../assets/Swiper/complete.png';
-  scrollerHeight = 1000;
+  scrollerHeight = 10000;
   bottomHeight = 0;
-  wrapper: any;
-  scroller: any;
-  timer: any;
 
   constructor(props: SwiperProps) {
     super(props);
@@ -39,7 +39,6 @@ export default class Swiper extends React.Component<SwiperProps, SwiperState> {
       iconDeg: 0, // 箭头变换角度
       refreshEnd: false, // 刷新是否完成
       loadEnd: false, // 加载是否完成
-      duration: 0,
       refreshText: '下拉刷新',
       refreshImg: this.down,
       loadText: '加载更多',
@@ -63,10 +62,9 @@ export default class Swiper extends React.Component<SwiperProps, SwiperState> {
   };
 
   eventBind = (refs: any) => {
-    const { sensibility, duration } = this.props;
+    const { sensibility = 1 } = this.props;
 
     refs.addEventListener('touchstart', (e: any) => {
-      this.timer = new Date().getTime();
       // record coordinate before sliding
       this.startY = e.touches[0].pageY;
       this.setState({ refreshEnd: false, loadEnd: false });
@@ -135,17 +133,10 @@ export default class Swiper extends React.Component<SwiperProps, SwiperState> {
         }
       }
 
-      this.setState(
-        {
-          refreshEnd: true,
-          loadEnd: true,
-          // the longer the sliding time, the slower the rebound
-          duration: duration || (new Date().getTime() - this.timer) / 1000,
-        },
-        () => {
-          this.timer = null;
-        },
-      );
+      this.setState({
+        refreshEnd: true,
+        loadEnd: true,
+      });
     });
   };
 
@@ -194,52 +185,57 @@ export default class Swiper extends React.Component<SwiperProps, SwiperState> {
   };
 
   render() {
-    const { wrapperHeight, onRefresh, onLoad } = this.props;
+    const {
+      wrapperHeight,
+      onRefresh,
+      onLoad,
+      children,
+      duration = 1,
+    } = this.props;
     const {
       distance,
       iconDeg,
       refreshEnd,
-      duration,
       refreshText,
       refreshImg,
       loadEnd,
       loadText,
       loadImg,
     } = this.state;
-    const defaultHeight =
+    const clientHeight =
       document.documentElement.clientHeight || document.body.clientHeight;
-
+    const commonStyle = {
+      transform: `translate3d(0px, ${distance}px, 0)`,
+    };
     let refreshStyle = {
       transform: `translate3d(0px, ${distance}px, 0)`,
     };
-
     if (refreshEnd)
-      refreshStyle = Object.assign(refreshStyle, {
+      refreshStyle = Object.assign(commonStyle, {
         transition: `all ${duration}s ease`,
       });
-
     let loadStyle = {
-      transform: `translate3d(0px, ${distance}px, 0)`,
+      ...commonStyle,
       top: this.scrollerHeight,
     };
-
     if (loadEnd)
       loadStyle = Object.assign(loadStyle, {
         top: this.scrollerHeight,
         transition: `all ${duration}s ease`,
       });
-
-    let wrapStyle = Object.assign(
-      {},
-      { height: wrapperHeight || defaultHeight },
+    const wrapStyle = Object.assign(
+      { height: wrapperHeight || clientHeight },
       refreshStyle,
     );
 
-    let refresh: React.ReactElement;
+    let refresh: React.ReactElement | null = null;
     if (onRefresh) {
       refresh = (
         <div
-          className={refreshEnd ? 'refresh refresh-end' : 'refresh'}
+          className={classNames({
+            refresh: true,
+            'refresh-end': refreshEnd,
+          })}
           style={refreshStyle}
         >
           <span
@@ -253,10 +249,16 @@ export default class Swiper extends React.Component<SwiperProps, SwiperState> {
       );
     }
 
-    let load: React.ReactElement;
+    let load: React.ReactElement | null = null;
     if (onLoad) {
       load = (
-        <div className={loadEnd ? 'load load-end' : 'load'} style={loadStyle}>
+        <div
+          className={classNames({
+            load: true,
+            'load-end': loadEnd,
+          })}
+          style={loadStyle}
+        >
           <span
             className="load-icon"
             style={{ transform: `rotateZ(${iconDeg}deg)` }}
@@ -268,24 +270,15 @@ export default class Swiper extends React.Component<SwiperProps, SwiperState> {
       );
     }
 
+    console.log(wrapStyle, loadStyle, refreshStyle);
     return (
       <div className="Swiper">
-        <div ref={(ref: any) => (this.wrapper = ref)} className="wrapper">
-          {React.Children.map(this.props.children, (child: any) => {
-            child = React.cloneElement(child, { className: 'child-z-index-8' });
-            return (
-              <div>
-                <div
-                  style={wrapStyle}
-                  ref={(ref: any) => (this.scroller = ref)}
-                >
-                  {child}
-                </div>
-                {refresh}
-                {load}
-              </div>
-            );
-          })}
+        <div ref={ref => (this.wrapper = ref)} className="wrapper">
+          <div style={wrapStyle} ref={ref => ref && (this.scroller = ref)}>
+            {children}
+          </div>
+          {refresh}
+          {load}
         </div>
       </div>
     );
