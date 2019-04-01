@@ -13,6 +13,7 @@ export interface DetailFactoryProps {
   currentOrder?: number;
   minPage?: number;
   maxPage?: number;
+  showArrow?: boolean;
 }
 
 export default class DetailFactory extends Component<DetailFactoryProps> {
@@ -108,14 +109,18 @@ export default class DetailFactory extends Component<DetailFactoryProps> {
       currentOrder,
       minPage,
       maxPage,
+      showArrow,
     } = this.props;
     return (
       <div className="DetailFactory" ref={ref => ref && (this.content = ref)}>
-        <Arrow
-          onClick={onPageChange}
-          showLast={currentOrder !== minPage}
-          showNext={currentOrder !== maxPage}
-        />
+        {showArrow && (
+          <Arrow
+            onClick={onPageChange}
+            showLast={currentOrder !== minPage}
+            showNext={currentOrder !== maxPage}
+          />
+        )}
+
         <List>
           <List.Item>
             {dataSource.map((item, i) => this.handleControls(item, i))}
