@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Swiper render correctly 1`] = `
+<Swiper
+  duration={0.7}
+  sensibility={1}
+  wrapperHeight={500}
+>
+  <div
+    className="Swiper"
+  >
+    <div
+      className="wrapper"
+    >
+      <div
+        style={
+          Object {
+            "height": 500,
+            "transform": "translate3d(0px, 0px, 0)",
+          }
+        }
+      >
+        test
+      </div>
+    </div>
+  </div>
+</Swiper>
+`;
