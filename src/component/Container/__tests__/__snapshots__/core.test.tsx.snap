@@ -212,173 +212,179 @@ exports[`core render correctly 1`] = `
         onVisibleChange={[Function]}
         visible={false}
       >
-        <div
-          className="sc-content"
+        <Swiper
+          loading={false}
+          onLoad={[Function]}
+          wrapperHeight={0}
         >
-          <Template
-            dataSource={
-              Array [
-                Object {
-                  "calendar": "2018-04-03 00:00:00,2018-04-04 00:00:00",
-                  "checkbox": "checkbox1",
-                  "crest_length": 63,
-                  "dam_cd": "Z000001",
-                  "dam_width": 16,
-                  "datePicker": 2017-08-09T08:00:00.000Z,
-                  "mapPicker": "116.30038976669313|39.89520118467971|杭州1",
-                  "pjnm": "德江坞",
-                  "retain_dam_type": "堆石坝",
-                  "rownum": 1,
-                  "select": "value1",
-                  "upload": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\",\\"id\\": 1}]",
-                },
-                Object {
-                  "calendar": "2018-04-03 00:00:00,2018-04-04 00:00:00",
-                  "checkbox": "checkbox3",
-                  "crest_length": 13.8,
-                  "dam_cd": "Z000002",
-                  "dam_width": 0.7,
-                  "datePicker": 2017-08-09T08:00:00.000Z,
-                  "mapPicker": "116.30038976669313|39.89520118467971|杭州",
-                  "pjnm": "六谷地村混凝土堰坝1",
-                  "retain_dam_type": "堆石坝",
-                  "rownum": 2,
-                  "select": "value1",
-                  "upload": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\", \\"id\\": 2}]",
-                },
-                Object {
-                  "calendar": "2018-04-03 00:00:00,2018-04-04 00:00:00",
-                  "checkbox": "checkbox3",
-                  "crest_length": 42.4,
-                  "dam_cd": "Z000003",
-                  "dam_width": 2.4,
-                  "datePicker": 2017-08-09T08:00:00.000Z,
-                  "mapPicker": "116.30038976669313|39.89520118467971|杭州",
-                  "pjnm": "赤龙坝",
-                  "retain_dam_type": "混凝土坝",
-                  "rownum": 3,
-                  "select": "value1",
-                  "upload": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\", \\"id\\": 3}]",
-                },
-                Object {
-                  "calendar": "2018-04-03 00:00:00,2018-04-04 00:00:00",
-                  "checkbox": "checkbox2",
-                  "crest_length": 45,
-                  "dam_cd": "Z000004",
-                  "dam_width": 3.5,
-                  "datePicker": 2017-08-09T08:00:00.000Z,
-                  "mapPicker": "116.30038976669313|39.89520118467971|杭州",
-                  "pjnm": "湖家埭坝2",
-                  "retain_dam_type": "混凝土坝",
-                  "rownum": 4,
-                  "select": "value1",
-                  "upload": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\", \\"id\\": 4}]",
-                },
-                Object {
-                  "calendar": "2018-04-03 00:00:00,2018-04-04 00:00:00",
-                  "checkbox": "checkbox2",
-                  "crest_length": 34,
-                  "dam_cd": "Z000005",
-                  "dam_width": 6.2,
-                  "datePicker": 2017-08-09T08:00:00.000Z,
-                  "mapPicker": "116.30038976669313|39.89520118467971|杭州",
-                  "pjnm": "家猫坞山塘",
-                  "retain_dam_type": "混凝土坝",
-                  "rownum": 5,
-                  "select": "value1",
-                  "upload": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\", \\"id\\": 5}]",
-                },
-                Object {
-                  "calendar": "2018-04-03 00:00:00,2018-04-04 00:00:00",
-                  "checkbox": "checkbox1",
-                  "crest_length": 66,
-                  "dam_cd": "Z000006",
-                  "dam_width": 16,
-                  "datePicker": 2017-08-09T08:00:00.000Z,
-                  "mapPicker": "116.30038976669313|39.89520118467971|杭州",
-                  "pjnm": "南塘坞山塘",
-                  "retain_dam_type": "混凝土坝",
-                  "rownum": 6,
-                  "select": "value1",
-                  "upload": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\", \\"id\\": 6}]",
-                },
-                Object {
-                  "calendar": "2018-04-03 00:00:00,2018-04-04 00:00:00",
-                  "checkbox": "checkbox1",
-                  "crest_length": 38,
-                  "dam_cd": "Z000007",
-                  "dam_width": 12.1,
-                  "datePicker": 2017-08-09T08:00:00.000Z,
-                  "mapPicker": "116.30038976669313|39.89520118467971|杭州",
-                  "pjnm": "西步坞山塘",
-                  "retain_dam_type": "混凝土坝",
-                  "rownum": 7,
-                  "select": "value1",
-                  "upload": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\", \\"id\\": 7}]",
-                },
-                Object {
-                  "calendar": "2018-04-03 00:00:00,2018-04-04 00:00:00",
-                  "checkbox": "checkbox1",
-                  "crest_length": 22,
-                  "dam_cd": "Z000008",
-                  "dam_width": 0.9,
-                  "datePicker": 2017-08-09T08:00:00.000Z,
-                  "mapPicker": "116.30038976669313|39.89520118467971|杭州",
-                  "pjnm": "东沈村混凝土堰坝1",
-                  "retain_dam_type": "混凝土坝",
-                  "rownum": 8,
-                  "select": "value1",
-                  "upload": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\", \\"id\\": 8}]",
-                },
-                Object {
-                  "calendar": "2018-04-03 00:00:00,2018-04-04 00:00:00",
-                  "checkbox": "checkbox1",
-                  "crest_length": 17.3,
-                  "dam_cd": "Z000009",
-                  "dam_width": 1.6,
-                  "datePicker": 2017-08-09T08:00:00.000Z,
-                  "mapPicker": "116.30038976669313|39.89520118467971|杭州",
-                  "pjnm": "东沈村混凝土堰坝2",
-                  "retain_dam_type": "混凝土坝",
-                  "rownum": 9,
-                  "select": "value1",
-                  "upload": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\", \\"id\\": 9}]",
-                },
-                Object {
-                  "calendar": "2018-04-03 00:00:00,2018-04-04 00:00:00",
-                  "checkbox": "checkbox1",
-                  "crest_length": 15,
-                  "dam_cd": "Z000010",
-                  "dam_width": 1.2,
-                  "datePicker": 2017-08-09T08:00:00.000Z,
-                  "mapPicker": "116.30038976669313|39.89520118467971|杭州",
-                  "pjnm": "东沈村混凝土堰坝3",
-                  "retain_dam_type": "混凝土坝",
-                  "rownum": 10,
-                  "select": "value1",
-                  "upload": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\", \\"id\\": 10}]",
-                },
-              ]
-            }
-            onClick={[Function]}
-            onDataFormat={[Function]}
-            onPress={[Function]}
-            template={
-              <React.Fragment>
-                <div
-                  data-key="pjnm"
-                >
-                  1
-                </div>
-                <div
-                  data-key="dam_cd"
-                >
-                  2
-                </div>
-              </React.Fragment>
-            }
-          />
-        </div>
+          <div
+            className="sc-content"
+          >
+            <Template
+              dataSource={
+                Array [
+                  Object {
+                    "calendar": "2018-04-03 00:00:00,2018-04-04 00:00:00",
+                    "checkbox": "checkbox1",
+                    "crest_length": 63,
+                    "dam_cd": "Z000001",
+                    "dam_width": 16,
+                    "datePicker": 2017-08-09T08:00:00.000Z,
+                    "mapPicker": "116.30038976669313|39.89520118467971|杭州1",
+                    "pjnm": "德江坞",
+                    "retain_dam_type": "堆石坝",
+                    "rownum": 1,
+                    "select": "value1",
+                    "upload": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\",\\"id\\": 1}]",
+                  },
+                  Object {
+                    "calendar": "2018-04-03 00:00:00,2018-04-04 00:00:00",
+                    "checkbox": "checkbox3",
+                    "crest_length": 13.8,
+                    "dam_cd": "Z000002",
+                    "dam_width": 0.7,
+                    "datePicker": 2017-08-09T08:00:00.000Z,
+                    "mapPicker": "116.30038976669313|39.89520118467971|杭州",
+                    "pjnm": "六谷地村混凝土堰坝1",
+                    "retain_dam_type": "堆石坝",
+                    "rownum": 2,
+                    "select": "value1",
+                    "upload": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\", \\"id\\": 2}]",
+                  },
+                  Object {
+                    "calendar": "2018-04-03 00:00:00,2018-04-04 00:00:00",
+                    "checkbox": "checkbox3",
+                    "crest_length": 42.4,
+                    "dam_cd": "Z000003",
+                    "dam_width": 2.4,
+                    "datePicker": 2017-08-09T08:00:00.000Z,
+                    "mapPicker": "116.30038976669313|39.89520118467971|杭州",
+                    "pjnm": "赤龙坝",
+                    "retain_dam_type": "混凝土坝",
+                    "rownum": 3,
+                    "select": "value1",
+                    "upload": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\", \\"id\\": 3}]",
+                  },
+                  Object {
+                    "calendar": "2018-04-03 00:00:00,2018-04-04 00:00:00",
+                    "checkbox": "checkbox2",
+                    "crest_length": 45,
+                    "dam_cd": "Z000004",
+                    "dam_width": 3.5,
+                    "datePicker": 2017-08-09T08:00:00.000Z,
+                    "mapPicker": "116.30038976669313|39.89520118467971|杭州",
+                    "pjnm": "湖家埭坝2",
+                    "retain_dam_type": "混凝土坝",
+                    "rownum": 4,
+                    "select": "value1",
+                    "upload": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\", \\"id\\": 4}]",
+                  },
+                  Object {
+                    "calendar": "2018-04-03 00:00:00,2018-04-04 00:00:00",
+                    "checkbox": "checkbox2",
+                    "crest_length": 34,
+                    "dam_cd": "Z000005",
+                    "dam_width": 6.2,
+                    "datePicker": 2017-08-09T08:00:00.000Z,
+                    "mapPicker": "116.30038976669313|39.89520118467971|杭州",
+                    "pjnm": "家猫坞山塘",
+                    "retain_dam_type": "混凝土坝",
+                    "rownum": 5,
+                    "select": "value1",
+                    "upload": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\", \\"id\\": 5}]",
+                  },
+                  Object {
+                    "calendar": "2018-04-03 00:00:00,2018-04-04 00:00:00",
+                    "checkbox": "checkbox1",
+                    "crest_length": 66,
+                    "dam_cd": "Z000006",
+                    "dam_width": 16,
+                    "datePicker": 2017-08-09T08:00:00.000Z,
+                    "mapPicker": "116.30038976669313|39.89520118467971|杭州",
+                    "pjnm": "南塘坞山塘",
+                    "retain_dam_type": "混凝土坝",
+                    "rownum": 6,
+                    "select": "value1",
+                    "upload": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\", \\"id\\": 6}]",
+                  },
+                  Object {
+                    "calendar": "2018-04-03 00:00:00,2018-04-04 00:00:00",
+                    "checkbox": "checkbox1",
+                    "crest_length": 38,
+                    "dam_cd": "Z000007",
+                    "dam_width": 12.1,
+                    "datePicker": 2017-08-09T08:00:00.000Z,
+                    "mapPicker": "116.30038976669313|39.89520118467971|杭州",
+                    "pjnm": "西步坞山塘",
+                    "retain_dam_type": "混凝土坝",
+                    "rownum": 7,
+                    "select": "value1",
+                    "upload": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\", \\"id\\": 7}]",
+                  },
+                  Object {
+                    "calendar": "2018-04-03 00:00:00,2018-04-04 00:00:00",
+                    "checkbox": "checkbox1",
+                    "crest_length": 22,
+                    "dam_cd": "Z000008",
+                    "dam_width": 0.9,
+                    "datePicker": 2017-08-09T08:00:00.000Z,
+                    "mapPicker": "116.30038976669313|39.89520118467971|杭州",
+                    "pjnm": "东沈村混凝土堰坝1",
+                    "retain_dam_type": "混凝土坝",
+                    "rownum": 8,
+                    "select": "value1",
+                    "upload": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\", \\"id\\": 8}]",
+                  },
+                  Object {
+                    "calendar": "2018-04-03 00:00:00,2018-04-04 00:00:00",
+                    "checkbox": "checkbox1",
+                    "crest_length": 17.3,
+                    "dam_cd": "Z000009",
+                    "dam_width": 1.6,
+                    "datePicker": 2017-08-09T08:00:00.000Z,
+                    "mapPicker": "116.30038976669313|39.89520118467971|杭州",
+                    "pjnm": "东沈村混凝土堰坝2",
+                    "retain_dam_type": "混凝土坝",
+                    "rownum": 9,
+                    "select": "value1",
+                    "upload": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\", \\"id\\": 9}]",
+                  },
+                  Object {
+                    "calendar": "2018-04-03 00:00:00,2018-04-04 00:00:00",
+                    "checkbox": "checkbox1",
+                    "crest_length": 15,
+                    "dam_cd": "Z000010",
+                    "dam_width": 1.2,
+                    "datePicker": 2017-08-09T08:00:00.000Z,
+                    "mapPicker": "116.30038976669313|39.89520118467971|杭州",
+                    "pjnm": "东沈村混凝土堰坝3",
+                    "retain_dam_type": "混凝土坝",
+                    "rownum": 10,
+                    "select": "value1",
+                    "upload": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\", \\"id\\": 10}]",
+                  },
+                ]
+              }
+              onClick={[Function]}
+              onDataFormat={[Function]}
+              onPress={[Function]}
+              template={
+                <React.Fragment>
+                  <div
+                    data-key="pjnm"
+                  >
+                    1
+                  </div>
+                  <div
+                    data-key="dam_cd"
+                  >
+                    2
+                  </div>
+                </React.Fragment>
+              }
+            />
+          </div>
+        </Swiper>
       </SearchBar>
     </TransformManagerItem>
     <TransformManagerItem
