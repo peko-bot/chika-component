@@ -10,6 +10,7 @@ import { formatDate, bindTouchDirection } from '../../util';
 import { updatePageMapBoxOnAddProps } from './DataController';
 import FunctionalButton from './FunctionalButton';
 import SearchBar from './SearchBar';
+import Swiper from '../Swiper';
 import './css/Container-core.css';
 
 type GroupType = 'list-page' | 'update-page' | 'detail-page' | 'map-box';
@@ -49,6 +50,7 @@ export interface ContainerCoreState {
   updatePageStatus: UpdatePageStatus;
   mapBoxTargetKey: string;
   showSearchBar: boolean;
+  templateHeight: number;
 }
 
 export default class ContainerCore extends Component<
@@ -67,6 +69,7 @@ export default class ContainerCore extends Component<
     updatePageStatus: 'add',
     mapBoxTargetKey: '',
     showSearchBar: false,
+    templateHeight: 0,
   };
 
   history: {
@@ -89,6 +92,15 @@ export default class ContainerCore extends Component<
       }
     });
   };
+
+  componentDidUpdate(_: ContainerCoreProps, prevState: ContainerCoreState) {
+    if (
+      this.content &&
+      this.content.clientHeight !== prevState.templateHeight
+    ) {
+      this.setState({ templateHeight: this.content.clientHeight });
+    }
+  }
 
   backToList = () => {
     if (this.props.onSearch) {
@@ -286,22 +298,29 @@ export default class ContainerCore extends Component<
   };
 
   renderTemplate = () => {
-    const { children, dataSource } = this.props;
+    const { children, dataSource, loading } = this.props;
+
     return (
       <TransformManagerItem group="list-page" order={0} key="list-page-0">
         {this.renderSearchBar(
-          <div
-            className="sc-content"
-            ref={(ref: HTMLDivElement) => (this.content = ref)}
+          <Swiper
+            wrapperHeight={this.state.templateHeight}
+            loading={!!loading}
+            onLoad={() => console.log('load')}
           >
-            <Template
-              template={children}
-              dataSource={dataSource}
-              onDataFormat={this.handleChildDataFormat}
-              onClick={this.handleTemplateClick}
-              onPress={this.handleTemplatePress}
-            />
-          </div>,
+            <div
+              className="sc-content"
+              ref={(ref: HTMLDivElement) => (this.content = ref)}
+            >
+              <Template
+                template={children}
+                dataSource={dataSource}
+                onDataFormat={this.handleChildDataFormat}
+                onClick={this.handleTemplateClick}
+                onPress={this.handleTemplatePress}
+              />
+            </div>
+          </Swiper>,
         )}
       </TransformManagerItem>
     );
