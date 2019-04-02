@@ -2,6 +2,7 @@ import React from 'react';
 import './css/Swiper.css';
 import classNames from 'classnames';
 
+type Status = 'loading' | 'loaded';
 type SpinnerType = 'load' | 'refresh';
 type SpinnerParam = {
   type: SpinnerType;
@@ -28,31 +29,80 @@ export interface SwiperState {
   refreshImg: string;
   loadText: string;
   loadImg: string;
+  status: Status;
+  type: SpinnerType;
 }
+const down = '../../assets/Swiper/down.png';
+const loading = '../../assets/Swiper/loading.gif';
+const complete = '../../assets/Swiper/complete.png';
 
 export default class Swiper extends React.Component<SwiperProps, SwiperState> {
   wrapper: HTMLDivElement | null;
   scroller: HTMLDivElement;
   startY = 0;
   endY = 0;
-  down = '../../assets/Swiper/down.png';
-  loading = '../../assets/Swiper/loading.gif';
-  complete = '../../assets/Swiper/complete.png';
   scrollerHeight = 10000;
   bottomHeight = 0;
 
-  constructor(props: SwiperProps) {
-    super(props);
-    this.state = {
-      distance: 0, // 从touchstart记，到touchend结束，容器滑过的距离
-      iconDeg: 0, // 箭头变换角度
-      refreshEnd: false, // 刷新是否完成
-      loadEnd: false, // 加载是否完成
-      refreshText: '下拉刷新',
-      refreshImg: this.down,
-      loadText: '加载更多',
-      loadImg: this.down,
-    };
+  state: SwiperState = {
+    distance: 0, // 从touchstart记，到touchend结束，容器滑过的距离
+    iconDeg: 0, // 箭头变换角度
+    refreshEnd: false, // 刷新是否完成
+    loadEnd: false, // 加载是否完成
+    refreshText: '下拉刷新',
+    refreshImg: down,
+    loadText: '加载更多',
+    loadImg: down,
+    status: 'loaded',
+    type: 'load',
+  };
+
+  componentDidUpdate(prevProps: SwiperProps, prevState: SwiperState) {
+    if (
+      prevProps.loading &&
+      !this.props.loading &&
+      prevState.status === 'loading'
+    ) {
+      if (this.state.type === 'refresh') {
+        this.setState(
+          {
+            status: 'loaded',
+            refreshImg: complete,
+            refreshText: '刷新成功',
+            iconDeg: 0,
+          },
+          () => {
+            setTimeout(() => {
+              this.getChildHeight();
+              this.setState({
+                refreshImg: down,
+                distance: 0,
+                refreshText: '下拉刷新',
+              });
+            }, 1000);
+          },
+        );
+      } else if (this.state.type === 'load') {
+        this.setState(
+          {
+            status: 'loaded',
+            loadImg: complete,
+            loadText: '加载完成',
+            iconDeg: 0,
+          },
+          () => {
+            setTimeout(() => {
+              this.getChildHeight();
+              this.setState({
+                loadImg: down,
+                loadText: '加载更多',
+                distance: this.endY,
+              });
+            }, 1000);
+          },
+        );
+      }
+    }
   }
 
   componentDidMount = () => {
@@ -101,9 +151,11 @@ export default class Swiper extends React.Component<SwiperProps, SwiperState> {
         // 拖到顶部的情况
         if (onRefresh) {
           this.setState({
-            refreshImg: this.loading,
+            refreshImg: loading,
             refreshText: '刷新中...',
             distance: 44,
+            status: 'loading',
+            type: 'refresh',
           });
           onRefresh();
         }
@@ -120,12 +172,14 @@ export default class Swiper extends React.Component<SwiperProps, SwiperState> {
           this.endY = -differHeight;
           // 下拉加载
           if (onLoad) {
-            onLoad();
             this.setState({
               loadText: '加载中...',
-              loadImg: this.loading,
+              loadImg: loading,
               distance: -this.bottomHeight,
+              status: 'loading',
+              type: 'load',
             });
+            onLoad();
           } else {
             this.setState({ distance: -differHeight });
           }

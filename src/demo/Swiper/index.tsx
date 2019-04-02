@@ -20,31 +20,14 @@ export default class SwiperDemo extends React.Component {
     });
   };
 
-  refresh = () => {
-    this.setState({ loading: true });
-    ajax({
-      url: secRecordPath,
-      success: result => {
-        setTimeout(() => {
-          this.setState({ datas: result, loading: false });
-        }, 1000);
-      },
-    });
-  };
-
-  load = () => {
+  onChange = () => {
     this.setState({ loading: true });
     setTimeout(() => {
       this.setState({ loading: false });
     }, 1000);
   };
 
-  onClick = (i: string) => {
-    console.log(i);
-  };
-
   render() {
-    const { onClick } = this;
     const { loading } = this.state;
 
     return (
@@ -53,17 +36,13 @@ export default class SwiperDemo extends React.Component {
           wrapperHeight={500}
           duration={0.7}
           sensibility={1}
-          onRefresh={this.refresh}
-          onLoad={this.load}
+          onRefresh={this.onChange}
+          onLoad={this.onChange}
           loading={loading}
         >
           <ul>
             {this.state.datas.map((item, i) => {
-              return (
-                <li key={i} onClick={() => onClick(item)}>
-                  {item}
-                </li>
-              );
+              return <li key={i}>{item}</li>;
             })}
           </ul>
         </Swiper>
