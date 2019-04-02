@@ -211,7 +211,7 @@ export default class Swiper extends React.Component<SwiperProps, SwiperState> {
     if (refreshEnd) refreshStyle.transition = transition;
 
     loadStyle.transform = transform;
-    loadStyle.top = this.scrollerHeight;
+    // loadStyle.top = this.scrollerHeight;
     if (loadEnd) loadStyle.transition = transition;
 
     wrapperStyle = {
