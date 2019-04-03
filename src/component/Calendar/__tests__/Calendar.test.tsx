@@ -1,7 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import 'nino-cli/scripts/setup';
-
 let Calendar;
 switch (process.env.LIB_DIR) {
   case 'lib':
