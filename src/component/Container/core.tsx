@@ -298,7 +298,7 @@ export default class ContainerCore extends Component<
   };
 
   renderTemplate = () => {
-    const { children, dataSource, loading } = this.props;
+    const { children, dataSource, loading, onSearch } = this.props;
 
     return (
       <TransformManagerItem group="list-page" order={0} key="list-page-0">
@@ -306,7 +306,7 @@ export default class ContainerCore extends Component<
           <Swiper
             wrapperHeight={this.state.templateHeight}
             loading={!!loading}
-            onLoad={() => console.log('load')}
+            onLoad={() => onSearch && onSearch()}
           >
             <div
               className="sc-content"
