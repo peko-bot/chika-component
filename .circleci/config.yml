@@ -46,6 +46,7 @@ jobs:
       - checkout
       - *attach_workspace
       - run: npm run compile
+      - run: npm ls lib
       - run: node ./scripts/dekko-lib.js
       - persist_to_workspace:
           root: ~/chika-component
