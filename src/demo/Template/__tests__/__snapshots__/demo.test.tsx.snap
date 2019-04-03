@@ -1,67 +1,27 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`TemplateDemo render correctly 1`] = `
-<TempLateDemo>
-  <Template
-    dataSource={
-      Array [
-        Object {
-          "id": "template-1",
-          "test1": "test1",
-          "test2": "test2",
-        },
-        Object {
-          "id": "template-2",
-          "test1": "test11",
-          "test2": "test22",
-        },
-      ]
-    }
-  >
-    <div
-      className="Template"
-    >
-      <div
-        data-key="test1"
-        key="template-child-72.81407890822766"
-        onClick={[Function]}
-        onTouchEnd={[Function]}
-        onTouchMove={[Function]}
-        onTouchStart={[Function]}
-      >
-        test1
-      </div>
-      <div
-        data-key="test2"
-        key="template-child-9633.275978717113"
-        onClick={[Function]}
-        onTouchEnd={[Function]}
-        onTouchMove={[Function]}
-        onTouchStart={[Function]}
-      >
-        test2
-      </div>
-      <div
-        data-key="test1"
-        key="template-child-3017.9144045365038"
-        onClick={[Function]}
-        onTouchEnd={[Function]}
-        onTouchMove={[Function]}
-        onTouchStart={[Function]}
-      >
-        test11
-      </div>
-      <div
-        data-key="test2"
-        key="template-child-6687.376356877208"
-        onClick={[Function]}
-        onTouchEnd={[Function]}
-        onTouchMove={[Function]}
-        onTouchStart={[Function]}
-      >
-        test22
-      </div>
-    </div>
-  </Template>
-</TempLateDemo>
+<Template
+  dataSource={
+    Array [
+      Object {
+        "id": "template-1",
+        "test1": "test1",
+        "test2": "test2",
+      },
+      Object {
+        "id": "template-2",
+        "test1": "test11",
+        "test2": "test22",
+      },
+    ]
+  }
+>
+  <div
+    data-key="test1"
+  />
+  <div
+    data-key="test2"
+  />
+</Template>
 `;
