@@ -2979,7 +2979,7 @@ exports[`core render correctly 1`] = `
       key="map-box-0"
       order={0}
     >
-      <MapBox
+      <Component
         center={
           Object {
             "lat": "-1",

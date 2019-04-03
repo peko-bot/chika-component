@@ -1,0 +1,70 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UploadDemo render correctly 1`] = `
+<UploadDemo>
+  <Upload
+    fileList={Array []}
+    onChange={[Function]}
+    onClick={[Function]}
+    onPress={[Function]}
+    style={
+      Object {
+        "padding": 6,
+      }
+    }
+  >
+    <div
+      className="upload"
+      style={
+        Object {
+          "padding": 6,
+        }
+      }
+    >
+      <UploadView
+        fileList={Array []}
+        onChange={[Function]}
+        onClick={[Function]}
+        onPress={[Function]}
+      >
+        <div
+          className="uploadView"
+        >
+          <Uploader
+            fileList={Array []}
+            onChange={[Function]}
+          >
+            <div
+              className="uploader"
+            >
+              <div
+                className="upload-item"
+                onClick={[Function]}
+              >
+                <span
+                  className="upload-button"
+                >
+                  <input
+                    onChange={[Function]}
+                    style={
+                      Object {
+                        "display": "none",
+                      }
+                    }
+                    type="file"
+                  />
+                  <i
+                    className="plus-icon"
+                  >
+                    +
+                  </i>
+                </span>
+              </div>
+            </div>
+          </Uploader>
+        </div>
+      </UploadView>
+    </div>
+  </Upload>
+</UploadDemo>
+`;

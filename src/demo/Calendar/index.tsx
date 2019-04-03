@@ -2,7 +2,7 @@ import React from 'react';
 import Calendar from '../../component/Calendar';
 import './css/Calendar_demo.css';
 import moment from 'moment';
-const dataSourceUrl = '/mock/calendar_demo.json';
+import { ajax } from '../../util/urlHelper';
 
 export interface CalendarDemoState {
   select: Array<any>;
@@ -39,9 +39,10 @@ export default class CalendarDemo extends React.Component<
   }
 
   componentDidMount = () => {
-    fetch(dataSourceUrl)
-      .then(result => result.json())
-      .then(select => this.setState({ select }));
+    ajax({
+      url: '/mock/calendar_demo.json',
+      success: select => this.setState({ select }),
+    });
   };
 
   handleDateChange = (type: string) => {

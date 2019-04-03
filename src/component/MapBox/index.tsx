@@ -1,1 +1,3 @@
-export { default as MapBox } from './core';
+import MapBox from './core';
+
+export default MapBox;
