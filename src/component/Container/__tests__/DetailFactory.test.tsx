@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import 'nino-cli/scripts/setup';
 import { originConfig } from '../../../mock/config';
 import { originDataSource } from '../../../mock/dataSource';
@@ -46,7 +46,7 @@ const handleChildDataFormat = (
 
 describe('DetailFactory', () => {
   it('render correctly', () => {
-    const wrapper = mount(
+    const wrapper = shallow(
       <DetailFactory
         dataSource={dataItem}
         onDataFormat={handleChildDataFormat}

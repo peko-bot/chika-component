@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import 'nino-cli/scripts/setup';
 let Upload;
 switch (process.env.LIB_DIR) {
@@ -18,7 +18,7 @@ const fileList = [
 
 describe('Upload', () => {
   it('render correctly', () => {
-    const wrapper = mount(<Upload fileList={fileList} />);
+    const wrapper = shallow(<Upload fileList={fileList} />);
     expect(wrapper).toMatchSnapshot();
   });
 

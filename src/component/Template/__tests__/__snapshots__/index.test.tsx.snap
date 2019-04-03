@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Template snapshots 1`] = `
+<div
+  className="Template"
+>
+  <div
+    data-key="test1"
+    key="template-child-8716.767291972099"
+    onClick={[Function]}
+    onTouchEnd={[Function]}
+    onTouchMove={[Function]}
+    onTouchStart={[Function]}
+  >
+    test1
+  </div>
+  <div
+    data-key="test2"
+    key="template-child-5323.825373645929"
+    onClick={[Function]}
+    onTouchEnd={[Function]}
+    onTouchMove={[Function]}
+    onTouchStart={[Function]}
+  >
+    test2
+  </div>
+  <div
+    data-key="test1"
+    key="template-child-4687.317029033846"
+    onClick={[Function]}
+    onTouchEnd={[Function]}
+    onTouchMove={[Function]}
+    onTouchStart={[Function]}
+  >
+    test11
+  </div>
+  <div
+    data-key="test2"
+    key="template-child-1413.5180577361227"
+    onClick={[Function]}
+    onTouchEnd={[Function]}
+    onTouchMove={[Function]}
+    onTouchStart={[Function]}
+  >
+    test22
+  </div>
+</div>
+`;

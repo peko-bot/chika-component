@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import 'nino-cli/scripts/setup';
 
 let Calendar;
@@ -14,7 +14,7 @@ switch (process.env.LIB_DIR) {
 
 describe('Calendar', () => {
   it('render correctly', () => {
-    const wrapper = mount(<Calendar />);
+    const wrapper = shallow(<Calendar />);
     expect(wrapper).toMatchSnapshot();
   });
 });

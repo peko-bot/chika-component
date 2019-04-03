@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import 'nino-cli/scripts/setup';
 let TransformManager, Item, targetModule;
 switch (process.env.LIB_DIR) {
@@ -25,7 +25,7 @@ describe('TransformManager', () => {
   });
 
   it('render correctly', () => {
-    const wrapper = mount(
+    const wrapper = shallow(
       <TransformManager currentGroup="group1" currentOrder="0">
         <Item group="group1" order={0} key="group1-0">
           group1-0

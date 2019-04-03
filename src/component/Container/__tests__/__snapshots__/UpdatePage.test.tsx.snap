@@ -1,0 +1,317 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UpdatePage render correctly 1`] = `
+<Fragment>
+  <List
+    prefixCls="am-list"
+  >
+    <ListItem
+      align="middle"
+      error={false}
+      extra={
+        <InputItem
+          clear={true}
+          disabled={false}
+          editable={true}
+          error={false}
+          extra=""
+          labelNumber={5}
+          moneyKeyboardAlign="right"
+          moneyKeyboardHeader={null}
+          moneyKeyboardWrapProps={Object {}}
+          onBlur={[Function]}
+          onChange={[Function]}
+          onErrorClick={[Function]}
+          onExtraClick={[Function]}
+          onFocus={[Function]}
+          onVirtualKeyboardConfirm={[Function]}
+          placeholder="请输入"
+          prefixCls="am-input"
+          prefixListCls="am-list"
+          style={
+            Object {
+              "textAlign": "right",
+            }
+          }
+          type="text"
+          updatePlaceholder={false}
+          value=""
+        />
+      }
+      key="update-page-add-input-item-113442"
+      multipleLine={false}
+      platform="ios"
+      prefixCls="am-list"
+      wrap={false}
+    >
+      pjnm
+    </ListItem>
+    <ListItem
+      align="middle"
+      error={false}
+      extra={
+        <InputItem
+          clear={true}
+          disabled={false}
+          editable={true}
+          error={false}
+          extra=""
+          labelNumber={5}
+          moneyKeyboardAlign="right"
+          moneyKeyboardHeader={null}
+          moneyKeyboardWrapProps={Object {}}
+          onBlur={[Function]}
+          onChange={[Function]}
+          onErrorClick={[Function]}
+          onExtraClick={[Function]}
+          onFocus={[Function]}
+          onVirtualKeyboardConfirm={[Function]}
+          placeholder="请输入"
+          prefixCls="am-input"
+          prefixListCls="am-list"
+          style={
+            Object {
+              "textAlign": "right",
+            }
+          }
+          type="text"
+          updatePlaceholder={false}
+          value=""
+        />
+      }
+      key="update-page-add-input-item-113438"
+      multipleLine={false}
+      platform="ios"
+      prefixCls="am-list"
+      wrap={false}
+    >
+      dam_cd
+    </ListItem>
+    <DatePicker
+      key="update-page-add-data-picker-113442"
+      minuteStep={1}
+      mode="datetime"
+      onChange={[Function]}
+      pickerPrefixCls="am-picker-col"
+      popupPrefixCls="am-picker-popup"
+      prefixCls="am-picker"
+      use12Hours={false}
+      value=""
+    >
+      <ListItem
+        align="middle"
+        arrow="horizontal"
+        error={false}
+        multipleLine={false}
+        platform="ios"
+        prefixCls="am-list"
+        wrap={false}
+      >
+        datePicker
+      </ListItem>
+    </DatePicker>
+    <Picker
+      cascade={true}
+      cols={1}
+      data={
+        Array [
+          Object {
+            "label": "label1",
+            "value": "value1",
+          },
+          Object {
+            "label": "label2",
+            "value": "value2",
+          },
+        ]
+      }
+      format={[Function]}
+      key="update-page-add-select-113442"
+      onChange={[Function]}
+      pickerPrefixCls="am-picker-col"
+      popupPrefixCls="am-picker-popup"
+      prefixCls="am-picker"
+      title=""
+      triggerType="onClick"
+      value={Array []}
+    >
+      <ListItem
+        align="middle"
+        arrow="horizontal"
+        error={false}
+        multipleLine={false}
+        platform="ios"
+        prefixCls="am-list"
+        wrap={false}
+      >
+        select
+      </ListItem>
+    </Picker>
+    <Accordion
+      key="update-page-add-checkbox-113442"
+      prefixCls="am-accordion"
+    >
+      <CollapsePanel
+        destroyInactivePanel={false}
+        forceRender={false}
+        header="checkbox"
+        headerClass=""
+        isActive={false}
+        onItemClick={[Function]}
+        showArrow={true}
+      >
+        <List
+          prefixCls="am-list"
+        >
+          <CheckboxItem
+            checkboxProps={Object {}}
+            checked={false}
+            key="update-page-add-checkbox-item-0"
+            listPrefixCls="am-list"
+            onChange={[Function]}
+            prefixCls="am-checkbox"
+          >
+            checkboxlable1
+          </CheckboxItem>
+          <CheckboxItem
+            checkboxProps={Object {}}
+            checked={false}
+            key="update-page-add-checkbox-item-1"
+            listPrefixCls="am-list"
+            onChange={[Function]}
+            prefixCls="am-checkbox"
+          >
+            label2
+          </CheckboxItem>
+          <CheckboxItem
+            checkboxProps={Object {}}
+            checked={false}
+            key="update-page-add-checkbox-item-2"
+            listPrefixCls="am-list"
+            onChange={[Function]}
+            prefixCls="am-checkbox"
+          >
+            label3
+          </CheckboxItem>
+        </List>
+      </CollapsePanel>
+    </Accordion>
+    <ListItem
+      align="middle"
+      arrow="horizontal"
+      error={false}
+      extra="请选择"
+      multipleLine={false}
+      onClick={[Function]}
+      platform="ios"
+      prefixCls="am-list"
+      wrap={false}
+    >
+      calendar
+    </ListItem>
+    <ListItem
+      align="middle"
+      error={false}
+      multipleLine={false}
+      platform="ios"
+      prefixCls="am-list"
+      wrap={false}
+    >
+      起始时间
+    </ListItem>
+    <ListItem
+      align="middle"
+      error={false}
+      multipleLine={false}
+      platform="ios"
+      prefixCls="am-list"
+      wrap={false}
+    >
+      结束时间
+    </ListItem>
+    <Accordion
+      key="update-page-add-upload-113442"
+      prefixCls="am-accordion"
+    >
+      <CollapsePanel
+        destroyInactivePanel={false}
+        forceRender={false}
+        header="upload"
+        headerClass=""
+        isActive={false}
+        onItemClick={[Function]}
+        showArrow={true}
+      >
+        <Upload
+          fileList=""
+          onChange={[Function]}
+        />
+      </CollapsePanel>
+    </Accordion>
+    <ListItem
+      align="middle"
+      arrow="horizontal"
+      error={false}
+      extra="请选择"
+      key="update-page-add-map-picker-add-113442"
+      multipleLine={false}
+      onClick={[Function]}
+      platform="ios"
+      prefixCls="am-list"
+      wrap={false}
+    >
+      mapPicker
+    </ListItem>
+    <ListItem
+      align="middle"
+      error={false}
+      multipleLine={false}
+      platform="ios"
+      prefixCls="am-list"
+      wrap={false}
+    >
+      <Button
+        activeStyle={Object {}}
+        disabled={false}
+        inline={true}
+        loading={false}
+        prefixCls="am-button"
+        size="large"
+        style={
+          Object {
+            "marginRight": 4,
+            "width": "calc(50% - 4px)",
+          }
+        }
+        type="primary"
+      >
+        保存
+      </Button>
+      <Button
+        activeStyle={Object {}}
+        disabled={false}
+        inline={true}
+        loading={false}
+        prefixCls="am-button"
+        size="large"
+        style={
+          Object {
+            "width": "50%",
+          }
+        }
+      >
+        返回
+      </Button>
+    </ListItem>
+  </List>
+  <Calendar
+    onCancel={[Function]}
+    onConfirm={[Function]}
+    pickTime={true}
+    prefixCls="am-calendar"
+    timePickerPickerPrefixCls="am-picker-col"
+    timePickerPrefixCls="am-picker"
+    visible={false}
+  />
+</Fragment>
+`;

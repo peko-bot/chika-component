@@ -1,11 +1,11 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import 'nino-cli/scripts/setup';
 import DrawerDemo from '..';
 
 describe('DrawerDemo', () => {
   it('render correctly', () => {
-    const wrapper = mount(<DrawerDemo />);
+    const wrapper = shallow(<DrawerDemo />);
     expect(wrapper).toMatchSnapshot();
   });
 });
