@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "scripts": {
     "start": "nino go -e ./src/go",
-    "test": "tsc && nino test",
+    "test": "nino test",
     "build": "tsc && nino koei -c ./scripts/nino.koei.js",
     "compile": "tsc && nino compile",
     "codecov": "nino test -d",
