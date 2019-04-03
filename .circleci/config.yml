@@ -46,6 +46,7 @@ jobs:
       - checkout
       - *attach_workspace
       - run: npm run compile
+      - run: ls lib
       - run: ls lib/component
       - run: node ./scripts/dekko-lib.js
       - persist_to_workspace:
