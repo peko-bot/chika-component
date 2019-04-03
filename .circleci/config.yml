@@ -60,6 +60,9 @@ jobs:
       - *attach_workspace
       - run:
           command: npm test -- --clearCache
+          environment:
+            LIB_DIR: lib
+      - run:
           command: npm test -- -u
           environment:
             LIB_DIR: lib
