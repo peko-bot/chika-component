@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount, shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import 'nino-cli/scripts/setup';
 let Template;
 switch (process.env.LIB_DIR) {
@@ -17,18 +17,6 @@ const dataSource = [
 ];
 
 describe('Template', () => {
-  it('snapshots', () => {
-    const wrapper = shallow(
-      <Template dataSource={dataSource}>
-        <>
-          <div data-key="test1">1</div>
-          <div data-key="test2">2</div>
-        </>
-      </Template>,
-    );
-    expect(wrapper).toMatchSnapshot();
-  });
-
   it('render correctly', () => {
     const wrapper = mount(
       <Template dataSource={dataSource}>
