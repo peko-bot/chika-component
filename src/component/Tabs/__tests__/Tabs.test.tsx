@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import 'nino-cli/scripts/setup';
 let Tabs;
 switch (process.env.LIB_DIR) {
@@ -13,7 +13,7 @@ switch (process.env.LIB_DIR) {
 
 describe('Tabs', () => {
   it('render correctly', () => {
-    const wrapper = shallow(<Tabs />);
+    const wrapper = mount(<Tabs />);
     expect(wrapper).toMatchSnapshot();
   });
 });

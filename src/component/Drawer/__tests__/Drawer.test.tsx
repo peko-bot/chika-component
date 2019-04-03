@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount, shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import 'nino-cli/scripts/setup';
 let Drawer;
 switch (process.env.LIB_DIR) {
@@ -13,8 +13,8 @@ switch (process.env.LIB_DIR) {
 
 describe('Drawer', () => {
   it('render correctly', () => {
-    const wrapperShow = shallow(<Drawer visible={true}>test</Drawer>);
-    const wrapperHide = shallow(<Drawer visible={false}>test</Drawer>);
+    const wrapperShow = mount(<Drawer visible={true}>test</Drawer>);
+    const wrapperHide = mount(<Drawer visible={false}>test</Drawer>);
     expect(wrapperShow).toMatchSnapshot();
     expect(wrapperHide).toMatchSnapshot();
   });

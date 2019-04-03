@@ -1,18 +1,89 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SwiperDemo render correctly 1`] = `
-<div
-  className="Swiper_demo"
->
-  <Swiper
-    duration={0.7}
-    loading={true}
-    onLoad={[Function]}
-    onRefresh={[Function]}
-    sensibility={1}
-    wrapperHeight={500}
+<SwiperDemo>
+  <div
+    className="Swiper_demo"
   >
-    <ul />
-  </Swiper>
-</div>
+    <Swiper
+      duration={0.7}
+      loading={true}
+      onLoad={[Function]}
+      onRefresh={[Function]}
+      sensibility={1}
+      wrapperHeight={500}
+    >
+      <div
+        className="Swiper"
+      >
+        <div
+          className="wrapper"
+        >
+          <div
+            style={
+              Object {
+                "height": 500,
+                "transform": "translate3d(0px, 0px, 0)",
+              }
+            }
+          >
+            <ul />
+          </div>
+          <div
+            className="refresh"
+            style={
+              Object {
+                "transform": "translate3d(0px, 0px, 0)",
+              }
+            }
+          >
+            <span
+              className="refresh-icon"
+              style={
+                Object {
+                  "transform": "rotateZ(0deg)",
+                }
+              }
+            >
+              <img
+                src="../../assets/Swiper/down.png"
+              />
+            </span>
+            <span
+              className="refresh-text"
+            >
+              下拉刷新
+            </span>
+          </div>
+          <div
+            className="load"
+            style={
+              Object {
+                "transform": "translate3d(0px, 0px, 0)",
+              }
+            }
+          >
+            <span
+              className="load-icon"
+              style={
+                Object {
+                  "transform": "rotateZ(0deg)",
+                }
+              }
+            >
+              <img
+                src="../../assets/Swiper/down.png"
+              />
+            </span>
+            <span
+              className="load-text"
+            >
+              加载更多
+            </span>
+          </div>
+        </div>
+      </div>
+    </Swiper>
+  </div>
+</SwiperDemo>
 `;

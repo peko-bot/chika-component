@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount, shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import 'nino-cli/scripts/setup';
 import { originConfig } from '../../../mock/config';
 // import { originDataSource } from '../../../mock/dataSource';
@@ -17,16 +17,6 @@ switch (process.env.LIB_DIR) {
 }
 
 describe('UpdatePage', () => {
-  it('render correctly', () => {
-    const wrapper = shallow(
-      <UpdatePage
-        dataSource={formatControls(null, Config, 'dam_cd')}
-        status="add"
-      />,
-    );
-    expect(wrapper).toMatchSnapshot();
-  });
-
   it('should render correctly when status is add', () => {
     const wrapper = mount(
       <UpdatePage

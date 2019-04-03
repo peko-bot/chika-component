@@ -1,34 +1,50 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`RippleDemo render correctly 1`] = `
-<div
-  className="Ripple_demo"
->
+<RippleDemo>
   <div
-    className="item"
-    key="item0"
+    className="Ripple_demo"
   >
     <div
-      className="item-label"
+      className="item"
+      key="item0"
     >
-      test1
+      <div
+        className="item-label"
+      >
+        test1
+      </div>
+      <Ripple
+        wrapWidth={0}
+      >
+        <div>
+          <div
+            className="Ripple"
+            style={Object {}}
+          />
+        </div>
+      </Ripple>
     </div>
-    <Ripple
-      wrapWidth={0}
-    />
-  </div>
-  <div
-    className="item"
-    key="item1"
-  >
     <div
-      className="item-label"
+      className="item"
+      key="item1"
     >
-      test2
+      <div
+        className="item-label"
+      >
+        test2
+      </div>
+      <Ripple
+        wrapWidth={0}
+      >
+        <div>
+          <div
+            className="Ripple"
+            style={Object {}}
+          />
+        </div>
+      </Ripple>
     </div>
-    <Ripple
-      wrapWidth={0}
-    />
   </div>
-</div>
+</RippleDemo>
 `;
