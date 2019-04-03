@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TemplateDemo render correctly 1`] = `
+<Template
+  dataSource={
+    Array [
+      Object {
+        "id": "template-1",
+        "test1": "test1",
+        "test2": "test2",
+      },
+      Object {
+        "id": "template-2",
+        "test1": "test11",
+        "test2": "test22",
+      },
+    ]
+  }
+>
+  <div
+    data-key="test1"
+  />
+  <div
+    data-key="test2"
+  />
+</Template>
+`;

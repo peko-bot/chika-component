@@ -6,8 +6,8 @@
   "scripts": {
     "start": "nino go -e ./src/go",
     "test": "nino test",
-    "build": "nino koei -c ./scripts/nino.koei.js",
-    "compile": "nino compile",
+    "build": "tsc && nino koei -c ./scripts/nino.koei.js",
+    "compile": "tsc && nino compile",
     "codecov": "nino test -d",
     "dev": "nino koei -w-d",
     "lint": "npx eslint .",

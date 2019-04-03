@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Ripple render correctly 1`] = `
+<Ripple>
+  <div>
+    <div
+      className="Ripple"
+      style={Object {}}
+    />
+  </div>
+</Ripple>
+`;

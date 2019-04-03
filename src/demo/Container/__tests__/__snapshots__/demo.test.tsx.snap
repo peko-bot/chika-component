@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ContainerDemo render correctly 1`] = `
+<div
+  className="List_Container_demo"
+>
+  <DataController
+    menuId={-2}
+    tableId={-2}
+  >
+    <ul>
+      <li>
+        <div
+          className="left"
+        >
+          <label>
+            名称：
+          </label>
+          <label
+            data-key="pjnm"
+          />
+        </div>
+        <div
+          className="right"
+        >
+          <label>
+            坝高：
+          </label>
+          <label
+            data-key="dam_width"
+          />
+        </div>
+      </li>
+      <li>
+        <div
+          className="left"
+        >
+          <label>
+            坝长：
+          </label>
+          <label
+            data-key="crest_length"
+          />
+        </div>
+        <div
+          className="right"
+        >
+          <label>
+            主坝类型：
+          </label>
+          <label
+            data-key="retain_dam_type"
+          />
+        </div>
+      </li>
+    </ul>
+  </DataController>
+</div>
+`;

@@ -3,7 +3,7 @@ version: 2
 references:
   container_config: &container_config
     docker:
-      - image: circleci/node:10.0.0
+      - image: circleci/node:11.0.0
     working_directory: ~/chika-component
 
   attach_workspace: &attach_workspace
@@ -46,6 +46,8 @@ jobs:
       - checkout
       - *attach_workspace
       - run: npm run compile
+      - run: ls lib
+      - run: ls lib/component
       - run: node ./scripts/dekko-lib.js
       - persist_to_workspace:
           root: ~/chika-component
