@@ -2,11 +2,11 @@
 
 exports[`ContainerDemo render correctly 1`] = `
 <div
-  className="List_Container_demo"
+  className="container-demo"
 >
   <DataController
-    menuId={-2}
-    tableId={-2}
+    menuId={1392}
+    tableId={10874}
   >
     <ul>
       <li>
