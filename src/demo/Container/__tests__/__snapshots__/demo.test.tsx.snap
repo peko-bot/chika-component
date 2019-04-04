@@ -14,7 +14,7 @@ exports[`ContainerDemo render correctly 1`] = `
           className="left"
         >
           <label>
-            name：
+            名称：
           </label>
           <label
             data-key="pjnm"
@@ -24,7 +24,7 @@ exports[`ContainerDemo render correctly 1`] = `
           className="right"
         >
           <label>
-            dam_width：
+            坝高：
           </label>
           <label
             data-key="dam_width"
@@ -36,7 +36,7 @@ exports[`ContainerDemo render correctly 1`] = `
           className="left"
         >
           <label>
-            crest_length：
+            坝长：
           </label>
           <label
             data-key="crest_length"
@@ -46,7 +46,7 @@ exports[`ContainerDemo render correctly 1`] = `
           className="right"
         >
           <label>
-            retain_dam_type：
+            主坝类型：
           </label>
           <label
             data-key="retain_dam_type"

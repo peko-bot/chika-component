@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container } from 'chika-component';
+import Container from '../../component/Container';
 import './css/container-demo.css';
 
 export default () => (
