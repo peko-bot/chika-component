@@ -2,11 +2,11 @@
 
 exports[`ContainerDemo render correctly 1`] = `
 <div
-  className="List_Container_demo"
+  className="container-demo"
 >
   <DataController
-    menuId={-2}
-    tableId={-2}
+    menuId={1392}
+    tableId={10874}
   >
     <ul>
       <li>
@@ -14,7 +14,7 @@ exports[`ContainerDemo render correctly 1`] = `
           className="left"
         >
           <label>
-            名称：
+            name：
           </label>
           <label
             data-key="pjnm"
@@ -24,7 +24,7 @@ exports[`ContainerDemo render correctly 1`] = `
           className="right"
         >
           <label>
-            坝高：
+            dam_width：
           </label>
           <label
             data-key="dam_width"
@@ -36,7 +36,7 @@ exports[`ContainerDemo render correctly 1`] = `
           className="left"
         >
           <label>
-            坝长：
+            crest_length：
           </label>
           <label
             data-key="crest_length"
@@ -46,7 +46,7 @@ exports[`ContainerDemo render correctly 1`] = `
           className="right"
         >
           <label>
-            主坝类型：
+            retain_dam_type：
           </label>
           <label
             data-key="retain_dam_type"
