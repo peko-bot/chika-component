@@ -1,11 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`MapBoxDemo render correctly 1`] = `
-<div
-  className="MapBoxDemo"
->
-  <MapBox
-    onMarkerMove={[Function]}
-  />
-</div>
+<MapBox
+  onMarkerMove={[Function]}
+/>
 `;
