@@ -9,7 +9,7 @@ export interface DataControllerProps {
   tableId: number;
   menuId: number;
 }
-export type updatePageMapBoxOnAddProps = {
+export type UpdatePageMapBoxItemProps = {
   lat: string;
   lng: string;
   key: string;
@@ -26,7 +26,8 @@ export interface DataControllerState {
     update: boolean;
     add: boolean;
   };
-  updatePageMapBoxOnAdd: updatePageMapBoxOnAddProps;
+  updatePageMapBoxItem: UpdatePageMapBoxItemProps;
+  updatePageForm: Array<any>;
 }
 
 export default class DataController extends Component<
@@ -45,7 +46,8 @@ export default class DataController extends Component<
     },
     primaryKey: '',
     loading: false,
-    updatePageMapBoxOnAdd: { lng: '-1', lat: '-1', key: 'key' },
+    updatePageMapBoxItem: { lng: '-1', lat: '-1', key: 'key' },
+    updatePageForm: [],
   };
 
   static defaultProps = {
@@ -169,12 +171,14 @@ export default class DataController extends Component<
   }: MapPickerChangeProps) => {
     const { dataSource, primaryKey } = this.state;
     if (!primaryValue) {
-      this.setState({ updatePageMapBoxOnAdd: { lat, lng, key: targetKey } });
+      this.setState({ updatePageMapBoxItem: { lat, lng, key: targetKey } });
     } else {
       const itemIndex = dataSource.findIndex(
         item => item[primaryKey] === primaryValue,
       );
-      dataSource[itemIndex][targetKey] = `${lng}|${lat}|`;
+      dataSource[itemIndex] = Object.assign({}, dataSource[itemIndex], {
+        [targetKey]: `${lng}|${lat}|`,
+      });
       this.setState({ dataSource });
     }
   };
@@ -201,6 +205,18 @@ export default class DataController extends Component<
     this.setState({ dataSource });
   };
 
+  // todo: refactor this
+  // combine dataSource and updatePageForm
+  handleUpdatePageChange = (updatePageForm: Array<any>) => {
+    const { updatePageMapBoxItem: mapItem } = this.state;
+    const index = updatePageForm.findIndex(f => f.key === mapItem.key);
+    if (index !== -1) {
+      updatePageForm[index] = Object.assign({}, updatePageForm[index], mapItem);
+      updatePageForm[index].value = `${mapItem.lng}|${mapItem.lat}|`;
+    }
+    this.setState({ updatePageForm });
+  };
+
   render = () => {
     const {
       power,
@@ -209,7 +225,8 @@ export default class DataController extends Component<
       loading,
       total,
       primaryKey,
-      updatePageMapBoxOnAdd,
+      updatePageMapBoxItem,
+      updatePageForm,
     } = this.state;
     return (
       <div className="DataController">
@@ -225,7 +242,9 @@ export default class DataController extends Component<
           onDelete={this.handleDelete}
           formatControls={formatControls as any}
           onMapPickerChange={this.handeMapPickerChange}
-          updatePageMapBoxOnAdd={updatePageMapBoxOnAdd}
+          updatePageMapBoxItem={updatePageMapBoxItem}
+          updatePageForm={updatePageForm}
+          updatePageChange={this.handleUpdatePageChange}
           onSort={this.handleSort}
         />
       </div>
