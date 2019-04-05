@@ -16,43 +16,16 @@ export default class Entry extends Component {
   render = () => (
     <HashRouter>
       <Switch>
-        <Route
-          path="/calendar"
-          component={(props: any) => <Calendar {...props} />}
-        />
-        <Route
-          path="/container"
-          component={(props: any) => <Container {...props} />}
-        />
-        <Route
-          path="/swiper"
-          component={(props: any) => <Swiper {...props} />}
-        />
-        <Route path="/tabs" component={(props: any) => <Tabs {...props} />} />
-        <Route
-          path="/ripple"
-          component={(props: any) => <Ripple {...props} />}
-        />
-        <Route
-          path="/upload"
-          component={(props: any) => <Upload {...props} />}
-        />
-        <Route
-          path="/drawer"
-          component={(props: any) => <Drawer {...props} />}
-        />
-        <Route
-          path="/transform"
-          component={(props: any) => <TransformManager {...props} />}
-        />
-        <Route
-          path="/mapbox"
-          component={(props: any) => <MapBox {...props} />}
-        />
-        <Route
-          path="/template"
-          component={(props: any) => <Template {...props} />}
-        />
+        <Route path="/calendar" component={Calendar} />
+        <Route path="/container" component={Container} />
+        <Route path="/swiper" component={Swiper} />
+        <Route path="/tabs" component={Tabs} />
+        <Route path="/ripple" component={Ripple} />
+        <Route path="/upload" component={Upload} />
+        <Route path="/drawer" component={Drawer} />
+        <Route path="/transform" component={TransformManager} />
+        <Route path="/mapbox" component={MapBox} />
+        <Route path="/template" component={Template} />
       </Switch>
     </HashRouter>
   );
