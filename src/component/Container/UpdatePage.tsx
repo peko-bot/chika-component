@@ -14,7 +14,7 @@ const { CheckboxItem } = Checkbox;
 import Upload from '../Upload';
 import { formatDate } from '../../util';
 import { PropsGoToMaxBox } from './core';
-import { updatePageMapBoxOnAddProps } from './DataController';
+import { UpdatePageMapBoxItemProps } from './DataController';
 import { simplifyFormDatas } from './utils';
 
 export type UpdatePageStatus = 'add' | 'update';
@@ -37,8 +37,8 @@ export interface UpdatePageProps {
   dataSource: Array<any>;
   status: UpdatePageStatus;
   onMapBoxChange?: (item: PropsGoToMaxBox) => void;
-  updatePageMapBoxOnAdd?: updatePageMapBoxOnAddProps;
-  onFormChange?: (form: Array<any>) => void;
+  updatePageMapBoxItem?: UpdatePageMapBoxItemProps;
+  onFormChange?: (form: Array<any>, status?: UpdatePageStatus) => void;
   updatePageForm?: Array<any>;
 }
 export type CalendarItem = {
@@ -65,8 +65,10 @@ export default class UpdatePage extends Component<
   UpdatePageState
 > {
   static getDerivedStateFromProps(prevProps: UpdatePageProps) {
-    if (prevProps.updatePageForm && prevProps.updatePageForm.length !== 0) {
-      return { form: prevProps.updatePageForm };
+    if (prevProps.status === 'add') {
+      if (prevProps.updatePageForm && prevProps.updatePageForm.length !== 0) {
+        return { form: prevProps.updatePageForm };
+      }
     }
     return null;
   }
@@ -180,7 +182,7 @@ export default class UpdatePage extends Component<
     const {
       status,
       onMapBoxChange,
-      updatePageMapBoxOnAdd,
+      updatePageMapBoxItem,
       onFormChange,
     } = props;
     const prefixCls = `update-page-${status}`;
@@ -302,12 +304,18 @@ export default class UpdatePage extends Component<
 
         case 'mapPicker':
           const latlng = (item.value && item.value.split('|')) || [];
-          const lng = latlng[0];
-          const lat = latlng[1];
+          const lng =
+            updatePageMapBoxItem && updatePageMapBoxItem.lng !== '-1'
+              ? updatePageMapBoxItem.lng
+              : latlng[0];
+          const lat =
+            updatePageMapBoxItem && updatePageMapBoxItem.lng !== '-1'
+              ? updatePageMapBoxItem.lng
+              : latlng[1];
           if (status === 'add') {
             if (
-              updatePageMapBoxOnAdd &&
-              Object.keys(updatePageMapBoxOnAdd).length
+              updatePageMapBoxItem &&
+              Object.keys(updatePageMapBoxItem).length
             ) {
               element.push(
                 <List.Item
@@ -315,12 +323,7 @@ export default class UpdatePage extends Component<
                   arrow="horizontal"
                   onClick={() => {
                     onFormChange && onFormChange(state.form);
-                    onMapBoxChange &&
-                      onMapBoxChange({
-                        lat: updatePageMapBoxOnAdd.lat,
-                        lng: updatePageMapBoxOnAdd.lng,
-                        key,
-                      });
+                    onMapBoxChange && onMapBoxChange({ lat, lng, key });
                   }}
                   extra="修改"
                 >
@@ -330,7 +333,7 @@ export default class UpdatePage extends Component<
               element.push(
                 <List.Item
                   key={`${prefixCls}-map-picker-lng-${id}`}
-                  extra={parseFloat(updatePageMapBoxOnAdd.lng).toFixed(6)}
+                  extra={parseFloat(updatePageMapBoxItem.lng).toFixed(6)}
                 >
                   经度
                 </List.Item>,
@@ -338,7 +341,7 @@ export default class UpdatePage extends Component<
               element.push(
                 <List.Item
                   key={`${prefixCls}-map-picker-lat-${id}`}
-                  extra={parseFloat(updatePageMapBoxOnAdd.lat).toFixed(6)}
+                  extra={parseFloat(updatePageMapBoxItem.lat).toFixed(6)}
                 >
                   纬度
                 </List.Item>,

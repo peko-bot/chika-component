@@ -7,7 +7,7 @@ import DetailFactory from './DetailFactory';
 import UpdatePage, { UpdatePageStatus } from './UpdatePage';
 import MapBox from '../MapBox';
 import { formatDate, bindTouchDirection } from '../../util';
-import { updatePageMapBoxOnAddProps } from './DataController';
+import { UpdatePageMapBoxItemProps } from './DataController';
 import FunctionalButton from './FunctionalButton';
 import SearchBar from './SearchBar';
 import Swiper from '../Swiper';
@@ -38,9 +38,9 @@ export interface ContainerCoreProps {
   formatControls: (item: any, config: any, primaryKey: string) => void;
   onMapPickerChange?: (item: MapPickerChangeProps) => void;
   onSort?: (dataSource: Array<any>) => void;
-  updatePageMapBoxOnAdd?: updatePageMapBoxOnAddProps;
+  updatePageMapBoxItem?: UpdatePageMapBoxItemProps;
   updatePageForm?: Array<any>;
-  updatePageChange?: (form: Array<any>) => void;
+  updatePageChange?: (form: Array<any>, status?: UpdatePageStatus) => void;
 }
 export interface ContainerCoreState {
   currentOrder: number;
@@ -334,7 +334,7 @@ export default class ContainerCore extends Component<
       dataSource,
       primaryKey,
       formatControls,
-      updatePageMapBoxOnAdd,
+      updatePageMapBoxItem,
       updatePageChange,
       updatePageForm,
     } = this.props;
@@ -353,7 +353,7 @@ export default class ContainerCore extends Component<
           dataSource={dataItem as any}
           status={updatePageStatus}
           onMapBoxChange={this.handleMapBoxChange}
-          updatePageMapBoxOnAdd={updatePageMapBoxOnAdd}
+          updatePageMapBoxItem={updatePageMapBoxItem}
           updatePageForm={updatePageForm}
           onFormChange={updatePageChange}
         />

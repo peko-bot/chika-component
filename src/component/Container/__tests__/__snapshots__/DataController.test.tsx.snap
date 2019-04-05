@@ -27,7 +27,7 @@ exports[`DataController render correctly 1`] = `
     total={0}
     updatePageChange={[Function]}
     updatePageForm={Array []}
-    updatePageMapBoxOnAdd={
+    updatePageMapBoxItem={
       Object {
         "key": "key",
         "lat": "-1",
