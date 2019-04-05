@@ -25,6 +25,8 @@ exports[`DataController render correctly 1`] = `
     primaryKey=""
     tableId={-2}
     total={0}
+    updatePageChange={[Function]}
+    updatePageForm={Array []}
     updatePageMapBoxOnAdd={
       Object {
         "key": "key",

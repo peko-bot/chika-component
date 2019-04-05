@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Container, { MapPickerChangeProps } from './core';
 import { ajax } from '../../util/urlHelper';
 import { Toast } from 'antd-mobile';
-import { formatConfig, formatControls, simplifyFormDatas } from './utils';
+import { formatConfig, formatControls } from './utils';
 
 export interface DataControllerProps {
   children: any;
@@ -204,7 +204,12 @@ export default class DataController extends Component<
   };
 
   handleUpdatePageChange = (updatePageForm: Array<any>) => {
-    console.log(simplifyFormDatas(updatePageForm));
+    const { updatePageMapBoxOnAdd: mapItem } = this.state;
+    const index = updatePageForm.findIndex(f => f.key === mapItem.key);
+    if (index !== -1) {
+      updatePageForm[index] = Object.assign({}, updatePageForm[index], mapItem);
+      updatePageForm[index].value = `${mapItem.lng}|${mapItem.lat}|`;
+    }
     this.setState({ updatePageForm });
   };
 

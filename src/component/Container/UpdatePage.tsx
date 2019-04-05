@@ -319,7 +319,7 @@ export default class UpdatePage extends Component<
                       onMapBoxChange({
                         lat: updatePageMapBoxOnAdd.lat,
                         lng: updatePageMapBoxOnAdd.lng,
-                        key: updatePageMapBoxOnAdd.key,
+                        key,
                       });
                   }}
                   extra="修改"
