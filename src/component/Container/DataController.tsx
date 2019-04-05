@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Container, { MapPickerChangeProps } from './core';
 import { ajax } from '../../util/urlHelper';
 import { Toast } from 'antd-mobile';
-import { formatConfig, formatControls } from './utils';
+import { formatConfig, formatControls, simplifyFormDatas } from './utils';
 
 export interface DataControllerProps {
   children: any;
@@ -27,6 +27,7 @@ export interface DataControllerState {
     add: boolean;
   };
   updatePageMapBoxOnAdd: updatePageMapBoxOnAddProps;
+  updatePageForm: Array<any>;
 }
 
 export default class DataController extends Component<
@@ -46,6 +47,7 @@ export default class DataController extends Component<
     primaryKey: '',
     loading: false,
     updatePageMapBoxOnAdd: { lng: '-1', lat: '-1', key: 'key' },
+    updatePageForm: [],
   };
 
   static defaultProps = {
@@ -201,6 +203,11 @@ export default class DataController extends Component<
     this.setState({ dataSource });
   };
 
+  handleUpdatePageChange = (updatePageForm: Array<any>) => {
+    console.log(simplifyFormDatas(updatePageForm));
+    this.setState({ updatePageForm });
+  };
+
   render = () => {
     const {
       power,
@@ -210,6 +217,7 @@ export default class DataController extends Component<
       total,
       primaryKey,
       updatePageMapBoxOnAdd,
+      updatePageForm,
     } = this.state;
     return (
       <div className="DataController">
@@ -226,6 +234,8 @@ export default class DataController extends Component<
           formatControls={formatControls as any}
           onMapPickerChange={this.handeMapPickerChange}
           updatePageMapBoxOnAdd={updatePageMapBoxOnAdd}
+          updatePageForm={updatePageForm}
+          updatePageChange={this.handleUpdatePageChange}
           onSort={this.handleSort}
         />
       </div>

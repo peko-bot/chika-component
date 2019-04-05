@@ -37,8 +37,10 @@ export interface ContainerCoreProps {
   onSearch?: () => void;
   formatControls: (item: any, config: any, primaryKey: string) => void;
   onMapPickerChange?: (item: MapPickerChangeProps) => void;
-  updatePageMapBoxOnAdd?: updatePageMapBoxOnAddProps;
   onSort?: (dataSource: Array<any>) => void;
+  updatePageMapBoxOnAdd?: updatePageMapBoxOnAddProps;
+  updatePageForm?: Array<any>;
+  updatePageChange?: (form: Array<any>) => void;
 }
 export interface ContainerCoreState {
   currentOrder: number;
@@ -333,6 +335,8 @@ export default class ContainerCore extends Component<
       primaryKey,
       formatControls,
       updatePageMapBoxOnAdd,
+      updatePageChange,
+      updatePageForm,
     } = this.props;
     const { primaryValue, updatePageStatus } = this.state;
     const dataItemIndex = dataSource.findIndex(
@@ -350,6 +354,8 @@ export default class ContainerCore extends Component<
           status={updatePageStatus}
           onMapBoxChange={this.handleMapBoxChange}
           updatePageMapBoxOnAdd={updatePageMapBoxOnAdd}
+          updatePageForm={updatePageForm}
+          onFormChange={updatePageChange}
         />
       </TransformManagerItem>
     );

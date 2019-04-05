@@ -15,6 +15,7 @@ import Upload from '../Upload';
 import { formatDate } from '../../util';
 import { PropsGoToMaxBox } from './core';
 import { updatePageMapBoxOnAddProps } from './DataController';
+import { simplifyFormDatas } from './utils';
 
 export type UpdatePageStatus = 'add' | 'update';
 export type ValidTypes = {
@@ -37,6 +38,8 @@ export interface UpdatePageProps {
   status: UpdatePageStatus;
   onMapBoxChange?: (item: PropsGoToMaxBox) => void;
   updatePageMapBoxOnAdd?: updatePageMapBoxOnAddProps;
+  onFormChange?: (form: Array<any>) => void;
+  updatePageForm?: Array<any>;
 }
 export type CalendarItem = {
   calendarVisible: boolean;
@@ -61,6 +64,24 @@ export default class UpdatePage extends Component<
   UpdatePageProps,
   UpdatePageState
 > {
+  static getDerivedStateFromProps(prevProps: UpdatePageProps) {
+    if (prevProps.updatePageForm && prevProps.updatePageForm.length !== 0) {
+      return { form: prevProps.updatePageForm };
+    }
+    return null;
+  }
+
+  componentDidUpdate() {
+    const { props, state } = this;
+
+    if (
+      simplifyFormDatas(props.updatePageForm || []) !==
+      simplifyFormDatas(state.form)
+    ) {
+      props.onFormChange && props.onFormChange(state.form);
+    }
+  }
+
   constructor(props: UpdatePageProps) {
     super(props);
 
@@ -156,7 +177,12 @@ export default class UpdatePage extends Component<
 
   renderEditItem = () => {
     const { props, state } = this;
-    const { status, onMapBoxChange, updatePageMapBoxOnAdd } = props;
+    const {
+      status,
+      onMapBoxChange,
+      updatePageMapBoxOnAdd,
+      onFormChange,
+    } = props;
     const prefixCls = `update-page-${status}`;
     let element = [];
     for (let item of state.form) {
@@ -287,14 +313,15 @@ export default class UpdatePage extends Component<
                 <List.Item
                   key={`${prefixCls}-map-picker-address-${id}`}
                   arrow="horizontal"
-                  onClick={() =>
+                  onClick={() => {
+                    onFormChange && onFormChange(state.form);
                     onMapBoxChange &&
-                    onMapBoxChange({
-                      lat: updatePageMapBoxOnAdd.lat,
-                      lng: updatePageMapBoxOnAdd.lng,
-                      key: updatePageMapBoxOnAdd.key,
-                    })
-                  }
+                      onMapBoxChange({
+                        lat: updatePageMapBoxOnAdd.lat,
+                        lng: updatePageMapBoxOnAdd.lng,
+                        key: updatePageMapBoxOnAdd.key,
+                      });
+                  }}
                   extra="修改"
                 >
                   地址
@@ -322,9 +349,10 @@ export default class UpdatePage extends Component<
                   extra="请选择"
                   key={`${prefixCls}-map-picker-add-${id}`}
                   arrow="horizontal"
-                  onClick={() =>
-                    onMapBoxChange && onMapBoxChange({ lat, lng, key })
-                  }
+                  onClick={() => {
+                    onFormChange && onFormChange(state.form);
+                    onMapBoxChange && onMapBoxChange({ lat, lng, key });
+                  }}
                 >
                   {name}
                 </List.Item>,
@@ -369,6 +397,11 @@ export default class UpdatePage extends Component<
     return element;
   };
 
+  save = () => {
+    const { props, state } = this;
+    props.onFormChange && props.onFormChange(state.form);
+  };
+
   render = () => {
     const { onBack } = this.props;
     const { calendarVisible, currentCalendarItem } = this.state;
@@ -379,7 +412,7 @@ export default class UpdatePage extends Component<
           <List.Item>
             <Button
               type="primary"
-              // onClick={this.save}
+              onClick={this.save}
               inline
               style={{ marginRight: 4, width: 'calc(50% - 4px)' }}
             >

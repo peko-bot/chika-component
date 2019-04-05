@@ -132,3 +132,13 @@ export const formatControls = (
   }
   return result;
 };
+
+export const simplifyFormDatas = (dataSource: Array<any>) => {
+  let result = [];
+
+  for (let item of dataSource) {
+    const { key, value } = item;
+    result.push({ key, value });
+  }
+  return JSON.stringify(result);
+};
