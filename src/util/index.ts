@@ -8,38 +8,28 @@ export const formatDate = (
   if (typeof date === 'string') {
     date = new Date(date);
   }
-  if (!format) {
-    format = 'yyyy-MM-dd HH:mm:ss';
-  }
   return fnsFormat(date, format, {
     locale: zhCN,
   });
 };
 
 export const getParamsFromUrl = (name: string, url?: string) => {
+  const targetUrl = url || window.location.hash;
   const reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)');
   let result: any =
-    window.location.hash.split('?').length > 1
-      ? window.location.hash.split('?')[1].match(reg)
-      : 0;
-  if (url) {
-    result = url.split('?').length > 1 ? url.split('?')[1].match(reg) : 0;
-  }
-  if (result !== null) {
-    return result[2] === undefined ? undefined : result[2];
+    targetUrl.split('?').length > 1 ? targetUrl.split('?')[1].match(reg) : 0;
+  if (result) {
+    return result[2];
   }
   return null;
 };
 
-export const compare = (property: any, isDesc = false) => {
-  let ins = null;
-  ins = isDesc
+export const compare = (property: any, isDesc?: boolean) =>
+  isDesc
     ? (b: any, a: any) => a[property] - b[property]
     : (a: any, b: any) => a[property] - b[property];
-  return ins;
-};
 
-const getDirection = (
+export const getDirection = (
   startX: number,
   startY: number,
   endX: number,
