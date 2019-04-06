@@ -5,7 +5,7 @@ $('lib')
   .hasFile('index.js')
   .hasDirectory('assets')
   .hasDirectory('component')
-  .hasDirectory('util');
+  .hasDirectory('utils');
 $('lib/component')
   .isDirectory()
   .hasDirectory('Calendar')
