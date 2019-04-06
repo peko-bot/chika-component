@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { List, Button } from 'antd-mobile';
 import { PropsGoToMaxBox } from './core';
-import { bindTouchDirection } from '../../util';
+import { bindTouchDirection } from '../../utils';
 import Arrow from './DetailArrow';
 
 export interface DetailFactoryProps {

@@ -2,7 +2,7 @@ import React from 'react';
 import Calendar from '../../component/Calendar';
 import './css/Calendar_demo.css';
 import moment from 'moment';
-import { ajax } from '../../util/urlHelper';
+import { ajax } from '../../utils/urlHelper';
 
 export interface CalendarDemoState {
   select: Array<any>;

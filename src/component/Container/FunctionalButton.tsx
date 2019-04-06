@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Modal, List } from 'antd-mobile';
-import { compare } from '../../util';
+import { compare } from '../../utils';
 
 type SortStatus = '无' | '升序' | '降序';
 type SortDirection = 'horizontal' | 'up' | 'down';

@@ -12,7 +12,7 @@ import {
   Drawer,
 } from 'antd-mobile';
 const { CheckboxItem } = Checkbox;
-import { formatDate } from '../../util';
+import { formatDate } from '../../utils';
 
 const CalendarDefaultValue: CalendarItem = {
   calendarVisible: false,

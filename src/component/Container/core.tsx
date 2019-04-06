@@ -6,7 +6,7 @@ import TransformManager, { TransformManagerItem } from '../TransformManager';
 import DetailFactory from './DetailFactory';
 import UpdatePage, { UpdatePageStatus } from './UpdatePage';
 import MapBox from '../MapBox';
-import { formatDate, bindTouchDirection } from '../../util';
+import { formatDate, bindTouchDirection } from '../../utils';
 import { UpdatePageMapBoxItemProps } from './DataController';
 import FunctionalButton from './FunctionalButton';
 import SearchBar from './SearchBar';

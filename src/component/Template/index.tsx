@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import extend from '../../util/DeepClone';
+import extend from '../../utils/DeepClone';
 
 type CallbackFunc = (dataItem: any, childProps: any, e?: any) => void;
 export interface TemplateProps {

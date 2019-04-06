@@ -12,7 +12,7 @@ import {
 } from 'antd-mobile';
 const { CheckboxItem } = Checkbox;
 import Upload from '../Upload';
-import { formatDate } from '../../util';
+import { formatDate } from '../../utils';
 import { PropsGoToMaxBox } from './core';
 import { UpdatePageMapBoxItemProps } from './DataController';
 import { simplifyFormDatas } from './utils';

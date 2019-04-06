@@ -2,7 +2,7 @@ import React from 'react';
 import Swiper from '../../component/Swiper';
 import './css/Swiper_demo.css';
 const secRecordPath = '/mock/swiper.json';
-import { ajax } from '../../util/urlHelper';
+import { ajax } from '../../utils/urlHelper';
 
 export default class SwiperDemo extends React.Component {
   swiper: any;

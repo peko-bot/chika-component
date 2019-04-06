@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Container, { MapPickerChangeProps } from './core';
-import { ajax } from '../../util/urlHelper';
+import { ajax } from '../../utils/urlHelper';
 import { Toast } from 'antd-mobile';
 import { formatConfig, formatControls } from './utils';
 
