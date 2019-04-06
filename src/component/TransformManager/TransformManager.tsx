@@ -2,21 +2,28 @@ import React, { PureComponent } from 'react';
 import classNames from 'classnames';
 import './css/TransformManager.css';
 
-export interface TransformManagerProps {
+export type GroupProps = {
+  children: React.ReactChildren;
+  className: string;
+  group: string;
+  key: string;
+  order: number;
+  style: React.CSSProperties;
+};
+export type CurrentProps = {
   currentGroup: string;
   currentOrder: number;
+};
+export type TransformManagerProps = {
   children?: any;
-}
-export interface TransformManagerState {
-  currentGroup: string;
-  currentOrder: number;
-  display: Array<any>;
-  history: Array<any>;
+} & CurrentProps;
+export type TransformManagerState = {
+  display: Array<GroupProps>;
   shouldTransform: boolean;
   shouldRender: boolean;
-}
+} & CurrentProps;
 
-let groupTypes: Array<any> = [];
+let groupTypes: Array<string> = [];
 let groups: any = [];
 
 const getGroupTypes = (childProps: any) => {
@@ -24,8 +31,7 @@ const getGroupTypes = (childProps: any) => {
   for (let item of childProps) {
     result.push(item.group);
   }
-  result = Array.from(new Set(result));
-  return result;
+  return Array.from(new Set(result));
 };
 
 // generate groups by group names
@@ -50,7 +56,6 @@ export default class TransformManager extends PureComponent<
     currentGroup: '',
     currentOrder: 0,
     display: [],
-    history: [],
     shouldTransform: false,
     shouldRender: false,
   };
@@ -170,7 +175,7 @@ export default class TransformManager extends PureComponent<
     return result;
   };
 
-  render = () => {
-    return <div className="TransformManager">{this.renderChildren()}</div>;
-  };
+  render = () => (
+    <div className="TransformManager">{this.renderChildren()}</div>
+  );
 }
