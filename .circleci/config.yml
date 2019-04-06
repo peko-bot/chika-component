@@ -59,7 +59,7 @@ jobs:
       - checkout
       - *attach_workspace
       - run:
-          command: npm test -- --clearCache -u
+          command: npm test -- -u
           environment:
             LIB_DIR: lib
 
