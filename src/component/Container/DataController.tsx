@@ -217,6 +217,10 @@ export default class DataController extends Component<
     this.setState({ updatePageForm });
   };
 
+  handleUpdatePageSave = (updatePageForm: Array<any>) => {
+    console.log(updatePageForm);
+  };
+
   render = () => {
     const {
       power,
@@ -245,6 +249,7 @@ export default class DataController extends Component<
           updatePageMapBoxItem={updatePageMapBoxItem}
           updatePageForm={updatePageForm}
           updatePageChange={this.handleUpdatePageChange}
+          updatePageSave={this.handleUpdatePageSave}
           onSort={this.handleSort}
         />
       </div>

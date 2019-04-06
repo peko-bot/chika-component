@@ -34,6 +34,7 @@ exports[`DataController render correctly 1`] = `
         "lng": "-1",
       }
     }
+    updatePageSave={[Function]}
   >
     <div
       data-key="pjnm"

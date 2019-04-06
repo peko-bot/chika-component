@@ -41,6 +41,7 @@ export interface ContainerCoreProps {
   updatePageMapBoxItem?: UpdatePageMapBoxItemProps;
   updatePageForm?: Array<any>;
   updatePageChange?: (form: Array<any>, status?: UpdatePageStatus) => void;
+  updatePageSave?: (form: Array<any>) => void;
 }
 export interface ContainerCoreState {
   currentOrder: number;
@@ -337,6 +338,7 @@ export default class ContainerCore extends Component<
       updatePageMapBoxItem,
       updatePageChange,
       updatePageForm,
+      updatePageSave,
     } = this.props;
     const { primaryValue, updatePageStatus } = this.state;
     const dataItemIndex = dataSource.findIndex(
@@ -355,6 +357,7 @@ export default class ContainerCore extends Component<
           onMapBoxChange={this.handleMapBoxChange}
           updatePageMapBoxItem={updatePageMapBoxItem}
           updatePageForm={updatePageForm}
+          updatePageSave={updatePageSave}
           onFormChange={updatePageChange}
         />
       </TransformManagerItem>

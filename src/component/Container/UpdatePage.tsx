@@ -40,6 +40,7 @@ export interface UpdatePageProps {
   updatePageMapBoxItem?: UpdatePageMapBoxItemProps;
   onFormChange?: (form: Array<any>, status?: UpdatePageStatus) => void;
   updatePageForm?: Array<any>;
+  updatePageSave?: (form: Array<any>) => void;
 }
 export type CalendarItem = {
   calendarVisible: boolean;
@@ -402,7 +403,7 @@ export default class UpdatePage extends Component<
 
   save = () => {
     const { props, state } = this;
-    props.onFormChange && props.onFormChange(state.form);
+    props.updatePageSave && props.updatePageSave(state.form);
   };
 
   render = () => {
