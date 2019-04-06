@@ -20,4 +20,15 @@ describe('Swiper', () => {
     );
     expect(wrapper).toMatchSnapshot();
   });
+
+  it('getChildHeight should work correctly', () => {
+    const wrapper = mount(
+      <Swiper wrapperHeight={500} duration={0.7} sensibility={1}>
+        test
+      </Swiper>,
+    ).instance();
+    wrapper.getChildHeight();
+    expect(wrapper.bottomHeight).toBe(-456);
+    expect(wrapper.scrollerHeight).toBe(0);
+  });
 });
