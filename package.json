@@ -23,7 +23,7 @@
   "dependencies": {
     "antd-mobile": "^2.2.11",
     "leaflet": "^1.4.0",
-    "nino-cli": "^0.7.0"
+    "nino-cli": "^0.7.1"
   },
   "devDependencies": {
     "@types/classnames": "^2.2.7",

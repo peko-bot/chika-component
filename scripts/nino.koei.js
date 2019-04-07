@@ -1,24 +1,18 @@
 const path = require('path');
+const fs = require('fs-extra');
 const cwd = process.cwd();
+
+const fileList = fs.readdirSync(path.join(cwd, 'src/component/'));
+const entry = {};
+for (let item of fileList) {
+  entry['lib/' + item + '/index'] = path.join(cwd, 'src/component/' + item);
+}
+entry['ninoninoni'] = path.join(cwd, '/src/go');
 
 module.exports = {
   mode: 'development',
   devtool: 'source-map',
-  entry: {
-    'lib/Calendar/index': path.join(cwd + '/src/component/Calendar'),
-    'lib/Container/index': path.join(cwd + '/src/component/Container'),
-    'lib/Drawer/index': path.join(cwd + '/src/component/Drawer'),
-    'lib/Ripple/index': path.join(cwd + '/src/component/Ripple'),
-    'lib/Swiper/index': path.join(cwd + '/src/component/Swiper'),
-    'lib/Tabs/index': path.join(cwd + '/src/component/Tabs'),
-    'lib/TransformManager/index': path.join(
-      cwd + '/src/component/TransformManager',
-    ),
-    'lib/Upload/index': path.join(cwd + '/src/component/Upload'),
-    'lib/MapBox/index': path.join(cwd + '/src/component/MapBox'),
-    'lib/Template/index': path.join(cwd + '/src/component/Template'),
-    ninoninoni: path.join(cwd, '/src/go'),
-  },
+  entry,
   output: {
     path: path.join(cwd, '/dist'),
     filename: '[name].js',
