@@ -6,6 +6,9 @@ switch (process.env.LIB_DIR) {
   case 'lib':
     Tabs = require('../../../../lib/component/Tabs').default;
     break;
+  case 'dist':
+    Tabs = require('../../../../dist/lib/Tabs').default;
+    break;
   default:
     Tabs = require('..').default;
     break;

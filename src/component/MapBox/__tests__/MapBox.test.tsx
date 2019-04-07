@@ -6,6 +6,9 @@ switch (process.env.LIB_DIR) {
   case 'lib':
     MapBox = require('../../../../lib/component/MapBox').default;
     break;
+  case 'dist':
+    MapBox = require('../../../../dist/lib/MapBox').default;
+    break;
   default:
     MapBox = require('..').default;
     break;

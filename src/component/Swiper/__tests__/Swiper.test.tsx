@@ -6,6 +6,9 @@ switch (process.env.LIB_DIR) {
   case 'lib':
     Swiper = require('../../../../lib/component/Swiper').default;
     break;
+  case 'dist':
+    Swiper = require('../../../../dist/lib/Swiper').default;
+    break;
   default:
     Swiper = require('..').default;
     break;

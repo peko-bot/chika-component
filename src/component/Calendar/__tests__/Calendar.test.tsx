@@ -7,6 +7,9 @@ switch (process.env.LIB_DIR) {
   case 'lib':
     Calendar = require('../../../../lib/component/Calendar').default;
     break;
+  case 'dist':
+    Calendar = require('../../../../dist/lib/Calendar').default;
+    break;
   default:
     Calendar = require('..').default;
     break;

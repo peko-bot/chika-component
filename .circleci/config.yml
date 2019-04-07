@@ -40,6 +40,19 @@ jobs:
       - *attach_workspace
       - run: npm run codecov
       - run: bash <(curl -s https://codecov.io/bash) -t 23446e71-0065-4582-b354-266b384f3625
+  dist:
+    <<: *container_config
+    steps:
+      - checkout
+      - *attach_workspace
+      - run: npm run build
+      - run: ls dist
+      - run: ls dist/lib
+      - run: node ./scripts/dekko-dist.js
+      - persist_to_workspace:
+          root: ~/chika-component
+          paths:
+            - dist
   compile:
     <<: *container_config
     steps:
@@ -53,6 +66,15 @@ jobs:
           root: ~/chika-component
           paths:
             - lib
+  test_dist:
+    <<: *container_config
+    steps:
+      - checkout
+      - *attach_workspace
+      - run:
+          command: npm test -- -u --maxWorkers=2
+          environment:
+            LIB_DIR: dist
   test_lib:
     <<: *container_config
     steps:
@@ -68,9 +90,15 @@ workflows:
   build:
     jobs:
       - setup
+      - dist:
+          requires:
+            - setup
       - test:
           requires:
             - setup
+      - test_dist:
+          requires:
+            - dist
       - lint:
           requires:
             - setup

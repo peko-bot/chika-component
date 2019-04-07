@@ -9,6 +9,9 @@ switch (process.env.LIB_DIR) {
   case 'lib':
     Core = require('../../../../lib/component/Container/core').default;
     break;
+  case 'dist':
+    Core = require('../../../../dist/lib/Container').Core;
+    break;
   default:
     Core = require('../core').default;
     break;
