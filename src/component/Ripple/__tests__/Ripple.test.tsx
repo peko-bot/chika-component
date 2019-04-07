@@ -6,6 +6,9 @@ switch (process.env.LIB_DIR) {
   case 'lib':
     Ripple = require('../../../../lib/component/Ripple').default;
     break;
+  case 'dist':
+    Ripple = require('../../../../dist/lib/Ripple').default;
+    break;
   default:
     Ripple = require('..').default;
     break;

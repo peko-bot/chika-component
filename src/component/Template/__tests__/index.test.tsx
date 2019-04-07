@@ -6,6 +6,9 @@ switch (process.env.LIB_DIR) {
   case 'lib':
     Template = require('../../../../lib/component/Template').default;
     break;
+  case 'dist':
+    Template = require('../../../../dist/lib/Template').default;
+    break;
   default:
     Template = require('..').default;
     break;

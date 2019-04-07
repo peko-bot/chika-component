@@ -8,6 +8,11 @@ switch (process.env.LIB_DIR) {
     TransformManager = targetModule.default;
     Item = targetModule.TransformManagerItem;
     break;
+  case 'dist':
+    targetModule = require('../../../../dist/lib/TransformManager');
+    TransformManager = targetModule.default;
+    Item = targetModule.TransformManagerItem;
+    break;
   default:
     targetModule = require('..');
     TransformManager = targetModule.default;

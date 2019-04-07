@@ -7,6 +7,9 @@ switch (process.env.LIB_DIR) {
     DataController = require('../../../../lib/component/Container/DataController')
       .default;
     break;
+  case 'dist':
+    DataController = require('../../../../dist/lib/Container').default;
+    break;
   default:
     DataController = require('../DataController').default;
     break;

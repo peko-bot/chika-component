@@ -6,6 +6,9 @@ switch (process.env.LIB_DIR) {
   case 'lib':
     Upload = require('../../../../lib/component/Upload').default;
     break;
+  case 'dist':
+    Upload = require('../../../../dist/lib/Upload').default;
+    break;
   default:
     Upload = require('..').default;
     break;
