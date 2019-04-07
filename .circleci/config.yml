@@ -66,6 +66,15 @@ jobs:
           root: ~/chika-component
           paths:
             - lib
+  test_dist:
+    <<: *container_config
+    steps:
+      - checkout
+      - *attach_workspace
+      - run:
+          command: npm test -- -u
+          environment:
+            LIB_DIR: dist
   test_lib:
     <<: *container_config
     steps:
