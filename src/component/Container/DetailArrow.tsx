@@ -15,7 +15,7 @@ const DetailArrow = (props: DetailArrowProps) => {
       style={{ top }}
       onClick={() => onClick && onClick('last')}
     >
-      <img src="../../assets/List_Container/arrow-left.png" />
+      <img src="./assets/arrow-left.png" />
     </div>
   );
   const next = (
@@ -24,7 +24,7 @@ const DetailArrow = (props: DetailArrowProps) => {
       style={{ top }}
       onClick={() => onClick && onClick('next')}
     >
-      <img src="../../assets/List_Container/arrow-right.png" />
+      <img src="./assets/arrow-right.png" />
     </div>
   );
   return (
