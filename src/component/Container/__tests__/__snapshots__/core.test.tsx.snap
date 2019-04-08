@@ -235,7 +235,7 @@ exports[`core render correctly 1`] = `
                     "retain_dam_type": "堆石坝",
                     "rownum": 1,
                     "select": "value1",
-                    "upload": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\",\\"id\\": 1}]",
+                    "upload": "[{\\"filepath\\":\\"./assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\",\\"id\\": 1}]",
                   },
                   Object {
                     "calendar": "2018-04-03 00:00:00,2018-04-04 00:00:00",
@@ -249,7 +249,7 @@ exports[`core render correctly 1`] = `
                     "retain_dam_type": "堆石坝",
                     "rownum": 2,
                     "select": "value1",
-                    "upload": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\", \\"id\\": 2}]",
+                    "upload": "[{\\"filepath\\":\\"./assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\", \\"id\\": 2}]",
                   },
                   Object {
                     "calendar": "2018-04-03 00:00:00,2018-04-04 00:00:00",
@@ -263,7 +263,7 @@ exports[`core render correctly 1`] = `
                     "retain_dam_type": "混凝土坝",
                     "rownum": 3,
                     "select": "value1",
-                    "upload": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\", \\"id\\": 3}]",
+                    "upload": "[{\\"filepath\\":\\"./assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\", \\"id\\": 3}]",
                   },
                   Object {
                     "calendar": "2018-04-03 00:00:00,2018-04-04 00:00:00",
@@ -277,7 +277,7 @@ exports[`core render correctly 1`] = `
                     "retain_dam_type": "混凝土坝",
                     "rownum": 4,
                     "select": "value1",
-                    "upload": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\", \\"id\\": 4}]",
+                    "upload": "[{\\"filepath\\":\\"./assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\", \\"id\\": 4}]",
                   },
                   Object {
                     "calendar": "2018-04-03 00:00:00,2018-04-04 00:00:00",
@@ -291,7 +291,7 @@ exports[`core render correctly 1`] = `
                     "retain_dam_type": "混凝土坝",
                     "rownum": 5,
                     "select": "value1",
-                    "upload": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\", \\"id\\": 5}]",
+                    "upload": "[{\\"filepath\\":\\"./assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\", \\"id\\": 5}]",
                   },
                   Object {
                     "calendar": "2018-04-03 00:00:00,2018-04-04 00:00:00",
@@ -305,7 +305,7 @@ exports[`core render correctly 1`] = `
                     "retain_dam_type": "混凝土坝",
                     "rownum": 6,
                     "select": "value1",
-                    "upload": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\", \\"id\\": 6}]",
+                    "upload": "[{\\"filepath\\":\\"./assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\", \\"id\\": 6}]",
                   },
                   Object {
                     "calendar": "2018-04-03 00:00:00,2018-04-04 00:00:00",
@@ -319,7 +319,7 @@ exports[`core render correctly 1`] = `
                     "retain_dam_type": "混凝土坝",
                     "rownum": 7,
                     "select": "value1",
-                    "upload": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\", \\"id\\": 7}]",
+                    "upload": "[{\\"filepath\\":\\"./assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\", \\"id\\": 7}]",
                   },
                   Object {
                     "calendar": "2018-04-03 00:00:00,2018-04-04 00:00:00",
@@ -333,7 +333,7 @@ exports[`core render correctly 1`] = `
                     "retain_dam_type": "混凝土坝",
                     "rownum": 8,
                     "select": "value1",
-                    "upload": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\", \\"id\\": 8}]",
+                    "upload": "[{\\"filepath\\":\\"./assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\", \\"id\\": 8}]",
                   },
                   Object {
                     "calendar": "2018-04-03 00:00:00,2018-04-04 00:00:00",
@@ -347,7 +347,7 @@ exports[`core render correctly 1`] = `
                     "retain_dam_type": "混凝土坝",
                     "rownum": 9,
                     "select": "value1",
-                    "upload": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\", \\"id\\": 9}]",
+                    "upload": "[{\\"filepath\\":\\"./assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\", \\"id\\": 9}]",
                   },
                   Object {
                     "calendar": "2018-04-03 00:00:00,2018-04-04 00:00:00",
@@ -361,7 +361,7 @@ exports[`core render correctly 1`] = `
                     "retain_dam_type": "混凝土坝",
                     "rownum": 10,
                     "select": "value1",
-                    "upload": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\", \\"id\\": 10}]",
+                    "upload": "[{\\"filepath\\":\\"./assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\", \\"id\\": 10}]",
                   },
                 ]
               }
@@ -611,7 +611,7 @@ exports[`core render correctly 1`] = `
                 Object {
                   "id": 1,
                   "name": "name2",
-                  "url": "../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg",
+                  "url": "./assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg",
                 },
               ],
             },
@@ -849,7 +849,7 @@ exports[`core render correctly 1`] = `
                 Object {
                   "id": 2,
                   "name": "name2",
-                  "url": "../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg",
+                  "url": "./assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg",
                 },
               ],
             },
@@ -1087,7 +1087,7 @@ exports[`core render correctly 1`] = `
                 Object {
                   "id": 3,
                   "name": "name2",
-                  "url": "../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg",
+                  "url": "./assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg",
                 },
               ],
             },
@@ -1325,7 +1325,7 @@ exports[`core render correctly 1`] = `
                 Object {
                   "id": 4,
                   "name": "name2",
-                  "url": "../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg",
+                  "url": "./assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg",
                 },
               ],
             },
@@ -1563,7 +1563,7 @@ exports[`core render correctly 1`] = `
                 Object {
                   "id": 5,
                   "name": "name2",
-                  "url": "../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg",
+                  "url": "./assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg",
                 },
               ],
             },
@@ -1801,7 +1801,7 @@ exports[`core render correctly 1`] = `
                 Object {
                   "id": 6,
                   "name": "name2",
-                  "url": "../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg",
+                  "url": "./assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg",
                 },
               ],
             },
@@ -2039,7 +2039,7 @@ exports[`core render correctly 1`] = `
                 Object {
                   "id": 7,
                   "name": "name2",
-                  "url": "../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg",
+                  "url": "./assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg",
                 },
               ],
             },
@@ -2277,7 +2277,7 @@ exports[`core render correctly 1`] = `
                 Object {
                   "id": 8,
                   "name": "name2",
-                  "url": "../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg",
+                  "url": "./assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg",
                 },
               ],
             },
@@ -2515,7 +2515,7 @@ exports[`core render correctly 1`] = `
                 Object {
                   "id": 9,
                   "name": "name2",
-                  "url": "../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg",
+                  "url": "./assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg",
                 },
               ],
             },
@@ -2753,7 +2753,7 @@ exports[`core render correctly 1`] = `
                 Object {
                   "id": 10,
                   "name": "name2",
-                  "url": "../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg",
+                  "url": "./assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg",
                 },
               ],
             },
@@ -3060,7 +3060,7 @@ exports[`core render correctly 1`] = `
           "retain_dam_type": "堆石坝",
           "rownum": 1,
           "select": "value1",
-          "upload": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\",\\"id\\": 1}]",
+          "upload": "[{\\"filepath\\":\\"./assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\",\\"id\\": 1}]",
         },
         Object {
           "calendar": "2018-04-03 00:00:00,2018-04-04 00:00:00",
@@ -3074,7 +3074,7 @@ exports[`core render correctly 1`] = `
           "retain_dam_type": "堆石坝",
           "rownum": 2,
           "select": "value1",
-          "upload": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\", \\"id\\": 2}]",
+          "upload": "[{\\"filepath\\":\\"./assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\", \\"id\\": 2}]",
         },
         Object {
           "calendar": "2018-04-03 00:00:00,2018-04-04 00:00:00",
@@ -3088,7 +3088,7 @@ exports[`core render correctly 1`] = `
           "retain_dam_type": "混凝土坝",
           "rownum": 3,
           "select": "value1",
-          "upload": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\", \\"id\\": 3}]",
+          "upload": "[{\\"filepath\\":\\"./assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\", \\"id\\": 3}]",
         },
         Object {
           "calendar": "2018-04-03 00:00:00,2018-04-04 00:00:00",
@@ -3102,7 +3102,7 @@ exports[`core render correctly 1`] = `
           "retain_dam_type": "混凝土坝",
           "rownum": 4,
           "select": "value1",
-          "upload": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\", \\"id\\": 4}]",
+          "upload": "[{\\"filepath\\":\\"./assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\", \\"id\\": 4}]",
         },
         Object {
           "calendar": "2018-04-03 00:00:00,2018-04-04 00:00:00",
@@ -3116,7 +3116,7 @@ exports[`core render correctly 1`] = `
           "retain_dam_type": "混凝土坝",
           "rownum": 5,
           "select": "value1",
-          "upload": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\", \\"id\\": 5}]",
+          "upload": "[{\\"filepath\\":\\"./assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\", \\"id\\": 5}]",
         },
         Object {
           "calendar": "2018-04-03 00:00:00,2018-04-04 00:00:00",
@@ -3130,7 +3130,7 @@ exports[`core render correctly 1`] = `
           "retain_dam_type": "混凝土坝",
           "rownum": 6,
           "select": "value1",
-          "upload": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\", \\"id\\": 6}]",
+          "upload": "[{\\"filepath\\":\\"./assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\", \\"id\\": 6}]",
         },
         Object {
           "calendar": "2018-04-03 00:00:00,2018-04-04 00:00:00",
@@ -3144,7 +3144,7 @@ exports[`core render correctly 1`] = `
           "retain_dam_type": "混凝土坝",
           "rownum": 7,
           "select": "value1",
-          "upload": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\", \\"id\\": 7}]",
+          "upload": "[{\\"filepath\\":\\"./assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\", \\"id\\": 7}]",
         },
         Object {
           "calendar": "2018-04-03 00:00:00,2018-04-04 00:00:00",
@@ -3158,7 +3158,7 @@ exports[`core render correctly 1`] = `
           "retain_dam_type": "混凝土坝",
           "rownum": 8,
           "select": "value1",
-          "upload": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\", \\"id\\": 8}]",
+          "upload": "[{\\"filepath\\":\\"./assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\", \\"id\\": 8}]",
         },
         Object {
           "calendar": "2018-04-03 00:00:00,2018-04-04 00:00:00",
@@ -3172,7 +3172,7 @@ exports[`core render correctly 1`] = `
           "retain_dam_type": "混凝土坝",
           "rownum": 9,
           "select": "value1",
-          "upload": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\", \\"id\\": 9}]",
+          "upload": "[{\\"filepath\\":\\"./assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\", \\"id\\": 9}]",
         },
         Object {
           "calendar": "2018-04-03 00:00:00,2018-04-04 00:00:00",
@@ -3186,7 +3186,7 @@ exports[`core render correctly 1`] = `
           "retain_dam_type": "混凝土坝",
           "rownum": 10,
           "select": "value1",
-          "upload": "[{\\"filepath\\":\\"../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\", \\"id\\": 10}]",
+          "upload": "[{\\"filepath\\":\\"./assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg\\",\\"filetile\\":\\"name2\\",\\"filename\\":\\"jpg\\", \\"id\\": 10}]",
         },
       ]
     }

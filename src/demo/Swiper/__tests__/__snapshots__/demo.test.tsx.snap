@@ -46,7 +46,7 @@ exports[`SwiperDemo render correctly 1`] = `
               }
             >
               <img
-                src="../../assets/Swiper/down.png"
+                src="./assets/down.png"
               />
             </span>
             <span
@@ -72,7 +72,7 @@ exports[`SwiperDemo render correctly 1`] = `
               }
             >
               <img
-                src="../../assets/Swiper/down.png"
+                src="./assets/down.png"
               />
             </span>
             <span
