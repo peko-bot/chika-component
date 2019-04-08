@@ -1,7 +1,7 @@
 import React, { Component, createRef } from 'react';
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import './assets/MapBox.css';
+import './css/MapBox.css';
 import * as Tiles from './tiles';
 
 export enum TileType {
@@ -111,7 +111,7 @@ export default class MapBox extends Component<MapBoxProps, MapBoxState> {
     (Tiles as any)[type].addTo(map);
 
     const icon = leaflet.icon({
-      iconUrl: '../../assets/easyLeaflet/defaultIcon.png',
+      iconUrl: './assets/defaultIcon.png',
     });
     const marker = leaflet
       .marker([31.8, 121.66], { icon, draggable: true, autoPan: true })
