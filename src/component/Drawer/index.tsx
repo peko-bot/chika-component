@@ -11,9 +11,8 @@ export interface DrawerProps {
   clientView?: number;
   style?: any;
 }
-export interface DrawerState {}
 
-export default class Drawer extends Component<DrawerProps, DrawerState> {
+export default class Drawer extends Component<DrawerProps> {
   handlePosition = (
     direction: string,
     clientView: number,
@@ -133,7 +132,7 @@ export default class Drawer extends Component<DrawerProps, DrawerState> {
           className="scale-wrapper"
           style={{ transform: `rotateZ(${iconDeg}deg)` }}
         >
-          {operaNode ? operaNode : <img src="../../assets/Drawer/arrow.png" />}
+          {operaNode ? operaNode : <img src="./assets/arrow.png" />}
         </div>
       </div>
     );
