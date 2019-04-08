@@ -115,10 +115,7 @@ export default class Template extends Component<TemplateProps> {
   renderEmpty = () => {
     return (
       <div className="Template">
-        <img
-          src="../../assets/List_Container/nodata.png"
-          style={{ width: '100%' }}
-        />
+        <img src="./assets/nodata.png" style={{ width: '100%' }} />
       </div>
     );
   };
