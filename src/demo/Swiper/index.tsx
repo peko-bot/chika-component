@@ -1,7 +1,6 @@
 import React from 'react';
 import Swiper from '../../component/Swiper';
 import './css/Swiper_demo.css';
-const secRecordPath = '/mock/swiper.json';
 import { ajax } from '../../utils/urlHelper';
 
 export default class SwiperDemo extends React.Component {
@@ -15,7 +14,7 @@ export default class SwiperDemo extends React.Component {
   componentDidMount = () => {
     this.setState({ loading: true });
     ajax({
-      url: secRecordPath,
+      url: './assets/swiper.json',
       success: result => this.setState({ datas: result, loading: false }),
     });
   };
