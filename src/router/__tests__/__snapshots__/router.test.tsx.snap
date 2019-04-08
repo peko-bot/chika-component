@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Router render correctly 1`] = `
-<Entry>
+<Component>
   <HashRouter>
     <Router
       history={
@@ -28,5 +28,5 @@ exports[`Router render correctly 1`] = `
       <Switch />
     </Router>
   </HashRouter>
-</Entry>
+</Component>
 `;
