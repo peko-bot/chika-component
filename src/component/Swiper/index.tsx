@@ -32,9 +32,9 @@ export interface SwiperState {
   status: Status;
   type: SpinnerType;
 }
-const down = '../../assets/Swiper/down.png';
-const loading = '../../assets/Swiper/loading.gif';
-const complete = '../../assets/Swiper/complete.png';
+const down = './assets/down.png';
+const loading = './assets/loading.gif';
+const complete = './assets/complete.png';
 
 export default class Swiper extends React.Component<SwiperProps, SwiperState> {
   wrapper: HTMLDivElement | null;
