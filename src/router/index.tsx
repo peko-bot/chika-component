@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { HashRouter, Route, Switch } from 'react-router-dom';
 
 import Calendar from '../demo/Calendar';
@@ -12,21 +12,19 @@ import TransformManager from '../demo/TransformManager';
 import MapBox from '../demo/MapBox';
 import Template from '../demo/Template';
 
-export default class Entry extends Component {
-  render = () => (
-    <HashRouter>
-      <Switch>
-        <Route path="/calendar" component={Calendar} />
-        <Route path="/container" component={Container} />
-        <Route path="/swiper" component={Swiper} />
-        <Route path="/tabs" component={Tabs} />
-        <Route path="/ripple" component={Ripple} />
-        <Route path="/upload" component={Upload} />
-        <Route path="/drawer" component={Drawer} />
-        <Route path="/transform" component={TransformManager} />
-        <Route path="/mapbox" component={MapBox} />
-        <Route path="/template" component={Template} />
-      </Switch>
-    </HashRouter>
-  );
-}
+export default () => (
+  <HashRouter>
+    <Switch>
+      <Route path="/calendar" component={Calendar} />
+      <Route path="/container" component={Container} />
+      <Route path="/swiper" component={Swiper} />
+      <Route path="/tabs" component={Tabs} />
+      <Route path="/ripple" component={Ripple} />
+      <Route path="/upload" component={Upload} />
+      <Route path="/drawer" component={Drawer} />
+      <Route path="/transform" component={TransformManager} />
+      <Route path="/mapbox" component={MapBox} />
+      <Route path="/template" component={Template} />
+    </Switch>
+  </HashRouter>
+);
