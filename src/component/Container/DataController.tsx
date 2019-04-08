@@ -99,7 +99,7 @@ export default class DataController extends Component<
     const { tableId, menuId } = this.props;
 
     ajax({
-      url: '../../mock/getConfig.json',
+      url: './assets/getConfig.json',
       data: { tableId, menuId },
       success: ({ data }) => {
         const primaryKey = this.getPrimaryKey(data.tablefieldconfig);
@@ -127,7 +127,7 @@ export default class DataController extends Component<
       this.setState({ loading: true });
     }
     ajax({
-      url: '../../mock/search.json',
+      url: './assets/search.json',
       success: ({ data }) => {
         let dataSource: Array<any> = [];
         data.list.map((item: any, i: number) => {
@@ -150,7 +150,7 @@ export default class DataController extends Component<
       this.setState({ loading: true });
     }
     ajax({
-      url: '../../mock/operatedata.json',
+      url: './assets/operatedata.json',
       data: { id: primaryValue },
       success: ({ data }) => {
         if (data.result) {
