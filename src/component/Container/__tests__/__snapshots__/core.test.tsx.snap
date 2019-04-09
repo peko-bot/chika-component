@@ -209,6 +209,7 @@ exports[`core render correctly 1`] = `
             },
           ]
         }
+        onSearch={[Function]}
         onVisibleChange={[Function]}
         visible={false}
       >
