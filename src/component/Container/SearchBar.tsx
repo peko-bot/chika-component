@@ -33,6 +33,7 @@ export interface SearchBarProps {
   visible?: boolean;
   onVisibleChange?: (visible: boolean) => void;
   className?: string;
+  onSearch?: (form: any) => void;
 }
 export type SearchBarState = {
   form: Array<any>;
@@ -109,7 +110,7 @@ export default class SearchBar extends Component<
 
   renderSidebar = () => {
     const { state } = this;
-    const prefixCls = `search-bar`;
+    const prefixCls = 'search-bar';
     let element = [];
     for (let item of state.form) {
       const { type, name, key, foreignData, id } = item;
@@ -220,6 +221,15 @@ export default class SearchBar extends Component<
     return element;
   };
 
+  handleSearch = () => {
+    const { props, state } = this;
+    const searchParams: any = {};
+    for (let item of state.form) {
+      searchParams[item.key] = item.value;
+    }
+    props.onSearch && props.onSearch(searchParams);
+  };
+
   render() {
     const { visible, onVisibleChange, className, children } = this.props;
     const { calendarVisible, currentCalendarItem } = this.state;
@@ -227,7 +237,9 @@ export default class SearchBar extends Component<
       <List renderHeader={<span style={{ fontSize: 17 }}>搜索面板</span>}>
         <List.Item>{this.renderSidebar()}</List.Item>
         <List.Item>
-          <Button type="primary">确定</Button>
+          <Button type="primary" onClick={this.handleSearch}>
+            确定
+          </Button>
         </List.Item>
       </List>
     );
