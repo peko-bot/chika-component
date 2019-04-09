@@ -122,12 +122,13 @@ export default class DataController extends Component<
     return keyItem[0]['fname'];
   };
 
-  search = () => {
+  search = (form?: any) => {
     if (!this.state.loading) {
       this.setState({ loading: true });
     }
     ajax({
       url: './assets/search.json',
+      data: form,
       success: ({ data }) => {
         let dataSource: Array<any> = [];
         data.list.map((item: any, i: number) => {
@@ -218,6 +219,7 @@ export default class DataController extends Component<
   };
 
   handleUpdatePageSave = (updatePageForm: Array<any>) => {
+    // eslint-disable-next-line
     console.log(updatePageForm);
   };
 

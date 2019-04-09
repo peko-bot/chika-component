@@ -34,7 +34,7 @@ export interface ContainerCoreProps {
   loading?: boolean;
   primaryKey: string;
   onDelete?: (primaryValue: string | number) => void;
-  onSearch?: () => void;
+  onSearch?: (form?: any) => void;
   formatControls: (item: any, config: any, primaryKey: string) => void;
   onMapPickerChange?: (item: MapPickerChangeProps) => void;
   onSort?: (dataSource: Array<any>) => void;
@@ -425,6 +425,12 @@ export default class ContainerCore extends Component<
         visible={showSearchBar}
         onVisibleChange={showSearchBar => this.setState({ showSearchBar })}
         children={children}
+        onSearch={(searchParams: any) => {
+          this.setState(
+            { showSearchBar: false },
+            () => props.onSearch && props.onSearch(searchParams),
+          );
+        }}
       />
     );
   };
