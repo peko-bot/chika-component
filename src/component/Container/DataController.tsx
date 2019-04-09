@@ -5,9 +5,11 @@ import { Toast } from 'antd-mobile';
 import { formatConfig, formatControls } from './utils';
 
 export interface DataControllerProps {
-  children: any;
+  children: React.ReactElement;
   tableId: number;
   menuId: number;
+  /** request prefix of url, domain + port, like http://localhost:9099 */
+  domain?: string;
 }
 export type UpdatePageMapBoxItemProps = {
   lat: string;
@@ -34,6 +36,13 @@ export default class DataController extends Component<
   DataControllerProps,
   DataControllerState
 > {
+  static defaultProps = {
+    children: null,
+    tableId: -1,
+    menuId: -1,
+    domain: '.',
+  };
+
   state: DataControllerState = {
     config: [],
     dataSource: [],
@@ -48,12 +57,6 @@ export default class DataController extends Component<
     loading: false,
     updatePageMapBoxItem: { lng: '-1', lat: '-1', key: 'key' },
     updatePageForm: [],
-  };
-
-  static defaultProps = {
-    children: null,
-    tableId: -1,
-    menuId: -1,
   };
 
   componentDidMount = () => {
@@ -96,10 +99,10 @@ export default class DataController extends Component<
     if (!this.state.loading) {
       this.setState({ loading: true });
     }
-    const { tableId, menuId } = this.props;
+    const { tableId, menuId, domain } = this.props;
 
     ajax({
-      url: './assets/getConfig.json',
+      url: domain + '/assets/getConfig.json',
       data: { tableId, menuId },
       success: ({ data }) => {
         const primaryKey = this.getPrimaryKey(data.tablefieldconfig);
@@ -123,11 +126,12 @@ export default class DataController extends Component<
   };
 
   search = (form?: any) => {
+    const { domain } = this.props;
     if (!this.state.loading) {
       this.setState({ loading: true });
     }
     ajax({
-      url: './assets/search.json',
+      url: domain + '/assets/search.json',
       data: form,
       success: ({ data }) => {
         let dataSource: Array<any> = [];
@@ -147,11 +151,12 @@ export default class DataController extends Component<
   };
 
   handleDelete = (primaryValue: string | number) => {
+    const { domain } = this.props;
     if (!this.state.loading) {
       this.setState({ loading: true });
     }
     ajax({
-      url: './assets/operatedata.json',
+      url: domain + '/assets/operatedata.json',
       data: { id: primaryValue },
       success: ({ data }) => {
         if (data.result) {
