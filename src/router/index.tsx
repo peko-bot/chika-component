@@ -15,6 +15,7 @@ import Template from '../demo/Template';
 export default () => (
   <HashRouter>
     <Switch>
+      <Route exact path="/" component={Container} />
       <Route path="/calendar" component={Calendar} />
       <Route path="/container" component={Container} />
       <Route path="/swiper" component={Swiper} />
