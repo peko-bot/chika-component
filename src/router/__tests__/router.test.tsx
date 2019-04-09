@@ -1,11 +1,11 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import 'nino-cli/scripts/setup';
 import Router from '..';
 
 describe('Router', () => {
   it('render correctly', () => {
-    const wrapper = mount(<Router />);
+    const wrapper = shallow(<Router />);
     expect(wrapper).toMatchSnapshot();
   });
 });
