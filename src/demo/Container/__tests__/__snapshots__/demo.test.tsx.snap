@@ -5,6 +5,7 @@ exports[`ContainerDemo render correctly 1`] = `
   className="container-demo"
 >
   <DataController
+    domain="http://localhost:9099"
     menuId={1392}
     tableId={10874}
   >
