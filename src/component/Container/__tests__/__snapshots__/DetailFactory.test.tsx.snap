@@ -218,7 +218,7 @@ exports[`DetailFactory render correctly 1`] = `
           Object {
             "id": 1,
             "name": "name2",
-            "url": "../../assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg",
+            "url": "./assets/d19f18a8ly1g0akzu7cq5j20u016gnpe.jpg",
           },
         ],
       },

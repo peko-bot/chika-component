@@ -16,7 +16,7 @@ export default class UploadDemo extends Component {
 
   componentDidMount = () => {
     ajax({
-      url: '../../mock/uploadFiles.json',
+      url: './assets/uploadFiles.json',
       success: ({ data }) => {
         let fileList: any = [];
         for (let item of data) {

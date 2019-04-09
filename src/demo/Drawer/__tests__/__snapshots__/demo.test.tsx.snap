@@ -43,7 +43,7 @@ exports[`DrawerDemo render correctly 1`] = `
             }
           >
             <img
-              src="../../assets/Drawer/arrow.png"
+              src="./assets/arrow.png"
             />
           </div>
         </div>

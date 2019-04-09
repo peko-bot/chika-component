@@ -40,7 +40,7 @@ export default class CalendarDemo extends React.Component<
 
   componentDidMount = () => {
     ajax({
-      url: '/mock/calendar_demo.json',
+      url: './assets/calendar_demo.json',
       success: select => this.setState({ select }),
     });
   };

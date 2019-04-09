@@ -37,7 +37,7 @@ exports[`Drawer render correctly 1`] = `
         }
       >
         <img
-          src="../../assets/Drawer/arrow.png"
+          src="./assets/arrow.png"
         />
       </div>
     </div>
@@ -82,7 +82,7 @@ exports[`Drawer render correctly 2`] = `
         }
       >
         <img
-          src="../../assets/Drawer/arrow.png"
+          src="./assets/arrow.png"
         />
       </div>
     </div>
