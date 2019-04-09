@@ -7,7 +7,7 @@ exports[`DataController render correctly 1`] = `
   <ContainerCore
     config={Array []}
     dataSource={Array []}
-    domain="http://localhost:9099"
+    domain="."
     formatControls={[Function]}
     loading={true}
     menuId={-2}

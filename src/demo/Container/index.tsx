@@ -4,7 +4,7 @@ import './css/container-demo.css';
 
 export default () => (
   <div className="container-demo">
-    <Container tableId={10874} menuId={1392} domain="http://localhost:9099">
+    <Container tableId={10874} menuId={1392}>
       <ul>
         <li>
           <div className="left">

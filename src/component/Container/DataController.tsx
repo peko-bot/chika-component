@@ -40,7 +40,7 @@ export default class DataController extends Component<
     children: null,
     tableId: -1,
     menuId: -1,
-    domain: 'http://localhost:9099',
+    domain: '.',
   };
 
   state: DataControllerState = {
