@@ -1,7 +1,7 @@
 .upload .upload-item {
   border: 1px dashed #d9d9d9;
-  width: 28vw;
-  height: 28vw;
+  width: 27vw;
+  height: 27vw;
   border-radius: 4px;
   background-color: #fafafa;
   text-align: center;
@@ -10,7 +10,7 @@
   vertical-align: top;
   display: table;
   padding: 5px;
-  margin: 0 1vw 1vw 0;
+  margin: 1vw;
 }
 
 .upload .upload-item-error {

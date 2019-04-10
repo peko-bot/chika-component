@@ -1,6 +1,7 @@
 .uploadView .upload-view-list {
   display: flex;
   flex-wrap: wrap;
+  margin: 1vw
 }
 
 .uploadView .upload-view-list .upload-item {
