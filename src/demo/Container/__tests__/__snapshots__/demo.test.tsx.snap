@@ -5,8 +5,33 @@ exports[`ContainerDemo render correctly 1`] = `
   className="container-demo"
 >
   <DataController
+    attachmentRequest={
+      Object {
+        "url": "",
+      }
+    }
+    configRequest={
+      Object {
+        "url": "/assets/getConfig.json",
+      }
+    }
+    dataRequest={
+      Object {
+        "url": "/assets/search.json",
+      }
+    }
+    deleteRequest={
+      Object {
+        "url": "/assets/operatedata.json",
+      }
+    }
     domain="."
     menuId={1392}
+    submitRequest={
+      Object {
+        "url": "",
+      }
+    }
     tableId={10874}
   >
     <ul>

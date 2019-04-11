@@ -59,7 +59,15 @@ import './css/container-demo.css';
 
 export default () => (
   <div className="container-demo">
-    <Container tableId={10874} menuId={1392}>
+    <Container
+      tableId={10874}
+      menuId={1392}
+      configRequest={{ url: 'http://localhost:9099/assets/getConfig.json' }}
+      dataRequest={{ url: 'http://localhost:9099/assets/search.json' }}
+      deleteRequest={{ url: 'http://localhost:9099/assets/operatedata.json' }}
+      submitRequest={{ url: '' }}
+      attachmentRequest={{ url: '' }}
+    >
       <ul>
         <li>
           <div className="left">
@@ -98,10 +106,22 @@ export default () => (
 
 ## Container.props
 
-|  参数   | 说明                                          |  类型  | 默认值 |
-| :-----: | --------------------------------------------- | :----: | :----: |
-| tableId | 组件内封装请求的 table id，用于获得配置和数据 | number |   -1   |
-| menuId  | 组件内封装请求的 menu id，用于获得权限数据    | number |   -1   |
+```tsx
+type RequestMethod = {
+  url: string;
+  method?: 'GET' | 'POST' | 'PUT' | 'DELETE';
+};
+```
+
+|       参数        | 说明                                          |     类型      | 默认值 |
+| :---------------: | --------------------------------------------- | :-----------: | :----: |
+|      tableId      | 组件内封装请求的 table id，用于获得配置和数据 |    number     |   -1   |
+|      menuId       | 组件内封装请求的 menu id，用于获得权限数据    |    number     |   -1   |
+|   configRequest   | 请求配置地址                                  | RequestMethod |   -    |
+|    dataRequest    | 请求数据地址                                  | RequestMethod |   -    |
+|   deleteRequest   | 删除时请求的地址                              | RequestMethod |   -    |
+|   submitRequest   | 提交时请求的地址                              | RequestMethod |   -    |
+| attachmentRequest | 附件上传时请求的地址                          | RequestMethod |   -    |
 
 ## 子标签参数
 

@@ -4,12 +4,19 @@ import { ajax } from '../../utils/urlHelper';
 import { Toast } from 'antd-mobile';
 import { formatConfig, formatControls } from './utils';
 
+export type RequestMethod = {
+  url: string;
+  method?: 'GET' | 'POST' | 'PUT' | 'DELETE';
+};
 export interface DataControllerProps {
   children: React.ReactElement;
   tableId: number;
   menuId: number;
-  /** request prefix of url, domain + port, like http://localhost:9099 */
-  domain?: string;
+  configRequest: RequestMethod;
+  dataRequest: RequestMethod;
+  deleteRequest: RequestMethod;
+  submitRequest: RequestMethod;
+  attachmentRequest: RequestMethod;
 }
 export type UpdatePageMapBoxItemProps = {
   lat: string;
@@ -99,10 +106,9 @@ export default class DataController extends Component<
     if (!this.state.loading) {
       this.setState({ loading: true });
     }
-    const { tableId, menuId, domain } = this.props;
+    const { tableId, menuId, configRequest } = this.props;
 
     ajax({
-      url: domain + '/assets/getConfig.json',
       data: { tableId, menuId },
       success: ({ data }) => {
         const primaryKey = this.getPrimaryKey(data.tablefieldconfig);
@@ -113,6 +119,7 @@ export default class DataController extends Component<
         });
         this.search();
       },
+      ...configRequest,
     });
   };
 
@@ -126,12 +133,11 @@ export default class DataController extends Component<
   };
 
   search = (form?: any) => {
-    const { domain } = this.props;
+    const { dataRequest } = this.props;
     if (!this.state.loading) {
       this.setState({ loading: true });
     }
     ajax({
-      url: domain + '/assets/search.json',
       data: form,
       success: ({ data }) => {
         const dataSource: Array<any> = [];
@@ -147,16 +153,16 @@ export default class DataController extends Component<
           loading: false,
         });
       },
+      ...dataRequest,
     });
   };
 
   handleDelete = (primaryValue: string | number) => {
-    const { domain } = this.props;
+    const { deleteRequest } = this.props;
     if (!this.state.loading) {
       this.setState({ loading: true });
     }
     ajax({
-      url: domain + '/assets/operatedata.json',
       data: { id: primaryValue },
       success: ({ data }) => {
         if (data.result) {
@@ -166,6 +172,7 @@ export default class DataController extends Component<
           Toast.fail('保存失败：' + data.remark || '');
         }
       },
+      ...deleteRequest,
     });
   };
 

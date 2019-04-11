@@ -4,7 +4,15 @@ import './css/container-demo.css';
 
 export default () => (
   <div className="container-demo">
-    <Container tableId={10874} menuId={1392}>
+    <Container
+      tableId={10874}
+      menuId={1392}
+      configRequest={{ url: '/assets/getConfig.json' }}
+      dataRequest={{ url: '/assets/search.json' }}
+      deleteRequest={{ url: '/assets/operatedata.json' }}
+      submitRequest={{ url: '' }}
+      attachmentRequest={{ url: '' }}
+    >
       <ul>
         <li>
           <div className="left">
