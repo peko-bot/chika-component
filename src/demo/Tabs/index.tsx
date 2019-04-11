@@ -10,6 +10,10 @@ export default class TabsDemo extends React.Component {
     labelText2: 8,
   };
 
+  config = {
+    // containerStyle: {background: '#F96'}
+  };
+
   componentDidMount = () => {
     setTimeout(() => {
       this.setState({
@@ -21,10 +25,6 @@ export default class TabsDemo extends React.Component {
 
   onClick = (_: any, currentSelect: number) => {
     this.setState({ currentSelect });
-  };
-
-  config = {
-    // containerStyle: {background: '#F96'}
   };
 
   render() {

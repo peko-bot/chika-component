@@ -27,19 +27,19 @@ let groupTypes: Array<string> = [];
 let groups: any = [];
 
 const getGroupTypes = (childProps: any) => {
-  let result = [];
-  for (let item of childProps) {
+  const result = [];
+  for (const item of childProps) {
     result.push(item.group);
   }
   return Array.from(new Set(result));
 };
 
 // generate groups by group names
-const generateGroups = (groups: any, childProps: any) => {
-  let newState: any = {};
-  for (let groupName of groups) {
+const generateGroups = (targetGroups: any, childProps: any) => {
+  const newState: any = {};
+  for (const groupName of targetGroups) {
     newState[groupName] = [];
-    for (let childProp of childProps) {
+    for (const childProp of childProps) {
       if (groupName === childProp.group) {
         newState[groupName].push(childProp);
       }
@@ -52,14 +52,6 @@ export default class TransformManager extends PureComponent<
   TransformManagerProps,
   TransformManagerState
 > {
-  state: TransformManagerState = {
-    currentGroup: '',
-    currentOrder: 0,
-    display: [],
-    shouldTransform: false,
-    shouldRender: false,
-  };
-
   static defaultProps = {
     currentGroup: '',
     currentOrder: 0,
@@ -69,7 +61,7 @@ export default class TransformManager extends PureComponent<
     nextProps: TransformManagerProps,
     nextState: TransformManagerState,
   ) {
-    let childProps: Array<any> = [];
+    const childProps: Array<any> = [];
     React.Children.map(nextProps.children, child => {
       childProps.push(Object.assign({}, child.props, { key: child.key }));
     });
@@ -122,7 +114,7 @@ export default class TransformManager extends PureComponent<
         return { currentOrder: 1 };
       }
       if (nextState.shouldRender) {
-        let display: Array<any> = [];
+        const display: Array<any> = [];
         groups[nextProps.currentGroup].map((item: any, i: number) => {
           display.push({
             ...item,
@@ -134,6 +126,13 @@ export default class TransformManager extends PureComponent<
     }
     return null;
   }
+  state: TransformManagerState = {
+    currentGroup: '',
+    currentOrder: 0,
+    display: [],
+    shouldTransform: false,
+    shouldRender: false,
+  };
 
   componentDidUpdate = (prevProps: TransformManagerProps) => {
     // 2. render it, but not changing order, for pre-translation
@@ -154,8 +153,8 @@ export default class TransformManager extends PureComponent<
 
   renderChildren = () => {
     const { display, currentOrder } = this.state;
-    let result = [];
-    for (let item of display) {
+    const result = [];
+    for (const item of display) {
       const { children, order, style, className, ...rest } = item;
       result.push(
         <div

@@ -39,8 +39,8 @@ describe('UpdatePage', () => {
   it('should update state correctly when status is add', () => {
     const dataSource = formatControls(null, Config, 'dam_cd');
     const wrapper = mount(<UpdatePage dataSource={dataSource} status="add" />);
-    let transformedDataSource = [];
-    for (let item of dataSource) {
+    const transformedDataSource = [];
+    for (const item of dataSource) {
       transformedDataSource.push({
         ...item,
         error: false,

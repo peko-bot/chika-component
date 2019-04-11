@@ -33,9 +33,9 @@ export default class Drawer extends Component<DrawerProps> {
   };
 
   handleTransform = (direction: string) => {
-    if (direction == 'left' || direction == 'right') {
+    if (direction === 'left' || direction === 'right') {
       return 'translateX';
-    } else if (direction == 'top' || direction == 'bottom') {
+    } else if (direction === 'top' || direction === 'bottom') {
       return 'translateY';
     }
 
@@ -50,28 +50,28 @@ export default class Drawer extends Component<DrawerProps> {
     width: number,
     type?: string,
   ) => {
-    let view, iconDeg;
-
-    if (direction == 'left' || direction == 'right') {
+    let view;
+    let iconDeg;
+    if (direction === 'left' || direction === 'right') {
       clientView =
         clientView ||
         (document.documentElement.clientWidth || document.body.clientWidth);
-    } else if (direction == 'top' || direction == 'bottom') {
+    } else if (direction === 'top' || direction === 'bottom') {
       clientView =
         clientView ||
         (document.documentElement.clientHeight || document.body.clientHeight);
     }
 
-    if (direction == 'left' || direction == 'top') {
-      if (type == 'operate') {
+    if (direction === 'left' || direction === 'top') {
+      if (type === 'operate') {
         view = visible ? width : 0;
       } else {
         view = visible ? 0 : -width;
       }
 
       iconDeg = visible ? 0 : 180;
-    } else if (direction == 'right' || direction == 'bottom') {
-      if (type == 'operate') {
+    } else if (direction === 'right' || direction === 'bottom') {
+      if (type === 'operate') {
         view = visible ? clientView - width - 60 : clientView - 60;
       } else {
         view = visible ? clientView - width : clientView;
@@ -85,9 +85,10 @@ export default class Drawer extends Component<DrawerProps> {
 
   handleOperateClick = () => {
     const { onChange, visible } = this.props;
-    let iconDeg = visible ? 180 : 0;
-
-    onChange && onChange(!visible);
+    const iconDeg = visible ? 180 : 0;
+    if (onChange) {
+      onChange(!visible);
+    }
 
     this.setState({ iconDeg });
   };
@@ -123,7 +124,7 @@ export default class Drawer extends Component<DrawerProps> {
             'operate',
           ),
           background: `linear-gradient(to ${
-            direction == 'left' ? 'right' : 'left'
+            direction === 'left' ? 'right' : 'left'
           }, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0))`,
         }}
         onClick={this.handleOperateClick}

@@ -48,7 +48,7 @@ export default class Tabs extends React.Component<TabsProps, TabsState> {
 
   // 用于label动态更新
   componentWillReceiveProps = (nextProps: TabsProps) => {
-    let { children } = nextProps;
+    const { children } = nextProps;
 
     this.handleChildrenDatas(children);
   };
@@ -65,7 +65,7 @@ export default class Tabs extends React.Component<TabsProps, TabsState> {
     除了这两种情况，其他传入都是报错
   */
   handleChildrenDatas = (children = this.props.children) => {
-    let dataSource: Array<any> = [];
+    const dataSource: Array<any> = [];
     React.Children.map(children, child => {
       let obj: any = {};
       if (typeof child.props.label === 'string') {
@@ -85,14 +85,14 @@ export default class Tabs extends React.Component<TabsProps, TabsState> {
     */
   resetUnderline = () => {
     setTimeout(() => {
-      let { currentSelect } = this.props;
+      const { currentSelect } = this.props;
       // 页签项下划线宽度
-      let coefficient = [];
+      const coefficient = [];
 
       for (let i = 0; i < this.state.dataSource.length; i++) {
-        let spanWidth = (this as any)[`panel_span_${i}`].offsetWidth;
-        let itemWidth = (this as any)[`panel_item_${i}`].offsetWidth;
-        let itemHeight = (this as any)[`panel_item_${i}`].offsetHeight;
+        const spanWidth = (this as any)[`panel_span_${i}`].offsetWidth;
+        const itemWidth = (this as any)[`panel_item_${i}`].offsetWidth;
+        const itemHeight = (this as any)[`panel_item_${i}`].offsetHeight;
 
         (this as any)[`panel_item_${i}`].addEventListener(
           'transitionend',
@@ -113,7 +113,7 @@ export default class Tabs extends React.Component<TabsProps, TabsState> {
   };
 
   handleClick = (item: any, currentSelect: number, event: any) => {
-    let { rippleConfig, underlineItem } = this.state;
+    const { rippleConfig, underlineItem } = this.state;
     const { pageX, pageY } = event;
     this.resetUnderline();
     this.setState(
@@ -141,12 +141,12 @@ export default class Tabs extends React.Component<TabsProps, TabsState> {
     超出宽度时可滑动，惯性弹回，
     未超出屏幕时就当没传 plan
     不传时按页签项数量平分父容器的宽度 */
-    let { containerStyle, undelineStyle, fontStyle } = config;
+    const { containerStyle, undelineStyle, fontStyle } = config;
     const { dataSource, underlineItem, rippleConfig } = this.state;
     const { scale, offsetLeft, offsetTop, opacity, displayFlag } = rippleConfig;
 
     // 波纹
-    let rippleStyle = Object.assign(
+    const rippleStyle = Object.assign(
       {},
       {
         top: offsetTop,
@@ -165,7 +165,7 @@ export default class Tabs extends React.Component<TabsProps, TabsState> {
       },
     );
 
-    let tabs = [];
+    const tabs = [];
 
     tabs.push(
       <ul key="container_ul" className="container" style={containerStyle}>
@@ -182,13 +182,13 @@ export default class Tabs extends React.Component<TabsProps, TabsState> {
               ref={ref => ((this as any)[`panel_item_${i}`] = ref)}
             >
               <span
-                className={currentSelect == i ? 'active' : ''}
+                className={currentSelect === i ? 'active' : ''}
                 ref={ref => ((this as any)[`panel_span_${i}`] = ref)}
               >
                 {item.label}
               </span>
               <div
-                style={currentSelect == i && displayFlag ? rippleStyle : {}}
+                style={currentSelect === i && displayFlag ? rippleStyle : {}}
               />
             </li>
           );
@@ -196,7 +196,7 @@ export default class Tabs extends React.Component<TabsProps, TabsState> {
       </ul>,
     );
 
-    let underline = [];
+    const underline = [];
     const { underlineWidth, left } = underlineItem;
 
     underline.push(

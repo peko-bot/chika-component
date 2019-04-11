@@ -44,7 +44,9 @@ export default class Uploader extends Component<UploaderProps> {
         file.url = reader.result;
       }
       file.id = file.size.toString() + new Date().getTime();
-      onChange && onChange(file);
+      if (onChange) {
+        onChange(file);
+      }
     };
   };
 

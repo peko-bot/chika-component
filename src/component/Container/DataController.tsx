@@ -64,13 +64,13 @@ export default class DataController extends Component<
   };
 
   handlePowerStr = (power: string) => {
-    let result = {
+    const result = {
       select: false,
       delete: false,
       update: false,
       add: false,
     };
-    for (let item of Array.from(power.split(','))) {
+    for (const item of Array.from(power.split(','))) {
       switch (item) {
         case 'Select':
           result.select = true;
@@ -122,7 +122,7 @@ export default class DataController extends Component<
       console.error('where is the primary key? please check.');
       return;
     }
-    return keyItem[0]['fname'];
+    return keyItem[0].fname;
   };
 
   search = (form?: any) => {
@@ -134,7 +134,7 @@ export default class DataController extends Component<
       url: domain + '/assets/search.json',
       data: form,
       success: ({ data }) => {
-        let dataSource: Array<any> = [];
+        const dataSource: Array<any> = [];
         data.list.map((item: any, i: number) => {
           dataSource.push({
             ...item,
@@ -224,7 +224,7 @@ export default class DataController extends Component<
   };
 
   handleUpdatePageSave = (updatePageForm: Array<any>) => {
-    // eslint-disable-next-line
+    // tslint:disable-next-line
     console.log(updatePageForm);
   };
 

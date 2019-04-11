@@ -43,11 +43,6 @@ export default class SearchBar extends Component<
   SearchBarProps,
   SearchBarState
 > {
-  state: SearchBarState = {
-    form: [],
-    ...CalendarDefaultValue,
-  };
-
   static getDerivedStateFromProps(
     prevProps: SearchBarProps,
     prevState: SearchBarState,
@@ -58,6 +53,10 @@ export default class SearchBar extends Component<
     }
     return newState;
   }
+  state: SearchBarState = {
+    form: [],
+    ...CalendarDefaultValue,
+  };
 
   checkValue = (value: any, item: any) => {
     const { type } = item;
@@ -111,8 +110,8 @@ export default class SearchBar extends Component<
   renderSidebar = () => {
     const { state } = this;
     const prefixCls = 'search-bar';
-    let element = [];
-    for (let item of state.form) {
+    const element = [];
+    for (const item of state.form) {
       const { type, name, key, foreignData, id } = item;
       switch (type) {
         case 'input':
@@ -224,10 +223,12 @@ export default class SearchBar extends Component<
   handleSearch = () => {
     const { props, state } = this;
     const searchParams: any = {};
-    for (let item of state.form) {
+    for (const item of state.form) {
       searchParams[item.key] = item.value;
     }
-    props.onSearch && props.onSearch(searchParams);
+    if (props.onSearch) {
+      props.onSearch(searchParams);
+    }
   };
 
   render() {
@@ -251,7 +252,9 @@ export default class SearchBar extends Component<
           position="left"
           open={visible}
           className={className}
-          onOpenChange={visible => onVisibleChange && onVisibleChange(visible)}
+          onOpenChange={targetVisible =>
+            onVisibleChange && onVisibleChange(targetVisible)
+          }
           sidebarStyle={{ width: '77%', background: '#fff' }}
           overlayStyle={{ backgroundColor: 'transpent' }}
           style={{
