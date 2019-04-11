@@ -71,14 +71,14 @@ export default class Ripple extends React.Component<RippleProps, RippleState> {
   };
 
   render() {
-    let {
+    const {
       duration = '0.7s',
       background = 'rgba(255, 255, 255, 0.3)',
       children,
     } = this.props;
-    let { display, scale, opacity, left, top } = this.state;
+    const { display, scale, opacity, left, top } = this.state;
 
-    let style = {
+    const style = {
       transform: `scale(${scale})`,
       opacity,
       left,

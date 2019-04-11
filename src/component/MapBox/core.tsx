@@ -67,10 +67,6 @@ const defaultMapOptions: leaflet.MapOptions = {
 };
 
 export default class MapBox extends Component<MapBoxProps, MapBoxState> {
-  container: React.RefObject<HTMLDivElement>;
-  map: leaflet.Map;
-  marker: leaflet.Marker;
-
   static getDerivedStateFromProps(
     nextProps: MapBoxProps,
     nextState: MapBoxState,
@@ -87,6 +83,9 @@ export default class MapBox extends Component<MapBoxProps, MapBoxState> {
     }
     return null;
   }
+  container: React.RefObject<HTMLDivElement>;
+  map: leaflet.Map;
+  marker: leaflet.Marker;
 
   constructor(props: MapBoxProps) {
     super(props);
@@ -122,8 +121,6 @@ export default class MapBox extends Component<MapBoxProps, MapBoxState> {
     this.marker = marker;
   };
 
-  private getCenter = (e: leaflet.LeafletEvent) => e.target.getCenter();
-
   bindMapEvent = (map: leaflet.Map) => {
     const {
       onDrag,
@@ -153,8 +150,6 @@ export default class MapBox extends Component<MapBoxProps, MapBoxState> {
       map.on('movestart', e => onMoveStart(this.getCenter(e)));
     }
   };
-
-  private getMarkCenter = (e: leaflet.LeafletEvent) => e.target.getLatLng();
 
   bindMarkerEvent = (marker: leaflet.Marker) => {
     const {
@@ -188,4 +183,8 @@ export default class MapBox extends Component<MapBoxProps, MapBoxState> {
   render = () => {
     return <div className="MapBox" ref={this.container} />;
   };
+
+  private getCenter = (e: leaflet.LeafletEvent) => e.target.getCenter();
+
+  private getMarkCenter = (e: leaflet.LeafletEvent) => e.target.getLatLng();
 }

@@ -22,7 +22,7 @@ const handleChildDataFormat = (
   childProps: any,
   bindKey: string,
 ) => {
-  for (let item of formatConfig(originConfig)) {
+  for (const item of formatConfig(originConfig)) {
     const { key, unit, decimalCount } = item;
     if (key === childProps[bindKey]) {
       if (value instanceof Date) {

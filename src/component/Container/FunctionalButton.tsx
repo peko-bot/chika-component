@@ -23,18 +23,13 @@ export default class FunctionalButton extends Component<
   FunctionalButtonProps,
   FunctionalButtonState
 > {
-  state: FunctionalButtonState = {
-    modalVisible: false,
-    sorts: [],
-  };
-
   static getDerivedStateFromProps(
     prevProps: FunctionalButtonProps,
     prevState: FunctionalButtonState,
   ) {
     if (prevState.sorts.length === 0) {
-      let sorts: Array<SortItem> = [];
-      for (let item of prevProps.sortBy) {
+      const sorts: Array<SortItem> = [];
+      for (const item of prevProps.sortBy) {
         sorts.push({
           ...{
             status: '无',
@@ -47,6 +42,10 @@ export default class FunctionalButton extends Component<
     }
     return null;
   }
+  state: FunctionalButtonState = {
+    modalVisible: false,
+    sorts: [],
+  };
 
   /**
    * 排序顺序，初始为无，箭头向右
@@ -55,14 +54,14 @@ export default class FunctionalButton extends Component<
    * 只有一个字段参与排序
    */
   handleOnClick = (item: SortItem) => {
-    let { dataSource, onSort } = this.props;
-    let { sorts } = this.state;
-    let { direction, key } = item;
+    const { dataSource, onSort } = this.props;
+    const { sorts } = this.state;
+    const { direction, key } = item;
 
-    for (let ins of sorts) {
-      let { key: insKey } = ins;
+    for (const ins of sorts) {
+      const { key: insKey } = ins;
 
-      if (key != insKey) {
+      if (key !== insKey) {
         ins.direction = 'horizontal';
         ins.status = '无';
       }
@@ -90,10 +89,10 @@ export default class FunctionalButton extends Component<
         item.status = '无';
         break;
     }
-
     dataSource.sort(compare(key, isDesc));
-    onSort && onSort(dataSource);
-
+    if (onSort) {
+      onSort(dataSource);
+    }
     this.setState({ sorts });
   };
 

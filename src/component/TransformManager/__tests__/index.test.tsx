@@ -1,7 +1,9 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import 'nino-cli/scripts/setup';
-let TransformManager, Item, targetModule;
+let TransformManager;
+let Item;
+let targetModule;
 switch (process.env.LIB_DIR) {
   case 'lib':
     targetModule = require('../../../../lib/component/TransformManager');

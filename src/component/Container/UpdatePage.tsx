@@ -74,17 +74,6 @@ export default class UpdatePage extends Component<
     return null;
   }
 
-  componentDidUpdate() {
-    const { props, state } = this;
-
-    if (
-      simplifyFormDatas(props.updatePageForm || []) !==
-      simplifyFormDatas(state.form)
-    ) {
-      props.onFormChange && props.onFormChange(state.form);
-    }
-  }
-
   constructor(props: UpdatePageProps) {
     super(props);
 
@@ -94,8 +83,21 @@ export default class UpdatePage extends Component<
     };
   }
 
+  componentDidUpdate() {
+    const { props, state } = this;
+
+    if (
+      simplifyFormDatas(props.updatePageForm || []) !==
+      simplifyFormDatas(state.form)
+    ) {
+      if (props.onFormChange) {
+        props.onFormChange(state.form);
+      }
+    }
+  }
+
   initDefaultValue = (dataSource: any) => {
-    for (let item of dataSource) {
+    for (const item of dataSource) {
       item.error = false;
       item.message = '';
     }
@@ -187,8 +189,8 @@ export default class UpdatePage extends Component<
       onFormChange,
     } = props;
     const prefixCls = `update-page-${status}`;
-    let element = [];
-    for (let item of state.form) {
+    const element = [];
+    for (const item of state.form) {
       const { type, name, key, foreignData, id } = item;
       switch (type) {
         case 'input':
@@ -323,8 +325,12 @@ export default class UpdatePage extends Component<
                   key={`${prefixCls}-map-picker-address-${id}`}
                   arrow="horizontal"
                   onClick={() => {
-                    onFormChange && onFormChange(state.form);
-                    onMapBoxChange && onMapBoxChange({ lat, lng, key });
+                    if (onFormChange) {
+                      onFormChange(state.form);
+                    }
+                    if (onMapBoxChange) {
+                      onMapBoxChange({ lat, lng, key });
+                    }
                   }}
                   extra="修改"
                 >
@@ -354,8 +360,12 @@ export default class UpdatePage extends Component<
                   key={`${prefixCls}-map-picker-add-${id}`}
                   arrow="horizontal"
                   onClick={() => {
-                    onFormChange && onFormChange(state.form);
-                    onMapBoxChange && onMapBoxChange({ lat, lng, key });
+                    if (onFormChange) {
+                      onFormChange(state.form);
+                    }
+                    if (onMapBoxChange) {
+                      onMapBoxChange({ lat, lng, key });
+                    }
                   }}
                 >
                   {name}
@@ -403,7 +413,9 @@ export default class UpdatePage extends Component<
 
   save = () => {
     const { props, state } = this;
-    props.updatePageSave && props.updatePageSave(state.form);
+    if (props.updatePageSave) {
+      props.updatePageSave(state.form);
+    }
   };
 
   render = () => {

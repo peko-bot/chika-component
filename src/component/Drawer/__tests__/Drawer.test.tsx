@@ -16,7 +16,7 @@ switch (process.env.LIB_DIR) {
 
 describe('Drawer', () => {
   it('render correctly', () => {
-    const wrapperShow = mount(<Drawer visible={true}>test</Drawer>);
+    const wrapperShow = mount(<Drawer visible>test</Drawer>);
     const wrapperHide = mount(<Drawer visible={false}>test</Drawer>);
     expect(wrapperShow).toMatchSnapshot();
     expect(wrapperHide).toMatchSnapshot();
@@ -25,7 +25,7 @@ describe('Drawer', () => {
   it('when operate drawer is clicked, onChange should to be called', () => {
     const onChange = jest.fn();
     const wrapper = mount(
-      <Drawer visible={true} onChange={onChange} direction="right">
+      <Drawer visible onChange={onChange} direction="right">
         test
       </Drawer>,
     );

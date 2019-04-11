@@ -27,7 +27,9 @@ export default class Calendar extends React.Component<
 
   componentDidMount = () => {
     bindTouchDirection(this.content, direction => {
-      this.props.touch && this.props.touch(direction);
+      if (this.props.touch) {
+        this.props.touch(direction);
+      }
     });
     this.refresh();
   };
@@ -42,7 +44,7 @@ export default class Calendar extends React.Component<
       this.transCalendarDatas(start, end),
     );
 
-    let listLen = calendarList.length;
+    const listLen = calendarList.length;
 
     // 本体左右滑动事件
     // 这里需要清理数组的，不然点多了会影响性能，暂时没做 mark
@@ -51,7 +53,7 @@ export default class Calendar extends React.Component<
         for (let i = 0; i < calendarList.length; i++) {
           calendarList[i]--;
         }
-        if (listLen && calendarList[listLen - 1] == 0) {
+        if (listLen && calendarList[listLen - 1] === 0) {
           calendarList.push(1);
         }
         // 移除头部元素
@@ -62,7 +64,9 @@ export default class Calendar extends React.Component<
         for (let i = 0; i < calendarList.length; i++) {
           calendarList[i]++;
         }
-        listLen && calendarList[0] == 0 && calendarList.splice(0, 0, -1);
+        if (listLen && calendarList[0] === 0) {
+          calendarList.splice(0, 0, -1);
+        }
 
         // 移除尾部元素
         // calendarList.length >= 6 ? calendarList.pop() : null;
@@ -79,14 +83,14 @@ export default class Calendar extends React.Component<
     优化的话应该是直接确定日期在二维数组中的位置
   */
   handleSelectDate = (select: Array<any> = [], calendarBody: Array<any>) => {
-    for (let row of calendarBody) {
+    for (const row of calendarBody) {
       for (let col of row) {
-        let dateCol = new Date(col.dateStr).getTime();
+        const dateCol = new Date(col.dateStr).getTime();
 
-        for (let item of select) {
+        for (const item of select) {
           const { style, badge, changeable = true, date, disabled } = item;
 
-          let dateItem = new Date(date).getTime();
+          const dateItem = new Date(date).getTime();
 
           if (dateCol === dateItem) {
             col = Object.assign(col, { style, badge, changeable, disabled });
@@ -99,7 +103,7 @@ export default class Calendar extends React.Component<
 
   /* 将起止日期转化成二维数组 */
   transCalendarDatas = (start: string, end: string) => {
-    let calendarDatas: Array<Array<any>> = [];
+    const calendarDatas: Array<Array<any>> = [];
     const startTimeStamp = new Date(start);
     const endTimeStamp = new Date(end);
     const diffDays = this.getDaysByDateString(start, end);
@@ -123,12 +127,12 @@ export default class Calendar extends React.Component<
     // 开始、结束日期的毫秒数
     // 填满首尾两行
     let startTime = startTimeStamp.getTime() - indexStart * 24 * 3600 * 1000;
-    let endTime =
+    const endTime =
       endTimeStamp.getTime() + (7 - indexEnd - 1) * 24 * 3600 * 1000;
 
     // 把日期填到二维数组里
-    let row = 0,
-      count = 0;
+    let row = 0;
+    let count = 0;
 
     while (endTime - startTime >= 0) {
       const dateObj = new Date(startTime);
@@ -136,7 +140,7 @@ export default class Calendar extends React.Component<
         1}/${dateObj.getDate()}`; // /是为了ios new Date时不出错
       const date = dateObj.getDate();
 
-      let param = { date, dateStr, disabled: false };
+      const param = { date, dateStr, disabled: false };
       /*
         根据传进来的时段设置可点击日期的颜色，
         颜色是在这里设置，点击事件在render的body里
@@ -149,7 +153,9 @@ export default class Calendar extends React.Component<
       calendarDatas[row][count % 7] = param;
 
       count++;
-      count != 0 && count % 7 == 0 && row++;
+      if (count !== 0 && count % 7 === 0) {
+        row++;
+      }
       startTime += 1 * 24 * 3600 * 1000;
     }
 
@@ -159,10 +165,10 @@ export default class Calendar extends React.Component<
   // 获得两个日期间隔天数
   getDaysByDateString = (start: string, end: string) => {
     if (start === undefined || end === undefined) return 1;
-    let startDate = Date.parse(start.replace('/-/g', '/'));
-    let endDate = Date.parse(end.replace('/-/g', '/'));
-    let diffDate = endDate - startDate + 1 * 24 * 60 * 60 * 1000;
-    let days = diffDate / (24 * 60 * 60 * 1000);
+    const startDate = Date.parse(start.replace('/-/g', '/'));
+    const endDate = Date.parse(end.replace('/-/g', '/'));
+    const diffDate = endDate - startDate + 1 * 24 * 60 * 60 * 1000;
+    const days = diffDate / (24 * 60 * 60 * 1000);
 
     return days;
   };
@@ -171,11 +177,11 @@ export default class Calendar extends React.Component<
     this.props.onChange && this.props.onChange(item);
 
   render = () => {
-    let { select = [] } = this.props;
+    const { select = [] } = this.props;
 
-    let { calendarBody, calendarList } = this.refresh(select);
+    const { calendarBody, calendarList } = this.refresh(select);
 
-    let head: any = [];
+    const head: any = [];
     head.push(
       <tbody key="body_tbody_-1">
         <tr>
@@ -190,7 +196,7 @@ export default class Calendar extends React.Component<
       </tbody>,
     );
 
-    let body: any = [];
+    const body: any = [];
     calendarBody.map((item, i) => {
       body.push(
         <tbody key={`body_tbody_${i}`}>

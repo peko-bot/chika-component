@@ -141,7 +141,7 @@ export default class ContainerCore extends Component<
     const { primaryKey, power } = this.props;
     const { add, delete: del, update, select } = power;
     const primaryValue = dataItem[primaryKey || ''];
-    let param = [];
+    const param = [];
 
     if (!select) {
       return;
@@ -180,7 +180,9 @@ export default class ContainerCore extends Component<
         onPress: () => this.handleDelete(primaryValue),
       });
     }
-    param.length !== 0 && operation(param);
+    if (param.length !== 0) {
+      operation(param);
+    }
   };
 
   handleChildDataFormat = (
@@ -188,7 +190,7 @@ export default class ContainerCore extends Component<
     childProps: any,
     bindKey: string,
   ) => {
-    for (let item of this.props.config) {
+    for (const item of this.props.config) {
       const { key, unit, decimalCount, dateFormat } = item;
       if (key === childProps[bindKey]) {
         if (value instanceof Date) {
@@ -226,7 +228,7 @@ export default class ContainerCore extends Component<
 
   renderDetailPage = () => {
     const { config, formatControls, primaryKey, dataSource } = this.props;
-    let result: Array<any> = [];
+    const result: Array<any> = [];
     dataSource.map((item, i) => {
       const dataItem = formatControls(item, config, primaryKey);
       result.push(
@@ -279,13 +281,14 @@ export default class ContainerCore extends Component<
     } = this.state;
     const { onMapPickerChange } = this.props;
 
-    onMapPickerChange &&
+    if (onMapPickerChange) {
       onMapPickerChange({
         lat: lat.toString(),
         lng: lng.toString(),
         primaryValue: updatePageStatus === 'add' ? null : primaryValue,
         targetKey: mapBoxTargetKey,
       });
+    }
     this.setState(
       {
         currentGroup: group,
@@ -370,8 +373,11 @@ export default class ContainerCore extends Component<
       <TransformManagerItem group="map-box" order={0} key="map-box-0">
         <MapBox
           center={{ lat, lng }}
-          onMarkerDrag={({ lat, lng }) => {
-            this.setState({ lat: lat.toString(), lng: lng.toString() });
+          onMarkerDrag={item => {
+            this.setState({
+              lat: item.lat.toString(),
+              lng: item.lng.toString(),
+            });
           }}
         />
         <List
@@ -395,8 +401,8 @@ export default class ContainerCore extends Component<
 
   renderFunctionalButton = () => {
     const { dataSource, onSort, config } = this.props;
-    let sortBy = [];
-    for (let item of config) {
+    const sortBy = [];
+    for (const item of config) {
       const { isSort, key, name } = item;
       if (isSort) {
         sortBy.push({
@@ -423,7 +429,7 @@ export default class ContainerCore extends Component<
           props.formatControls(null, props.config, props.primaryKey) as any
         }
         visible={showSearchBar}
-        onVisibleChange={showSearchBar => this.setState({ showSearchBar })}
+        onVisibleChange={visible => this.setState({ showSearchBar: visible })}
         children={children}
         onSearch={(searchParams: any) => {
           this.setState(

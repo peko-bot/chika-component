@@ -32,9 +32,11 @@ export default class Template extends Component<TemplateProps> {
       // but if not, callback in core will be called many times
       // TODO: find a way to avoid this dilemma, but now, stop it
       e.stopPropagation();
-      onClick && onClick(dataItem, childProps, e);
-      if (!stopPropagation) {
-        parentOnClick && parentOnClick(dataItem, childProps, e);
+      if (onClick) {
+        onClick(dataItem, childProps, e);
+      }
+      if (!stopPropagation && parentOnClick) {
+        parentOnClick(dataItem, childProps, e);
       }
     };
 
@@ -45,9 +47,11 @@ export default class Template extends Component<TemplateProps> {
       // TODO: find a way to avoid this dilemma, but now, stop it
       e.stopPropagation();
       timer = setTimeout(() => {
-        onPress && onPress(dataItem, childProps, e);
-        if (!stopPropagation) {
-          parentOnPress && parentOnPress(dataItem, childProps, e);
+        if (onPress) {
+          onPress(dataItem, childProps, e);
+        }
+        if (!stopPropagation && parentOnPress) {
+          parentOnPress(dataItem, childProps, e);
         }
       }, timeForTriggerLongPress);
     };
@@ -100,7 +104,7 @@ export default class Template extends Component<TemplateProps> {
   renderTemplate = () => {
     const { dataSource = [], template } = this.props;
     const target = template || this.props.children;
-    let children = [];
+    const children = [];
     for (let i = 0; i < dataSource.length; i++) {
       const item = dataSource[i];
       // copy template

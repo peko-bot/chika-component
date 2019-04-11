@@ -19,15 +19,15 @@ export default class CalendarDemo extends React.Component<
   constructor(props: any) {
     super(props);
 
-    let date = new Date();
-    let endTime = new Date(
+    const date = new Date();
+    const endTime = new Date(
       new Date(date.getFullYear(), date.getMonth() + 1, 1).getTime() - 86400,
     );
-    let end = `${endTime.getFullYear()}/${endTime.getMonth() +
+    const end = `${endTime.getFullYear()}/${endTime.getMonth() +
       1}/${endTime.getDate()}`;
 
-    let startTime = new Date(new Date(date.setDate(1)).getTime());
-    let start = `${startTime.getFullYear()}/${startTime.getMonth() +
+    const startTime = new Date(new Date(date.setDate(1)).getTime());
+    const start = `${startTime.getFullYear()}/${startTime.getMonth() +
       1}/${startTime.getDate()}`;
 
     this.state = {
@@ -47,8 +47,8 @@ export default class CalendarDemo extends React.Component<
 
   handleDateChange = (type: string) => {
     let { start, end, position } = this.state;
-    let startTime = new Date(start);
-    let endTime = new Date(end);
+    const startTime = new Date(start);
+    const endTime = new Date(end);
 
     switch (type) {
       case 'toRight':
@@ -83,20 +83,20 @@ export default class CalendarDemo extends React.Component<
   };
 
   onChange = (item: any) => {
-    let { select } = this.state;
-    let { dateStr, changeable } = item;
+    const { select } = this.state;
+    const { dateStr, changeable } = item;
 
     /* 当dateStr出现重复项时，移除后一个
       用来实现选中项恢复原样 */
     select.pop();
-    !changeable
-      ? select.push(
-          Object.assign(item, {
-            date: dateStr,
-            style: { background: '#F96', color: '#FFF', changeable: true },
-          }),
-        )
-      : null;
+    if (!changeable) {
+      select.push(
+        Object.assign(item, {
+          date: dateStr,
+          style: { background: '#F96', color: '#FFF', changeable: true },
+        }),
+      );
+    }
 
     this.setState({ select, position: '' });
   };

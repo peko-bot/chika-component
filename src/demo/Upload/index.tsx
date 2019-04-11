@@ -18,8 +18,8 @@ export default class UploadDemo extends Component {
     ajax({
       url: './assets/uploadFiles.json',
       success: ({ data }) => {
-        let fileList: any = [];
-        for (let item of data) {
+        const fileList: any = [];
+        for (const item of data) {
           fileList.push({
             url: item.filepath,
             id: item.id,

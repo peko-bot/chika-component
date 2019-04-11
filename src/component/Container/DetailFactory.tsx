@@ -25,13 +25,17 @@ export default class DetailFactory extends Component<DetailFactoryProps> {
       switch (direction) {
         case 'toRight':
           if (currentOrder !== minPage) {
-            onPageChange && onPageChange('last');
+            if (onPageChange) {
+              onPageChange('last');
+            }
           }
           break;
 
         case 'toLeft':
           if (currentOrder !== maxPage) {
-            onPageChange && onPageChange('next');
+            if (onPageChange) {
+              onPageChange('next');
+            }
           }
           break;
 
