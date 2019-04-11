@@ -113,15 +113,17 @@ type RequestMethod = {
 };
 ```
 
-|       参数        | 说明                                          |     类型      | 默认值 |
-| :---------------: | --------------------------------------------- | :-----------: | :----: |
-|      tableId      | 组件内封装请求的 table id，用于获得配置和数据 |    number     |   -1   |
-|      menuId       | 组件内封装请求的 menu id，用于获得权限数据    |    number     |   -1   |
-|   configRequest   | 请求配置地址                                  | RequestMethod |   -    |
-|    dataRequest    | 请求数据地址                                  | RequestMethod |   -    |
-|   deleteRequest   | 删除时请求的地址                              | RequestMethod |   -    |
-|   submitRequest   | 提交时请求的地址                              | RequestMethod |   -    |
-| attachmentRequest | 附件上传时请求的地址                          | RequestMethod |   -    |
+|       参数        | 说明                                          |                                           类型                                            |     默认值      |
+| :---------------: | --------------------------------------------- | :---------------------------------------------------------------------------------------: | :-------------: |
+|      tableId      | 组件内封装请求的 table id，用于获得配置和数据 |                                          number                                           |       -1        |
+|      menuId       | 组件内封装请求的 menu id，用于获得权限数据    |                                          number                                           |       -1        |
+|   configRequest   | 请求配置地址                                  |                                       RequestMethod                                       |        -        |
+|    dataRequest    | 请求数据地址                                  |                                       RequestMethod                                       |        -        |
+|   deleteRequest   | 删除时请求的地址                              |                                       RequestMethod                                       |        -        |
+|   submitRequest   | 提交时请求的地址                              |                                       RequestMethod                                       |        -        |
+| attachmentRequest | 附件上传时请求的地址                          |                                       RequestMethod                                       |        -        |
+|    mapTileType    | 图源类型                                      | 'gdTrafficTile'\| 'gdSatelliteTile'\| 'googleTile'\| 'googleRsTile'\| 'googleTrafficTile' | 'gdTrafficTile' |
+|   customMapTile   | 自定义图源类型                                |                             Array<{url: string; options?: {}>                             |       []        |
 
 ## 子标签参数
 

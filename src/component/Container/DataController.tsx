@@ -17,6 +17,8 @@ export interface DataControllerProps {
   deleteRequest: RequestMethod;
   submitRequest: RequestMethod;
   attachmentRequest: RequestMethod;
+  mapTileType?: string;
+  customMapTile?: Array<any>;
 }
 export type UpdatePageMapBoxItemProps = {
   lat: string;
@@ -265,6 +267,8 @@ export default class DataController extends Component<
           updatePageChange={this.handleUpdatePageChange}
           updatePageSave={this.handleUpdatePageSave}
           onSort={this.handleSort}
+          mapTileType={this.props.mapTileType || 'gdTrafficTile'}
+          customMapTile={this.props.customMapTile || []}
         />
       </div>
     );

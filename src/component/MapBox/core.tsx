@@ -4,15 +4,9 @@ import 'leaflet/dist/leaflet.css';
 import './css/MapBox.css';
 import * as Tiles from './tiles';
 
-export enum TileType {
-  'gdTrafficTile',
-  'gdSatelliteTile',
-  'googleTile',
-  'googleRsTile',
-  'googleTrafficTile',
-}
 export type MoveEvent = (latlng: leaflet.LatLng) => void;
 export interface MapBoxProps {
+  customTile?: Array<any>;
   /** when init, set center to map
    * { lng: string, lat: string }
    */
@@ -21,7 +15,12 @@ export interface MapBoxProps {
    * gdTrafficTile, gdSatelliteTile,
    * googleTile, googleRsTile, googleTrafficTile
    */
-  type?: TileType;
+  type?:
+    | 'gdTrafficTile'
+    | 'gdSatelliteTile'
+    | 'googleTile'
+    | 'googleRsTile'
+    | 'googleTrafficTile';
   /** pass { lat, lng } back */
   onMoveStart?: MoveEvent;
   /** pass { lat, lng } back */
@@ -101,13 +100,19 @@ export default class MapBox extends Component<MapBoxProps, MapBoxState> {
   };
 
   init = () => {
-    const { type = 'gdTrafficTile' } = this.props;
+    const { type = 'gdTrafficTile', customTile = [] } = this.props;
     const map = leaflet
       .map(this.container.current || document.body, defaultMapOptions)
       .locate({ setView: true, maxZoom: 16 });
 
     this.bindMapEvent(map);
-    (Tiles as any)[type].addTo(map);
+    if (customTile.length !== 0) {
+      for (const item of customTile) {
+        leaflet.tileLayer(item.url, item.options).addTo(map);
+      }
+    } else {
+      (Tiles as any)[type].addTo(map);
+    }
 
     const icon = leaflet.icon({
       iconUrl: './assets/defaultIcon.png',
