@@ -45,7 +45,7 @@ class Demo extends React.Component {
 
 ## API
 
-### Swipe props
+### Swiper props
 
 |     name      | description                                                                            |    type    |          default           |
 | :-----------: | -------------------------------------------------------------------------------------- | :--------: | :------------------------: |
