@@ -6,10 +6,12 @@ exports[`DataController render correctly 1`] = `
 >
   <ContainerCore
     config={Array []}
+    customMapTile={Array []}
     dataSource={Array []}
     domain="."
     formatControls={[Function]}
     loading={true}
+    mapTileType="gdTrafficTile"
     menuId={-2}
     onDelete={[Function]}
     onMapPickerChange={[Function]}
