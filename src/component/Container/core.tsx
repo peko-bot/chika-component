@@ -42,6 +42,8 @@ export interface ContainerCoreProps {
   updatePageForm?: Array<any>;
   updatePageChange?: (form: Array<any>, status?: UpdatePageStatus) => void;
   updatePageSave?: (form: Array<any>) => void;
+  mapTileType: string;
+  customMapTile: Array<any>;
 }
 export interface ContainerCoreState {
   currentOrder: number;
@@ -369,10 +371,13 @@ export default class ContainerCore extends Component<
 
   renderMapBox = () => {
     const { lat, lng } = this.state;
+    const { mapTileType, customMapTile } = this.props;
     return (
       <TransformManagerItem group="map-box" order={0} key="map-box-0">
         <MapBox
           center={{ lat, lng }}
+          type={mapTileType as any}
+          customTile={customMapTile}
           onMarkerDrag={item => {
             this.setState({
               lat: item.lat.toString(),
