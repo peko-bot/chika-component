@@ -1,29 +1,57 @@
-基于translate3d的滑动分页组件
-=
-换句话就是上拉刷新下拉加载的一组件
- 
- ```JavaScript
- config：
-   {
-     wrapperHeight: 500, // 容器高度
-     duration: 0.5, // 弹回时间，可以试试不传这个参数是啥样子的
-     sensibility: 3, // 灵敏度，也就是拖动的速度
-   }
-  ``` 
-   
- refresh:
-   上拉刷新的方法，需要使用
-    this.swiper.cancelRefresh()
-   来取消加载中的状态
-   
- load:
-   下拉加载的方法，需要使用
-    this.swiper.cancelLoad()
-   来取消加载中的状态
-   
-   
-  子组件异步加载，在加载完成时需要调用this.swiper.reset()重置父组件高度，不然下方加载的div会显示异常
+# Swiper
 
-演示效果
--
+Instantly reload the content by triggering, base on translate3d
+
+## Screenshots
+
 ![img](./demo_swiper.gif)
+
+## Usage
+
+```js
+import React from 'react';
+import { Swiper } from 'chika-component';
+
+class Demo extends React.Component {
+  state = { loading: false };
+
+  onChange = () => {
+    this.setState({ loading: true });
+    setTimeout(() => {
+      this.setState({ loading: false });
+    }, 1000);
+  };
+
+  render() {
+    return (
+      <Swiper
+        wrapperHeight={500}
+        duration={0.7}
+        sensibility={1}
+        onRefresh={this.onChange}
+        onLoad={this.onChange}
+        loading={loading}
+      >
+        <ul>
+          {['test1', 'test2', 'test3'].map((item, i) => {
+            return <li key={i}>{item}</li>;
+          })}
+        </ul>
+      </Swiper>
+    );
+  }
+}
+```
+
+## API
+
+### Swipe props
+
+|     name      | description                                                                            |    type    |          default           |
+| :-----------: | -------------------------------------------------------------------------------------- | :--------: | :------------------------: |
+| wrapperHeight | height of content wrapper                                                              |   number   | document.body.clientHeight |
+|    loading    | whether the view should be indicating an active refresh                                |  boolean   |           false            |
+|  sensibility  | sensitivity when dragging, in other words, it controlls speed of content when dragging |   number   |             1              |
+|   duration    | time of transform start to end interval                                                |   number   |             1              |
+|   onRefresh   | event of pull down                                                                     | () => void |             -              |
+|    onLoad     | event of pull up                                                                       | () => void |             -              |
