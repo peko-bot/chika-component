@@ -17,7 +17,7 @@ echo "commit changes"
 git commit -m "deploy to gh-pages"
 
 echo "push to remote gh-pages"
-git push origin `git subtree split --prefix dist`:gh-pages --force
+git push origin `git subtree --squash --prefix dist`:gh-pages --force
 
 echo "checkout branch master"
 git checkout master
@@ -25,4 +25,4 @@ git checkout master
 echo "delete branch gh-pages"
 git branch -D gh-pages
 
-echo "Completed"
+echo "completed"
