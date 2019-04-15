@@ -89,7 +89,10 @@ workflows:
   version: 2
   build:
     jobs:
-      - setup
+      - setup:
+          filters:
+            branches:
+              ignore: gh-pages
       - dist:
           requires:
             - setup

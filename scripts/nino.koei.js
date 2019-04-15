@@ -10,8 +10,7 @@ for (let item of fileList) {
 entry['ninoninoni'] = path.join(cwd, '/src/go');
 
 module.exports = {
-  mode: 'development',
-  devtool: 'source-map',
+  mode: 'production',
   entry,
   output: {
     path: path.join(cwd, '/dist'),
