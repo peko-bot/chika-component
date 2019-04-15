@@ -15,8 +15,7 @@
     "lint-staged": "lint-staged",
     "backup": "npm config set registry=https://registry.npmjs.org && npm config set registry=https://registry.npm.taobao.org",
     "pub": "npm run build && npm run compile && git push origin master && npm publish",
-    "pre-deploy": "node scripts/copyCircleCiConfig.js",
-    "deploy": "npm run build && npm run pre-deploy && bash scripts/gh-pages.sh"
+    "deploy": "npm run build && gh-pages -d dist"
   },
   "files": [
     "lib",
@@ -35,6 +34,7 @@
     "@types/react-router-dom": "^4.3.1",
     "date-fns": "^2.0.0-alpha.27",
     "dekko": "^0.2.1",
+    "gh-pages": "^2.0.1",
     "moment": "^2.24.0",
     "react-router-dom": "^5.0.0",
     "tslint": "^5.15.0",
