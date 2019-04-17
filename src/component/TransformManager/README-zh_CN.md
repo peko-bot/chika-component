@@ -1,14 +1,14 @@
 # TransformManager
 
-English | [简体中文](./README-zh_CN.md)
+[English](./README.md) | 简体中文
 
-Controll the translation of children
+控制子元素的过渡动画
 
-## Demo
+## 实例
 
 https://zy410419243.github.io/chika-component/#/transform
 
-## Usage
+## 用法
 
 ```js
 import React from 'react';
@@ -39,15 +39,15 @@ export default () => (
 );
 ```
 
-Need to find a way to change `currentOrder`. Update to 0, you will get the change of item
+需要更新 `currentOrder`，比如更新成 `0`，然后就能看到过渡效果了
 
-Check [there](../../demo/TransformManager/index.tsx) for detail
+[这里](../../demo/TransformManager/index.tsx)是完整 demo
 
 ## API
 
 ### TransformManager props
 
-|     name     | description     |  type  | default |
-| :----------: | --------------- | :----: | :-----: |
-| currentGroup | transform group | string |    -    |
-| currentOrder | transform order | number |    -    |
+|     参数     | 说明         |  类型  | 默认值 |
+| :----------: | ------------ | :----: | :----: |
+| currentGroup | 过渡动画分组 | string |   -    |
+| currentOrder | 过渡动画顺序 | number |   -    |

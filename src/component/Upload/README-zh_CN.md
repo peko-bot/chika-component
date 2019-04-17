@@ -1,14 +1,14 @@
 # Upload
 
-English | [简体中文](./README-zh_CN.md)
+[English](./README.md) | 简体中文
 
-Upload file by selecting
+文件选择上传控件
 
-## Demo
+## 实例
 
 https://zy410419243.github.io/chika-component/#/upload
 
-## Usage
+## 用法
 
 ```js
 import React from 'react';
@@ -91,11 +91,11 @@ export default class UploadDemo extends Component {
 
 ### Upload props
 
-|   name   | description                                                                                                                                |         type         | default |
-| :------: | ------------------------------------------------------------------------------------------------------------------------------------------ | :------------------: | :-----: |
-| fileList | list of files that have been uploaded (controlled)                                                                                         |  Array<UploadFile>   |   []    |
-| onPress  | called with file item when upload view item is on long press                                                                               | (file: File) => void |  noop   |
-| onClick  | called with file item when upload view item clicked                                                                                        | (file: File) => void |  noop   |
-| onChange | called with file item when uploading state changed                                                                                         | (file: File) => void |  noop   |
-|  accept  | file types that can be accepted. See [input accept Attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#accept) |        string        |    -    |
-| multiple | whether to support selected multiple file. `IE10+` supported                                                                               |       boolean        |  false  |
+|   参数   | 说明                                                                                                                           |         类型         | 默认值 |
+| :------: | ------------------------------------------------------------------------------------------------------------------------------ | :------------------: | :----: |
+| fileList | 已经上传的文件列表（受控）                                                                                                     |  Array<UploadFile>   |   []   |
+| onPress  | 长按附件项时触发，传出长按项文件参数                                                                                           | (file: File) => void |  noop  |
+| onClick  | 点击附件项时触发，传出长按项文件参数                                                                                           | (file: File) => void |  noop  |
+| onChange | 文件状态改变时触发，传出长按项文件参数                                                                                         | (file: File) => void |  noop  |
+|  accept  | 接受上传的文件类型, 详见 [input accept Attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#accept) |        string        |   -    |
+| multiple | 是否支持多选文件，`ie10+` 支持                                                                                                 |       boolean        | false  |

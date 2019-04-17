@@ -55,7 +55,7 @@ class Demo extends React.Component {
 
 ### Swiper props
 
-|     name      | description                                        |    type    |          default           |
+|     参数      | 说明                                               |    类型    |           默认值           |
 | :-----------: | -------------------------------------------------- | :--------: | :------------------------: |
 | wrapperHeight | 容器高度                                           |   number   | document.body.clientHeight |
 |    loading    | 是否显示刷新状态                                   |  boolean   |           false            |

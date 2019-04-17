@@ -25,7 +25,7 @@ export default () => (
 
 ### MapBox props
 
-|       name        | description                                |                 type                 |    default    |
+|       参数        | 说明                                       |                 类型                 |    默认值     |
 | :---------------: | ------------------------------------------ | :----------------------------------: | :-----------: |
 |       type        | 图源类型, 详细的可以看看 [这里](#TileType) |        [TileType](#TileType)         | gdTrafficTile |
 |   markerVisible   | marker 是否显示                            |               boolean                |     true      |
