@@ -1,6 +1,6 @@
 {
   "name": "chika-component",
-  "version": "0.0.3",
+  "version": "1.0.0",
   "description": "A react-component collection, IQ3 でもまかせなさいー！",
   "main": "lib/index.js",
   "scripts": {
