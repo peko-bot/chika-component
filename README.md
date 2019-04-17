@@ -5,7 +5,7 @@
 
 English | [简体中文](./README-zh_CN.md)
 
-You will find lots of features inside that lmitating from other UI libraries, just like the author's life.
+You will find lots of features inside that lmitating from other UI libraries, just like the author's life
 
 Online demo: https://zy410419243.github.io/chika-component
 
