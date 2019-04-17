@@ -10,16 +10,12 @@ try {
     .hasDirectory('utils');
   $('lib/component')
     .isDirectory()
-    .hasDirectory('Calendar')
     .hasDirectory('Container')
-    .hasDirectory('Drawer')
-    .hasDirectory('Ripple')
-    .hasDirectory('Swiper')
-    .hasDirectory('Tabs')
-    .hasDirectory('Upload')
-    .hasDirectory('Template')
     .hasDirectory('MapBox')
-    .hasDirectory('Template');
+    .hasDirectory('Swiper')
+    .hasDirectory('Template')
+    .hasDirectory('TransformManager')
+    .hasDirectory('Upload');
 } catch (error) {
   // eslint-disable-next-line
   console.log(chalk.red('✨ ' + error));
