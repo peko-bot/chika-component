@@ -1,9 +1,19 @@
-## 通用列表
+# 列表
+
+移动端通用列表
+
+## 特性
 
 - 自定义模版
-- 增删改查
+- 封装增删改查
 
 ## 示例
+
+https://zy410419243.github.io/chika-component
+
+![img](./demo_img/demo_list_container.gif)
+
+## 用法
 
 - 第一步
 
@@ -15,6 +25,7 @@ npm install chika-component --save-dev
 
 ```tsx
 import React from 'react';
+import { Container } from 'chika-component';
 import './css/container-demo.css';
 
 export default () => (
@@ -46,11 +57,12 @@ export default () => (
 ```
 
 - 效果图
+
   ![img](./demo_img/first.png)
 
 - 第三步
 
-  觉着没问题以后再加点细节
+  加点细节
 
 ```tsx
 import React from 'react';
@@ -96,15 +108,10 @@ export default () => (
 ```
 
 - 效果图
+
   ![img](./demo_img/second.png)
 
-- 最终效果图
-  ![img](./demo_img/demo_list_container.gif)
-
-  因为数据问题，侧边栏里搜索项是空的
-  还有其它功能没放进 gif，得自行体验了
-
-## Container.props
+## DataController.props
 
 ```tsx
 type RequestMethod = {
@@ -125,12 +132,6 @@ type RequestMethod = {
 |    mapTileType    | 图源类型                                      | 'gdTrafficTile'\| 'gdSatelliteTile'\| 'googleTile'\| 'googleRsTile'\| 'googleTrafficTile' | 'gdTrafficTile' |
 |   customMapTile   | 自定义图源类型                                |                             Array<{url: string; options?: {}>                             |       []        |
 
-## 子标签参数
-
-|   参数   | 说明                                                                             |  类型  | 默认值 |
-| :------: | -------------------------------------------------------------------------------- | :----: | :----: |
-| data-key | 物理字段名，需要和接口中的字段对应。需要写到最后一级节点，否则后续节点将会被忽略 | string |   无   |
-
 ## 已实现的控件类型
 
 | type |              说明               |
@@ -144,21 +145,36 @@ type RequestMethod = {
 |  14  |       mapPicker，地图选点       |
 |  99  | label，不在上述类型中的都是这个 |
 
-## 自定义数据
+## 自定义数据源
 
 当不需要默认数据接口时可以看看这个，你需要实现 [DataController](./DataController.tsx) 中的所有接口
 
-然后引入 [core](./core.tsx) 来自定义
+然后引入 [core](./core.tsx) 自行传参。下面是需要实现的接口
 
-1. 获得配置
-   数据结构：todo
-2. 获得数据
-   数据结构：todo
-3. 获得权限
-   数据结构：todo
-4. 附件上传
-   数据结构：todo
-5. 自定义表单数据的上传
-   数据结构：todo
-6. 地图选点额外的表单验证
-   数据结构：todo
+- 数据相关
+
+  - 获得配置
+
+    数据结构参考[这里](./assets/getConfig.json)的 `tablefieldconfig`
+
+  - 获得数据
+
+    数据结构参考[这里](./assets/search.json)
+
+  - 获得权限
+
+    数据结构参考[这里](./assets/getConfig.json)的 `power`
+
+  - 附件上传
+
+  - 自定义表单数据的上传
+
+  - 地图选点额外的表单验证
+
+- 组件相关
+
+  - 需要状态提示，默认为 [`Toast`](https://mobile.ant.design/components/toast-cn/)
+
+## Container.props
+
+    todo

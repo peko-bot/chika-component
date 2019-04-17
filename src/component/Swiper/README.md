@@ -1,8 +1,12 @@
 # Swiper
 
+English | [简体中文](./README-zh_CN.md)
+
 Instantly reload the content by triggering, base on translate3d
 
-## Screenshots
+## Demo
+
+https://zy410419243.github.io/chika-component/#/swiper
 
 ![img](./demo_swiper.gif)
 
@@ -34,7 +38,11 @@ class Demo extends React.Component {
       >
         <ul>
           {['test1', 'test2', 'test3'].map((item, i) => {
-            return <li key={i}>{item}</li>;
+            return (
+              <li key={i} style={{ height: 300 }}>
+                {item}
+              </li>
+            );
           })}
         </ul>
       </Swiper>
@@ -55,3 +63,5 @@ class Demo extends React.Component {
 |   duration    | time of transform start to end interval                                                |   number   |             1              |
 |   onRefresh   | event of pull down                                                                     | () => void |             -              |
 |    onLoad     | event of pull up                                                                       | () => void |             -              |
+
+Note: content height should more than `wrapperHeight`, or `onLoad` will not work

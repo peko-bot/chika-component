@@ -1,8 +1,12 @@
 # MapBox
 
+English | [简体中文](./README-zh_CN.md)
+
 A package of Leaflet, with basic usage using react
 
-## Screenshots
+## Demo
+
+https://zy410419243.github.io/chika-component/#/mapbox
 
 <img src="./demo_img/screenshot.png" />
 
