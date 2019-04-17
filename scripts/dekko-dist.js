@@ -8,17 +8,12 @@ try {
     .hasDirectory('lib')
     .hasDirectory('mock')
     .hasFile('index.html')
-    .hasFile('ninoninoni.js')
-    .hasFile('ninoninoni.js.map');
+    .hasFile('ninoninoni.js');
   $('dist/lib')
     .isDirectory()
-    .hasDirectory('Calendar')
     .hasDirectory('Container')
-    .hasDirectory('Drawer')
     .hasDirectory('MapBox')
-    .hasDirectory('Ripple')
     .hasDirectory('Swiper')
-    .hasDirectory('Tabs')
     .hasDirectory('Template')
     .hasDirectory('TransformManager')
     .hasDirectory('Upload');

@@ -10,10 +10,6 @@ exports[`Router render correctly 1`] = `
     />
     <Route
       component={[Function]}
-      path="/calendar"
-    />
-    <Route
-      component={[Function]}
       path="/container"
     />
     <Route
@@ -22,19 +18,7 @@ exports[`Router render correctly 1`] = `
     />
     <Route
       component={[Function]}
-      path="/tabs"
-    />
-    <Route
-      component={[Function]}
-      path="/ripple"
-    />
-    <Route
-      component={[Function]}
       path="/upload"
-    />
-    <Route
-      component={[Function]}
-      path="/drawer"
     />
     <Route
       component={[Function]}
