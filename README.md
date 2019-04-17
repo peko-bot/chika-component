@@ -1,28 +1,42 @@
 # chika-component
 
-![](https://img.shields.io/circleci/project/github/zy410419243/chika-component/master.svg)
+[![circleci](https://img.shields.io/circleci/project/github/zy410419243/chika-component/master.svg)](https://circleci.com/gh/zy410419243/chika-component)
 [![codecov](https://codecov.io/gh/zy410419243/chika-component/branch/master/graph/badge.svg)](https://codecov.io/gh/zy410419243/chika-component)
 
-暴露作者资浅水准的一系列山寨组件，你会发现里面有各种组件库的影子，就好像作者的人生一样
+English | [简体中文](./README-zh_CN.md)
 
-online demo: https://zy410419243.github.io/chika-component/#/container
+You will find lots of features inside that lmitating from other UI libraries, just like the author's life.
 
-## 为什么不用现有的轮子
+Online demo: https://zy410419243.github.io/chika-component
 
-- “哇，这个轮子造的好屌，麻麻我也想造一个！”
+## ✨ Features
 
-- “什么，居然还有这么符合朕性癖的轮子？”
+- A set of React components that abstract from lots of business
+- Out of the box
+- Contain the whole package of development and tool resources
 
-- “我有轮子，给。”说着他们递过来一架纯金打造的赛车
+## 🖥 Environment Support
 
-  “这尼玛是轮子？” 我左看右看，歪歪斜斜每个 `index` 里都写着`规范`两个字。我横竖睡不着，仔细看了半夜，才从 `component` 里看出字来，整整一个 repo 都写着两个字是`冗余`
+- Modern browsers and Internet Explorer 11+
+- Android 5.0+
 
-  “拆下来就是了。”他们用莫名热切的目光看着我
+## 📦 Install
 
-- “欸等等...你这轱辘好像不圆。”
+```bash
+npm install chika-component --save-dev
+```
 
-- 西方哪个 repo 我没见过，造个轮子不是轻松得 彳...
+```bash
+yarn add chika-component
+```
 
-## who's Chika?
+## ⌨️ Development
 
-https://www.youtube.com/watch?v=Ywq4XR0G4Qk
+```bash
+$ git clone https://github.com/zy410419243/chika-component.git
+$ cd chika-component
+$ npm install
+$ npm start
+```
+
+Open your browser and visit http://localhost:9099

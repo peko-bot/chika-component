@@ -1,7 +1,7 @@
 {
   "name": "chika-component",
   "version": "1.0.0",
-  "description": "A react-component collection, IQ3 でもまかせなさいー！",
+  "description": "A set of react-component, IQ3 でもまかせなさいー！",
   "main": "lib/index.js",
   "scripts": {
     "start": "nino go -e ./src/go",
