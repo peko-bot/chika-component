@@ -7,9 +7,9 @@ export default () => (
     <Container
       tableId={10874}
       menuId={1392}
-      configRequest={{ url: '/assets/getConfig.json' }}
-      dataRequest={{ url: '/assets/search.json' }}
-      deleteRequest={{ url: '/assets/operatedata.json' }}
+      configRequest={{ url: './assets/getConfig.json' }}
+      dataRequest={{ url: './assets/search.json' }}
+      deleteRequest={{ url: './assets/operatedata.json' }}
       submitRequest={{ url: '' }}
       attachmentRequest={{ url: '' }}
     >
