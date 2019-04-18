@@ -12,17 +12,17 @@ exports[`ContainerDemo render correctly 1`] = `
     }
     configRequest={
       Object {
-        "url": "/assets/getConfig.json",
+        "url": "./assets/getConfig.json",
       }
     }
     dataRequest={
       Object {
-        "url": "/assets/search.json",
+        "url": "./assets/search.json",
       }
     }
     deleteRequest={
       Object {
-        "url": "/assets/operatedata.json",
+        "url": "./assets/operatedata.json",
       }
     }
     domain="."
