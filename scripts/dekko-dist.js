@@ -5,6 +5,7 @@ try {
   $('dist')
     .isDirectory()
     .hasDirectory('assets')
+    .hasDirectory('.circleci')
     .hasDirectory('lib')
     .hasDirectory('mock')
     .hasFile('index.html')
