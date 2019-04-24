@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { List, Button } from 'antd-mobile';
 import { PropsGoToMaxBox } from './core';
-import { bindTouchDirection } from '../../utils';
+import { getDirection } from '../../utils';
 import Arrow from './DetailArrow';
 
 export interface DetailFactoryProps {
@@ -17,33 +17,8 @@ export interface DetailFactoryProps {
 }
 
 export default class DetailFactory extends Component<DetailFactoryProps> {
-  content: HTMLDivElement;
-
-  componentDidMount = () => {
-    bindTouchDirection(this.content, direction => {
-      const { onPageChange, currentOrder, minPage, maxPage } = this.props;
-      switch (direction) {
-        case 'toRight':
-          if (currentOrder !== minPage) {
-            if (onPageChange) {
-              onPageChange('last');
-            }
-          }
-          break;
-
-        case 'toLeft':
-          if (currentOrder !== maxPage) {
-            if (onPageChange) {
-              onPageChange('next');
-            }
-          }
-          break;
-
-        default:
-          break;
-      }
-    });
-  };
+  contentStartX: number;
+  contentStartY: number;
 
   handleControls = (item: any, index: number) => {
     const { onDataFormat, onMapBoxChange } = this.props;
@@ -105,6 +80,39 @@ export default class DetailFactory extends Component<DetailFactoryProps> {
     return null;
   };
 
+  handeContentTouch = (e: any, type: string) => {
+    const { onPageChange, currentOrder, minPage, maxPage } = this.props;
+    if (type === 'touchStart') {
+      this.contentStartX = e.touches[0].pageX;
+      this.contentStartY = e.touches[0].pageY;
+    }
+
+    if (type === 'touchEnd') {
+      const endX = e.changedTouches[0].pageX;
+      const endY = e.changedTouches[0].pageY;
+      const direction = getDirection(
+        this.contentStartX,
+        this.contentStartY,
+        endX,
+        endY,
+      );
+      if (direction === 'toRight') {
+        if (currentOrder !== minPage) {
+          if (onPageChange) {
+            onPageChange('last');
+          }
+        }
+      }
+      if (direction === 'toLeft') {
+        if (currentOrder !== maxPage) {
+          if (onPageChange) {
+            onPageChange('next');
+          }
+        }
+      }
+    }
+  };
+
   render = () => {
     const {
       onBack,
@@ -116,7 +124,11 @@ export default class DetailFactory extends Component<DetailFactoryProps> {
       showArrow,
     } = this.props;
     return (
-      <div className="DetailFactory" ref={ref => ref && (this.content = ref)}>
+      <div
+        className="DetailFactory"
+        onTouchStart={e => this.handeContentTouch(e, 'touchStart')}
+        onTouchEnd={e => this.handeContentTouch(e, 'touchEnd')}
+      >
         {showArrow && (
           <Arrow
             onClick={onPageChange}
