@@ -69,4 +69,48 @@ describe('Swiper', () => {
     expect(wrapper.state('loadText')).toBe('加载更多');
     expect(spy).toHaveBeenCalled();
   });
+
+  it('touch event', () => {
+    const onRefresh = jest.fn();
+    const onLoad = jest.fn();
+    const wrapper = mount(
+      <Swiper
+        wrapperHeight={500}
+        duration={0.7}
+        sensibility={1}
+        loading
+        onRefresh={onRefresh}
+        onLoad={onLoad}
+      >
+        test
+      </Swiper>,
+    );
+    wrapper
+      .find('.wrapper')
+      .simulate('touchstart', { touches: [{ pageY: 100 }] });
+    expect(wrapper.instance().startY).toBe(100);
+
+    wrapper
+      .find('.wrapper')
+      .simulate('touchmove', { touches: [{ pageY: 150 }] });
+    expect(wrapper.state().distance).toBe(50);
+    expect(wrapper.state().iconDeg).toBe(180);
+    wrapper
+      .find('.wrapper')
+      .simulate('touchmove', { touches: [{ pageY: 130 }] });
+    expect(wrapper.state().distance).toBe(30);
+    expect(wrapper.state().iconDeg).toBe(122.72727272727272);
+    wrapper
+      .find('.wrapper')
+      .simulate('touchmove', { touches: [{ pageY: 80 }] });
+    expect(wrapper.state().distance).toBe(-20);
+    expect(wrapper.state().iconDeg).toBe(180);
+
+    wrapper.setState({ distance: 50 });
+    wrapper.find('.wrapper').simulate('touchend');
+    expect(onRefresh).toHaveBeenCalled();
+    wrapper.setState({ distance: -10 });
+    wrapper.find('.wrapper').simulate('touchend');
+    expect(onLoad).toHaveBeenCalled();
+  });
 });

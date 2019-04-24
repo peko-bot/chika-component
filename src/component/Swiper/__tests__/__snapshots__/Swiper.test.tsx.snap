@@ -11,6 +11,9 @@ exports[`Swiper render correctly 1`] = `
   >
     <div
       className="wrapper"
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
     >
       <div
         style={
