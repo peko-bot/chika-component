@@ -15,6 +15,14 @@ switch (process.env.LIB_DIR) {
 }
 
 describe('core', () => {
+  beforeAll(() => {
+    jest.useFakeTimers();
+  });
+
+  afterAll(() => {
+    jest.useRealTimers();
+  });
+
   it('render correctly', () => {
     const wrapper = shallow(
       <Core
@@ -58,5 +66,87 @@ describe('core', () => {
       select: '',
       upload: '',
     });
+  });
+
+  it('touch event', () => {
+    const wrapper = mount(
+      <Core
+        dataSource={originDataSource}
+        formatControls={formatControls}
+        config={formatConfig(originConfig)}
+      >
+        <>
+          <div data-key="pjnm">1</div>
+          <div data-key="dam_cd">2</div>
+        </>
+      </Core>,
+    );
+    wrapper
+      .find('.sc-content')
+      .simulate('touchstart', { touches: [{ pageX: 100, pageY: 200 }] });
+    expect(wrapper.instance().contentStartX).toBe(100);
+    expect(wrapper.instance().contentStartY).toBe(200);
+
+    wrapper
+      .find('.sc-content')
+      .simulate('touchend', { changedTouches: [{ pageX: 150, pageY: 200 }] });
+    expect(wrapper.state().showSearchBar).toBe(true);
+  });
+
+  it('DetailFactory.onBack', () => {
+    const onSearch = jest.fn();
+    const wrapper = mount(
+      <Core
+        dataSource={originDataSource}
+        formatControls={formatControls}
+        onSearch={onSearch}
+        config={formatConfig(originConfig)}
+      >
+        <>
+          <div data-key="pjnm">1</div>
+          <div data-key="dam_cd">2</div>
+        </>
+      </Core>,
+    );
+    wrapper
+      .find('[data-key]')
+      .at(0)
+      .simulate('click');
+    wrapper.update();
+    wrapper
+      .find('Button')
+      .at(1)
+      .simulate('click');
+    expect(onSearch).toHaveBeenCalled();
+    expect(wrapper.state().currentGroup).toBe('list-page');
+    expect(wrapper.state().currentOrder).toBe(0);
+  });
+
+  it('handleTemplatePress', () => {
+    const wrapper = mount(
+      <Core
+        dataSource={originDataSource}
+        formatControls={formatControls}
+        config={formatConfig(originConfig)}
+        primaryKey="dam_cd"
+        power={{
+          select: true,
+          delete: true,
+          update: true,
+          add: true,
+        }}
+      >
+        <>
+          <div data-key="pjnm">1</div>
+          <div data-key="dam_cd">2</div>
+        </>
+      </Core>,
+    );
+    expect(
+      wrapper
+        .find('Template')
+        .props()
+        .onPress({ dam_cd: 'testDamCd' }),
+    ).toEqual({ dam_cd: 'testDamCd' });
   });
 });
