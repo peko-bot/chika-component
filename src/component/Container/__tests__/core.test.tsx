@@ -149,4 +149,42 @@ describe('core', () => {
         .onPress({ dam_cd: 'testDamCd' }),
     ).toEqual({ dam_cd: 'testDamCd' });
   });
+
+  it('DetailFactory.onPageChange', () => {
+    const wrapper = mount(
+      <Core
+        dataSource={originDataSource}
+        formatControls={formatControls}
+        config={formatConfig(originConfig)}
+        primaryKey="dam_cd"
+      >
+        <>
+          <div data-key="pjnm">1</div>
+          <div data-key="dam_cd">2</div>
+        </>
+      </Core>,
+    );
+    wrapper
+      .find('[data-key]')
+      .at(2)
+      .simulate('click');
+    wrapper.setState({ currentOrder: 2 });
+    wrapper
+      .find('DetailFactory')
+      .props()
+      .onPageChange('last');
+    expect(wrapper.state().currentGroup).toBe('detail-page');
+    expect(wrapper.state().currentOrder).toBe(1);
+    wrapper.setState({ currentOrder: 2 });
+    wrapper
+      .find('DetailFactory')
+      .props()
+      .onPageChange('next');
+    expect(wrapper.state().currentOrder).toBe(3);
+    wrapper
+      .find('DetailFactory')
+      .props()
+      .onPageChange('test');
+    expect(wrapper.state().currentOrder).toBe(3);
+  });
 });
