@@ -187,4 +187,28 @@ describe('core', () => {
       .onPageChange('test');
     expect(wrapper.state().currentOrder).toBe(3);
   });
+
+  it('MapBox.handleBackFromMapBox', () => {
+    const onMapPickerChange = jest.fn();
+    const wrapper = mount(
+      <Core
+        dataSource={originDataSource}
+        formatControls={formatControls}
+        config={formatConfig(originConfig)}
+        primaryKey="dam_cd"
+        onMapPickerChange={onMapPickerChange}
+      >
+        <>
+          <div data-key="pjnm">1</div>
+          <div data-key="dam_cd">2</div>
+        </>
+      </Core>,
+    );
+    wrapper.setState({ currentGroup: 'map-box' });
+    wrapper
+      .find('Button')
+      .at(1)
+      .simulate('click');
+    expect(onMapPickerChange).toHaveBeenCalled();
+  });
 });
