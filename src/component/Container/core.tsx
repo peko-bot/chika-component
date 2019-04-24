@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
-import { Modal, ActivityIndicator, List, Button } from 'antd-mobile';
+import {
+  Modal,
+  ActivityIndicator,
+  List,
+  Button,
+  PullToRefresh,
+} from 'antd-mobile';
 const { alert, operation } = Modal;
 import Template from '../Template';
 import TransformManager, { TransformManagerItem } from '../TransformManager';
@@ -10,7 +16,6 @@ import { formatDate, bindTouchDirection } from '../../utils';
 import { UpdatePageMapBoxItemProps } from './DataController';
 import FunctionalButton from './FunctionalButton';
 import SearchBar from './SearchBar';
-import Swiper from '../Swiper';
 import './css/Container-core.css';
 
 type GroupType = 'list-page' | 'update-page' | 'detail-page' | 'map-box';
@@ -307,14 +312,23 @@ export default class ContainerCore extends Component<
 
   renderTemplate = () => {
     const { children, dataSource, loading, onSearch } = this.props;
+    const { templateHeight } = this.state;
 
     return (
       <TransformManagerItem group="list-page" order={0} key="list-page-0">
         {this.renderSearchBar(
-          <Swiper
-            wrapperHeight={this.state.templateHeight}
-            loading={!!loading}
-            onLoad={() => onSearch && onSearch()}
+          <PullToRefresh
+            onRefresh={() => onSearch && onSearch()}
+            refreshing={loading}
+            getScrollContainer={() => document.body}
+            direction="up"
+            indicator={{}}
+            damping={100}
+            distanceToRefresh={25}
+            style={{
+              height: templateHeight,
+              overflow: 'auto',
+            }}
           >
             <div
               className="sc-content"
@@ -328,7 +342,7 @@ export default class ContainerCore extends Component<
                 onPress={this.handleTemplatePress}
               />
             </div>
-          </Swiper>,
+          </PullToRefresh>,
         )}
       </TransformManagerItem>
     );
