@@ -252,7 +252,7 @@ export default class SearchBar extends Component<
           position="left"
           open={visible}
           className={className}
-          onOpenChange={targetVisible =>
+          onOpenChange={(targetVisible: boolean) =>
             onVisibleChange && onVisibleChange(targetVisible)
           }
           sidebarStyle={{ width: '77%', background: '#fff' }}
