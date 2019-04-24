@@ -213,10 +213,20 @@ exports[`core render correctly 1`] = `
         onVisibleChange={[Function]}
         visible={false}
       >
-        <Swiper
-          loading={false}
-          onLoad={[Function]}
-          wrapperHeight={0}
+        <PullToRefresh
+          damping={100}
+          direction="up"
+          distanceToRefresh={25}
+          getScrollContainer={[Function]}
+          indicator={Object {}}
+          onRefresh={[Function]}
+          prefixCls="am-pull-to-refresh"
+          style={
+            Object {
+              "height": 0,
+              "overflow": "auto",
+            }
+          }
         >
           <div
             className="sc-content"
@@ -385,7 +395,7 @@ exports[`core render correctly 1`] = `
               }
             />
           </div>
-        </Swiper>
+        </PullToRefresh>
       </SearchBar>
     </TransformManagerItem>
     <TransformManagerItem
