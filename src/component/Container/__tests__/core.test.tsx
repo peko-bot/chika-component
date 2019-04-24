@@ -188,6 +188,36 @@ describe('core', () => {
     expect(wrapper.state().currentOrder).toBe(3);
   });
 
+  it('DetailFactory.onMapBoxChange', () => {
+    const wrapper = mount(
+      <Core
+        dataSource={originDataSource}
+        formatControls={formatControls}
+        config={formatConfig(originConfig)}
+        primaryKey="dam_cd"
+      >
+        <>
+          <div data-key="pjnm">1</div>
+          <div data-key="dam_cd">2</div>
+        </>
+      </Core>,
+    );
+    wrapper
+      .find('[data-key]')
+      .at(2)
+      .simulate('click');
+    wrapper.setState({ currentOrder: 2 });
+    wrapper
+      .find('DetailFactory')
+      .props()
+      .onMapBoxChange({ lat: 1, lng: 2, key: 'test' });
+    expect(wrapper.instance().history).toEqual({
+      group: 'detail-page',
+      order: 2,
+    });
+    expect(wrapper.state().mapBoxTargetKey).toBe('test');
+  });
+
   it('MapBox.handleBackFromMapBox', () => {
     const onMapPickerChange = jest.fn();
     const wrapper = mount(
