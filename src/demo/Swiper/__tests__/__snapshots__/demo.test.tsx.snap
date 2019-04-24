@@ -11,18 +11,21 @@ exports[`SwiperDemo render correctly 1`] = `
       onLoad={[Function]}
       onRefresh={[Function]}
       sensibility={1}
-      wrapperHeight={500}
+      wrapperHeight={2950}
     >
       <div
         className="Swiper"
       >
         <div
           className="wrapper"
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
         >
           <div
             style={
               Object {
-                "height": 500,
+                "height": 2950,
                 "transform": "translate3d(0px, 0px, 0)",
               }
             }
