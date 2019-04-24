@@ -320,7 +320,11 @@ export default class ContainerCore extends Component<
           <PullToRefresh
             onRefresh={() => onSearch && onSearch()}
             refreshing={loading}
+            getScrollContainer={() => document.body}
             direction="up"
+            indicator={{}}
+            damping={100}
+            distanceToRefresh={25}
             style={{
               height: templateHeight,
               overflow: 'auto',

@@ -4,4 +4,3 @@ declare module '*.json' {
 }
 declare module 'whatwg-fetch';
 declare module 'chika-component';
-declare module 'antd-mobile';
