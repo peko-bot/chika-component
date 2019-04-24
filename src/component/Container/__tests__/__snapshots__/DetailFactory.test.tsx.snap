@@ -228,6 +228,8 @@ exports[`DetailFactory render correctly 1`] = `
 >
   <div
     className="DetailFactory"
+    onTouchEnd={[Function]}
+    onTouchStart={[Function]}
   >
     <List
       prefixCls="am-list"

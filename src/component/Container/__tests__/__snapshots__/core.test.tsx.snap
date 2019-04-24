@@ -230,6 +230,8 @@ exports[`core render correctly 1`] = `
         >
           <div
             className="sc-content"
+            onTouchEnd={[Function]}
+            onTouchStartCapture={[Function]}
           >
             <Template
               dataSource={

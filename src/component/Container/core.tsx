@@ -12,7 +12,7 @@ import TransformManager, { TransformManagerItem } from '../TransformManager';
 import DetailFactory from './DetailFactory';
 import UpdatePage, { UpdatePageStatus } from './UpdatePage';
 import MapBox from '../MapBox';
-import { formatDate, bindTouchDirection } from '../../utils';
+import { formatDate, getDirection } from '../../utils';
 import { UpdatePageMapBoxItemProps } from './DataController';
 import FunctionalButton from './FunctionalButton';
 import SearchBar from './SearchBar';
@@ -68,6 +68,8 @@ export default class ContainerCore extends Component<
   ContainerCoreState
 > {
   content: any;
+  contentStartX: number;
+  contentStartY: number;
   state: ContainerCoreState = {
     currentOrder: 0,
     currentGroup: 'list-page',
@@ -88,19 +90,6 @@ export default class ContainerCore extends Component<
   } = {
     group: 'list-page',
     order: -1,
-  };
-
-  componentDidMount = () => {
-    bindTouchDirection(this.content, direction => {
-      switch (direction) {
-        case 'toRight':
-          this.setState({ showSearchBar: true });
-          break;
-
-        default:
-          break;
-      }
-    });
   };
 
   componentDidUpdate(_: ContainerCoreProps, prevState: ContainerCoreState) {
@@ -310,6 +299,27 @@ export default class ContainerCore extends Component<
     );
   };
 
+  handeContentTouch = (e: any, type: string) => {
+    if (type === 'touchStart') {
+      this.contentStartX = e.touches[0].pageX;
+      this.contentStartY = e.touches[0].pageY;
+    }
+
+    if (type === 'touchEnd') {
+      const endX = e.changedTouches[0].pageX;
+      const endY = e.changedTouches[0].pageY;
+      const direction = getDirection(
+        this.contentStartX,
+        this.contentStartY,
+        endX,
+        endY,
+      );
+      if (direction === 'toRight') {
+        this.setState({ showSearchBar: true });
+      }
+    }
+  };
+
   renderTemplate = () => {
     const { children, dataSource, loading, onSearch } = this.props;
     const { templateHeight } = this.state;
@@ -333,6 +343,8 @@ export default class ContainerCore extends Component<
             <div
               className="sc-content"
               ref={(ref: HTMLDivElement) => (this.content = ref)}
+              onTouchStartCapture={e => this.handeContentTouch(e, 'touchStart')}
+              onTouchEnd={e => this.handeContentTouch(e, 'touchEnd')}
             >
               <Template
                 template={children}
