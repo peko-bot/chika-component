@@ -4,6 +4,7 @@ import 'nino-cli/scripts/setup';
 import { originConfig } from '../../../mock/config';
 // import { originDataSource } from '../../../mock/dataSource';
 import { formatControls, formatConfig } from '../utils';
+import { formatDate } from '../../../utils';
 const Config = formatConfig(originConfig);
 let UpdatePage;
 switch (process.env.LIB_DIR) {
@@ -78,10 +79,30 @@ describe('UpdatePage', () => {
       .at(2)
       .simulate('change');
     expect(wrapper.state().form[4].value).toBe('checkbox3');
+    wrapper
+      .find('.am-accordion-header')
+      .first()
+      .simulate('click');
+    wrapper
+      .find('.am-checkbox-input')
+      .at(1)
+      .simulate('change');
+    expect(wrapper.state().form[4].value).toBe('checkbox3,checkbox2');
+    wrapper
+      .find('.am-accordion-header')
+      .first()
+      .simulate('click');
+    wrapper
+      .find('.am-checkbox-input')
+      .at(2)
+      .simulate('change');
+    expect(wrapper.state().form[4].value).toBe('checkbox2');
     // calendar
     const startDateTime = new Date();
     const endDateTime = new Date();
-    wrapper.setState({ currentCalendarItem: { config: { key: 'calendar' } } });
+    wrapper.setState({
+      currentCalendarItem: { config: { key: 'calendar', type: 'calendar' } },
+    });
     wrapper
       .find('[arrow]')
       .at(2)
@@ -92,10 +113,10 @@ describe('UpdatePage', () => {
       .at(0)
       .props()
       .onConfirm(startDateTime, endDateTime);
-    expect(wrapper.state().form[5].value).toEqual({
-      startDateTime,
-      endDateTime,
-    });
+    expect(wrapper.state().form[5].value).toEqual([
+      formatDate(startDateTime),
+      formatDate(endDateTime),
+    ]);
     // upload
     wrapper
       .find('.am-accordion-header')
