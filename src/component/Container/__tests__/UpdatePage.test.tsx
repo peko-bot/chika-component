@@ -79,8 +79,48 @@ describe('UpdatePage', () => {
       .simulate('change');
     expect(wrapper.state().form[4].value).toBe('checkbox3');
     // calendar
+    const startDateTime = new Date();
+    const endDateTime = new Date();
+    wrapper.setState({ currentCalendarItem: { config: { key: 'calendar' } } });
+    wrapper
+      .find('[arrow]')
+      .at(2)
+      .props()
+      .onClick();
+    wrapper
+      .find('Calendar')
+      .at(0)
+      .props()
+      .onConfirm(startDateTime, endDateTime);
+    expect(wrapper.state().form[5].value).toEqual({
+      startDateTime,
+      endDateTime,
+    });
     // upload
+    wrapper
+      .find('.am-accordion-header')
+      .at(1)
+      .simulate('click');
+    wrapper
+      .find('UploadView')
+      .props()
+      .onChange({ url: 'url', id: 'id', name: 'name' });
+    expect(wrapper.state().form[6].value).toEqual([
+      {
+        url: 'url',
+        id: 'id',
+        name: 'name',
+      },
+    ]);
     // mapPicker
-    // they are hard to test
+    const onMapBoxChange = jest.fn();
+    const onFormChange = jest.fn();
+    wrapper.setProps({ onMapBoxChange, onFormChange });
+    wrapper
+      .find('ListItem')
+      .at(10)
+      .simulate('click');
+    expect(onMapBoxChange).toHaveBeenCalled();
+    expect(onFormChange).toHaveBeenCalled();
   });
 });
