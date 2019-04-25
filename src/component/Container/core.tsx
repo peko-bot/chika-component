@@ -179,6 +179,7 @@ export default class ContainerCore extends Component<
     if (param.length !== 0) {
       operation(param);
     }
+    return dataItem;
   };
 
   handleChildDataFormat = (
