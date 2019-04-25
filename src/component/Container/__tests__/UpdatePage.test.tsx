@@ -117,6 +117,12 @@ describe('UpdatePage', () => {
       formatDate(startDateTime),
       formatDate(endDateTime),
     ]);
+    wrapper
+      .find('Calendar')
+      .at(0)
+      .props()
+      .onCancel();
+    expect(wrapper.state().calendarVisible).toBe(false);
     // upload
     wrapper
       .find('.am-accordion-header')
@@ -140,6 +146,52 @@ describe('UpdatePage', () => {
     wrapper
       .find('ListItem')
       .at(10)
+      .simulate('click');
+    expect(onMapBoxChange).toHaveBeenCalled();
+    expect(onFormChange).toHaveBeenCalled();
+  });
+
+  it('save', () => {
+    const dataSource = formatControls(null, Config, 'dam_cd');
+    const updatePageSave = jest.fn();
+    const wrapper = mount(
+      <UpdatePage
+        dataSource={dataSource}
+        status="add"
+        updatePageSave={updatePageSave}
+      />,
+    );
+    wrapper
+      .find('Button')
+      .first()
+      .props()
+      .onClick();
+    expect(updatePageSave).toHaveBeenCalled();
+  });
+
+  it('updatePageMapBoxItem', () => {
+    const dataSource = formatControls(null, Config, 'dam_cd');
+    const onMapBoxChange = jest.fn();
+    const onFormChange = jest.fn();
+    const wrapper = mount(
+      <UpdatePage
+        dataSource={dataSource}
+        status="add"
+        updatePageMapBoxItem={{ lat: 0, lng: 1 }}
+        onMapBoxChange={onMapBoxChange}
+        onFormChange={onFormChange}
+      />,
+    );
+    wrapper
+      .find('ListItem')
+      .at(7)
+      .simulate('click');
+    expect(onMapBoxChange).toHaveBeenCalled();
+    expect(onFormChange).toHaveBeenCalled();
+    wrapper.setProps({ status: 'update' });
+    wrapper
+      .find('ListItem')
+      .at(7)
       .simulate('click');
     expect(onMapBoxChange).toHaveBeenCalled();
     expect(onFormChange).toHaveBeenCalled();
