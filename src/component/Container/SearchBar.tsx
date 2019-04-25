@@ -84,16 +84,6 @@ export default class SearchBar extends Component<
         rest = CalendarDefaultValue;
         break;
 
-      case 'upload':
-        const fileList = this.state.form[index].value || [];
-        fileList.push({
-          url: value.url,
-          id: value.id,
-          name: value.name,
-        });
-        value = fileList;
-        break;
-
       default:
         break;
     }
