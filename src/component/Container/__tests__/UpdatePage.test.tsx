@@ -4,6 +4,7 @@ import 'nino-cli/scripts/setup';
 import { originConfig } from '../../../mock/config';
 // import { originDataSource } from '../../../mock/dataSource';
 import { formatControls, formatConfig } from '../utils';
+import { formatDate } from '../../../utils';
 const Config = formatConfig(originConfig);
 let UpdatePage;
 switch (process.env.LIB_DIR) {
@@ -78,9 +79,121 @@ describe('UpdatePage', () => {
       .at(2)
       .simulate('change');
     expect(wrapper.state().form[4].value).toBe('checkbox3');
+    wrapper
+      .find('.am-accordion-header')
+      .first()
+      .simulate('click');
+    wrapper
+      .find('.am-checkbox-input')
+      .at(1)
+      .simulate('change');
+    expect(wrapper.state().form[4].value).toBe('checkbox3,checkbox2');
+    wrapper
+      .find('.am-accordion-header')
+      .first()
+      .simulate('click');
+    wrapper
+      .find('.am-checkbox-input')
+      .at(2)
+      .simulate('change');
+    expect(wrapper.state().form[4].value).toBe('checkbox2');
     // calendar
+    const startDateTime = new Date();
+    const endDateTime = new Date();
+    wrapper.setState({
+      currentCalendarItem: { config: { key: 'calendar', type: 'calendar' } },
+    });
+    wrapper
+      .find('[arrow]')
+      .at(2)
+      .props()
+      .onClick();
+    wrapper
+      .find('Calendar')
+      .at(0)
+      .props()
+      .onConfirm(startDateTime, endDateTime);
+    expect(wrapper.state().form[5].value).toEqual([
+      formatDate(startDateTime),
+      formatDate(endDateTime),
+    ]);
+    wrapper
+      .find('Calendar')
+      .at(0)
+      .props()
+      .onCancel();
+    expect(wrapper.state().calendarVisible).toBe(false);
     // upload
+    wrapper
+      .find('.am-accordion-header')
+      .at(1)
+      .simulate('click');
+    wrapper
+      .find('UploadView')
+      .props()
+      .onChange({ url: 'url', id: 'id', name: 'name' });
+    expect(wrapper.state().form[6].value).toEqual([
+      {
+        url: 'url',
+        id: 'id',
+        name: 'name',
+      },
+    ]);
     // mapPicker
-    // they are hard to test
+    const onMapBoxChange = jest.fn();
+    const onFormChange = jest.fn();
+    wrapper.setProps({ onMapBoxChange, onFormChange });
+    wrapper
+      .find('ListItem')
+      .at(10)
+      .simulate('click');
+    expect(onMapBoxChange).toHaveBeenCalled();
+    expect(onFormChange).toHaveBeenCalled();
+  });
+
+  it('save', () => {
+    const dataSource = formatControls(null, Config, 'dam_cd');
+    const updatePageSave = jest.fn();
+    const wrapper = mount(
+      <UpdatePage
+        dataSource={dataSource}
+        status="add"
+        updatePageSave={updatePageSave}
+      />,
+    );
+    wrapper
+      .find('Button')
+      .first()
+      .props()
+      .onClick();
+    expect(updatePageSave).toHaveBeenCalled();
+  });
+
+  it('updatePageMapBoxItem', () => {
+    const dataSource = formatControls(null, Config, 'dam_cd');
+    const onMapBoxChange = jest.fn();
+    const onFormChange = jest.fn();
+    const wrapper = mount(
+      <UpdatePage
+        dataSource={dataSource}
+        status="add"
+        updatePageMapBoxItem={{ lat: 0, lng: 1 }}
+        onMapBoxChange={onMapBoxChange}
+        onFormChange={onFormChange}
+      />,
+    );
+    wrapper
+      .find('ListItem')
+      .at(7)
+      .simulate('click');
+    expect(onMapBoxChange).toHaveBeenCalled();
+    expect(onFormChange).toHaveBeenCalled();
+    wrapper.setProps({ status: 'update' });
+    wrapper
+      .find('ListItem')
+      .at(7)
+      .simulate('click');
+    expect(onMapBoxChange).toHaveBeenCalled();
+    expect(onFormChange).toHaveBeenCalled();
   });
 });
