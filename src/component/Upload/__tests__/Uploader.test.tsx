@@ -34,7 +34,7 @@ describe('Uploader', () => {
     expect(wrapper.instance().uploadInput.current.value).toBe('');
   });
 
-  it('onChange', () => {
+  it('onChange', done => {
     const onChange = jest.fn();
     const wrapper = shallow(
       <Uploader fileList={fileList} onChange={onChange} />,
@@ -48,6 +48,7 @@ describe('Uploader', () => {
       .props()
       .onChange({ target: { files: [file] } }, () => {
         expect(onChange).toHaveBeenCalled();
+        done();
       });
   });
 });
