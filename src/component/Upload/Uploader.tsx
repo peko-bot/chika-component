@@ -25,6 +25,9 @@ export default class Uploader extends Component<UploaderProps> {
 
   triggerInputUpload = () => {
     const element = this.uploadInput.current;
+    if (!element) {
+      return;
+    }
     element.click();
     element.value = '';
   };
