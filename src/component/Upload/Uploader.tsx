@@ -32,7 +32,7 @@ export default class Uploader extends Component<UploaderProps> {
     element.value = '';
   };
 
-  onChange = (e: any) => {
+  onChange = (e: any, callback?: Function) => {
     const { onChange } = this.props;
     const file = e.target.files.length ? e.target.files[0] : null;
     const reader = new FileReader();
@@ -46,6 +46,9 @@ export default class Uploader extends Component<UploaderProps> {
       file.id = file.size.toString() + new Date().getTime();
       if (onChange) {
         onChange(file);
+      }
+      if (callback) {
+        callback(file);
       }
     };
   };
