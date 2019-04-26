@@ -91,7 +91,7 @@ describe('DetailFactory', () => {
     wrapper
       .find('.DetailFactory')
       .props()
-      .onTouchEnd({ changedTouches: [{ pageX: 100, pageY: 200 }] }, 'touchEnd');
+      .onTouchEnd({ changedTouches: [{ pageX: 100, pageY: 201 }] }, 'touchEnd');
     expect(onPageChange).toHaveBeenCalled();
   });
 });
