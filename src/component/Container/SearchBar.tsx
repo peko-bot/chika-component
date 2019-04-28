@@ -225,7 +225,7 @@ export default class SearchBar extends Component<
     const { visible, onVisibleChange, className, children } = this.props;
     const { calendarVisible, currentCalendarItem } = this.state;
     const sidebar = (
-      <List renderHeader={<span style={{ fontSize: 17 }}>搜索面板</span>}>
+      <List renderHeader={() => <span style={{ fontSize: 17 }}>搜索面板</span>}>
         <List.Item>{this.renderSidebar()}</List.Item>
         <List.Item>
           <Button type="primary" onClick={this.handleSearch}>

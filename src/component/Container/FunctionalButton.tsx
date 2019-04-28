@@ -116,7 +116,7 @@ export default class FunctionalButton extends Component<
             this.setState({ modalVisible: false });
           }}
         >
-          <List renderHeader="按字段排序">
+          <List renderHeader={() => '按字段排序'}>
             {sorts.map(item => (
               <List.Item
                 extra={item.status}
