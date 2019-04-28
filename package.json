@@ -22,7 +22,7 @@
     "dist"
   ],
   "dependencies": {
-    "antd-mobile": "^2.2.11",
+    "antd-mobile": "^2.2.12",
     "leaflet": "^1.4.0",
     "nino-cli": "^0.7.2"
   },

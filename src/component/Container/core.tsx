@@ -413,7 +413,7 @@ export default class ContainerCore extends Component<
           }}
         />
         <List
-          renderHeader="坐标信息"
+          renderHeader={() => '坐标信息'}
           style={{
             position: 'absolute',
             bottom: 0,
