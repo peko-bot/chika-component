@@ -3003,7 +3003,7 @@ exports[`core render correctly 1`] = `
       />
       <List
         prefixCls="am-list"
-        renderHeader="坐标信息"
+        renderHeader={[Function]}
         style={
           Object {
             "bottom": 0,
