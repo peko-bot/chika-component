@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Upload from '../../component/Upload';
-import { ajax } from '../../utils/urlHelper';
 
 interface UploadFile extends File {
   id: string;
@@ -14,20 +13,17 @@ export default class UploadDemo extends Component {
     loading: false,
   };
 
-  componentDidMount = () => {
-    ajax({
-      url: './assets/uploadFiles.json',
-      success: ({ data }) => {
-        const fileList: any = [];
-        for (const item of data) {
-          fileList.push({
-            url: item.filepath,
-            id: item.id,
-          });
-        }
-        this.setState({ fileList });
-      },
-    });
+  componentDidMount = async () => {
+    const response = await fetch('./assets/uploadFiles.json');
+    const { data } = await response.json();
+    const fileList: any = [];
+    for (const item of data) {
+      fileList.push({
+        url: item.filepath,
+        id: item.id,
+      });
+    }
+    this.setState({ fileList });
   };
 
   onChange = (file: UploadFile) => {
