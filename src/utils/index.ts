@@ -1,4 +1,5 @@
-import { format as fnsFormat } from 'date-fns/esm';
+import fnsFormat from 'date-fns/format';
+
 import { zhCN } from 'date-fns/locale';
 
 export const formatDate = (
@@ -16,7 +17,7 @@ export const formatDate = (
 export const getParamsFromUrl = (name: string, url?: string) => {
   const targetUrl = url || window.location.hash;
   const reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)');
-  let result: any =
+  const result: any =
     targetUrl.split('?').length > 1 ? targetUrl.split('?')[1].match(reg) : 0;
   if (result) {
     return result[2];
@@ -35,14 +36,14 @@ export const getDirection = (
   endX: number,
   endY: number,
 ) => {
-  let angx = endX - startX;
-  let angy = endY - startY;
+  const angx = endX - startX;
+  const angy = endY - startY;
 
   if (Math.abs(angx) < 25 && Math.abs(angy) < 25) {
     return '';
   }
 
-  let angle = (Math.atan2(angy, angx) * 180) / Math.PI;
+  const angle = (Math.atan2(angy, angx) * 180) / Math.PI;
 
   if (angle >= -135 && angle <= -45) {
     return 'toTop';

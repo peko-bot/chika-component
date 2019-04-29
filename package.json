@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nino go -e ./src/go",
     "test": "nino test",
-    "build": "tsc && nino koei -c ./scripts/nino.koei.js",
+    "build": "tsc && nino koei -c ./scripts/nino.koei",
     "compile": "tsc && nino compile",
     "codecov": "nino test -d",
     "dev": "nino koei -w-d",
@@ -24,7 +24,7 @@
   "dependencies": {
     "antd-mobile": "^2.2.12",
     "leaflet": "^1.4.0",
-    "nino-cli": "^0.7.2"
+    "nino-cli": "^0.7.4"
   },
   "devDependencies": {
     "@types/classnames": "^2.2.7",
