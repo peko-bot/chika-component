@@ -2,6 +2,7 @@
 /.vscode/
 /dist/
 /lib/
+/es/
 
 *.rar
 *.map
