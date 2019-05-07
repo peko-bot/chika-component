@@ -4,7 +4,9 @@
   "description": "A set of react-component, IQ3 でもまかせなさいー！",
   "main": "lib/index.js",
   "module": "es/index.js",
-  "sideEffects": false,
+  "sideEffects": [
+    "*.css"
+  ],
   "scripts": {
     "start": "nino go -e ./src/go",
     "test": "nino test",
