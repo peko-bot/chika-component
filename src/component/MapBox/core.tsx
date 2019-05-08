@@ -1,5 +1,5 @@
 import React, { Component, createRef } from 'react';
-import leaflet from 'leaflet';
+import * as leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import './css/MapBox.css';
 import * as Tiles from './tiles';
