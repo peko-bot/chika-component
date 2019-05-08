@@ -1,4 +1,4 @@
-import leaflet from 'leaflet';
+import * as leaflet from 'leaflet';
 
 const googleTile = leaflet.tileLayer(
   'http://{s}.google.cn/vt/lyrs=t@130,r@203000000&hl=zh-CN&gl=cn&src=app&x={x}&y={y}&z={z}&s=Gal',
