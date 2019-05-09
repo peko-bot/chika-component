@@ -2,36 +2,93 @@
 
 exports[`Router render correctly 1`] = `
 <HashRouter>
-  <Switch>
-    <Route
-      component={[Function]}
-      exact={true}
-      path="/"
-    />
-    <Route
-      component={[Function]}
-      path="/container"
-    />
-    <Route
-      component={[Function]}
-      path="/swiper"
-    />
-    <Route
-      component={[Function]}
-      path="/upload"
-    />
-    <Route
-      component={[Function]}
-      path="/transform"
-    />
-    <Route
-      component={[Function]}
-      path="/mapbox"
-    />
-    <Route
-      component={[Function]}
-      path="/template"
-    />
-  </Switch>
+  <React.Suspense
+    fallback={
+      <div>
+        Loading...
+      </div>
+    }
+  >
+    <Switch>
+      <Route
+        component={
+          Object {
+            "$$typeof": Symbol(react.lazy),
+            "_ctor": [Function],
+            "_result": null,
+            "_status": -1,
+          }
+        }
+        exact={true}
+        path="/"
+      />
+      <Route
+        component={
+          Object {
+            "$$typeof": Symbol(react.lazy),
+            "_ctor": [Function],
+            "_result": null,
+            "_status": -1,
+          }
+        }
+        path="/container"
+      />
+      <Route
+        component={
+          Object {
+            "$$typeof": Symbol(react.lazy),
+            "_ctor": [Function],
+            "_result": null,
+            "_status": -1,
+          }
+        }
+        path="/swiper"
+      />
+      <Route
+        component={
+          Object {
+            "$$typeof": Symbol(react.lazy),
+            "_ctor": [Function],
+            "_result": null,
+            "_status": -1,
+          }
+        }
+        path="/upload"
+      />
+      <Route
+        component={
+          Object {
+            "$$typeof": Symbol(react.lazy),
+            "_ctor": [Function],
+            "_result": null,
+            "_status": -1,
+          }
+        }
+        path="/transform"
+      />
+      <Route
+        component={
+          Object {
+            "$$typeof": Symbol(react.lazy),
+            "_ctor": [Function],
+            "_result": null,
+            "_status": -1,
+          }
+        }
+        path="/mapbox"
+      />
+      <Route
+        component={
+          Object {
+            "$$typeof": Symbol(react.lazy),
+            "_ctor": [Function],
+            "_result": null,
+            "_status": -1,
+          }
+        }
+        path="/template"
+      />
+    </Switch>
+  </React.Suspense>
 </HashRouter>
 `;
