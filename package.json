@@ -28,7 +28,7 @@
   ],
   "dependencies": {
     "antd-mobile": "^2.2.13",
-    "leaflet": "^1.5.0",
+    "leaflet": "^1.5.1",
     "nino-cli": "^0.8.1"
   },
   "devDependencies": {
@@ -40,7 +40,7 @@
     "date-fns": "^2.0.0-alpha.27",
     "dekko": "^0.2.1",
     "gh-pages": "^2.0.1",
-    "husky": "^2.2.0",
+    "husky": "^2.3.0",
     "lint-staged": "^8.1.6",
     "react-router-dom": "^5.0.0",
     "tslint": "^5.16.0",

@@ -2,7 +2,7 @@
 
 exports[`Router render correctly 1`] = `
 <HashRouter>
-  <React.Suspense
+  <Suspense
     fallback={
       <div>
         Loading...
@@ -89,6 +89,6 @@ exports[`Router render correctly 1`] = `
         path="/template"
       />
     </Switch>
-  </React.Suspense>
+  </Suspense>
 </HashRouter>
 `;
