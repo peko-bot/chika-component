@@ -1,9 +1,9 @@
 {
   "name": "chika-component",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "A set of react-component, IQ3 でもまかせなさいー！",
-  "main": "lib/index.js",
-  "module": "es/index.js",
+  "main": "lib",
+  "module": "es",
   "sideEffects": [
     "*.css"
   ],
