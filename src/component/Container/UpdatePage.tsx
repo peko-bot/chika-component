@@ -47,17 +47,19 @@ export type CalendarItem = {
   currentCalendarItem: {
     key: string;
     config: any;
+    type?: string;
   };
 };
 export type UpdatePageState = {
   form: Array<any>;
 } & CalendarItem;
 
-const CalendarDefaultValue: CalendarItem = {
+export const CalendarDefaultValue: CalendarItem = {
   calendarVisible: false,
   currentCalendarItem: {
     key: '',
     config: {},
+    type: '',
   },
 };
 
