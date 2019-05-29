@@ -13,21 +13,8 @@ import {
 } from 'antd-mobile';
 const { CheckboxItem } = Checkbox;
 import { formatDate } from '../../utils';
+import { CalendarDefaultValue, CalendarItem } from './UpdatePage';
 
-const CalendarDefaultValue: CalendarItem = {
-  calendarVisible: false,
-  currentCalendarItem: {
-    key: '',
-    config: {},
-  },
-};
-export type CalendarItem = {
-  calendarVisible: boolean;
-  currentCalendarItem: {
-    key: string;
-    config: any;
-  };
-};
 export interface SearchBarProps {
   dataSource: Array<any>;
   visible?: boolean;
@@ -61,7 +48,7 @@ export default class SearchBar extends Component<
   checkValue = (value: any, item: any) => {
     const { type } = item;
     let rest = {};
-    const index = this.state.form.findIndex(f => f.key === item.key);
+    const index = this.state.form.findIndex((f: any) => f.key === item.key);
     switch (type) {
       case 'checkbox':
         let stateValue;
