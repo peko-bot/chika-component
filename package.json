@@ -37,7 +37,7 @@
     "@types/react": "^16.8.19",
     "@types/react-dom": "^16.8.4",
     "@types/react-router-dom": "^4.3.3",
-    "date-fns": "^2.0.0-alpha.27",
+    "date-fns": "^2.0.0-alpha.29",
     "dekko": "^0.2.1",
     "gh-pages": "^2.0.1",
     "husky": "^2.4.0",
