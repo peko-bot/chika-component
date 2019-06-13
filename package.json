@@ -27,7 +27,7 @@
     "es"
   ],
   "dependencies": {
-    "antd-mobile": "^2.2.13",
+    "antd-mobile": "^2.2.14",
     "leaflet": "^1.5.1",
     "nino-cli": "^0.8.2"
   },
