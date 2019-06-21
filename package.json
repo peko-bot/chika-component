@@ -43,7 +43,7 @@
     "husky": "^2.4.1",
     "lint-staged": "^8.2.1",
     "react-router-dom": "^5.0.1",
-    "tslint": "^5.17.0",
+    "tslint": "^5.18.0",
     "tslint-config-prettier": "^1.18.0",
     "tslint-eslint-rules": "^5.4.0",
     "tslint-react": "^4.0.0",
