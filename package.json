@@ -32,7 +32,7 @@
     "nino-cli": "^0.8.5"
   },
   "devDependencies": {
-    "@types/classnames": "^2.2.8",
+    "@types/classnames": "^2.2.9",
     "@types/leaflet": "^1.4.4",
     "@types/react": "^16.8.22",
     "@types/react-dom": "^16.8.4",
