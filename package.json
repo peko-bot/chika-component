@@ -8,7 +8,7 @@
     "*.css"
   ],
   "scripts": {
-    "start": "nino go -e go",
+    "start": "npm run compile && nino go -e go",
     "test": "nino test",
     "build": "nino koei -c ./scripts/nino.koei.js",
     "compile": "nino compile",
