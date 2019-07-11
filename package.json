@@ -10,7 +10,7 @@
   "scripts": {
     "start": "nino go -e go",
     "test": "nino test",
-    "build": "nino koei -c ./scripts/nino.koei",
+    "build": "nino koei -c ./scripts/nino.koei.js",
     "compile": "nino compile",
     "codecov": "nino test --coverage -- --maxWorkers=2",
     "dev": "nino koei -w-d",

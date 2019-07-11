@@ -93,9 +93,15 @@ workflows:
           filters:
             branches:
               ignore: gh-pages
+      - dist:
+          requires:
+            - setup
       - test:
           requires:
             - setup
+      - test_dist:
+          requires:
+            - dist
       - lint:
           requires:
             - setup
