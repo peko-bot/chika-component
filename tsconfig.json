@@ -11,7 +11,10 @@
     "noImplicitAny": true,
     "target": "es6",
     "lib": ["dom", "es7"],
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "sourceMap": true,
+    "declaration": true,
+    "outDir": "dist"
   },
   "exclude": [
     "node_modules",

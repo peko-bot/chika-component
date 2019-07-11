@@ -8,11 +8,11 @@
     "*.css"
   ],
   "scripts": {
-    "start": "nino go -e ./src/go",
+    "start": "nino go -e go",
     "test": "nino test",
-    "build": "tsc && nino koei -c ./scripts/nino.koei",
-    "compile": "tsc && nino compile",
-    "codecov": "nino test -d",
+    "build": "nino koei -c ./scripts/nino.koei.js",
+    "compile": "nino compile",
+    "codecov": "nino test --coverage -- --maxWorkers=2",
     "dev": "nino koei -w-d",
     "lint": "tslint -c tslint.json 'src/**/*.ts[x]'",
     "prettier": "nino prettier",
@@ -29,10 +29,11 @@
   "dependencies": {
     "antd-mobile": "^2.2.14",
     "leaflet": "^1.5.1",
-    "nino-cli": "^0.8.5"
+    "nino-cli": "^1.0.2"
   },
   "devDependencies": {
     "@types/classnames": "^2.2.9",
+    "@types/enzyme": "^3.10.2",
     "@types/leaflet": "^1.4.4",
     "@types/react": "^16.8.23",
     "@types/react-dom": "^16.8.4",
@@ -47,6 +48,8 @@
     "tslint-config-prettier": "^1.18.0",
     "tslint-eslint-rules": "^5.4.0",
     "tslint-react": "^4.0.0",
+    "typescript": "^3.5.3",
+    "walk": "^2.3.14",
     "whatwg-fetch": "^3.0.0"
   },
   "license": "MIT",

@@ -17,11 +17,7 @@ switch (process.env.LIB_DIR) {
     break;
 }
 
-const handleChildDataFormat = (
-  value: string | number | Date,
-  childProps: any,
-  bindKey: string,
-) => {
+const handleChildDataFormat = (value, childProps, bindKey) => {
   for (const item of formatConfig(originConfig)) {
     const { key, unit, decimalCount } = item;
     if (key === childProps[bindKey]) {
