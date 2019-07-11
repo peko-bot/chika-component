@@ -12,7 +12,7 @@
     "test": "nino test",
     "build": "nino koei -c ./scripts/nino.koei",
     "compile": "nino compile",
-    "codecov": "nino test -d",
+    "codecov": "nino test --coverage",
     "dev": "nino koei -w-d",
     "lint": "tslint -c tslint.json 'src/**/*.ts[x]'",
     "prettier": "nino prettier",
