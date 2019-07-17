@@ -1,6 +1,5 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import 'nino-cli/scripts/setup';
 let DataController;
 switch (process.env.LIB_DIR) {
   case 'lib':

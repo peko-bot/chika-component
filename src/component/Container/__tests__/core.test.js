@@ -1,6 +1,5 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import 'nino-cli/scripts/setup';
 import { originConfig } from '../../../mock/config';
 import { originDataSource } from '../../../mock/dataSource';
 import { formatControls, formatConfig } from '../utils';

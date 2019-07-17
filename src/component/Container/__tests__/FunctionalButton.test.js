@@ -1,6 +1,5 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import 'nino-cli/scripts/setup';
 import { originDataSource } from '../../../mock/dataSource';
 let FunctionalButton;
 switch (process.env.LIB_DIR) {

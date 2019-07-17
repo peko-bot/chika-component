@@ -1,6 +1,5 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import 'nino-cli/scripts/setup';
 let TransformManager;
 let Item;
 let targetModule;

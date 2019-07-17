@@ -1,6 +1,5 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import 'nino-cli/scripts/setup';
 import TemplateDemo from '..';
 
 describe('TemplateDemo', () => {
