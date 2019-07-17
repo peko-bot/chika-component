@@ -8,7 +8,7 @@
     "*.css"
   ],
   "scripts": {
-    "start": "npm run compile && nino go -e go",
+    "start": "nino go -e go",
     "test": "nino test",
     "build": "nino koei -c ./scripts/nino.koei.js",
     "compile": "nino compile",
@@ -29,15 +29,16 @@
   "dependencies": {
     "antd-mobile": "^2.2.14",
     "leaflet": "^1.5.1",
-    "nino-cli": "^1.0.2"
+    "nino-cli": "^1.0.3"
   },
   "devDependencies": {
     "@types/classnames": "^2.2.9",
-    "@types/enzyme": "^3.10.2",
-    "@types/leaflet": "^1.4.5",
+    "@types/enzyme": "^3.10.3",
+    "@types/leaflet": "^1.4.6",
     "@types/react": "^16.8.23",
     "@types/react-dom": "^16.8.4",
     "@types/react-router-dom": "^4.3.4",
+    "core-js": "^3.1.4",
     "date-fns": "^2.0.0-beta.2",
     "dekko": "^0.2.1",
     "gh-pages": "^2.0.1",

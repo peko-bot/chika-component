@@ -1,6 +1,5 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import 'nino-cli/scripts/setup';
 import { originConfig } from '../../../mock/config';
 import { formatControls, formatConfig } from '../utils';
 import { formatDate } from '../../../utils';

@@ -1,6 +1,5 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import 'nino-cli/scripts/setup';
 let MapBox;
 switch (process.env.LIB_DIR) {
   case 'lib':

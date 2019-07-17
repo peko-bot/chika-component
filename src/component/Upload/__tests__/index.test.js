@@ -1,6 +1,5 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import 'nino-cli/scripts/setup';
 let Upload;
 switch (process.env.LIB_DIR) {
   case 'lib':
